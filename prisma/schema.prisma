@@ -1,10 +1,18 @@
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+  schemas   = ["public", "web3auth"] // indexer, nft...
+
+  // Only if you enable `postgresqlExtensions` preview feature
+  // extensions        = [hstore(schema: "myHstoreSchema"), pg_trgm, postgis(version: "2.1")]
 }
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["multiSchema"]
+
+  // previewFeatures = ["postgresqlExtensions"]
 }
 
 model User {
@@ -17,6 +25,8 @@ model User {
 
   auth_session UserSession[]
   key          UserKey[]
+
+  @@schema("web3auth")
 }
 
 model UserSession {
@@ -27,6 +37,7 @@ model UserSession {
   user           User   @relation(references: [id], fields: [user_id], onDelete: Cascade)
 
   @@index([user_id])
+  @@schema("web3auth")
 }
 
 model UserKey {
@@ -36,4 +47,5 @@ model UserKey {
   user            User    @relation(references: [id], fields: [user_id], onDelete: Cascade)
 
   @@index([user_id])
+  @@schema("web3auth")
 }
