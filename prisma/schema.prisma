@@ -25,6 +25,8 @@ model User {
 
   auth_session UserSession[]
   key          UserKey[]
+  Podcast      Podcast[]
+  Episode      Episode[]
 
   @@schema("web3auth")
 }
@@ -48,4 +50,44 @@ model UserKey {
 
   @@index([user_id])
   @@schema("web3auth")
+}
+
+model Podcast {
+  id          String    @id @unique
+  name        String
+  description String
+  image       String
+  author      String
+  owner       String
+  category    String
+  language    String
+  content     String
+  episodes    Episode[]
+  user_id     String
+  user        User      @relation(references: [id], fields: [user_id], onDelete: Cascade)
+  createdAt   DateTime  @default(now())
+
+  @@index([user_id])
+  @@schema("public")
+}
+
+model Episode {
+  id          String   @id @unique
+  title       String
+  description String
+  image       String
+  audio       String
+  owner       String
+  length      Int
+  plays       Int
+  status      String
+  format      String
+  podcast_id  String
+  user_id     String
+  podcast     Podcast  @relation(references: [id], fields: [podcast_id], onDelete: Cascade)
+  user        User     @relation(references: [id], fields: [user_id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+
+  @@index([podcast_id, user_id])
+  @@schema("public")
 }
