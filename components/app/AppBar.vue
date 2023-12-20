@@ -5,9 +5,9 @@
     <div class="d-flex pt-2 pb-1" :class="{
       'd-md-none': !showLogo,
       'ml-4': showLogo,
-    }">
+    }" :style="{ cursor: 'pointer' }" @click.stop="navigateTo('/')">
       <div><app-logo> </app-logo></div>
-      <div class="ml-3 text-h5 mt-2">{{ appName }}</div>
+      <div class="ml-3 text-h5 mt-2" v-if="showAppName">{{ appName }}</div>
     </div>
 
     <template #append>
@@ -24,10 +24,12 @@ import { useNavigationDrawer } from "~/composables/useNavigationDrawer";
 
 interface Props {
   showLogo?: boolean;
+  showAppName?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   showLogo: true,
+  showAppName: false,
 });
 
 const { appName } = useRuntimeConfig().public

@@ -11,10 +11,10 @@
 
       <v-card min-width="300">
         <div class="py-3 text-center flex-grow-1">
-          <v-avatar size="80" @click.stop="navigateTo('/profile')" :style="{ cursor: 'pointer' }">
+          <v-avatar size="80" @click.stop="navigateTo('/me')" :style="{ cursor: 'pointer' }">
             <v-img :src="avatar" :alt="accountName"></v-img>
           </v-avatar>
-          <v-card-title @click.stop="navigateTo('/profile')" :style="{ cursor: 'pointer' }">
+          <v-card-title @click.stop="navigateTo('/me')" :style="{ cursor: 'pointer' }">
             {{ name }}
           </v-card-title>
           <v-card-subtitle :style="{ marginTop: '-6px' }">
@@ -28,7 +28,7 @@
         </div>
         <v-divider></v-divider>
         <v-list density="comfortable">
-          <v-list-item append-icon="mdi-account" to="/profile">
+          <v-list-item append-icon="mdi-account" to="/me">
             <v-list-item-title>My Profile</v-list-item-title>
           </v-list-item>
           <v-list-item append-icon="mdi-cogs" to="/settings">
