@@ -2,22 +2,13 @@ import { PrismaClient } from '@prisma/client';
 import { NFTStorage } from 'nft.storage';
 import { ZodError } from 'zod';
 import { createPodcastSchema } from '~/server/schema/createPodcast';
+import { ensureAuth } from '~/server/utils/auth';
 
 const client = new NFTStorage({ token: useRuntimeConfig().nftStorageApiKey })
 const prismaClient = new PrismaClient();
 
 export default defineEventHandler(async (event) => {
-  const authRequest = auth.handleRequest(event);
-  const session = await authRequest.validate();
-  const user = session?.user ?? null
-
-  if (user === null) {
-    throw createError({
-      message: 'You must be logged in to create your podcast',
-      status: 401
-    })
-  }
-
+  const user = await ensureAuth(event)
   const data = await readMultipartFormData(event)
   if (data === undefined || data.length === 0) {
     throw createError({
