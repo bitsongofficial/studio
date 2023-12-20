@@ -17,12 +17,15 @@
         <v-row class="d-flex">
           <v-col cols="3">
             <v-sheet class="d-flex flex-column align-center justify-center" height="300">
-              <v-icon v-if="!form.image" size="96" color="grey-lighten-1">mdi-podcast</v-icon>
-              <v-img v-else :src="form.image" width="125" height="125" contain>
-              </v-img>
-
-              <v-btn v-if="!form.image" class="my-6" @click.stop="imageUploader!.click()">Upload Image</v-btn>
-              <v-btn v-else color="red" class="my-6" @click.stop="removeImage">Remove</v-btn>
+              <div>
+                <v-icon v-if="!imagePreview.value" size="96" color="grey-lighten-1">mdi-podcast</v-icon>
+                <v-img v-else :src="imagePreview.value" width="125" height="125" cover>
+                </v-img>
+              </div>
+              <div>
+                <v-btn v-if="!imagePreview.value" class="my-6" @click.stop="openFileDialog">Upload Image</v-btn>
+                <v-btn v-else color="red" class="my-6" @click.stop="resetFileDialog">Remove</v-btn>
+              </div>
             </v-sheet>
           </v-col>
           <v-col>
@@ -62,13 +65,12 @@
         </v-row>
       </v-col>
     </v-row>
-    {{ form }}
-    <input ref="imageUploader" accept="image/*" class="d-none" type="file" @change="imageUpload">
   </v-container>
 </template>
 
 <script lang="ts" setup>
 import { categories as rawCategories, languages } from '~/data/podcast'
+import { useFileDialog } from '@vueuse/core'
 
 definePageMeta({
   layout: 'app-bar-only',
@@ -87,18 +89,26 @@ const categories = computed(() => {
   ]);
 });
 
-const imageUploader = ref<HTMLInputElement>();
+const { files, open: openFileDialog, reset: resetFileDialog } = useFileDialog({
+  accept: 'image/jpg, image/jpeg, image/png',
+  directory: false,
+  multiple: false,
+})
 
-const form = reactive<{
-  image: string | null
+interface IForm {
   name: string | null
   description: string | null
   author: string | null
   category: string | null
   language: string | null
   content: "clean" | "explicit"
-}>({
-  image: null,
+}
+
+const imagePreview = computed(() => useObjectUrl(file))
+const file = computed(() => files.value?.length ? files.value[0] : null)
+const canSave = computed(() => Object.values(form).some(value => !value))
+
+const form = reactive<IForm>({
   name: null,
   description: null,
   author: null,
@@ -107,90 +117,37 @@ const form = reactive<{
   content: 'clean',
 })
 
-function removeImage() {
-  form.image = null
-}
-
-async function imageUpload() {
-  const file = toValue(imageUploader)?.files?.[0]
-  if (!file) return
-
-  const reader = new FileReader()
-  reader.readAsDataURL(file)
-  reader.onload = (e) => {
-    if (!e.target) return
-
-    const image = e.target?.result
-    if (image) {
-      form.image = image.toString()
-    }
-  }
-}
-
-const canSave = computed(() => {
-  return Object.values(form).some(value => !value)
-})
-
-// TODO: remove this function and convert it in a more simple way
-function base64ToFile(base64String: string | null, filename: string): File {
-  if (!base64String) {
+const { execute: savePodcast, status } = useLazyAsyncData(async () => {
+  const formValue = toValue(form)
+  const file = toValue(files.value?.[0])
+  if (!file) {
     throw createError({
       message: 'No image provided',
       statusCode: 400,
     })
   }
 
-  const splitData = base64String.split(',');
-  const contentType = splitData[0].split(':')[1].split(';')[0];
-  const base64 = splitData[1];
-  const byteCharacters = atob(base64);
-  const byteNumbers = new Array(byteCharacters.length);
-  for (let i = 0; i < byteCharacters.length; i++) {
-    byteNumbers[i] = byteCharacters.charCodeAt(i);
-  }
-  const byteArray = new Uint8Array(byteNumbers);
-  const blob = new Blob([byteArray], { type: contentType });
-  return new File([blob], filename, { type: contentType });
-}
-
-const { execute: savePodcast, status } = useLazyAsyncData(async () => {
-  const formValue = toValue(form)
-
   const formData = new FormData()
-  formData.append('image', base64ToFile(formValue.image, 'image'))
-  formData.append('name', formValue.name ?? '')
-  formData.append('description', formValue.description ?? '')
-  formData.append('author', formValue.author ?? '')
-  formData.append('category', formValue.category ?? '')
-  formData.append('language', formValue.language ?? '')
-  formData.append('content', formValue.content)
+  formData.append('image', file, file.name)
+
+  for (const key in formValue) {
+    if (key === 'image') continue
+    // @ts-ignore
+    if (formValue[key]) {
+      // @ts-ignore
+      formData.append(key, formValue[key])
+    }
+  }
 
   try {
     await $fetch('/api/me/podcast', {
       method: 'POST',
       body: formData
     })
-
     navigateTo('/me/podcast/episodes')
   } catch (e) {
     // @ts-ignore
     throw createError({ message: e.message, statusCode: e.statusCode })
   }
 })
-
-// const { execute: savePodcast, status } = useLazyFetch('/api/me/podcast', {
-//   method: 'POST',
-//   immediate: false,
-//   onResponse: (res) => {
-//     if (res.response.ok) {
-//       navigateTo('/me/podcast/episodes')
-//     }
-//   },
-//   onResponseError: (res) => {
-//     throw createError({
-//       message: res.response.statusText,
-//       statusCode: res.response.status,
-//     })
-//   },
-// })
 </script>
