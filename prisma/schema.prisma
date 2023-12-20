@@ -53,12 +53,11 @@ model UserKey {
 }
 
 model Podcast {
-  id          String    @id @unique
+  id          String    @id @unique @default(uuid())
   name        String
   description String
   image       String
   author      String
-  owner       String
   category    String
   language    String
   content     String
@@ -72,7 +71,7 @@ model Podcast {
 }
 
 model Episode {
-  id          String   @id @unique
+  id          String   @id @unique @default(uuid())
   title       String
   description String
   image       String
