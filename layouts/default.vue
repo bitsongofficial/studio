@@ -1,7 +1,7 @@
 <template>
   <v-layout>
     <app-drawer> </app-drawer>
-    <app-bar> </app-bar>
+    <app-bar :show-logo="false"> </app-bar>
     <v-main>
       <slot> </slot>
     </v-main>
