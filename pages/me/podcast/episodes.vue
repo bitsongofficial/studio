@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row class="d-flex justify-center">
-      <v-col cols="10">
+      <v-col cols="12">
         <v-row class="d-flex justify-space-between">
           <v-col cols="auto">
             <h1>Episodes</h1>

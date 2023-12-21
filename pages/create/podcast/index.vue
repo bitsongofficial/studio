@@ -7,7 +7,7 @@
     </v-row>
 
     <v-row align="center" justify="center" class="mt-8">
-      <v-col cols="3">
+      <v-col cols="5">
         <v-card to="/create/podcast/new" variant="outlined" class="text-center" :style="{ cursor: 'pointer' }">
           <v-container class="py-8">
             <v-row>
@@ -21,7 +21,7 @@
           </v-container>
         </v-card>
       </v-col>
-      <v-col cols="3">
+      <v-col cols="5">
         <v-card variant="outlined" class="text-center" :style="{ cursor: 'pointer' }">
           <v-container class="py-8">
             <v-row>
