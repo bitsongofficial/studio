@@ -14,6 +14,10 @@
 
         <v-divider class="my-6"></v-divider>
 
+        <v-alert color="red" class="mb-6" v-if="errorMessage">
+          {{ errorMessage }}
+        </v-alert>
+
         <v-row class="d-flex">
           <v-col cols="3">
             <v-sheet class="d-flex flex-column align-center justify-center" height="300">
@@ -32,25 +36,29 @@
             <v-container class="pa-0">
               <v-row>
                 <v-col cols="12">
-                  <v-text-field v-model="form.name" variant="outlined" label="Podcast Name" hide-details></v-text-field>
+                  <div class="text-subtitle-1 text-medium-emphasis mb-1">Podcast Name</div>
+                  <v-text-field v-model="form.name" variant="outlined" hide-details></v-text-field>
                 </v-col>
 
                 <v-col cols="12">
-                  <v-textarea v-model="form.description" variant="outlined" label="Podcast Description" auto-grow
-                    hide-details></v-textarea>
+                  <div class="text-subtitle-1 text-medium-emphasis mb-1">Podcast Description</div>
+                  <v-textarea v-model="form.description" variant="outlined" auto-grow hide-details></v-textarea>
                 </v-col>
 
                 <v-col cols="12">
-                  <v-text-field v-model="form.author" variant="outlined" label="Author" hide-details></v-text-field>
+                  <div class="text-subtitle-1 text-medium-emphasis mb-1">Podcast Author</div>
+                  <v-text-field v-model="form.author" variant="outlined" hide-details></v-text-field>
                 </v-col>
 
                 <v-col cols="7">
                   <h2 class="pb-4">Podcast Details</h2>
-                  <v-select v-model="form.category" variant="outlined" label="Podcast Category" :items="categories"
-                    item-title="name" item-value="value" hide-details></v-select>
+                  <div class="text-subtitle-1 text-medium-emphasis mb-1">Select a category</div>
+                  <v-select v-model="form.category" variant="outlined" :items="categories" item-title="name"
+                    item-value="value" hide-details></v-select>
 
-                  <v-select v-model="form.language" class="mt-5" variant="outlined" label="Podcast Language"
-                    :items="languages" item-title="name" item-value="code" hide-details></v-select>
+                  <div class="text-subtitle-1 text-medium-emphasis mb-1 mt-4">Select a language</div>
+                  <v-select v-model="form.language" variant="outlined" :items="languages" item-title="name"
+                    item-value="code" hide-details></v-select>
                 </v-col>
                 <v-col cols="5">
                   <h2 class="pb-4">Content</h2>
@@ -108,6 +116,8 @@ const imagePreview = computed(() => useObjectUrl(file))
 const file = computed(() => files.value?.length ? files.value[0] : null)
 const canSave = computed(() => Object.values(form).some(value => !value))
 
+const errorMessage = ref('')
+
 const form = reactive<IForm>({
   name: null,
   description: null,
@@ -118,6 +128,8 @@ const form = reactive<IForm>({
 })
 
 const { execute: savePodcast, status } = useLazyAsyncData(async () => {
+  errorMessage.value = ''
+
   const formValue = toValue(form)
   const file = toValue(files.value?.[0])
   if (!file) {
@@ -146,8 +158,7 @@ const { execute: savePodcast, status } = useLazyAsyncData(async () => {
     })
     navigateTo('/me/podcast/episodes')
   } catch (e) {
-    // @ts-ignore
-    throw createError({ message: e.message, statusCode: e.statusCode })
+    errorMessage.value = e.data.message
   }
 })
 </script>

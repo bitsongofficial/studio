@@ -6,6 +6,10 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   runtimeConfig: {
     nftStorageApiKey: '',
+    awsS3Region: '',
+    awsS3BucketPodcast: '',
+    awsS3AccessKeyId: '',
+    awsS3SecretAccessKey: '',
     public: {
       network: process.env.NUXT_PUBLIC_NETWORK || 'testnet',
       chainId: 'bitsong-2b',
@@ -14,7 +18,8 @@ export default defineNuxtConfig({
         tos: 'https://bitsong.io/tos',
         privacy: 'https://bitsong.io/privacy'
       },
-      ipfsGateway: 'https://{cid}.ipfs.nftstorage.link',
+      // ipfsGateway: 'https://{cid}.ipfs.nftstorage.link',
+      ipfsGateway: 'https://bas-cdn.com/ipfs/{cid}',
     },
   },
   build: {

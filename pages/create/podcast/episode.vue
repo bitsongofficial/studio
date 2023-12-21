@@ -14,31 +14,29 @@
         <v-divider class="my-6"></v-divider>
 
         <v-row class="d-flex">
-          <v-col cols="3">
-            <v-sheet class="d-flex align-center justify-center" height="300">
-              <v-icon size="96" color="grey-lighten-1">mdi-podcast</v-icon>
-            </v-sheet>
+          <v-col cols="4">
+            <PodcastCreateEpisodeUpload @upload-complete="onUploadComplete" />
+            <PodcastCreateEpisodePreview v-if="preview.audio" :audio="preview.audio" :title="preview.title"
+              :image="preview.image" :author="preview.author" />
+            <audio controls :style="{ width: '100%' }"
+              src="https://bafybeieb6okz7ckvi62ptbr2ng5tnfgfnvbwlhemavj35ykhmp2h2rmr6m.ipfs.dweb.link/">
+            </audio>
           </v-col>
           <v-col>
             <v-container class="pa-0">
               <v-row>
                 <v-col cols="12">
-                  <v-text-field variant="outlined" label="Episode Title" hide-details></v-text-field>
+                  <div class="text-subtitle-1 text-medium-emphasis mb-1">Episode Title</div>
+                  <v-text-field variant="outlined" hide-details></v-text-field>
                 </v-col>
 
                 <v-col cols="12">
-                  <v-textarea variant="outlined" label="Episode Description" auto-grow hide-details></v-textarea>
+                  <div class="text-subtitle-1 text-medium-emphasis mb-1">Episode Description</div>
+                  <v-textarea variant="outlined" auto-grow hide-details></v-textarea>
                 </v-col>
 
                 <v-col>
-                  <h4 class="pb-4">Publish date</h4>
-                  <v-radio-group>
-                    <v-radio label="Now" value="one"></v-radio>
-                    <v-radio label="Schedule" disabled value="two"></v-radio>
-                  </v-radio-group>
-                </v-col>
-                <v-col>
-                  <h4 class="pb-2">Explicit Content</h4>
+                  <div class="text-subtitle-1 text-medium-emphasis mb-1">Explicit Content</div>
                   <v-radio-group>
                     <v-radio label="Yes" value="one"></v-radio>
                     <v-radio label="No" value="two"></v-radio>
@@ -46,7 +44,7 @@
                 </v-col>
 
                 <v-col>
-                  <h4 class="pb-2">Episode Type</h4>
+                  <div class="text-subtitle-1 text-medium-emphasis mb-1">Episode Type</div>
                   <v-radio-group>
                     <v-radio label="Full" value="one"></v-radio>
                     <v-radio label="Trailer" value="two"></v-radio>
@@ -63,7 +61,31 @@
 </template>
 
 <script lang="ts" setup>
+import type { CreateEpisodePreview } from '~/components/podcast/CreateEpisodePreview.vue';
+
 definePageMeta({
   layout: 'app-bar-only',
 })
+
+const preview = reactive<CreateEpisodePreview>({
+  title: undefined,
+  audio: undefined,
+  author: undefined,
+  image: 'https://raw.githubusercontent.com/bitsongofficial/assetlists/main/logos/adam.jpeg',
+})
+
+async function onUploadComplete({ id }: { id: string }) {
+  console.log(id)
+
+  const data = await $fetch(`/api/me/podcast/7da1a8fa-118a-4fc9-a5cd-56d241f5cb99/episode/${id}/audio-original`)
+
+  if (!data) {
+    throw createError({
+      message: 'failed to fetch audio url',
+      statusCode: 400,
+    })
+  }
+
+  preview.audio = data.url
+}
 </script>
