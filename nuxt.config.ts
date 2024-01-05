@@ -20,6 +20,7 @@ export default defineNuxtConfig({
       },
       // ipfsGateway: 'https://{cid}.ipfs.nftstorage.link',
       ipfsGateway: 'https://bas-cdn.com/ipfs/{cid}',
+      cloudfrontUrl: 'https://d1k33o38kybx7.cloudfront.net',
     },
   },
   build: {

@@ -11,7 +11,7 @@ export const createPodcastSchema = z.object({
   category: z.string().min(1).max(100),
   language: z.string().min(1).max(100),
   content: z.union([z.literal('clean'), z.literal('explicit')]),
-  image: z
+  /*image: z
     .any()
     .refine(
       (file) => {
@@ -36,5 +36,5 @@ export const createPodcastSchema = z.object({
         ))
       },
       'Image must be at least 400x400px and have a 1:1 aspect ratio'
-    ),
+    ),*/
 })

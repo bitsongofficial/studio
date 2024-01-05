@@ -55,9 +55,6 @@ export default defineEventHandler(async (event): Promise<Session> => {
     //   });
     // }
 
-    console.log("Unknown error: /api/auth/login.post.ts")
-    console.error(e)
-
     throw createError({
       message: "An unknown error occurred",
       statusCode: 500

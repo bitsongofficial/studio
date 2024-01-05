@@ -158,7 +158,10 @@ const { execute: savePodcast, status } = useLazyAsyncData(async () => {
     })
     navigateTo('/me/podcast/episodes')
   } catch (e) {
+    // @ts-ignore
     errorMessage.value = e.data.message
   }
+}, {
+  immediate: false,
 })
 </script>

@@ -71,20 +71,22 @@ model Podcast {
 }
 
 model Episode {
-  id          String        @id @unique @default(uuid())
-  title       String?
-  description String?
-  image       String?
-  audio       String
-  length      Int
-  plays       Int
-  status      EpisodeStatus
-  format      String
-  podcast_id  String
-  user_id     String
-  podcast     Podcast       @relation(references: [id], fields: [podcast_id], onDelete: Cascade)
-  user        User          @relation(references: [id], fields: [user_id], onDelete: Cascade)
-  createdAt   DateTime      @default(now())
+  id             String        @id @unique @default(uuid())
+  title          String?
+  description    String?
+  image          String?
+  audio_original String
+  explicit       String?
+  episode_type   String?
+  length         Int
+  plays          Int
+  status         EpisodeStatus
+  content_type   String
+  podcast_id     String
+  user_id        String
+  podcast        Podcast       @relation(references: [id], fields: [podcast_id], onDelete: Cascade)
+  user           User          @relation(references: [id], fields: [user_id], onDelete: Cascade)
+  createdAt      DateTime      @default(now())
 
   @@index([podcast_id, user_id])
   @@schema("public")
