@@ -262,8 +262,6 @@ async function onAllow() {
       [],
     );
 
-    console.log(tx)
-
     success("Transaction success")
   } catch (e) {
     error(e.message)

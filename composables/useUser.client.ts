@@ -57,9 +57,6 @@ ${new Date().toUTCString()}`;
   async function login() {
     try {
       const { address, chainId, msg } = createMsg()
-      console.log('msg created')
-
-      console.log('signing data', chainId, address, msg)
 
       const signData = await signArbitrary(
         chainId,
@@ -73,8 +70,6 @@ ${new Date().toUTCString()}`;
           statusCode: 500,
         })
       }
-
-      console.log('signature created')
 
       const loginState = await $fetch<Session>('/api/auth/login', {
         method: 'POST',
@@ -90,8 +85,6 @@ ${new Date().toUTCString()}`;
         }),
       })
 
-      console.log('promise done', loginState)
-
       return {
         user: loginState.user
       }
@@ -103,25 +96,19 @@ ${new Date().toUTCString()}`;
   watch(
     status,
     async () => {
-      console.log('--------> Wallet Status Changed', status.value)
-      console.log('--------> User', user.value)
       if (status.value === ConnectionStates.DISCONNECTED) {
         if (user.value) {
-          console.log('--------> Logout')
           await logout()
         }
       }
 
       if (status.value === ConnectionStates.CONNECTED) {
         if (user.value === null || user.value.address !== getAddress("bitsong")) {
-          console.log('--------> Login')
-
           let remainingAttempts = 2
 
           while (remainingAttempts > 0) {
             try {
               const loginData = await login()
-              console.log('--------> Login Data', loginData)
 
               if (loginData?.user !== null && loginData?.user.address !== getAddress("bitsong")) {
                 await logout()
@@ -134,11 +121,8 @@ ${new Date().toUTCString()}`;
               }
 
               user.value = loginData?.user
-              console.log('--------> New User Value', user.value)
-
               break
             } catch (e) {
-              console.log('--------> Login Error', e)
               remainingAttempts--
 
               if (remainingAttempts === 0) {

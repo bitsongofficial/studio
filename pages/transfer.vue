@@ -86,7 +86,5 @@ async function sendAll() {
 
   const txBytes = TxRaw.encode(txRaw).finish();
   const txRes = await client.broadcastTx(txBytes)
-  console.log(txRes.code)
-  console.log(txRes.transactionHash)
 }
 </script>
