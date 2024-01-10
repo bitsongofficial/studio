@@ -42,19 +42,8 @@
                 <v-row>
                   <v-col cols="12" class="d-flex align-center pb-4 justify-space-between">
 
-                    <client-only>
-                      <AppConnectBtn v-if="!connected" />
-
-                      <v-btn v-if="connected" color="primary" rounded="xl" size="large" width="170"
-                        @click.stop="openMarketplaceDialog('buy')">
-                        Buy
-                      </v-btn>
-
-                      <v-btn v-if="connected" color="red" rounded="xl" width="170" size="large"
-                        @click.stop="openMarketplaceDialog('sell')">
-                        Sell
-                      </v-btn>
-                    </client-only>
+                    <AppNftMarketplace v-if="data?.marketplace_address && (prices.buy > 0 || prices.sell > 0)"
+                      @openDialog="openMarketplaceDialog" />
 
                   </v-col>
                 </v-row>
@@ -67,7 +56,7 @@
               <v-col cols="12" md="6">
                 <div class="text-caption text-grey text-uppercase">NFT</div>
                 <div>
-                  <nuxt-link :to="`/nfts/`" class="text-decoration-none text-white">
+                  <nuxt-link :to="`/nfts/${contractAddress}`" class="text-decoration-none text-white">
                     {{ formatShortAddress(contractAddress, 8) }}
                   </nuxt-link>
                 </div>
@@ -204,8 +193,6 @@ import { marked } from 'marked'
 import { contracts } from "@bitsongjs/telescope";
 import defaultImage from "@/assets/images/default.png";
 import { useTimeAgo } from '@vueuse/core'
-
-const { connected } = useConnect();
 
 const contractAddress = useRoute().params.contract as string
 const selectedTab = ref(1)
