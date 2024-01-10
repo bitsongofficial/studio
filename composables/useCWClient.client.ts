@@ -9,15 +9,16 @@ export async function useCWClient(): Promise<SigningCosmWasmClient> {
     defaultTypes: defaultRegistryTypes,
   });
 
-  const offlineSigner = await (await import("@quirks/store")).getOfflineSigner("bwasmnet-1");
+  const { rpcAddress, chainId } = useRuntimeConfig().public;
+  const offlineSigner = await (await import("@quirks/store")).getOfflineSigner(chainId);
 
   return await SigningCosmWasmClient.connectWithSigner(
-    "https://rpc.bwasmnet-1.bitsong.network",
+    rpcAddress,
     offlineSigner,
     {
       registry,
       aminoTypes,
-      gasPrice: GasPrice.fromString("1ubtsg"),
+      gasPrice: GasPrice.fromString("0.025ubtsg"),
     },
   );
 }

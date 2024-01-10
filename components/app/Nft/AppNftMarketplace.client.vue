@@ -1,6 +1,6 @@
 <template>
   <AppConnectBtn v-if="!connected" />
-  <v-btn v-if="connected" color="primary" rounded="xl" size="large" width="170" @click.stop="$emit('openDialog', 'buy')">
+  <v-btn v-if="connected" color="green" rounded="xl" size="large" width="170" @click.stop="$emit('openDialog', 'buy')">
     Buy
   </v-btn>
 

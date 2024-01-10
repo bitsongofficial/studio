@@ -14,7 +14,9 @@ export default defineNuxtConfig({
     pinataApiSecret: '',
     public: {
       network: process.env.NUXT_PUBLIC_NETWORK || 'testnet',
-      chainId: 'bitsong-2b',
+      rpcAddress: process.env.NUXT_PUBLIC_RPC_ADDRESS || 'https://rpc.bwasmnet-1.bitsong.network',
+      restAddress: process.env.NUXT_PUBLIC_REST_ADDRESS || 'https://api.bwasmnet-1.bitsong.network',
+      chainId: process.env.NUXT_PUBLIC_CHAIN_ID || 'bwasmnet-1',
       appName: 'Studio',
       links: {
         tos: 'https://bitsong.io/tos',

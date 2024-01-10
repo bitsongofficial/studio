@@ -48,7 +48,7 @@
 
         <v-row>
           <v-col>
-            <v-alert color="red" class="text-body-2">
+            <v-alert variant="outlined" color="red" class="text-body-2">
               BitSong Studio's NFT trading feature, powered by bs721-curve, is in BETA! Despite audits, malfunctions may
               occur, risking fund loss. Users trade at their own risk, acknowledging uncertainties in beta software.
             </v-alert>

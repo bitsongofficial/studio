@@ -23,6 +23,8 @@ model User {
   avatar   String?
   cover    String?
 
+  created_at DateTime @default(now())
+
   auth_session UserSession[]
   key          UserKey[]
 
