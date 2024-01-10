@@ -28,7 +28,11 @@ export default defineNuxtConfig({
   build: {
     transpile: ['vue-toastification', 'vuetify'],
   },
+  gtag: {
+    id: "G-41SQ7H37C8",
+  },
   modules: [
+    'nuxt-gtag',
     '@nuxt/image',
     '@pinia/nuxt',
     '@quirks/nuxt',
