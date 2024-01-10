@@ -29,18 +29,6 @@ export const useNavigationDrawer = () => {
         to: "/",
         onlyLoggedIn: false,
         exact: true,
-      }, {
-        title: "Create Podcast",
-        icon: "mdi-podcast",
-        to: "/create/podcast",
-        onlyLoggedIn: true,
-        exact: true,
-      }, {
-        title: "Episodes",
-        icon: "mdi-podcast",
-        to: "/me/podcast/episodes",
-        onlyLoggedIn: true,
-        exact: true,
       }
     ];
   });

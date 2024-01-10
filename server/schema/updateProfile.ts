@@ -57,7 +57,7 @@ export const userUpdateProfileSchema = z
           return sharp(file.data).metadata().then((image) => (
             (image.height && image.width) &&
             (image.height >= 300 && image.width >= 1374) &&
-            (image.width === image.height * 4)
+            (image.width === image.height * 4.58)
           ))
         },
         'Image must be at least 300x1374px and have a 4:1 aspect ratio'

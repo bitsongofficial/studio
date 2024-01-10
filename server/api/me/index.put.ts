@@ -1,10 +1,11 @@
 import { PrismaClient } from '@prisma/client';
-import { NFTStorage, Blob } from 'nft.storage'
 import { ZodError } from 'zod';
 import { userUpdateProfileSchema } from '~/server/schema/updateProfile';
+import pinataSDK from '@pinata/sdk'
+import { Readable } from 'stream';
 
-const client = new NFTStorage({ token: useRuntimeConfig().nftStorageApiKey })
 const prismaClient = new PrismaClient();
+const pinata = new pinataSDK(useRuntimeConfig().pinataApiKey, useRuntimeConfig().pinataApiSecret);
 
 export default defineEventHandler(async (event) => {
   const authRequest = auth.handleRequest(event);
@@ -74,7 +75,13 @@ export default defineEventHandler(async (event) => {
     if (avatar.data.toString() === null || avatar.data.toString() === '') {
       attrs.avatar = null
     } else {
-      attrs.avatar = await client.storeBlob(new Blob([avatar.data], { type: avatar.type }))
+      const avatarStream = new Readable();
+      avatarStream.push(avatar.data);
+      avatarStream.push(null);
+
+      const pinataRes = await pinata.pinFileToIPFS(avatarStream, { pinataMetadata: { name: `${user.address}_avatar` } })
+      attrs.avatar = pinataRes.IpfsHash
+      //attrs.avatar = await client.storeBlob(new Blob([avatar.data], { type: avatar.type }))
     }
   }
 
@@ -82,7 +89,13 @@ export default defineEventHandler(async (event) => {
     if (cover.data.toString() === null || cover.data.toString() === '') {
       attrs.cover = null
     } else {
-      attrs.cover = await client.storeBlob(new Blob([cover.data], { type: cover.type }))
+      const coverStream = new Readable();
+      coverStream.push(cover.data);
+      coverStream.push(null);
+
+      const pinataRes = await pinata.pinFileToIPFS(coverStream, { pinataMetadata: { name: `${user.avatar}_cover` } })
+      attrs.cover = pinataRes.IpfsHash
+      //attrs.cover = await client.storeBlob(new Blob([cover.data], { type: cover.type }))
     }
   }
 

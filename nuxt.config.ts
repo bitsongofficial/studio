@@ -10,6 +10,8 @@ export default defineNuxtConfig({
     awsS3BucketPodcast: '',
     awsS3AccessKeyId: '',
     awsS3SecretAccessKey: '',
+    pinataApiKey: '',
+    pinataApiSecret: '',
     public: {
       network: process.env.NUXT_PUBLIC_NETWORK || 'testnet',
       chainId: 'bitsong-2b',
@@ -18,8 +20,7 @@ export default defineNuxtConfig({
         tos: 'https://bitsong.io/tos',
         privacy: 'https://bitsong.io/privacy'
       },
-      // ipfsGateway: 'https://{cid}.ipfs.nftstorage.link',
-      ipfsGateway: 'https://bas-cdn.com/ipfs/{cid}',
+      ipfsGateway: 'https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/{cid}',
     },
   },
   build: {

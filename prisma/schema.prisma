@@ -10,7 +10,7 @@ datasource db {
 
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["multiSchema"]
+  previewFeatures = ["multiSchema", "views"]
 
   // previewFeatures = ["postgresqlExtensions"]
 }
@@ -25,8 +25,6 @@ model User {
 
   auth_session UserSession[]
   key          UserKey[]
-  Podcast      Podcast[]
-  Episode      Episode[]
 
   @@schema("web3auth")
 }
@@ -52,48 +50,58 @@ model UserKey {
   @@schema("web3auth")
 }
 
-model Podcast {
-  id          String    @id @unique @default(uuid())
-  name        String
-  description String
-  image       String
-  author      String
-  category    String
-  language    String
-  content     String
-  episodes    Episode[]
-  user_id     String
-  user        User      @relation(references: [id], fields: [user_id], onDelete: Cascade)
-  createdAt   DateTime  @default(now())
+view nfttokenview {
+  nft_id    String  @id @unique
+  nft_name  String
+  nft_image String?
+  token_id  String
+  owner     String
 
-  @@index([user_id])
   @@schema("public")
 }
 
-model Episode {
-  id          String        @id @unique @default(uuid())
-  title       String?
-  description String?
-  image       String?
-  audio       String
-  length      Int
-  plays       Int
-  status      EpisodeStatus
-  format      String
-  podcast_id  String
-  user_id     String
-  podcast     Podcast       @relation(references: [id], fields: [podcast_id], onDelete: Cascade)
-  user        User          @relation(references: [id], fields: [user_id], onDelete: Cascade)
-  createdAt   DateTime      @default(now())
+view nftview {
+  id                  String    @id @unique
+  block_height        Int
+  tx_hash             String
+  symbol              String
+  name                String
+  image               String?
+  animation_url       String?
+  uri                 String?
+  payment_denom       String?
+  payment_address     String?
+  max_per_address     Int?
+  seller_fee_bps      Int?
+  referral_fee_bps    Int?
+  start_time          DateTime?
+  sale_type           String?
+  marketplace_address String?
+  ratio               Int?
+  sender              String?
+  volume              Int?
+  last_price          Int?
+  timestamp           DateTime?
 
-  @@index([podcast_id, user_id])
   @@schema("public")
 }
 
-enum EpisodeStatus {
-  DRAFT
-  PUBLISHED
-  ARCHIVED
+view nftactivityview {
+  id                  String   @id @unique
+  block_height        Int
+  tx_hash             String
+  nft_id              String
+  token_id            String
+  side                String
+  referral            String?
+  royalties_recipient String?
+  payment_denom       String?
+  royalties           Int
+  referral_fee        Int
+  protocol_fee        Int
+  total_price         Int
+  sender              String
+  timestamp           DateTime
 
   @@schema("public")
 }

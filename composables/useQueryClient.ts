@@ -16,10 +16,11 @@ export const useQueryClient = async (chainName: string) => {
   if (chainName === 'bitsong') {
     endpoint = {
       rpc: {
-        address: 'https://rpc.explorebitsong.com',
+        //address: 'https://rpc.explorebitsong.com',
+        address: 'https://rpc.bwasmnet-1.bitsong.network'
       },
       rest: {
-        address: 'https://lcd.explorebitsong.com',
+        address: 'https://api.bwasmnet-1.bitsong.network',
       },
     }
   }
