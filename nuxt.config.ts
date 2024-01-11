@@ -25,6 +25,10 @@ export default defineNuxtConfig({
       ipfsGateway: 'https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/{cid}',
     },
   },
+  css: [
+    '@mdi/font/css/materialdesignicons.css',
+    '@fortawesome/fontawesome-free/css/all.css'
+  ],
   build: {
     transpile: ['vue-toastification', 'vuetify'],
   },

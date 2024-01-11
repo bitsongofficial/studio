@@ -10,6 +10,10 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.5.1",
+    "@fortawesome/free-regular-svg-icons": "^6.5.1",
+    "@fortawesome/free-solid-svg-icons": "^6.5.1",
+    "@fortawesome/vue-fontawesome": "^3.0.5",
     "@nuxt/devtools": "latest",
     "@nuxt/image": "^1.1.0",
     "@prisma/client": "^5.7.0",
@@ -28,10 +32,7 @@
     "@aws-sdk/s3-request-presigner": "^3.478.0",
     "@bitsongjs/telescope": "3.0.0-dev.21",
     "@fortawesome/fontawesome-free": "^6.5.1",
-    "@fortawesome/fontawesome-svg-core": "^6.5.1",
     "@fortawesome/free-brands-svg-icons": "^6.5.1",
-    "@fortawesome/free-solid-svg-icons": "^6.5.1",
-    "@fortawesome/vue-fontawesome": "^3.0.5",
     "@lucia-auth/adapter-prisma": "^3.0.2",
     "@mdi/font": "^7.3.67",
     "@nabla-studio/chain-registry": "^0.4.0",
