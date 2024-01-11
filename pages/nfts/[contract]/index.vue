@@ -125,7 +125,7 @@
         <v-row>
           <v-col md="8" cols="12" class="mt-4">
             <v-tabs v-model="selectedTab">
-              <v-tab :value="1">Descritpion</v-tab>
+              <v-tab :value="1">Description</v-tab>
               <v-tab :value="2">Activity</v-tab>
             </v-tabs>
 
