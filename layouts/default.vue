@@ -19,7 +19,7 @@ useHead({
     },
     {
       name: 'theme-color',
-      content: '#121212'
+      content: '#000000'
     },
     {
       name: 'viewport',
