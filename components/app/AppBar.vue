@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar elevation="0" color="#121212">
+  <v-app-bar elevation="0" color="black">
     <v-btn class="d-md-none" @click.stop="toggle" variant="text" icon="mdi-menu"></v-btn>
 
     <div class="d-flex pt-2 pb-1" :class="{

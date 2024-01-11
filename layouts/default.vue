@@ -9,19 +9,6 @@
 </template>
 
 <script lang="ts" setup>
-const title = "Bitsong Studio";
-const description =
-  "Bitsong Studio is a decentralized platform that allows music artists and fans to interact with each other in a fair and transparent way.";
-
-// useSeoMeta({
-//   title,
-//   description,
-//   ogTitle: title,
-//   ogDescription: description,
-//   ogImage,
-//   twitterCard: "summary_large_image",
-// });
-
 useHead({
   htmlAttrs: {
     lang: 'en',
