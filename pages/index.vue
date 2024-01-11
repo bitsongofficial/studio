@@ -8,6 +8,8 @@
         description="🎵 Dive into the Exclusive Realm of BitSong with Our Genesis NFT Collection! 🌟 This collection is more than digital art – it's your VIP pass to BitSong's vibrant ecosystem"
         contract-address="bitsong1yw4xvtc43me9scqfr2jr2gzvcxd3a9y4eq7gaukreugw2yd2f8ts0wu96q" />
 
+      <AppTopTraders v-if="topTraders" :traders="topTraders" class="my-8" />
+
       <AppSwiper v-if="data" title="Users" :chip-text="data.total" :items="data.users as SwiperItem[]" class="my-8" />
     </template>
   </app-page>
@@ -15,6 +17,7 @@
 
 <script setup lang="ts">
 import type { SwiperItem } from '~/components/app/AppSwiper.vue';
+import type { TopTraderItem } from '~/components/app/AppTopTraderItem.vue';
 
 interface LatestUser {
   address: string;
@@ -32,6 +35,18 @@ const { data } = useFetch(`/api/latest/users`, {
       image: user.avatar ? useIpfsLink(user.avatar) : undefined,
     })),
   }),
+})
+
+const { data: topTraders } = useFetch(`/api/top_traders`, {
+  transform: (data) => data.map((trader, index) => ({
+    rank: index + 1,
+    address: trader.address,
+    username: trader.username,
+    avatar: trader.avatar,
+    volume: trader.volume,
+    mints: trader.mints,
+    burns: trader.burns,
+  } as TopTraderItem)),
 })
 
 </script>
