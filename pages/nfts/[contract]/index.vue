@@ -5,11 +5,11 @@
         <v-row>
           <v-col cols="12" md="8" class="text-center">
             <div>
-              <video v-if="data?.animation_url" class="mx-auto rounded-xl" :height="650" :width="650" controls
+              <video v-if="data?.animation_url" class="mx-auto rounded-xl w-75" controls
                 :poster="useIpfsLink(data?.image || '') || defaultImage">
                 <source :src="useIpfsLink(data?.animation_url)" type="audio/mp3" />
               </video>
-              <v-img v-else class="mx-auto rounded-xl" :height="650" :width="650" :src="data?.image || defaultImage">
+              <v-img v-else class="mx-auto rounded-xl w-75" :src="data?.image || defaultImage">
               </v-img>
             </div>
           </v-col>
