@@ -53,6 +53,7 @@
     "nuxt-gtag": "^1.1.2",
     "pinia": "^2.1.7",
     "sharp": "^0.32.6",
+    "swiper": "^11.0.5",
     "uuid": "^9.0.1",
     "vue-toastification": "2.0.0-rc.5",
     "zod": "^3.22.4"
