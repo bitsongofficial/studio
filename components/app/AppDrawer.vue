@@ -27,7 +27,7 @@
 
     <template #append>
       <ClientOnly>
-        <div class="d-flex flex-columns justify-center">
+        <div class="d-flex flex-columns justify-center align-center">
           <a v-for="social in socials" :key="social.href" :href="social.href" target="_blank"
             class="text-surface-variant drawer-icon">
             <font-awesome-icon :icon="social.icon"></font-awesome-icon>
@@ -52,20 +52,24 @@ const socials = [
     href: 'https://twitter.com/BitSongOfficial',
   },
   {
+    icon: ['fab', 'github'],
+    href: 'https://github.com/bitsongofficial/studio'
+  },
+  {
     icon: ['fab', 'telegram'],
     href: 'https://t.me/BitSongOfficial',
   },
   {
-    icon: ['fab', 'medium'],
-    href: 'https://bitsongofficial.medium.com/',
+    icon: ['fab', 'instagram'],
+    href: 'https://www.instagram.com/bitsong_official'
   },
 ]
 </script>
 
 <style>
 .drawer-icon {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   margin: 15px 10px 25px 10px;
 }
 </style>
