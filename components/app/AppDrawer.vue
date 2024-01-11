@@ -1,8 +1,16 @@
 <template>
   <v-navigation-drawer v-model="drawer">
     <div class="d-flex pt-3 pb-1 pl-4">
-      <div><app-logo> </app-logo></div>
-      <div class="ml-3 text-h5 d-flex align-center mr-2">{{ appName }}</div>
+      <div>
+        <NuxtLink to="/">
+          <app-logo> </app-logo>
+        </NuxtLink>
+      </div>
+      <div class="ml-3 text-h5 d-flex align-center mr-2">
+        <NuxtLink to="/" class="text-decoration-none text-white">
+          {{ appName }}
+        </NuxtLink>
+      </div>
       <div class="d-flex align-center">
         <v-chip color="primary" class="text-capitalize">{{ network }}</v-chip>
       </div>
