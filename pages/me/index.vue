@@ -10,13 +10,15 @@
 </template>
 
 <script setup lang="ts">
+import type { NftTokenGridItem } from '~/components/app/Nft/AppNftTokenGridItem.vue';
+
 definePageMeta({
   middleware: ["protected"]
 });
 
 const user = useUserState()
 
-const { data, error } = useFetch("/api/me/nfts", {
+const { data, error } = useFetch(`/api/u/${user.value?.address}/nfts`, {
   transform: (data) => data.map((item) => {
     return {
       nft: item.nft_id,
@@ -24,12 +26,11 @@ const { data, error } = useFetch("/api/me/nfts", {
       tokenId: item.token_id,
       tokenName: `#${item.token_id}`,
       image: item.nft_image,
-    }
+    } as NftTokenGridItem
   })
 })
 
 if (error.value) {
   navigateTo("/")
 }
-
 </script>

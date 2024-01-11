@@ -10,6 +10,6 @@
 import type { NftTokenGridItem } from "./AppNftTokenGridItem.vue";
 
 defineProps<{
-  items?: NftTokenGridItem[] | undefined;
+  items?: NftTokenGridItem[] | null;
 }>();
 </script>
