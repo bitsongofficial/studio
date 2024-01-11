@@ -7,7 +7,7 @@
         <v-img :src="avatar" :alt="address" :aspect-ratio="1 / 1"></v-img>
       </v-avatar>
 
-      <v-btn rounded="pill" class="mt-4" variant="outlined" @click.stop="editProfileDialog = true">
+      <v-btn v-if="canEdit" rounded="pill" class="mt-4" variant="outlined" @click.stop="editProfileDialog = true">
         Edit Profile
       </v-btn>
     </div>
@@ -33,6 +33,9 @@
 <script setup lang="ts">
 import defaultCover from "~/assets/images/default-cover.png";
 import defaultImage from "~/assets/images/default.png";
+
+const user = useUserState()
+const canEdit = computed(() => user.value?.address === props.address)
 
 interface Props {
   address: string;

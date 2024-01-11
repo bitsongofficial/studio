@@ -139,14 +139,14 @@
               <div v-if="activities && activities?.length > 0" class="d-flex align-center py-2"
                 v-for="activity in activities" :key="activity.id">
                 <div class="mr-2">
-                  <nuxt-link :to="`/account/${activity.sender}`" class="text-decoration-none text-white">
+                  <nuxt-link :to="`/u/${activity.sender}`" class="text-decoration-none text-white">
                     <v-avatar size="32">
                       <v-img height="32" width="32" :src="defaultImage"> </v-img>
                     </v-avatar>
                   </nuxt-link>
                 </div>
                 <div class="me-auto text-grey">
-                  <nuxt-link :to="`/account/${activity.sender}`" class="text-decoration-none text-white">
+                  <nuxt-link :to="`/u/${activity.sender}`" class="text-decoration-none text-white">
                     {{ formatShortAddress(activity.sender, 8) }}
                   </nuxt-link>
 
