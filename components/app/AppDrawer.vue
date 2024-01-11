@@ -24,10 +24,48 @@
         </v-list-item>
       </div>
     </v-list>
+
+    <template #append>
+      <ClientOnly>
+        <div class="d-flex flex-columns justify-center">
+          <a v-for="social in socials" :key="social.href" :href="social.href" target="_blank"
+            class="text-surface-variant drawer-icon">
+            <font-awesome-icon :icon="social.icon"></font-awesome-icon>
+          </a>
+        </div>
+      </ClientOnly>
+    </template>
   </v-navigation-drawer>
 </template>
 
 <script setup lang="ts">
 const { network, appName } = useRuntimeConfig().public
 const { drawer, navItems } = useNavigationDrawer();
+
+const socials = [
+  {
+    icon: ['fab', 'discord'],
+    href: 'https://discord.bitsong.io',
+  },
+  {
+    icon: ['fab', 'twitter'],
+    href: 'https://twitter.com/BitSongOfficial',
+  },
+  {
+    icon: ['fab', 'telegram'],
+    href: 'https://t.me/BitSongOfficial',
+  },
+  {
+    icon: ['fab', 'medium'],
+    href: 'https://bitsongofficial.medium.com/',
+  },
+]
 </script>
+
+<style>
+.drawer-icon {
+  width: 22px;
+  height: 22px;
+  margin: 15px 10px 25px 10px;
+}
+</style>
