@@ -7,7 +7,7 @@ interface NavItem {
 }
 
 export const useNavigationDrawer = () => {
-  const drawer = useState<boolean>("drawer", () => true);
+  const drawer = useState<boolean | null>("drawer", () => null);
 
   const open = () => {
     drawer.value = true
