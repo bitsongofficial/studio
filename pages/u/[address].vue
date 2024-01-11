@@ -15,7 +15,7 @@ import defaultImage from "~/assets/images/og-default-1200.png";
 
 const address = useRoute().params.address as string
 
-const { data: user, error } = await useLazyFetch(`/api/u/${address}`)
+const { data: user, error } = await useFetch(`/api/u/${address}`)
 useSeoMeta({
   title: user?.value?.username ? user?.value?.username : address,
   titleTemplate: '%s | Profile | BitSong Studio',

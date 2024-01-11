@@ -202,7 +202,7 @@ const prices = reactive({
   last: 0,
 })
 
-const { data, error, execute } = await useLazyFetch(`/api/nfts/${contractAddress}`, {
+const { data, error, execute } = await useFetch(`/api/nfts/${contractAddress}`, {
   onResponse(context) {
     prices.last = context.response._data?.last_price || 0;
   },
