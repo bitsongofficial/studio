@@ -9,20 +9,18 @@
 </template>
 
 <script lang="ts" setup>
-import ogImage from "@/assets/images/og-default-1200.png";
-
 const title = "Bitsong Studio";
 const description =
   "Bitsong Studio is a decentralized platform that allows music artists and fans to interact with each other in a fair and transparent way.";
 
-useSeoMeta({
-  title,
-  description,
-  ogTitle: title,
-  ogDescription: description,
-  ogImage,
-  twitterCard: "summary_large_image",
-});
+// useSeoMeta({
+//   title,
+//   description,
+//   ogTitle: title,
+//   ogDescription: description,
+//   ogImage,
+//   twitterCard: "summary_large_image",
+// });
 
 useHead({
   htmlAttrs: {
@@ -41,36 +39,6 @@ useHead({
       content: 'width=device-width, initial-scale=1'
     },
     {
-      hid: 'description',
-      name: 'description',
-      content: `Bitsong Studio is a decentralized platform that allows music artists and fans to interact with each other in a fair and transparent way.`
-    },
-    {
-      hid: 'og:site_name',
-      property: 'og:site_name',
-      content: `BitSong Studio`,
-    },
-    {
-      hid: 'og:title',
-      name: 'og:title',
-      content: `A decentralized platform that allows music artists and fans to interact with each other.`
-    },
-    {
-      hid: 'og:description',
-      name: 'og:description',
-      content: `Bitsong Studio is a decentralized platform that allows music artists and fans to interact with each other in a fair and transparent way.`
-    },
-    {
-      hid: 'og:type',
-      property: 'og:type',
-      content: 'website'
-    },
-    {
-      hid: 'og:url',
-      name: 'og:url',
-      content: 'https://bitsong.studio'
-    },
-    {
       hid: 'twitter:card',
       name: 'twitter:card',
       content: 'summary_large_image'
@@ -80,11 +48,6 @@ useHead({
       name: 'twitter:site',
       content: '@BitSongOfficial'
     },
-    {
-      hid: 'twitter:creator',
-      name: 'twitter:creator',
-      content: '@BitSongOfficial'
-    }
   ],
   link: [
     {

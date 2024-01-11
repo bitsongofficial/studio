@@ -11,10 +11,19 @@
 
 <script setup lang="ts">
 import type { NftTokenGridItem } from '~/components/app/Nft/AppNftTokenGridItem.vue';
+import defaultImage from "~/assets/images/og-default-1200.png";
 
 const address = useRoute().params.address as string
 
-const { data: user, error } = useFetch(`/api/u/${address}`)
+const { data: user, error } = await useLazyFetch(`/api/u/${address}`)
+useSeoMeta({
+  title: user?.value?.username ? user?.value?.username : address,
+  titleTemplate: '%s | Profile | BitSong Studio',
+  description: `Check out ${user?.value?.username || address}'s profile on BitSong Studio, the home of Web3 Music.`,
+  twitterCard: "summary_large_image",
+  ogImage: user?.value?.avatar ? useIpfsLink(user?.value?.avatar) : defaultImage,
+});
+
 if (error.value) {
   navigateTo("/")
 }

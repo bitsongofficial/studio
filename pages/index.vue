@@ -18,6 +18,14 @@
 <script setup lang="ts">
 import type { SwiperItem } from '~/components/app/AppSwiper.vue';
 import type { TopTraderItem } from '~/components/app/AppTopTraderItem.vue';
+import ogImage from "@/assets/images/og-default-1200.png";
+
+useSeoMeta({
+  title: "BitSong Studio the Home of Web3 Music",
+  ogImage,
+  description: "BitSong Studio is a decentralized platform that allows music artists and fans to interact with each other in a fair and transparent way.",
+})
+
 
 interface LatestUser {
   address: string;

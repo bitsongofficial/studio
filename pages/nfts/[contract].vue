@@ -202,10 +202,19 @@ const prices = reactive({
   last: 0,
 })
 
-const { data, error, execute } = useFetch(`/api/nfts/${contractAddress}`, {
+const { data, error, execute } = await useLazyFetch(`/api/nfts/${contractAddress}`, {
   onResponse(context) {
     prices.last = context.response._data?.last_price || 0;
   },
+})
+
+useSeoMeta({
+  title: data.value?.name,
+  //titleTemplate: '%s | BitSong Studio',
+  description: data.value?.metadata.description || '',
+  ogImage: data.value?.image ? useIpfsLink(data.value?.image) : '',
+  ogDescription: data.value?.metadata.description || '',
+  twitterCard: "summary_large_image",
 })
 
 const { data: activities, execute: executeActivities } = useFetch(`/api/nfts/${contractAddress}/activities`)
