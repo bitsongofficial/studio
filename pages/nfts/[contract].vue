@@ -22,19 +22,21 @@
               </v-col>
               <v-col class="text-center">
                 <div class="text-grey text-body-2">Buy Price</div>
-                <div>{{ useFromMicroAmount(prices.buy) }} BTSG</div>
+                <div>{{ formatCoinAmount(useFromMicroAmount(prices.buy)) }}<br /><span class="text-subtitle-2">BTSG</span>
+                </div>
               </v-col>
               <v-col class="text-center">
                 <div class="text-grey text-body-2">Last Price</div>
                 <div class="text-grey">
-                  {{ useFromMicroAmount(prices.last) }}
-                  BTSG
+                  {{ formatCoinAmount(useFromMicroAmount(prices.last)) }}<br /><span class="text-subtitle-2">BTSG</span>
                 </div>
               </v-col>
 
               <v-col class="text-center">
                 <div class="text-grey text-body-2">Sell Price</div>
-                <div>{{ useFromMicroAmount(prices.sell) }} BTSG</div>
+                <div>{{ formatCoinAmount(useFromMicroAmount(prices.sell)) }}<br /><span
+                    class="text-subtitle-2">BTSG</span>
+                </div>
               </v-col>
 
               <v-col cols="12">
@@ -116,7 +118,7 @@
                 <div class="text-caption text-grey text-uppercase">
                   Total Volume
                 </div>
-                <div>{{ useFromMicroAmount(data?.volume) }} BTSG</div>
+                <div>{{ formatNumber(useFromMicroAmount(data?.volume)) }} <span class="text-subtitle-2">BTSG</span></div>
               </v-col>
 
               <v-col cols="12" md="6" v-if="data?.owners">
@@ -178,8 +180,8 @@
                         'text-green': activity.side === 'buy',
                         'text-red': activity.side === 'sell',
                       }">
-                    {{ useFromMicroAmount(activity.total_price) }}
-                    BTSG
+                    {{ formatCoinAmount(useFromMicroAmount(activity.total_price)) }}
+                    <span class="text-subtitle-2">BTSG</span>
                   </span>
                   <span v-if="activity.referral">
                     referred by
@@ -206,6 +208,7 @@ import { marked } from 'marked'
 import { contracts } from "@bitsongjs/telescope";
 import defaultImage from "@/assets/images/default.png";
 import { useTimeAgo } from '@vueuse/core'
+import { formatNumber, formatCoinAmount } from '~/utils';
 
 const img = useImage();
 
