@@ -223,7 +223,7 @@ defineOgImageComponent('Nft', {
   subtitle: `by ${formatShortAddress(data.value?.sender!, 12)}`,
   price: prices.last,
   volume: data.value?.volume,
-  image: data.value?.image ? img(useIpfsLink(data.value?.image)!, { width: 320 }) : '',
+  image: data.value?.image ? useIpfsLink(data.value?.image) : '',
   editions: data.value?.editions,
   owners: data.value?.owners,
 });
