@@ -5,11 +5,10 @@
         <v-row>
           <v-col cols="12" md="8" class="text-center">
             <div>
-              <video v-if="data?.animation_url" class="mx-auto rounded-xl w-75" controls
-                :poster="useIpfsLink(data?.image || '') || defaultImage">
+              <video v-if="data?.animation_url" class="mx-auto rounded-xl w-75" controls :poster="nftImage">
                 <source :src="useIpfsLink(data?.animation_url)" type="audio/mp3" />
               </video>
-              <v-img v-else class="mx-auto rounded-xl w-75" :src="data?.image || defaultImage">
+              <v-img v-else class="mx-auto rounded-xl w-75" :src="nftImage">
               </v-img>
             </div>
           </v-col>
@@ -216,6 +215,15 @@ useSeoMeta({
   ogDescription: data.value?.metadata.description || '',
   twitterCard: "summary_large_image",
 })
+
+const img = useImage();
+const nftImage = computed(() => {
+  if (!data.value?.image) {
+    return defaultImage;
+  }
+
+  return img(useIpfsLink(data.value?.image)!, { width: 1280, format: 'webp' });
+});
 
 const { data: activities, execute: executeActivities } = useFetch(`/api/nfts/${contractAddress}/activities`)
 
