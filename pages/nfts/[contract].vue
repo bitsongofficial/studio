@@ -118,6 +118,20 @@
                 </div>
                 <div>{{ useFromMicroAmount(data?.volume) }} BTSG</div>
               </v-col>
+
+              <v-col cols="12" md="6" v-if="data?.owners">
+                <div class="text-caption text-grey text-uppercase">
+                  Unique Owners
+                </div>
+                <div>{{ data.owners }}</div>
+              </v-col>
+
+              <v-col cols="12" md="6" v-if="data?.editions">
+                <div class="text-caption text-grey text-uppercase">
+                  Editions
+                </div>
+                <div>{{ data.editions }}</div>
+              </v-col>
             </v-row>
           </v-col>
         </v-row>
