@@ -30,16 +30,17 @@ export default defineNuxtPlugin((nuxtApp) => {
   const mainnetTheme: ThemeDefinition = {
     dark: true,
     colors: {
-      primary: '#B1458E', // dark deep purple
-      secondary: colors.blue.base, // blue
+      //primary: '#f50059',
+      primary: '#f40a63',
+      secondary: colors.blue.base,
     },
   };
 
   const testnetTheme: ThemeDefinition = {
     dark: true,
     colors: {
-      primary: colors.green.base, // dark deep purple
-      secondary: colors.blue.base, // blue
+      primary: colors.green.base,
+      secondary: colors.blue.base,
     },
   };
 
