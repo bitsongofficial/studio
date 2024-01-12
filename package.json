@@ -15,7 +15,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/vue-fontawesome": "^3.0.5",
     "@nuxt/devtools": "latest",
-    "@nuxt/image": "^1.1.0",
+    "@nuxt/image": "^1.2.0",
     "@prisma/client": "^5.7.0",
     "@types/uuid": "^9.0.7",
     "esbuild-plugin-polyfill-node": "^0.3.0",
