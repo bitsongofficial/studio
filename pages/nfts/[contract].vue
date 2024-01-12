@@ -213,8 +213,11 @@ useSeoMeta({
   title: data.value?.name,
   //titleTemplate: '%s | BitSong Studio',
   description: data.value?.metadata.description || '',
+  ogTitle: data.value?.name,
+  twitterTitle: data.value?.name,
   ogImage: data.value?.image ? useIpfsLink(data.value?.image) : '',
   ogDescription: data.value?.metadata.description || '',
+  twitterDescription: data.value?.metadata.description || '',
   twitterCard: "summary_large_image",
 })
 
