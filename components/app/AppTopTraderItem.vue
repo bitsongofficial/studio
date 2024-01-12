@@ -7,7 +7,7 @@
       <v-col cols="auto">
         <NuxtLink>
           <v-avatar size="42">
-            <v-img :src="trader.avatar ? useIpfsLink(trader.avatar) : defaultImage"
+            <v-img :src="trader.avatar ? img(useIpfsLink(trader.avatar)!, { width: 42, format: 'webp' }) : defaultImage"
               :alt="trader.username || trader.address"></v-img>
           </v-avatar>
         </NuxtLink>
@@ -25,6 +25,8 @@
 
 <script lang="ts" setup>
 import defaultImage from "@/assets/images/default.png";
+
+const img = useImage();
 
 export interface TopTraderItem {
   rank: number;

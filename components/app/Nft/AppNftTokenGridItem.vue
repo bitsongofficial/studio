@@ -29,12 +29,13 @@ export interface NftTokenGridItem {
 
 const props = defineProps<NftTokenGridItem>();
 
+const img = useImage();
+
 const imageSrc = computed(() => {
   if (!props.image) {
     return defaultImage;
   }
 
-  //return proxyImage(replaceIpfsPrefix(props.image), 250);
-  return useIpfsLink(props.image)
+  return img(useIpfsLink(props.image)!, { width: 250, format: 'webp' })
 });
 </script>

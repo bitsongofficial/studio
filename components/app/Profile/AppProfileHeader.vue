@@ -52,13 +52,15 @@ const props = withDefaults(defineProps<Props>(), {
 
 const editProfileDialog = ref(false);
 
+const img = useImage();
+
 const avatar = computed(() => {
-  if (props.avatar) return useIpfsLink(props.avatar)
+  if (props.avatar) return img(useIpfsLink(props.avatar)!, { width: 125, format: 'webp' })
   return defaultImage
 })
 
 const cover = computed(() => {
-  if (props.cover) return useIpfsLink(props.cover)
+  if (props.cover) return img(useIpfsLink(props.cover)!, { width: 1374, format: 'webp' })
   return defaultCover
 })
 </script>

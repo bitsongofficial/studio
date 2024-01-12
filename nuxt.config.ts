@@ -35,6 +35,11 @@ export default defineNuxtConfig({
   gtag: {
     id: "G-41SQ7H37C8",
   },
+  image: {
+    domains: [
+      'yellow-hilarious-jay-665.mypinata.cloud'
+    ],
+  },
   modules: [
     'nuxt-gtag',
     '@nuxt/image',

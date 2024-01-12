@@ -2,8 +2,8 @@
   <app-page>
     <template #body>
       <AppNftHero class="nft-hero"
-        cover="https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmbGwgtpRFX3XiU2ppFEDnwyCzcfYTNBVsuxcxMMwGpP4t"
-        image="https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmbGwgtpRFX3XiU2ppFEDnwyCzcfYTNBVsuxcxMMwGpP4t"
+        :cover="img('https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmbGwgtpRFX3XiU2ppFEDnwyCzcfYTNBVsuxcxMMwGpP4t', { width: 1200, format: 'webp' })"
+        :image="img('https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmbGwgtpRFX3XiU2ppFEDnwyCzcfYTNBVsuxcxMMwGpP4t', { width: 260, format: 'webp' })"
         title="BitSong NFT Genesis Collection Series"
         description="🎵 Dive into the Exclusive Realm of BitSong with Our Genesis NFT Collection! 🌟 This collection is more than digital art – it's your VIP pass to BitSong's vibrant ecosystem"
         contract-address="bitsong1yw4xvtc43me9scqfr2jr2gzvcxd3a9y4eq7gaukreugw2yd2f8ts0wu96q" />
@@ -19,6 +19,8 @@
 import type { SwiperItem } from '~/components/app/AppSwiper.vue';
 import type { TopTraderItem } from '~/components/app/AppTopTraderItem.vue';
 import ogImage from "@/assets/images/og-default-1200.png";
+
+const img = useImage();
 
 useSeoMeta({
   title: "BitSong Studio the Home of Web3 Music",
@@ -40,7 +42,7 @@ const { data } = useFetch(`/api/latest/users`, {
       variant: "profile",
       title: user.username || formatShortAddress(user.address, 8),
       titleLink: `/u/${user.address}`,
-      image: user.avatar ? useIpfsLink(user.avatar) : undefined,
+      image: user.avatar ? img(useIpfsLink(user.avatar)!, { width: 160, format: 'webp' }) : undefined,
     })),
   }),
 })
