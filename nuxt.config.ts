@@ -42,6 +42,7 @@ export default defineNuxtConfig({
   },
   modules: [
     'nuxt-gtag',
+    'nuxt-og-image',
     '@nuxt/image',
     '@pinia/nuxt',
     '@quirks/nuxt',

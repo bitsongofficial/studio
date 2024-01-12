@@ -193,6 +193,8 @@ import { contracts } from "@bitsongjs/telescope";
 import defaultImage from "@/assets/images/default.png";
 import { useTimeAgo } from '@vueuse/core'
 
+const img = useImage();
+
 const contractAddress = useRoute().params.contract as string
 const selectedTab = ref(1)
 const prices = reactive({
@@ -216,7 +218,16 @@ useSeoMeta({
   twitterCard: "summary_large_image",
 })
 
-const img = useImage();
+defineOgImageComponent('Nft', {
+  title: data.value?.name,
+  subtitle: `by ${formatShortAddress(data.value?.sender!, 12)}`,
+  price: prices.last,
+  volume: data.value?.volume,
+  image: data.value?.image ? img(useIpfsLink(data.value?.image)!, { width: 320 }) : '',
+  editions: data.value?.editions,
+  owners: data.value?.owners,
+});
+
 const nftImage = computed(() => {
   if (!data.value?.image) {
     return defaultImage;

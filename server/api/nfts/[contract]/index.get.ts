@@ -19,6 +19,22 @@ export default defineEventHandler(async (event) => {
     })
   }
 
+  interface NftStats {
+    editions: string;
+    owners: string;
+  }
+
+  const stats = await prismaClient.$queryRaw<NftStats[]>`
+      SELECT 
+          COUNT(*)::text AS editions, 
+          COUNT(DISTINCT owner)::text AS owners
+      FROM
+          indexer.nft_tokens
+      WHERE
+          nft_id = ${contract}
+      LIMIT 1;
+      `;
+
   let metadata;
 
   if (nft.uri) {
@@ -32,6 +48,8 @@ export default defineEventHandler(async (event) => {
 
   return {
     ...nft,
+    editions: stats.length > 0 ? parseInt(stats[0].editions) : 0,
+    owners: stats.length > 0 ? parseInt(stats[0].owners) : 0,
     metadata
   }
 })
