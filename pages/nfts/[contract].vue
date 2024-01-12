@@ -22,19 +22,23 @@
               </v-col>
               <v-col class="text-center">
                 <div class="text-grey text-body-2">Buy Price</div>
-                <div>{{ formatCoinAmount(useFromMicroAmount(prices.buy)) }}<br /><span class="text-subtitle-2">BTSG</span>
+                <v-skeleton-loader v-if="loadings.buy" class="mx-auto" type="text"></v-skeleton-loader>
+                <div v-else>{{ formatCoinAmount(useFromMicroAmount(prices.buy)) }}<br /><span
+                    class="text-subtitle-2">BTSG</span>
                 </div>
               </v-col>
               <v-col class="text-center">
                 <div class="text-grey text-body-2">Last Price</div>
-                <div class="text-grey">
+                <v-skeleton-loader v-if="loadings.last" class="mx-auto" type="text"></v-skeleton-loader>
+                <div class="text-grey" v-else>
                   {{ formatCoinAmount(useFromMicroAmount(prices.last)) }}<br /><span class="text-subtitle-2">BTSG</span>
                 </div>
               </v-col>
 
               <v-col class="text-center">
                 <div class="text-grey text-body-2">Sell Price</div>
-                <div>{{ formatCoinAmount(useFromMicroAmount(prices.sell)) }}<br /><span
+                <v-skeleton-loader v-if="loadings.sell" class="mx-auto" type="text"></v-skeleton-loader>
+                <div v-else>{{ formatCoinAmount(useFromMicroAmount(prices.sell)) }}<br /><span
                     class="text-subtitle-2">BTSG</span>
                 </div>
               </v-col>
@@ -85,7 +89,10 @@
                   Royalties Address
                 </div>
                 <div>
-                  {{ formatShortAddress(data?.payment_address, 8) }}
+                  <NuxtLink :to="`https://mintscan.io/bitsong/address/${data?.payment_address}`" target="_blank"
+                    class="text-decoration-none text-white">
+                    {{ formatShortAddress(data?.payment_address, 8) }}
+                  </NuxtLink>
                 </div>
               </v-col>
 
@@ -220,9 +227,16 @@ const prices = reactive({
   last: 0,
 })
 
+const loadings = reactive({
+  buy: true,
+  sell: true,
+  last: true,
+})
+
 const { data, error, execute } = await useFetch(`/api/nfts/${contractAddress}`, {
   onResponse(context) {
     prices.last = context.response._data?.last_price || 0;
+    loadings.last = false;
   },
 })
 
@@ -299,6 +313,9 @@ async function fetchPrices(amount: number = 1) {
 
   prices.buy = parseInt(buy_price.total_price);
   prices.sell = parseInt(sell_price.total_price);
+
+  loadings.buy = false;
+  loadings.sell = false;
 }
 
 let interval: string | number | NodeJS.Timeout | undefined;
