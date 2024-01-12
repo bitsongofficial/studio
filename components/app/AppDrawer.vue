@@ -33,6 +33,15 @@
             <font-awesome-icon :icon="social.icon"></font-awesome-icon>
           </a>
         </div>
+        <div class="d-flex flex-columns justify-center align-center mb-5">
+          <a class="v-btn v-theme--mainnetTheme text-surface-variant v-btn--density-default rounded-xl v-btn--size-default v-btn--variant-tonal"
+            href="https://github.com/bitsongofficial/studio" target="_blank">
+            <span class="v-btn__overlay"></span>
+            <span class="v-btn__underlay"></span>
+            <v-icon>mdi-github</v-icon>
+            <span class="mx-2 text-caption">{{ repo?.stargazers_count }}</span>
+          </a>
+        </div>
       </ClientOnly>
     </template>
   </v-navigation-drawer>
@@ -52,10 +61,6 @@ const socials = [
     href: 'https://twitter.com/BitSongOfficial',
   },
   {
-    icon: ['fab', 'github'],
-    href: 'https://github.com/bitsongofficial/studio'
-  },
-  {
     icon: ['fab', 'telegram'],
     href: 'https://t.me/BitSongOfficial',
   },
@@ -64,12 +69,16 @@ const socials = [
     href: 'https://www.instagram.com/bitsong_official'
   },
 ]
+
+const { data: repo } = useFetch<{ stargazers_count: number }>('https://api.github.com/repos/bitsongofficial/studio', {
+  pick: ['stargazers_count'],
+})
 </script>
 
 <style>
 .drawer-icon {
   width: 20px;
   height: 20px;
-  margin: 15px 10px 25px 10px;
+  margin: 15px 10px 15px 10px;
 }
 </style>
