@@ -59,7 +59,7 @@ export default defineNuxtConfig({
     },
   ],
   vueEmail: {
-    baseUrl: process.env.NUXT_PUBLIC_URL || 'http://localhost:3000',
+    baseUrl: process.env.NUXT_PUBLIC_SITE_URL || 'http://localhost:3000',
   },
   vite: {
     plugins: [polyfillNode()],
