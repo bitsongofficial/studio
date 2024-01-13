@@ -37,5 +37,12 @@ export async function sendEmailVerification(email: string, username: string, con
     },
   }
 
-  return await ses.sendEmail(params)
+  try {
+    await ses.sendEmail(params)
+  } catch (error) {
+    throw createError({
+      statusCode: 500,
+      message: error.message,
+    })
+  }
 }
