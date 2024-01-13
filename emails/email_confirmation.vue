@@ -31,8 +31,7 @@ const previewText = `Confirm your email address on Bitsong Studio`
           </EHeading>
           <EText class="text-black text-[14px] leading-[24px]"> Hello <strong>{{ username }}</strong>, </EText>
           <EText class="text-black text-[14px] leading-[24px]">
-            We're excited to have you on board. Before you can start using <strong>Bitsong Studio</strong>! To complete
-            your profile,
+            We're excited to have you on board. In order to be able to fully explore <strong>Bitsong Studio</strong>,
             please confirm your email address by clicking the button below:
           </EText>
           <ESection class="text-center mt-[32px] mb-[32px]">
