@@ -2,8 +2,8 @@ import { SES } from '@aws-sdk/client-ses'
 import { useCompiler } from '#vue-email'
 
 export async function sendEmailVerification(email: string, username: string, confirmationToken: string) {
-  const { awsSesRegion } = useRuntimeConfig()
-  const ses = new SES({ region: awsSesRegion })
+  const { awsSesRegion, awsAccessKeyId, awsSecretAccessKey } = useRuntimeConfig()
+  const ses = new SES({ region: awsSesRegion, credentials: { accessKeyId: awsAccessKeyId, secretAccessKey: awsSecretAccessKey } })
 
   const { vueEmail } = useRuntimeConfig().public
   const confirmationLink = `${vueEmail.baseUrl}/confirm-email?token=${confirmationToken}`
