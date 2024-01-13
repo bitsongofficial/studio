@@ -114,7 +114,7 @@ export default defineEventHandler(async (event) => {
       console.error('-----> sendEmailVerification error', error)
 
       throw createError({
-        message: error.message,
+        message: 'Failed to send email verification',
         status: 400
       })
     }

@@ -1,9 +1,10 @@
 import { SES } from '@aws-sdk/client-ses'
 import { useCompiler } from '#vue-email'
 
-const ses = new SES({ region: process.env.NUXT_AWS_SES_REGION })
-
 export async function sendEmailVerification(email: string, username: string, confirmationToken: string) {
+  const { awsSesRegion } = useRuntimeConfig()
+  const ses = new SES({ region: awsSesRegion })
+
   const { vueEmail } = useRuntimeConfig().public
   const confirmationLink = `${vueEmail.baseUrl}/confirm-email?token=${confirmationToken}`
 
