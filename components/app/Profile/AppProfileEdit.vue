@@ -24,6 +24,7 @@
       </v-card>
       <v-card-text>
         <v-text-field v-model="username" label="Username" hide-details variant="outlined"></v-text-field>
+        <v-text-field v-model="email" label="Email" hide-details variant="outlined"></v-text-field>
       </v-card-text>
       <v-card-text v-if="errorMessage !== ''">
         <v-alert variant="outlined" type="error">
@@ -72,12 +73,14 @@ const newValues = reactive<{
   cover?: string | null;
   avatar?: string | null;
   username?: string;
+  email?: string;
 }>({});
 
 const resetState = () => {
   newValues.avatar = undefined
   newValues.cover = undefined
   newValues.username = undefined
+  newValues.email = undefined
   errorMessage.value = ''
 }
 
@@ -86,16 +89,18 @@ interface Props {
   cover?: string;
   avatar?: string;
   username?: string | null;
+  email?: string | null;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   cover: defaultCover,
   avatar: undefined,
   username: undefined,
+  email: undefined,
 });
 
 const hasChanges = computed(() => {
-  return newValues.avatar !== undefined || newValues.cover !== undefined || newValues.username !== undefined
+  return newValues.avatar !== undefined || newValues.cover !== undefined || newValues.username !== undefined || newValues.email !== undefined
 })
 
 const username = computed({
@@ -104,6 +109,15 @@ const username = computed({
   },
   set(value) {
     if (value !== null && value !== undefined && value.length > 0) newValues.username = value
+  }
+})
+
+const email = computed({
+  get() {
+    return newValues.email || props.email
+  },
+  set(value) {
+    if (value !== null && value !== undefined && value.length > 0) newValues.email = value
   }
 })
 
@@ -271,6 +285,7 @@ const handleEditProfile = async () => {
     const avatar = toValue(newValues.avatar)
     const cover = toValue(newValues.cover)
     const usernameVal = toValue(username)
+    const emailVal = toValue(email)
 
     const formData = new FormData()
     if (avatar !== undefined) {
@@ -290,6 +305,7 @@ const handleEditProfile = async () => {
     }
 
     if (usernameVal) formData.append('username', usernameVal)
+    if (emailVal) formData.append('email', emailVal)
 
     const data = await $fetch('/api/me', {
       method: 'PUT',

@@ -8,21 +8,12 @@ const prismaClient = new PrismaClient();
 const pinata = new pinataSDK(useRuntimeConfig().pinataApiKey, useRuntimeConfig().pinataApiSecret);
 
 export default defineEventHandler(async (event) => {
-  const authRequest = auth.handleRequest(event);
-  const session = await authRequest.validate();
-  const user = session?.user ?? null
-
-  if (user === null) {
-    throw createError({
-      message: 'You must be logged in to upload',
-      status: 401
-    })
-  }
+  const user = await ensureAuth(event)
 
   const data = await readMultipartFormData(event)
   if (data === undefined || data.length === 0) {
     throw createError({
-      message: 'No data',
+      message: 'Username and email are required',
       status: 400
     })
   }
@@ -30,9 +21,10 @@ export default defineEventHandler(async (event) => {
   const avatar = data.find((item) => item.name === 'avatar')
   const cover = data.find((item) => item.name === 'cover')
   const username = data.find((item) => item.name === 'username')?.data.toString().toLowerCase()
+  const email = data.find((item) => item.name === 'email')?.data.toString().toLowerCase()
 
   try {
-    await userUpdateProfileSchema.parseAsync({ avatar, cover, username })
+    await userUpdateProfileSchema.parseAsync({ avatar, cover, username, email })
   } catch (e) {
     if (e instanceof ZodError) {
       throw createError({
@@ -47,28 +39,35 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  if (!username) {
-    throw createError({
-      message: 'Username is required',
-      status: 400
-    })
-  }
-
-  const result = await prismaClient.user.findFirst({
+  const usernameResult = await prismaClient.user.findFirst({
     where: {
       username
     }
   })
 
-  if (result !== null && result.address !== user.address) {
+  if (usernameResult !== null && usernameResult.address !== user.address) {
     throw createError({
       message: 'Username is already taken',
       status: 400
     })
   }
 
+  const emailResult = await prismaClient.user.findFirst({
+    where: {
+      email
+    }
+  })
+
+  if (emailResult !== null && emailResult.address !== user.address) {
+    throw createError({
+      message: 'Email is already taken',
+      status: 400
+    })
+  }
+
   let attrs: Partial<Lucia.DatabaseUserAttributes> = {
-    username
+    username,
+    email
   }
 
   if (avatar !== undefined) {
@@ -81,7 +80,6 @@ export default defineEventHandler(async (event) => {
 
       const pinataRes = await pinata.pinFileToIPFS(avatarStream, { pinataMetadata: { name: `${user.address}_avatar` } })
       attrs.avatar = pinataRes.IpfsHash
-      //attrs.avatar = await client.storeBlob(new Blob([avatar.data], { type: avatar.type }))
     }
   }
 
@@ -95,7 +93,6 @@ export default defineEventHandler(async (event) => {
 
       const pinataRes = await pinata.pinFileToIPFS(coverStream, { pinataMetadata: { name: `${user.avatar}_cover` } })
       attrs.cover = pinataRes.IpfsHash
-      //attrs.cover = await client.storeBlob(new Blob([cover.data], { type: cover.type }))
     }
   }
 

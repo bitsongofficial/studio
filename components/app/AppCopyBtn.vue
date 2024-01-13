@@ -14,7 +14,7 @@ defineProps<{
   text: string;
 }>();
 
-watchEffect(() => {
-  if (copied.value) success("Copied to clipboard");
+watch(copied, (copied) => {
+  if (copied) success("Copied to clipboard");
 });
 </script>

@@ -41,7 +41,8 @@ export default defineEventHandler(async (event): Promise<Session> => {
           address,
           username: null,
           avatar: null,
-          cover: null
+          cover: null,
+          email: null
         }
       })
 
