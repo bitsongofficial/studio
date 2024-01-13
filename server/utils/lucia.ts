@@ -20,6 +20,7 @@ export const auth = lucia({
       cover: data.cover,
       username: data.username,
       email: data.email,
+      email_to_verify: data.email_to_verify,
       email_verified: data.email_verified,
       email_verification_token: data.email_verification_token,
       email_verification_token_expires_at:

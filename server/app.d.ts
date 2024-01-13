@@ -7,6 +7,7 @@ declare namespace Lucia {
     cover: string | null;
     username: string | null;
     email: string | null;
+    email_to_verify: string | null;
     email_verified: boolean;
     email_verification_token: string | null;
     email_verification_token_expires_at: string | null;

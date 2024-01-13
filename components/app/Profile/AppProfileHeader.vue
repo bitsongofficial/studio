@@ -27,7 +27,7 @@
       <AppCopyBtn :text="address" />
     </v-card-subtitle>
   </v-card>
-  <AppProfileEdit v-model="editProfileDialog" :avatar="avatar" :cover="cover" :username="username" />
+  <AppProfileEdit v-model="editProfileDialog" :avatar="avatar" :cover="cover" :username="username" :email="email" />
 </template>
 
 <script setup lang="ts">
@@ -42,6 +42,7 @@ interface Props {
   cover?: string | null;
   avatar?: string | null;
   username?: string | null;
+  email?: string | null;
 }
 
 const props = withDefaults(defineProps<Props>(), {

@@ -22,9 +22,9 @@
           </v-avatar>
         </div>
       </v-card>
-      <v-card-text>
-        <v-text-field v-model="username" label="Username" hide-details variant="outlined"></v-text-field>
-        <v-text-field v-model="email" label="Email" hide-details variant="outlined"></v-text-field>
+      <v-card-text class="mt-4">
+        <v-text-field v-model="username" label="Username" variant="outlined"></v-text-field>
+        <v-text-field v-model="email" label="Email" hint="Only visible to you" variant="outlined"></v-text-field>
       </v-card-text>
       <v-card-text v-if="errorMessage !== ''">
         <v-alert variant="outlined" type="error">

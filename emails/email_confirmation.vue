@@ -31,7 +31,8 @@ const previewText = `Confirm your email address on Bitsong Studio`
           </EHeading>
           <EText class="text-black text-[14px] leading-[24px]"> Hello <strong>{{ username }}</strong>, </EText>
           <EText class="text-black text-[14px] leading-[24px]">
-            We're excited to have you on board. Before you can start using Bitsong Studio! To complete your profile,
+            We're excited to have you on board. Before you can start using <strong>Bitsong Studio</strong>! To complete
+            your profile,
             please confirm your email address by clicking the button below:
           </EText>
           <ESection class="text-center mt-[32px] mb-[32px]">
@@ -47,12 +48,9 @@ const previewText = `Confirm your email address on Bitsong Studio`
           </EText>
           <EHr class="border border-solid border-[#eaeaea] my-[26px] mx-0 w-full" />
           <EText class="text-[#666666] text-[12px] leading-[24px]">
-            This email was sent by Bitsong Studio. This link was intended for <span class="text-black">{{ username }}
-            </span>.
-            This link is valid for 24 hours. If you did not sign up for
-            If you were not expecting this confirmation, you can ignore this email.If you are concerned about your
-            account's safety, please reply to this email to get in
-            touch with us.
+            This email was sent by <strong>Bitsong Studio</strong> and the link was intended for <span
+              class="text-black">{{ username }}
+            </span>, it will expire in 24 hours. If you were not expecting this confirmation, you can ignore this email.
           </EText>
         </EContainer>
       </EBody>

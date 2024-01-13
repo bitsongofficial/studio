@@ -23,6 +23,7 @@ model User {
   cover                               String?
   username                            String?
   email                               String?
+  email_to_verify                     String?
   email_verified                      Boolean   @default(false)
   email_verification_token            String?
   email_verification_token_expires_at DateTime?

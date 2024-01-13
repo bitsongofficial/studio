@@ -2,7 +2,7 @@
   <app-page>
     <template #body>
       <AppProfileHeader v-if="user" :address="user.address" :avatar="user.avatar" :cover="user.cover"
-        :username="user.username" />
+        :username="user.username" :email="user.email" />
 
       <AppNftTokenGrid class="mt-4" :items="nfts" />
     </template>

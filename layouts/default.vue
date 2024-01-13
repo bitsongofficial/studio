@@ -1,5 +1,6 @@
 <template>
   <v-layout>
+    <AppAlertConfirmEmail />
     <app-drawer> </app-drawer>
     <app-bar :show-logo="false"> </app-bar>
     <v-main>

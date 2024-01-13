@@ -4,6 +4,7 @@ import { userUpdateProfileSchema } from '~/server/schema/updateProfile';
 import pinataSDK from '@pinata/sdk'
 import { Readable } from 'stream';
 import { v4 as uuidv4 } from 'uuid';
+import { sendEmailVerification } from '~/server/utils/email';
 
 const prismaClient = new PrismaClient();
 const pinata = new pinataSDK(useRuntimeConfig().pinataApiKey, useRuntimeConfig().pinataApiSecret);
@@ -67,8 +68,7 @@ export default defineEventHandler(async (event) => {
   }
 
   let attrs: Partial<Lucia.DatabaseUserAttributes> = {
-    username,
-    email
+    username
   }
 
   if (avatar !== undefined) {
@@ -97,32 +97,36 @@ export default defineEventHandler(async (event) => {
     }
   }
 
-  // Send email verification
-  if (email !== user.email) {
+  // Send email confirmation
+  if (
+    (email !== user.email &&
+      email !== user.email_to_verify) ||
+    !user.email_verified ||
+    (user.email_verification_sent_at !== null && new Date(user.email_verification_sent_at) < new Date(Date.now() - 1 * 60 * 1000))
+  ) {
     const email_verification_token = uuidv4()
     const email_verification_token_expires_at = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString()
+    const email_verification_sent_at = new Date().toISOString()
 
-    attrs = {
-      ...attrs,
-      email_verification_token,
-      email_verification_token_expires_at
+    try {
+      await sendEmailVerification(email!, username!, email_verification_token)
+    } catch (error) {
+      console.log('-----> sendEmailVerification error', error)
+      throw createError({
+        message: 'Failed to send email verification',
+        status: 400
+      })
     }
 
-    //await sendEmailVerification(user.address, email, email_verification_token_expires_at)
-    console.log('-----> sendEmailVerification', user.address, email, email_verification_token_expires_at)
-
-    // if sendEmailVerification ok
-    const email_verification_sent_at = new Date().toISOString()
     attrs = {
       ...attrs,
+      email_to_verify: email,
+      email_verified: false,
+      email_verified_at: null,
+      email_verification_token,
+      email_verification_token_expires_at,
       email_verification_sent_at
     }
-
-    // if sendEmailVerification error
-    // throw createError({
-    //   message: 'Something went wrong',
-    //   status: 500
-    // })
   }
 
   try {

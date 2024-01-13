@@ -8,6 +8,7 @@ export default defineNuxtConfig({
     nftStorageApiKey: '',
     awsAccessKeyId: '',
     awsSecretAccessKey: '',
+    awsSesRegion: '',
     awsS3Region: '',
     awsS3BucketPodcast: '',
     awsS3AccessKeyId: '',
@@ -57,6 +58,9 @@ export default defineNuxtConfig({
       })
     },
   ],
+  vueEmail: {
+    baseUrl: process.env.NUXT_PUBLIC_URL || 'http://localhost:3000',
+  },
   vite: {
     plugins: [polyfillNode()],
     vue: {
