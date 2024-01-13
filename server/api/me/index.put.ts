@@ -3,6 +3,7 @@ import { ZodError } from 'zod';
 import { userUpdateProfileSchema } from '~/server/schema/updateProfile';
 import pinataSDK from '@pinata/sdk'
 import { Readable } from 'stream';
+import { v4 as uuidv4 } from 'uuid';
 
 const prismaClient = new PrismaClient();
 const pinata = new pinataSDK(useRuntimeConfig().pinataApiKey, useRuntimeConfig().pinataApiSecret);
@@ -94,6 +95,34 @@ export default defineEventHandler(async (event) => {
       const pinataRes = await pinata.pinFileToIPFS(coverStream, { pinataMetadata: { name: `${user.avatar}_cover` } })
       attrs.cover = pinataRes.IpfsHash
     }
+  }
+
+  // Send email verification
+  if (email !== user.email) {
+    const email_verification_token = uuidv4()
+    const email_verification_token_expires_at = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString()
+
+    attrs = {
+      ...attrs,
+      email_verification_token,
+      email_verification_token_expires_at
+    }
+
+    //await sendEmailVerification(user.address, email, email_verification_token_expires_at)
+    console.log('-----> sendEmailVerification', user.address, email, email_verification_token_expires_at)
+
+    // if sendEmailVerification ok
+    const email_verification_sent_at = new Date().toISOString()
+    attrs = {
+      ...attrs,
+      email_verification_sent_at
+    }
+
+    // if sendEmailVerification error
+    // throw createError({
+    //   message: 'Something went wrong',
+    //   status: 500
+    // })
   }
 
   try {

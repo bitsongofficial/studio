@@ -42,7 +42,12 @@ export default defineEventHandler(async (event): Promise<Session> => {
           username: null,
           avatar: null,
           cover: null,
-          email: null
+          email: null,
+          email_verified: false,
+          email_verification_token: null,
+          email_verification_sent_at: null,
+          email_verification_token_expires_at: null,
+          email_verified_at: null
         }
       })
 

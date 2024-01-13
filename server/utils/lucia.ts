@@ -16,10 +16,16 @@ export const auth = lucia({
   getUserAttributes: (data) => {
     return {
       address: data.address,
+      avatar: data.avatar,
+      cover: data.cover,
       username: data.username,
       email: data.email,
-      avatar: data.avatar,
-      cover: data.cover
+      email_verified: data.email_verified,
+      email_verification_token: data.email_verification_token,
+      email_verification_token_expires_at:
+        data.email_verification_token_expires_at,
+      email_verification_sent_at: data.email_verification_sent_at,
+      email_verified_at: data.email_verified_at
     };
   }
 });
