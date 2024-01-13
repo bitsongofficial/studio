@@ -6,6 +6,8 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   runtimeConfig: {
     nftStorageApiKey: '',
+    awsAccessKeyId: '',
+    awsSecretAccessKey: '',
     awsS3Region: '',
     awsS3BucketPodcast: '',
     awsS3AccessKeyId: '',
