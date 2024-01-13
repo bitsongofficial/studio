@@ -31,6 +31,7 @@
     "vuetify": "^3.4.6"
   },
   "dependencies": {
+    "@aws-sdk/client-ses": "^3.490.0",
     "@bitsongjs/telescope": "3.0.0-dev.21",
     "@fortawesome/fontawesome-free": "^6.5.1",
     "@fortawesome/free-brands-svg-icons": "^6.5.1",
