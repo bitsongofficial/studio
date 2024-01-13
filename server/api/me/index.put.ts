@@ -111,9 +111,10 @@ export default defineEventHandler(async (event) => {
     try {
       await sendEmailVerification(email!, username!, email_verification_token)
     } catch (error) {
-      console.log('-----> sendEmailVerification error', error)
+      console.error('-----> sendEmailVerification error', error)
+
       throw createError({
-        message: 'Failed to send email verification',
+        message: error.message,
         status: 400
       })
     }
