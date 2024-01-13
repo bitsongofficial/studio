@@ -98,12 +98,7 @@ export default defineEventHandler(async (event) => {
   }
 
   // Send email confirmation
-  if (
-    (email !== user.email &&
-      email !== user.email_to_verify) ||
-    !user.email_verified ||
-    (user.email_verification_sent_at !== null && new Date(user.email_verification_sent_at) < new Date(Date.now() - 1 * 60 * 1000))
-  ) {
+  if (email !== user.email) {
     const email_verification_token = uuidv4()
     const email_verification_token_expires_at = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString()
     const email_verification_sent_at = new Date().toISOString()
