@@ -40,7 +40,8 @@
                     or Not" by Adam Clay for free!
                   </v-card-text>
                   <v-card-actions>
-                    <v-btn color="white" block append-icon="mdi-arrow-right">View NFT</v-btn>
+                    <v-btn color="white" block append-icon="mdi-arrow-right"
+                      to="/nfts/bitsong1yw4xvtc43me9scqfr2jr2gzvcxd3a9y4eq7gaukreugw2yd2f8ts0wu96q">View NFT</v-btn>
                   </v-card-actions>
                 </v-card>
               </v-col>
