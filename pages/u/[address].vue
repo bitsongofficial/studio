@@ -4,7 +4,9 @@
       <AppProfileHeader v-if="user" :address="user.address" :avatar="user.avatar" :cover="user.cover"
         :username="user.username" :email="user.email" />
 
-      <AppNftTokenGrid class="mt-4" :items="nfts" />
+      <AppUpcomingDrops v-if="address === 'bitsong1f5ze3svwg8fgjuwwnr743j6fr9vtyr58nex7tu'" class="my-8" />
+
+      <AppNftTokenGrid class="my-8" title="Collected" :items="nfts" />
     </template>
   </app-page>
 </template>

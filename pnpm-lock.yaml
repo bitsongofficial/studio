@@ -11,6 +11,9 @@ dependencies:
   '@bitsongjs/telescope':
     specifier: 3.0.0-dev.21
     version: 3.0.0-dev.21
+  '@chenfengyuan/vue-countdown':
+    specifier: '2'
+    version: 2.1.2(vue@3.4.10)
   '@fortawesome/fontawesome-free':
     specifier: ^6.5.1
     version: 6.5.1
@@ -982,6 +985,14 @@ packages:
       - bufferutil
       - debug
       - utf-8-validate
+    dev: false
+
+  /@chenfengyuan/vue-countdown@2.1.2(vue@3.4.10):
+    resolution: {integrity: sha512-/XDKIQzDDBc+4hXb681B1+ySKrStCTZONspRp+TojMcMe1edpCpuk4E/QoNVYxyZ24d+pcwN1YqnfIDgc7haBA==}
+    peerDependencies:
+      vue: ^3.0.0
+    dependencies:
+      vue: 3.4.10(typescript@5.3.3)
     dev: false
 
   /@cloudflare/kv-asset-handler@0.3.0:

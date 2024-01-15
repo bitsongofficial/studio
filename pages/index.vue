@@ -6,6 +6,9 @@
         description="🎵 Dive into the Exclusive Realm of BitSong with Our Genesis NFT Collection! 🌟 This collection is more than digital art – it's your VIP pass to BitSong's vibrant ecosystem"
         contract-address="bitsong1yw4xvtc43me9scqfr2jr2gzvcxd3a9y4eq7gaukreugw2yd2f8ts0wu96q" />
 
+
+      <AppUpcomingDrops class="my-8" />
+
       <AppTopTraders v-if="data" :traders="data?.topTraders" class="my-8" />
 
       <AppSwiper v-if="data" title="Users" :chip-text="data.total" :items="users as SwiperItem[]" class="my-8" />
