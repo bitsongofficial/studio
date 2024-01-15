@@ -35,6 +35,12 @@ const { data, refresh } = await useFetch(`/api/drop_notification/${props.dropId}
   pick: ["drop_id"]
 })
 
+watch(connected, (value) => {
+  if (value) {
+    refresh();
+  }
+})
+
 function openDialog() {
   if (!connected.value) {
     appConnectDialog.value = true;
