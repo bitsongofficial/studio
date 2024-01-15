@@ -29,6 +29,9 @@
                       {{ days }}d {{ hours }}h {{ minutes }}m {{ seconds }}s
                     </vue-countdown>
                   </h2>
+
+                  <AppDropNotificationBtn class="mt-4" drop-id="ready_or_not" :title="data.title"
+                    :subtitle="data.artists.join(', ')" :image="data.artworkUrl" :start-time="data.startTime" />
                 </v-col>
               </ClientOnly>
 

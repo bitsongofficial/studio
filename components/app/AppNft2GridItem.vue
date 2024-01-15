@@ -20,8 +20,8 @@
         {{ data.title }}
       </NuxtLink>
     </v-card-title>
-    <AppDropNotificationBtn drop-id="ready_or_not" :title="data.title" :subtitle="data.subtitle" :image="data.image"
-      :start-time="data.startTime" />
+    <AppDropNotificationBtn drop-id="ready_or_not" :title="data.title" :subtitle="data.subtitle"
+      :image="img(data.image, { width: 230, height: 230, fit: 'cover' })" :start-time="data.startTime" />
   </v-card>
 </template>
 
