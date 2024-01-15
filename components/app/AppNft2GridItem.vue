@@ -20,12 +20,21 @@
         {{ data.title }}
       </NuxtLink>
     </v-card-title>
+    <ClientOnly>
+      <v-card-subtitle class="mt-n1">
+        Starts in
+        <vue-countdown :time="remainingTime" v-slot="{ days, hours, minutes, seconds }">
+          <strong>{{ days }}d {{ hours }}h {{ minutes }}m {{ seconds }}s</strong>
+        </vue-countdown>
+      </v-card-subtitle>
+    </ClientOnly>
     <AppDropNotificationBtn drop-id="ready_or_not" :title="data.title" :subtitle="data.subtitle"
       :image="img(data.image, { width: 230, height: 230, fit: 'cover' })" :start-time="data.startTime" />
   </v-card>
 </template>
 
 <script lang="ts" setup>
+import VueCountdown from '@chenfengyuan/vue-countdown';
 import type AppDropNotificationBtn from './AppDropNotificationBtn.vue';
 
 const img = useImage();
@@ -35,6 +44,10 @@ const data = reactive({
   subtitle: "Adam Clay",
   title: "Ready or Not",
   startTime: 1706205600
+})
+
+const remainingTime = computed(() => {
+  return (data.startTime - Math.floor(Date.now() / 1000)) * 1000
 })
 
 const date = computed(() => {
