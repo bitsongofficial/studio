@@ -1,5 +1,5 @@
 <template>
-  <v-card rounded="lg" width="230" color="black" to="/preview/ready-or-not">
+  <v-card rounded="lg" width="230" color="black">
     <v-img height="230" width="230" :src="img(data.image, { width: 230, height: 230, fit: 'cover' })"
       gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.7)">
 
@@ -10,13 +10,14 @@
     </v-img>
     <v-card-subtitle class="mt-2 text-caption">{{ data.subtitle }}</v-card-subtitle>
     <v-card-title class="mt-n2">{{ data.title }}</v-card-title>
-    <!--<v-btn block variant="tonal" prepend-icon="mdi-bell">
-      GET NOTIFIED
-    </v-btn>-->
+    <AppDropNotificationBtn drop-id="ready_or_not" :title="data.title" :subtitle="data.subtitle" :image="data.image"
+      :start-time="data.startTime" />
   </v-card>
 </template>
 
 <script lang="ts" setup>
+import type AppDropNotificationBtn from './AppDropNotificationBtn.vue';
+
 const img = useImage();
 
 const data = reactive({

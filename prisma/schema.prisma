@@ -59,6 +59,18 @@ model UserKey {
   @@schema("web3auth")
 }
 
+model DropNotifications {
+  id         String   @id @unique
+  user_id    String
+  drop_id    String
+  email      String
+  created_at DateTime @default(now())
+
+  @@index([user_id])
+  @@index([drop_id])
+  @@schema("public")
+}
+
 view nfttokenview {
   nft_id    String  @id @unique
   nft_name  String

@@ -52,6 +52,7 @@ ${new Date().toUTCString()}`;
     if (data.value) {
       user.value = null
     }
+    window.location.reload()
   }
 
   async function login() {
