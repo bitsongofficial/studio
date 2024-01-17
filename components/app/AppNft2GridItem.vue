@@ -28,7 +28,7 @@
         </vue-countdown>
       </v-card-subtitle>
     </ClientOnly>
-    <AppDropNotificationBtn drop-id="ready_or_not" :title="data.title" :subtitle="data.subtitle"
+    <AppDropNotificationBtn class="mt-2" drop-id="ready_or_not" :title="data.title" :subtitle="data.subtitle"
       :image="img(data.image, { width: 230, height: 230, fit: 'cover' })" :start-time="data.startTime" />
   </v-card>
 </template>
