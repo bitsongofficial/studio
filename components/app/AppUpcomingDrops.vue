@@ -8,9 +8,28 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col>
-        <AppNft2GridItem />
+      <v-col cols="auto" v-for="drop in drops" :key="drop.title">
+        <AppNft2GridItem :drop-id="drop.id" :title="drop.title" :subtitle="drop.subtitle" :image="drop.image"
+          :start-time="drop.startTime" :link="drop.link" />
       </v-col>
     </v-row>
   </v-container>
 </template>
+
+<script lang="ts" setup>
+const drops = [{
+  id: 'ready_or_not',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmWF5LpGkH67fqv89cTrB36UAcxo2ZtbY9VSMv7wKKaAoQ",
+  subtitle: "Adam Clay",
+  title: "Ready or Not",
+  startTime: 1706205600,
+  link: "/preview/ready-or-not"
+}, {
+  id: 'amnesia',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmXpdm3A9YB6vgLjyiA7xKrv8UKeXhtPpTjAKEzEPKeehN",
+  subtitle: "Exept",
+  title: "Amnesia",
+  startTime: 1706637600,
+  link: "/preview/amnesia"
+}]
+</script>
