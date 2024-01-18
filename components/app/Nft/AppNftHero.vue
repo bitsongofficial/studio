@@ -1,39 +1,43 @@
 <template>
-  <v-img v-bind="$attrs" class="mx-md-4 rounded-lg" min-height="450" :max-height="isMobile ? 620 : 450" cover :src="cover"
-    :lazy-src="cover">
-    <v-container class="fill-height d-flex">
-      <v-row align="center" justify="center">
-        <v-col cols="auto" class="d-flex">
-          <v-container fluid>
-            <v-row>
-              <v-col cols="12" md="4">
-                <v-img :src="image" width="300"></v-img>
-              </v-col>
-              <v-col cols="12" md="8" class="d-flex align-center">
-                <v-card max-width="500" variant="text">
-                  <div class="text-h5 px-md-4">{{ title }}</div>
-                  <div class="text-body-2 px-md-4 py-3">{{ description }}</div>
+  <v-card v-bind="$attrs" class="app__hero mx-md-4 rounded-xl d-flex align-center" variant="flat">
+    <v-row>
+      <v-col cols="10" md="8" class="mx-auto">
 
-                  <v-card-actions style="max-width: 400px">
-                    <v-btn size="large" color="primary" rounded="xl" variant="flat" block
-                      :to="`/nfts/${contractAddress}`">
-                      Mint Now
-                    </v-btn>
-                  </v-card-actions>
-                </v-card>
+        <v-row>
+          <v-col cols="12" md="4">
+            <v-img class="rounded-xl" :src="image" width="300"></v-img>
+          </v-col>
+          <v-col cols="12" md="8" class="my-auto">
+            <v-row>
+              <v-col class="text-h5 px-md-4">
+                {{ title }}
               </v-col>
             </v-row>
-          </v-container>
-        </v-col>
-      </v-row>
-    </v-container>
-  </v-img>
+
+            <v-row>
+              <v-col cols="12" md="10" class="text-body-2 px-md-4 py-3">
+                {{ description }}
+              </v-col>
+            </v-row>
+
+            <v-row>
+              <v-col cols="12" md="10">
+                <v-btn size="large" color="primary" rounded="xl" variant="flat" block :to="`/nfts/${contractAddress}`">
+                  Mint Now
+                </v-btn>
+              </v-col>
+            </v-row>
+
+          </v-col>
+        </v-row>
+
+      </v-col>
+    </v-row>
+
+  </v-card>
 </template>
 
 <script lang="ts" setup>
-import { useDisplay } from "vuetify";
-const { mobile: isMobile } = useDisplay();
-
 defineProps<{
   cover: string;
   image: string;
@@ -42,3 +46,13 @@ defineProps<{
   contractAddress: string;
 }>();
 </script>
+
+<style>
+.app__hero {
+  height: 450px;
+
+  @media (max-width: 600px) {
+    height: 620px;
+  }
+}
+</style>

@@ -2,8 +2,8 @@
   <app-page>
     <template #body>
       <AppNftHero class="nft-hero" :cover="nftGenesisImage" :image="nftGenesisImage"
-        title="BitSong NFT Genesis Collection Series"
-        description="🎵 Dive into the Exclusive Realm of BitSong with Our Genesis NFT Collection! 🌟 This collection is more than digital art – it's your VIP pass to BitSong's vibrant ecosystem"
+        title="BitSong NFT Genesis Collection"
+        description="Dive into the Exclusive Realm of BitSong with Our Genesis NFT Collection! This collection is more than digital art – it's your VIP pass to BitSong's vibrant ecosystem"
         contract-address="bitsong1yw4xvtc43me9scqfr2jr2gzvcxd3a9y4eq7gaukreugw2yd2f8ts0wu96q" />
 
 
@@ -56,7 +56,7 @@ const users = computed(() => {
   }))
 })
 
-const nftGenesisImage = computed(() => img(useIpfsLink('ipfs://QmbGwgtpRFX3XiU2ppFEDnwyCzcfYTNBVsuxcxMMwGpP4t')!, { width: 1250, format: 'webp' }))
+const nftGenesisImage = computed(() => img(useIpfsLink('ipfs://QmbGwgtpRFX3XiU2ppFEDnwyCzcfYTNBVsuxcxMMwGpP4t')!, { width: 300, format: 'webp' }))
 
 useSeoMeta({
   title: "BitSong Studio the Home of Web3 Music",
