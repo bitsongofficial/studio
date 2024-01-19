@@ -31,5 +31,12 @@ const drops = [{
   title: "Amnesia",
   startTime: 1706637600,
   link: "/preview/amnesia"
+}, {
+  id: 'stimulation-growth',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmXecjfvfZB1qs24EU1ra1i7hWUMNd9YDMriKHSAmFD3sg",
+  subtitle: "Goose Pärk",
+  title: "Stimulation Growth",
+  startTime: 1706810400,
+  link: "/preview/stimulation-growth"
 }]
 </script>
