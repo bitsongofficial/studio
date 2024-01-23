@@ -241,6 +241,7 @@ function onReset() {
   totalVolume.value = 0
   totalRoyalties.value = 0
   totalProtocolFee.value = 0
+  totalLiquidity.value = 0
   results.value = []
 }
 
