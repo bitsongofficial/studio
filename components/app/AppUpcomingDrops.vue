@@ -45,5 +45,12 @@ const drops = [{
   title: "Orderly",
   startTime: 1706882400,
   link: "/preview/orderly"
+}, {
+  id: 'toxic',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmeWR7bdNDpZZSCKdY3fPgNPB2nkBJ1PS7fJaDFmp56MKW",
+  subtitle: "Rawanne",
+  title: "Toxic",
+  startTime: 1706882400,
+  link: "/preview/toxic"
 }]
 </script>
