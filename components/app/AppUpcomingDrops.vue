@@ -8,7 +8,7 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col cols="auto" v-for="drop in drops" :key="drop.title">
+      <v-col v-for="drop in activeDrops" cols="auto" :key="drop.title">
         <AppNft2GridItem :drop-id="drop.id" :title="drop.title" :subtitle="drop.subtitle" :image="drop.image"
           :start-time="drop.startTime" :link="drop.link" />
       </v-col>
@@ -52,5 +52,16 @@ const drops = [{
   title: "Toxic",
   startTime: 1706896800,
   link: "/preview/toxic"
+}, {
+  id: 'cubana',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmQZEdsvxqkoUTA9YLzgiHfPJtyh2fTToqhJ1zyzdTc4PT",
+  subtitle: "BlackJack Records",
+  title: "Cubana",
+  startTime: 1706968800,
+  link: "/preview/cubana"
 }]
+
+const activeDrops = computed(() => {
+  return drops.filter(drop => drop.startTime > Math.floor(Date.now() / 1000))
+})
 </script>

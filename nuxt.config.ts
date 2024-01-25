@@ -4,9 +4,6 @@ import { polyfillNode } from "esbuild-plugin-polyfill-node";
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  routeRules: {
-    '/preview/ready-or-not': { redirect: '/nfts/bitsong1wl59k23zngj34l7d42y9yltask7rjlnxgccawc7ltrknp6n52fpsepyxgg' },
-  },
   runtimeConfig: {
     nftStorageApiKey: '',
     awsAccessKeyId: '',

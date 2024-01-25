@@ -6,7 +6,7 @@
           <v-col cols="12" md="8" class="text-center">
             <div>
               <video class="mx-auto rounded-xl w-75" controls :poster="data.artworkUrl">
-                <source :src="data.previewUrl" type="video/mp4" />
+                <source :src="data.previewUrl" type="audio/wav" />
               </video>
             </div>
           </v-col>
@@ -17,7 +17,7 @@
                 <h1 class="text-md-h4 text-h5">
                   {{ data.title }}
                 </h1>
-                <h3 class="text-surface-variant">Adam Clay</h3>
+                <h3 class="text-surface-variant">BlackJack Records</h3>
               </v-col>
 
               <ClientOnly>
@@ -29,9 +29,6 @@
                       {{ days }}d {{ hours }}h {{ minutes }}m {{ seconds }}s
                     </vue-countdown>
                   </h2>
-
-                  <AppDropNotificationBtn class="mt-4" drop-id="ready_or_not" :title="data.title"
-                    :subtitle="data.artists.join(', ')" :image="data.artworkUrl" :start-time="data.startTime" />
                 </v-col>
               </ClientOnly>
 
@@ -39,8 +36,8 @@
                 <v-card color="primary" variant="outlined">
                   <v-card-title>Airdrop Alert</v-card-title>
                   <v-card-text class="text-surface-variant">
-                    If you own one or more pieces from our 'NFT Genesis Collection,' you will receive an exclusive "Ready
-                    or Not" by Adam Clay for free!
+                    If you own one or more pieces from our 'NFT Genesis Collection,' you will receive an exclusive
+                    "Cubana" by BlackJack Records for free!
                   </v-card-text>
                   <v-card-actions>
                     <v-btn color="white" block append-icon="mdi-arrow-right"
@@ -121,35 +118,29 @@
 import VueCountdown from '@chenfengyuan/vue-countdown';
 import { marked } from 'marked'
 
-const description = `**Ready or not** is absolutely the first **Music NFT released by Adam Clay** exclusively for **BitSong**.
+const description = `The song is a summerish tune with an urban-latin vibe. It’s composed by Tulea BlackJack in BlackJack Records studios.
 
-The graphic concept is inspired by one of his most iconic photos, immersed in an unknown and vibrant universe, embracing the central concept of the song: diving into that incredible and mysterious journey that is life because only by facing the path will we be able to discover what awaits us along the way. 
+"Cubana" is a musical journey that seamlessly blends the rich tapestry of Latin beats with the contemporary flair of urban music, resulting in a vibrant and infectious composition. From the first note, the song encapsulates the spirited essence of Havana's dynamic streets, where every corner echoes with the pulsating rhythms of life.
 
-As for the musical aspect, the song, composed in collaboration with two well known Italian producers, **Paolo Sandrini** and **Eugenio Ferrara**, is a track with progressive house sounds, that unfolds like a cosmic journey; its energetic beats and ethereal sounds seemingly emanating from another dimension. At its core is a mantra, a lyrical repetition that echoes throughout the song, becoming a rallying cry for the listener.
+"Cubana" is not just a song; it's a celebration of cultural diversity and the universal language of music. The song's magnetic energy is impossible to resist.
 
-The words, delivered with warmth by **Adam Clay's voice**, carry a profound message of **hope and liberation**. As the music builds, the mantra gains intensity, reinforcing its transformative power.
-
-The combination of the hypnotic repetition, the dynamic progression of the house beats, and the evocative sounds from beyond infuse the track with a unique energy. It's a musical paradox—dark yet uplifting, grounding yet transcendent, and ultimately a sonic journey that invites the listener to embrace the unknown with open arms.`
+With its toe-tapping beats, soulful melodies, and an undeniable sense of celebration, "Cubana" stands as a testament to the power of music to transcend boundaries and unite people in a shared experience of joy. This track is not just a song; it's an invitation to escape into a world where every note is a step closer to the heart of Havana's pulsating rhythm.`
 
 const data = reactive({
-  title: "Ready or Not",
-  artists: ["Adam Clay"],
+  title: "Cubana",
+  artists: ["BlackJack Records"],
   description,
-  creator: "bitsong1f5ze3svwg8fgjuwwnr743j6fr9vtyr58nex7tu",
-  sellerFeeBps: 500,
+  creator: "bitsong1w35ntzzkf7dugwlq5a6lhrrp2lkq6yamxk42he",
+  sellerFeeBps: 750,
   referralFeeBps: 100,
-  previewUrl: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmNtpkkNcmi4iE3GaLsoo6K24nGARWRJeXzVKWgVChEJCa",
-  artworkUrl: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmWF5LpGkH67fqv89cTrB36UAcxo2ZtbY9VSMv7wKKaAoQ",
-  startTime: 1706205600,
-  genre: "House",
-  mood: "Intense",
+  previewUrl: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmU3cT2KCNRLsFDJa9XTunZhkPFT44hnauxnoBNaYqDsTw",
+  artworkUrl: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmQZEdsvxqkoUTA9YLzgiHfPJtyh2fTToqhJ1zyzdTc4PT",
+  startTime: 1706968800,
+  genre: "Urban Latin",
+  mood: "Dynamic",
   explicit: "Clean",
   license: "All Rights Reserved",
 })
-
-if (data.startTime > Math.floor(Date.now() / 1000)) {
-  navigateTo(`/nfts/bitsong1wl59k23zngj34l7d42y9yltask7rjlnxgccawc7ltrknp6n52fpsepyxgg`)
-}
 
 useSeoMeta({
   title: `${data.title} by ${data.artists.join(', ')}`,
