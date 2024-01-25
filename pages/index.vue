@@ -7,6 +7,8 @@
         contract-address="bitsong1yw4xvtc43me9scqfr2jr2gzvcxd3a9y4eq7gaukreugw2yd2f8ts0wu96q" />
 
 
+      <AppFeaturedDrops class="my-8" />
+
       <AppUpcomingDrops class="my-8" />
 
       <AppTopTraders v-if="data" :traders="data?.topTraders" class="my-8" />

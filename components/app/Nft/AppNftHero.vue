@@ -23,7 +23,7 @@
             <v-row>
               <v-col cols="12" md="10">
                 <v-btn size="large" color="primary" rounded="xl" variant="flat" block :to="`/nfts/${contractAddress}`">
-                  Mint Now
+                  Collect Now
                 </v-btn>
               </v-col>
             </v-row>

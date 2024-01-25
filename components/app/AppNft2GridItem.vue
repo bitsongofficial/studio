@@ -4,7 +4,7 @@
       <v-img height="230" width="230" :src="img(image, { width: 230, height: 230, fit: 'cover' })"
         gradient="to bottom, rgba(0,0,0,.10), rgba(0,0,0,.7)">
 
-        <div class="d-flex justify-space-between">
+        <div class="d-flex justify-space-between" v-if="!isStarted">
           <v-chip>{{ date }}</v-chip>
           <v-chip>{{ hour }}</v-chip>
         </div>
@@ -21,15 +21,18 @@
       </NuxtLink>
     </v-card-title>
     <ClientOnly>
-      <v-card-subtitle class="mt-n1">
+      <v-card-subtitle class="mt-n1" v-if="!isStarted">
         Starts in
         <vue-countdown :time="remainingTime" v-slot="{ days, hours, minutes, seconds }">
           <strong>{{ days }}d {{ hours }}h {{ minutes }}m {{ seconds }}s</strong>
         </vue-countdown>
       </v-card-subtitle>
     </ClientOnly>
-    <AppDropNotificationBtn class="mt-3" :drop-id="dropId" :title="title" :subtitle="subtitle"
+    <AppDropNotificationBtn v-if="!isStarted" class="mt-3" :drop-id="dropId" :title="title" :subtitle="subtitle"
       :image="img(image, { width: 230, height: 230, fit: 'cover' })" :start-time="startTime" />
+    <v-btn v-else color="primary" class="mt-2" block variant="flat" :to="link">
+      COLLECT NOW
+    </v-btn>
   </v-card>
 </template>
 
@@ -75,5 +78,9 @@ const hour = computed(() => {
     minute: 'numeric',
     hour12: true
   })
+})
+
+const isStarted = computed(() => {
+  return props.startTime < Math.floor(Date.now() / 1000)
 })
 </script>

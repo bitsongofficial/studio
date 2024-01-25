@@ -27,10 +27,11 @@
                     class="text-subtitle-2">BTSG</span>
                 </div>
               </v-col>
+
               <v-col class="text-center">
                 <div class="text-grey text-body-2">Last Price</div>
                 <v-skeleton-loader v-if="loadings.last" class="mx-auto" type="text"></v-skeleton-loader>
-                <div class="text-grey" v-else>
+                <div class="text-grey" v-else-if="!loadings.last && prices.last > 0">
                   {{ formatCoinAmount(useFromMicroAmount(prices.last)) }}<br /><span class="text-subtitle-2">BTSG</span>
                 </div>
               </v-col>
@@ -38,8 +39,8 @@
               <v-col class="text-center">
                 <div class="text-grey text-body-2">Sell Price</div>
                 <v-skeleton-loader v-if="loadings.sell" class="mx-auto" type="text"></v-skeleton-loader>
-                <div v-else>{{ formatCoinAmount(useFromMicroAmount(prices.sell)) }}<br /><span
-                    class="text-subtitle-2">BTSG</span>
+                <div v-else-if="!loadings.sell && prices.sell > 0">{{ formatCoinAmount(useFromMicroAmount(prices.sell))
+                }}<br /><span class="text-subtitle-2">BTSG</span>
                 </div>
               </v-col>
 
@@ -101,7 +102,7 @@
                   Seller Fee %
                 </div>
                 <div>
-                  {{ useFromBasisPoints(data?.seller_fee_bps) }}
+                  {{ useFromBasisPoints(data?.seller_fee_bps).toFixed(2) }}
                   %</div>
               </v-col>
 
@@ -110,7 +111,8 @@
                   Referral Fee %
                 </div>
                 <div>
-                  {{ useFromBasisPoints(data?.referral_fee_bps / data?.seller_fee_bps) }} %
+                  {{ (((Number(data?.seller_fee_bps) / 10000) * (Number(data?.referral_fee_bps) / 10000)) *
+                    100).toFixed(2) }} %
                 </div>
               </v-col>
 
