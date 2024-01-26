@@ -4,6 +4,12 @@ import { polyfillNode } from "esbuild-plugin-polyfill-node";
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
+  appConfig: {
+    umami: {
+      version: 2,
+      ignoreLocalhost: false,
+    },
+  },
   runtimeConfig: {
     nftStorageApiKey: '',
     awsAccessKeyId: '',
@@ -26,6 +32,8 @@ export default defineNuxtConfig({
         privacy: 'https://bitsong.io/privacy'
       },
       ipfsGateway: 'https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/{cid}',
+      umamiHost: '',
+      umamiId: '',
     },
   },
   css: [
@@ -43,6 +51,7 @@ export default defineNuxtConfig({
       'yellow-hilarious-jay-665.mypinata.cloud'
     ],
   },
+  extends: ['nuxt-umami'],
   modules: [
     'nuxt-gtag',
     'nuxt-og-image',
