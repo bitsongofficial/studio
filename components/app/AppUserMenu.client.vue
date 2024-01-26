@@ -32,6 +32,9 @@
           <v-list-item append-icon="mdi-account" to="/me">
             <v-list-item-title>My Profile</v-list-item-title>
           </v-list-item>
+          <v-list-item append-icon="mdi-bank" to="/me/assets">
+            <v-list-item-title>My Assets</v-list-item-title>
+          </v-list-item>
         </v-list>
         <v-card-actions>
           <v-btn @click.stop="disconnect" prepend-icon="mdi-logout" block rounded="pill" variant="outlined"
