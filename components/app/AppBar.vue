@@ -10,7 +10,7 @@
       <div class="ml-3 text-h5 mt-2" v-if="showAppName">{{ appName }}</div>
     </div>
 
-    <template #append>
+    <template #append v-if="showUserMenu">
       <AppUserMenu />
       <client-only>
         <AppConnectBtn />
@@ -25,11 +25,13 @@ import { useNavigationDrawer } from "~/composables/useNavigationDrawer";
 interface Props {
   showLogo?: boolean;
   showAppName?: boolean;
+  showUserMenu?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   showLogo: true,
   showAppName: false,
+  showUserMenu: true,
 });
 
 const { appName } = useRuntimeConfig().public
