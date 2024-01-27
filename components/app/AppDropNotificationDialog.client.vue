@@ -99,6 +99,7 @@ async function handleSave() {
 
     emits("complete");
     handleClose();
+    umTrackEvent('enable-drop-notification', { dropId: props.dropId });
   } catch (e) {
     console.log(e)
     errorMessage.value = e.data.message;

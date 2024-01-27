@@ -50,6 +50,7 @@ ${new Date().toUTCString()}`;
     }
 
     if (data.value) {
+      umTrackEvent('logout')
       user.value = null
     }
     window.location.reload()
@@ -85,6 +86,8 @@ ${new Date().toUTCString()}`;
           )
         }),
       })
+
+      umTrackEvent('login')
 
       return {
         user: loginState.user

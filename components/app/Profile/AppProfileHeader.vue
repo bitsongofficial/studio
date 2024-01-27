@@ -7,7 +7,8 @@
         <v-img :src="avatar" :alt="address" :aspect-ratio="1 / 1"></v-img>
       </v-avatar>
 
-      <v-btn v-if="canEdit" rounded="pill" class="mt-4" variant="outlined" @click.stop="editProfileDialog = true">
+      <v-btn v-if="canEdit" rounded="pill" class="mt-4" variant="outlined"
+        @click.stop="editProfileDialog = true; umTrackEvent('open-edit-profile')">
         Edit Profile
       </v-btn>
     </div>

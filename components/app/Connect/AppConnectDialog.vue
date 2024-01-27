@@ -5,7 +5,7 @@
       <v-list class="mb-1">
         <v-list-item v-for="wallet in wallets" :key="wallet.options.name" class="mx-2 pa-2"
           :prepend-avatar="`/images/wallets/${wallet.options.name}.png`" :title="wallet.options.prettyName"
-          @click.stop="open(wallet.options.name)">
+          @click.stop="open(wallet.options.name); umTrackEvent('connect-wallet', { provider: wallet.options.name })">
           <template #subtitle v-if="wallet.injected">
             Connect with {{ wallet.options.prettyName }}
           </template>

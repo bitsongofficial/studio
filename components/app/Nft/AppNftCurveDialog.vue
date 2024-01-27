@@ -207,8 +207,10 @@ async function onBuy() {
     );
 
     success("Transaction success")
+    umTrackEvent('buy-nft', { nftAddress: props.nftAddress, amount: formData.amount, maxBid: formData.maxBid })
   } catch (e) {
     error(e.message)
+    umTrackEvent('buy-nft-error', { nftAddress: props.nftAddress, amount: formData.amount, maxBid: formData.maxBid })
   } finally {
     await fetchConfig();
     loading.value = false;
@@ -241,8 +243,10 @@ async function onSell() {
     );
 
     success("Transaction success")
+    umTrackEvent('sell-nft', { nftAddress: props.nftAddress, amount: formData.amount, maxBid: formData.maxBid })
   } catch (e) {
     error(e.message)
+    umTrackEvent('sell-nft-error', { nftAddress: props.nftAddress, amount: formData.amount, maxBid: formData.maxBid })
   } finally {
     await fetchConfig();
     loading.value = false;
@@ -272,8 +276,10 @@ async function onAllow() {
     );
 
     success("Transaction success")
+    umTrackEvent('allow-sell-nft', { nftAddress: props.nftAddress })
   } catch (e) {
     error(e.message)
+    umTrackEvent('allow-sell-nft-error', { nftAddress: props.nftAddress })
   } finally {
     await fetchConfig();
     loading.value = false;

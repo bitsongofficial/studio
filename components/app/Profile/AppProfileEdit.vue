@@ -5,19 +5,22 @@
       <v-card variant="text">
         <v-img cover :src="cover" height="127" class="d-flex align-center text-center">
           <div>
-            <v-btn icon="mdi-camera" @click.stop="coverUploader?.click()" variant="plain"></v-btn>
+            <v-btn icon="mdi-camera" @click.stop="coverUploader?.click(); umTrackEvent('select-cover')"
+              variant="plain"></v-btn>
             <v-btn icon="mdi-close" @click.stop="removeCover" variant="plain"></v-btn>
           </div>
         </v-img>
 
         <div class="d-flex justify-space-between mx-4">
           <v-avatar v-if="!avatar" color="surface-variant" size="86" class="profile-avatar">
-            <v-btn icon="mdi-camera" @click.stop="avatarUploader?.click()" variant="plain"></v-btn>
+            <v-btn icon="mdi-camera" @click.stop="avatarUploader?.click(); umTrackEvent('select-avatar')"
+              variant="plain"></v-btn>
           </v-avatar>
 
           <v-avatar v-else-if="newValues.avatar || avatar" size="86" class="profile-avatar">
             <v-img :src="avatar" height="86" width="86" class="align-center">
-              <v-btn icon="mdi-camera" @click.stop="avatarUploader?.click()" variant="plain"></v-btn>
+              <v-btn icon="mdi-camera" @click.stop="avatarUploader?.click(); umTrackEvent('select-avatar')"
+                variant="plain"></v-btn>
             </v-img>
           </v-avatar>
         </div>
@@ -131,12 +134,15 @@ const handleClose = () => {
   } else {
     emits("update:modelValue", false);
   }
+
+  umTrackEvent('close-edit-profile')
 };
 
 const onDiscardChanges = (value: boolean) => {
   if (value) {
     emits("update:modelValue", false);
     resetState();
+    umTrackEvent('discard-profile-changes')
   }
 };
 
@@ -256,6 +262,7 @@ const coverUpload = async () => {
 
 const removeCover = async () => {
   newValues.cover = null
+  umTrackEvent('remove-cover')
 }
 
 function base64ToFile(base64String: string, filename: string): File {
@@ -317,9 +324,11 @@ const handleEditProfile = async () => {
 
     emits("update:modelValue", false);
     resetState();
+    umTrackEvent('save-profile')
   } catch (e) {
     // @ts-ignore
     errorMessage.value = e.data.message
+    umTrackEvent('save-profile-error')
   } finally {
     loading.value = false
   }

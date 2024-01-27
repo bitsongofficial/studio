@@ -1,5 +1,5 @@
 <template>
-  <v-btn v-if="!connected" color="primary" rounded="pill" variant="flat" @click.stop="dialog = true">
+  <v-btn v-if="!connected" color="primary" rounded="pill" variant="flat" @click.stop="onClick">
     Connect
   </v-btn>
   <AppConnectDialog v-model="dialog" />
@@ -9,4 +9,9 @@
 const { connected } = useConnect();
 
 const dialog = ref(false);
+
+function onClick() {
+  dialog.value = true;
+  umTrackEvent('connect-button');
+}
 </script>

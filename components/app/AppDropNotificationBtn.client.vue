@@ -44,10 +44,12 @@ watch(connected, (value) => {
 function openDialog() {
   if (!connected.value) {
     appConnectDialog.value = true;
+    umTrackEvent('open-drop-notification', { dropId: props.dropId, connected: false });
     return;
   }
 
   dialog.value = true;
+  umTrackEvent('open-drop-notification', { dropId: props.dropId, connected: true });
 }
 
 async function deleteNotification() {
@@ -58,6 +60,8 @@ async function deleteNotification() {
       method: "DELETE"
     })
     complete.value = false;
+
+    umTrackEvent('disable-drop-notification', { dropId: props.dropId });
 
     await refresh();
   } catch (e) {
