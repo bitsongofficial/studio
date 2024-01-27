@@ -28,11 +28,10 @@ export const userUpdateProfileSchema = z
           if (!file || file.data.toString().length === 0) return true
           return sharp(file.data).metadata().then((image) => (
             (image.height && image.width) &&
-            (image.height >= 400 && image.width >= 400) &&
-            (image.width === image.height * 1)
+            (image.height >= 400 && image.width >= 400)
           ))
         },
-        'Image must be at least 400x400px and have a 1:1 aspect ratio'
+        'Image must be at least 400x400px'
       ),
     cover: z
       .any()
@@ -56,11 +55,10 @@ export const userUpdateProfileSchema = z
           if (!file || file.data.toString().length === 0) return true
           return sharp(file.data).metadata().then((image) => (
             (image.height && image.width) &&
-            (image.height >= 300 && image.width >= 1374) &&
-            (image.width === image.height * 4.58)
+            (image.height >= 300 && image.width >= 1374)
           ))
         },
-        'Image must be at least 300x1374px and have a 4:1 aspect ratio'
+        'Image must be at least 300x1374px'
       )
     ,
     username: z.string({

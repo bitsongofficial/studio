@@ -18,7 +18,7 @@
           </v-avatar>
 
           <v-avatar v-else-if="newValues.avatar || avatar" size="86" class="profile-avatar">
-            <v-img :src="avatar" height="86" width="86" class="align-center">
+            <v-img :src="avatar" cover height="86" width="86" class="align-center">
               <v-btn icon="mdi-camera" @click.stop="avatarUploader?.click(); umTrackEvent('select-avatar')"
                 variant="plain"></v-btn>
             </v-img>
@@ -151,7 +151,7 @@ interface ImageValidator {
   formatsAllowed: string[];
   minWidth: number;
   minHeight: number;
-  square: boolean;
+  square?: boolean;
 }
 
 const validateImage = (file: File, opts: ImageValidator) => {
@@ -218,9 +218,8 @@ const avatarUpload = async () => {
     validateImage(file, {
       maxFileSize: 10 * 1024 * 1024,
       formatsAllowed: ["image/jpeg", "image/png"],
-      minWidth: 250,
-      minHeight: 250,
-      square: true,
+      minWidth: 400,
+      minHeight: 400,
     }).then(() => {
       newValues.avatar = e.target?.result as string
     }).catch((e) => {

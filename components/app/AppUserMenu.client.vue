@@ -12,7 +12,7 @@
       <v-card min-width="300">
         <div class="py-3 text-center flex-grow-1">
           <v-avatar size="80" @click.stop="navigateTo('/me')" :style="{ cursor: 'pointer' }">
-            <v-img :src="avatar" :alt="accountName"></v-img>
+            <v-img :src="avatar" :alt="accountName" cover></v-img>
           </v-avatar>
           <v-card-title @click.stop="navigateTo('/me')" :style="{ cursor: 'pointer' }">
             {{ name }}

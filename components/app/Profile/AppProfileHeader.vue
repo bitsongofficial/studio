@@ -4,7 +4,7 @@
     <div class="d-flex justify-space-between mx-4">
       <v-avatar v-if="!avatar" color="surface-variant" size="125" class="profile-avatar"></v-avatar>
       <v-avatar v-else size="125" class="profile-avatar">
-        <v-img :src="avatar" :alt="address" :aspect-ratio="1 / 1"></v-img>
+        <v-img :src="avatar" cover :alt="address" :aspect-ratio="1 / 1"></v-img>
       </v-avatar>
 
       <v-btn v-if="canEdit" rounded="pill" class="mt-4" variant="outlined"

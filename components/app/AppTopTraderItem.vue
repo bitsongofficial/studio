@@ -8,7 +8,7 @@
         <NuxtLink>
           <v-avatar size="42">
             <v-img :src="trader.avatar ? img(useIpfsLink(trader.avatar)!, { width: 42, format: 'webp' }) : defaultImage"
-              :alt="trader.username || trader.address"></v-img>
+              :alt="trader.username || trader.address" cover></v-img>
           </v-avatar>
         </NuxtLink>
       </v-col>
