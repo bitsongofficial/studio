@@ -29,13 +29,6 @@ export const useNavigationDrawer = () => {
         to: "/",
         onlyLoggedIn: false,
         exact: true,
-      },
-      {
-        title: "Upload",
-        icon: "mdi-music",
-        to: "/me/tracks/create",
-        onlyLoggedIn: false,
-        exact: true,
       }
     ];
   });

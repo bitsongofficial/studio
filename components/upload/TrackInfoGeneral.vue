@@ -30,7 +30,7 @@
         </v-row>
         <v-row no-gutters>
           <v-col>
-            <v-text-field label="BitSong Address" variant="outlined"></v-text-field>
+            <v-text-field label="BitSong Address" v-model="artist.address" variant="outlined"></v-text-field>
           </v-col>
         </v-row>
       </v-col>
@@ -43,9 +43,18 @@
         <v-btn @click="addArtist">Add Artist</v-btn>
       </v-col>
     </v-row>
-    <v-row no-gutters>
+
+    <v-row v-if="error">
+      <v-col>
+        <v-alert variant="outlined" type="error">
+          {{ error }}
+        </v-alert>
+      </v-col>
+    </v-row>
+
+    <v-row>
       <v-col class="text-right">
-        <v-btn @click="onDone">Continue</v-btn>
+        <v-btn :loading="loading" @click="onContinue">Continue</v-btn>
       </v-col>
     </v-row>
   </v-container>
@@ -55,6 +64,7 @@
 export interface Artist {
   role: string;
   name: string;
+  address: string;
 }
 
 export interface TrackInfoGeneral {
@@ -64,12 +74,15 @@ export interface TrackInfoGeneral {
   artists: Artist[];
 }
 
+const error = ref("");
+const loading = ref(false);
+
 const emits = defineEmits<{
   'update:modelValue': [payload: TrackInfoGeneral];
   "done": [];
 }>()
 
-const props = defineProps<{ modelValue: TrackInfoGeneral }>();
+const props = defineProps<{ modelValue: TrackInfoGeneral, trackId: string }>();
 const modelValue = useVModel(props, 'modelValue', emits, {
   passive: true,
 })
@@ -83,7 +96,8 @@ const canAddArtist = computed(() => modelValue.value.artists.length === 0 || mod
 function addArtist() {
   modelValue.value.artists.push({
     role: "",
-    name: ""
+    name: "",
+    address: ""
   });
 }
 
@@ -91,7 +105,30 @@ function removeArtist(index: number) {
   modelValue.value.artists.splice(index, 1);
 }
 
-function onDone() {
-  emits("done");
+async function onContinue() {
+  error.value = "";
+  loading.value = true;
+
+  try {
+    await $fetch(`/api/me/tracks/${props.trackId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: {
+        title: modelValue.value.title,
+        titleLocale: modelValue.value.titleLocale,
+        version: modelValue.value.version,
+        // modelValue.value.artists filter only not empty artists
+        artists: modelValue.value.artists.filter(artist => artist.name && artist.role && artist.address)
+      }
+    })
+
+    emits("done");
+  } catch (e) {
+    error.value = e.data.message;
+  } finally {
+    loading.value = false;
+  }
 }
 </script>

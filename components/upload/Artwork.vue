@@ -9,8 +9,9 @@
 
     <v-row justify="center" class="mt-12">
       <v-col cols="3">
-        <v-card height="300" class="d-flex align-center justify-center flex-column"
-          :style="{ border: '1px dashed rgb(139 139 139)' }" @click.stop="onDone">
+        <v-card :variant="isOverDropZone ? 'teal' : 'flat'" ref="dropZoneRef" :loading="loading" :disabled="loading"
+          height="300" class="d-flex align-center justify-center flex-column"
+          :style="{ border: '1px dashed rgb(139 139 139)' }" @click.stop="open">
           <v-icon size="64">mdi-image</v-icon>
           <v-card-title class="text-h5">Click or drag image file</v-card-title>
           <v-card-subtitle :style="{ whiteSpace: 'normal', lineHeight: '1.4rem' }" class="text-center px-10">
@@ -38,11 +39,67 @@
 </template>
 
 <script lang="ts" setup>
+import { useFileDialog, useDropZone } from '@vueuse/core'
+
 const emits = defineEmits<{
   (e: "done"): void;
 }>();
 
-function onDone() {
-  emits("done");
+const loading = ref(false);
+const props = defineProps<{ trackId: string }>();
+
+const { open, onChange } = useFileDialog({
+  accept: 'image/jpg, image/jpeg',
+  multiple: false,
+})
+
+async function onDrop(files: File[] | null) {
+  if (!files) {
+    return
+  }
+
+  console.log('dropped', files)
+
+  await upload(files[0])
+
+  console.log('done???')
 }
+
+const dropZoneRef = ref<HTMLDivElement>()
+const { isOverDropZone } = useDropZone(dropZoneRef, {
+  onDrop,
+  dataTypes: ['image/jpg', 'image/jpeg']
+})
+
+async function upload(file: File) {
+  try {
+    loading.value = true
+
+    const formData = new FormData()
+    formData.append('image', file)
+
+    const response = await $fetch(`/api/me/tracks/${props.trackId}/artwork`, {
+      method: 'PUT',
+      body: formData,
+    })
+
+    console.log(response)
+
+    emits("done");
+  } catch (e) {
+    console.error((e as Error).message)
+  } finally {
+    loading.value = false
+  }
+}
+
+onChange(async (files) => {
+  console.log('files', files)
+  if (!files) {
+    console.log('no files')
+    return
+  }
+
+  await upload(files[0])
+})
 </script>

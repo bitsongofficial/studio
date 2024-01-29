@@ -17,6 +17,7 @@
     "@nuxt/devtools": "latest",
     "@nuxt/image": "^1.2.0",
     "@prisma/client": "^5.8.1",
+    "@types/formidable": "^3.4.5",
     "@types/uuid": "^9.0.7",
     "@vue-email/nuxt": "^0.8.8",
     "esbuild-plugin-polyfill-node": "^0.3.0",
@@ -31,7 +32,10 @@
     "vuetify": "^3.4.6"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.501.0",
     "@aws-sdk/client-ses": "^3.490.0",
+    "@aws-sdk/lib-storage": "^3.501.0",
+    "@aws-sdk/s3-request-presigner": "^3.501.0",
     "@bitsongjs/telescope": "3.0.0-dev.21",
     "@chenfengyuan/vue-countdown": "2",
     "@fortawesome/fontawesome-free": "^6.5.1",
@@ -50,6 +54,9 @@
     "@vueuse/nuxt": "^10.7.0",
     "bignumber.js": "^9.1.2",
     "cosmjs-types": "^0.8.0",
+    "file-type": "^19.0.0",
+    "formidable": "^3.5.1",
+    "h3-formidable": "^1.0.0",
     "lucia": "^2.7.5",
     "marked": "^11.1.1",
     "nft.storage": "^7.1.1",

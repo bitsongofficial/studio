@@ -7,7 +7,7 @@ export async function ensureAuth(event: H3Event) {
 
     if (user === null) {
         throw createError({
-            message: 'You must be logged in to create your podcast',
+            message: 'You must be logged in',
             status: 401
         })
     }

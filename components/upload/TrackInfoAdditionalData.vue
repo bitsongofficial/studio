@@ -77,9 +77,17 @@
       </v-col>
     </v-row>
 
-    <v-row no-gutters>
+    <v-row v-if="error">
+      <v-col>
+        <v-alert variant="outlined" type="error">
+          {{ error }}
+        </v-alert>
+      </v-col>
+    </v-row>
+
+    <v-row>
       <v-col class="text-right">
-        <v-btn @click="onDone">Continue</v-btn>
+        <v-btn :loading="loading" @click="onContinue">Continue</v-btn>
       </v-col>
     </v-row>
   </v-container>
@@ -97,19 +105,18 @@ export interface TrackInfoAdditionalData {
   previewDuration: number;
 }
 
+const error = ref("");
+const loading = ref(false);
+
 const emits = defineEmits<{
   'update:modelValue': [payload: TrackInfoAdditionalData];
   "done": [];
 }>()
 
-const props = defineProps<{ modelValue: TrackInfoAdditionalData }>();
+const props = defineProps<{ modelValue: TrackInfoAdditionalData, trackId: string }>();
 const modelValue = useVModel(props, 'modelValue', emits, {
   passive: true,
 })
-
-function onDone() {
-  emits("done");
-}
 
 const trackGenres = [
   "Hip Hop",
@@ -236,4 +243,34 @@ const licenses = [
   "Public Domain",
   "Other",
 ];
+
+async function onContinue() {
+  error.value = "";
+  loading.value = true;
+
+  try {
+    await $fetch(`/api/me/tracks/${props.trackId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: {
+        genre: modelValue.value.genre,
+        country: modelValue.value.country,
+        license: modelValue.value.license,
+        explicit: modelValue.value.explicit,
+        liveRecording: modelValue.value.liveRecording,
+        previousRelease: modelValue.value.previousRelease,
+        previewStartTime: parseInt(modelValue.value.previewStartTime.toString()),
+        previewDuration: modelValue.value.previewDuration,
+      }
+    })
+
+    emits("done");
+  } catch (e) {
+    error.value = e.data.message;
+  } finally {
+    loading.value = false;
+  }
+}
 </script>

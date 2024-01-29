@@ -14,15 +14,26 @@
       </v-col>
     </v-row>
 
-    <v-row no-gutters>
+    <v-row v-if="error">
+      <v-col>
+        <v-alert variant="outlined" type="error">
+          {{ error }}
+        </v-alert>
+      </v-col>
+    </v-row>
+
+    <v-row>
       <v-col class="text-right">
-        <v-btn @click="onDone">Continue</v-btn>
+        <v-btn :loading="loading" @click="onContinue">Continue</v-btn>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script lang="ts" setup>
+const error = ref("");
+const loading = ref(false);
+
 export interface TrackInfoLyrics {
   lyricsLocale?: string;
   lyrics: string;
@@ -33,14 +44,34 @@ const emits = defineEmits<{
   "done": [];
 }>()
 
-const props = defineProps<{ modelValue: TrackInfoLyrics }>();
+const props = defineProps<{ modelValue: TrackInfoLyrics, trackId: string }>();
 const modelValue = useVModel(props, 'modelValue', emits, {
   passive: true,
 })
 
 const languages = ref(["English", "Spanish", "French", "German", "Italian", "Portuguese", "Russian", "Japanese", "Chinese", "Korean", "Arabic", "Hindi", "Other"]);
 
-function onDone() {
-  emits("done");
+async function onContinue() {
+  error.value = "";
+  loading.value = true;
+
+  try {
+    await $fetch(`/api/me/tracks/${props.trackId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: {
+        lyrics: modelValue.value.lyrics,
+        lyricsLocale: modelValue.value.lyricsLocale
+      }
+    })
+
+    emits("done");
+  } catch (e) {
+    error.value = e.data.message;
+  } finally {
+    loading.value = false;
+  }
 }
 </script>

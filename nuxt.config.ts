@@ -16,6 +16,7 @@ export default defineNuxtConfig({
     awsSecretAccessKey: '',
     awsSesRegion: '',
     awsS3Region: '',
+    awsS3BucketTracks: '',
     awsS3BucketPodcast: '',
     awsS3AccessKeyId: '',
     awsS3SecretAccessKey: '',

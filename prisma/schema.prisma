@@ -71,6 +71,47 @@ model DropNotifications {
   @@schema("public")
 }
 
+model tracks {
+  id               String   @id @unique
+  user_id          String
+  title            String?
+  titleLocale      String?
+  license          String?
+  artwork          String?
+  video            String?
+  duration         Int?
+  genre            String?
+  country          String?
+  explicit         String?  @default("Clean")
+  description      String?
+  liveRecording    Boolean? @default(false)
+  lyrics           String?
+  lyricsLocale     String?
+  previousRelease  Boolean? @default(false)
+  previewStartTime Int?     @default(0)
+  previewDuration  Int?     @default(15000)
+
+  version    String?
+  created_at DateTime        @default(now())
+  updated_at DateTime        @default(now()) @updatedAt
+  artists    track_artists[]
+
+  @@index([user_id])
+  @@schema("public")
+}
+
+model track_artists {
+  id       String  @id @unique
+  track_id String
+  address  String?
+  name     String?
+  role     String?
+  track    tracks  @relation(fields: [track_id], references: [id])
+
+  @@index([track_id])
+  @@schema("public")
+}
+
 view nfttokenview {
   nft_id    String  @id @unique
   nft_name  String
