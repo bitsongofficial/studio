@@ -14,7 +14,10 @@
         <UploadTrackInfo v-model="form.trackInfo" @done="currentStep = 4" />
       </v-window-item>
       <v-window-item :key="4">
-        <UploadRoyalties v-model="form.royalties" @done="currentStep = 0" />
+        <UploadRoyalties v-model="form.royalties" @done="currentStep = 5" />
+      </v-window-item>
+      <v-window-item :key="5">
+        <UploadMarketplace v-model="form.marketplace" @done="currentStep = 0" />
       </v-window-item>
     </v-window>
   </div>
@@ -58,6 +61,7 @@ const form = reactive({
     role: "",
     shares: 1000,
   }] as RoylatiesItem[],
+  marketplace: {},
 });
 
 function onUploadTrackDone() {
