@@ -79,7 +79,7 @@ export default defineEventHandler(async (event) => {
     paymentDenom: "ubtsg",
     paymentAddress: "",
     sellerFeeBps: 500,
-    referralFeeBps: 2000,
+    referralFeeBps: 2000, // referral fee / seller fee * 10000
     startTime: "1706637600000000000",
     ratio: 100
   }

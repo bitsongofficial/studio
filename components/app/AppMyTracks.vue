@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols="auto" v-for="track in tracks" :key="track.id">
         <AppMyTracksItem :image="track.artwork || defaultImage" :subtitle="``" :title="track.title || '-'"
-          :link="`/me/tracks/${track.id}/edit`" btnText="Complete" />
+          :link="`/me/tracks/${track.id}/confirm`" btnText="Confirm" />
       </v-col>
     </v-row>
   </v-container>
