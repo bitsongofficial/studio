@@ -147,6 +147,10 @@ const data = reactive({
   license: "All Rights Reserved",
 })
 
+if (data.startTime < Math.floor(Date.now() / 1000)) {
+  navigateTo(`/nfts/bitsong1nwnejwsdpqktusvh8qhxe5arsznjd5asdwutmaz9n5qcpl3dcmhswz930x`)
+}
+
 useSeoMeta({
   title: `${data.title} by ${data.artists.join(', ')}`,
   description: data.description,

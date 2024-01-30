@@ -24,6 +24,13 @@ const drops = [{
   title: "Ready or Not",
   startTime: 1706205600,
   link: "/nfts/bitsong1wl59k23zngj34l7d42y9yltask7rjlnxgccawc7ltrknp6n52fpsepyxgg"
+}, {
+  id: 'amnesia',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmXpdm3A9YB6vgLjyiA7xKrv8UKeXhtPpTjAKEzEPKeehN",
+  subtitle: "Exept",
+  title: "Amnesia",
+  startTime: 1706637600,
+  link: "/nfts/bitsong1nwnejwsdpqktusvh8qhxe5arsznjd5asdwutmaz9n5qcpl3dcmhswz930x"
 }]
 
 const activeDrops = computed(() => {
