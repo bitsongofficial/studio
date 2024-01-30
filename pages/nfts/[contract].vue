@@ -3,9 +3,9 @@
     <template #body>
       <v-container fluid>
         <v-row>
-          <v-col cols="12" md="8" class="text-center">
+          <v-col cols="12" md="8" class="text-center pb-0">
             <div>
-              <video v-if="data?.animation_url" class="mx-auto rounded-xl w-75" controls :poster="nftImage">
+              <video v-if="data?.animation_url" class="mx-auto rounded-xl media__content" controls :poster="nftImage">
                 <source :src="useIpfsLink(data?.animation_url)" type="audio/mp3" />
               </video>
               <v-img v-else class="mx-auto rounded-xl w-75" :src="nftImage">
@@ -59,7 +59,7 @@
             <v-row>
 
 
-              <v-col cols="12" md="6">
+              <v-col cols="6">
                 <div class="text-caption text-grey text-uppercase">NFT</div>
                 <div>
                   <nuxt-link :to="`/nfts/${contractAddress}`" class="text-decoration-none text-white">
@@ -68,24 +68,23 @@
                 </div>
               </v-col>
 
-              <v-col cols="12" md="6" v-if="data?.sender">
+              <v-col cols="6" v-if="data?.sender">
                 <div class="text-caption text-grey text-uppercase">CREATOR</div>
                 <div>
-                  <!--<nuxt-link :to="`/account/${data?.sender}`" class="text-decoration-none text-white">
+                  <nuxt-link :to="`/u/${data?.sender}`" class="text-decoration-none text-white">
                     {{ formatShortAddress(data?.sender, 8) }}
-                  </nuxt-link>-->
-                  {{ formatShortAddress(data?.sender, 8) }}
+                  </nuxt-link>
                 </div>
               </v-col>
 
-              <v-col cols="12" md="6" v-if="false">
+              <v-col cols="6" v-if="false">
                 <div class="text-caption text-grey text-uppercase">
                   Max Edition
                 </div>
                 <div>-</div>
               </v-col>
 
-              <v-col cols="12" md="6" v-if="data?.payment_address">
+              <v-col cols="6" v-if="data?.payment_address">
                 <div class="text-caption text-grey text-uppercase">
                   Royalties Address
                 </div>
@@ -97,7 +96,19 @@
                 </div>
               </v-col>
 
-              <v-col cols="12" md="6" v-if="data?.seller_fee_bps">
+              <v-col cols="6" v-if="data?.payment_address">
+                <div class="text-caption text-grey text-uppercase">
+                  Marketplace Address
+                </div>
+                <div>
+                  <NuxtLink :to="`https://mintscan.io/bitsong/address/${data?.marketplace_address}`" target="_blank"
+                    class="text-decoration-none text-white">
+                    {{ formatShortAddress(data?.marketplace_address!, 8) }}
+                  </NuxtLink>
+                </div>
+              </v-col>
+
+              <v-col cols="6" v-if="data?.seller_fee_bps">
                 <div class="text-caption text-grey text-uppercase">
                   Seller Fee %
                 </div>
@@ -106,7 +117,7 @@
                   %</div>
               </v-col>
 
-              <v-col cols="12" md="6" v-if="data?.referral_fee_bps && data?.seller_fee_bps">
+              <v-col cols="6" v-if="data?.referral_fee_bps && data?.seller_fee_bps">
                 <div class="text-caption text-grey text-uppercase">
                   Referral Fee %
                 </div>
@@ -116,28 +127,28 @@
                 </div>
               </v-col>
 
-              <v-col cols="12" md="6" v-if="data?.max_per_address">
+              <v-col cols="6" v-if="data?.max_per_address">
                 <div class="text-caption text-grey text-uppercase">
                   Max per Address
                 </div>
                 <div>{{ data?.max_per_address }}</div>
               </v-col>
 
-              <v-col cols="12" md="6" v-if="data?.volume">
+              <v-col cols="6" v-if="data?.volume">
                 <div class="text-caption text-grey text-uppercase">
                   Total Volume
                 </div>
                 <div>{{ formatNumber(useFromMicroAmount(data?.volume)) }} <span class="text-subtitle-2">BTSG</span></div>
               </v-col>
 
-              <v-col cols="12" md="6" v-if="data?.owners">
+              <v-col cols="6" v-if="data?.owners">
                 <div class="text-caption text-grey text-uppercase">
                   Unique Owners
                 </div>
                 <div>{{ data.owners }}</div>
               </v-col>
 
-              <v-col cols="12" md="6" v-if="data?.editions">
+              <v-col cols="6" v-if="data?.editions">
                 <div class="text-caption text-grey text-uppercase">
                   Editions
                 </div>
@@ -339,5 +350,15 @@ onUnmounted(() => {
 .md__content p {
   padding-top: 10px;
   padding-bottom: 10px;
+}
+
+.media__content {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .media__content {
+    width: 75%;
+  }
 }
 </style>
