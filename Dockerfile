@@ -1,8 +1,8 @@
 # syntax = docker/dockerfile:1
 
-ARG NODE_VERSION=18.14.2
+ARG NODE_VERSION=21.6.0-slim
 
-FROM node:${NODE_VERSION}-slim as base
+FROM node:${NODE_VERSION} as base
 
 ARG PORT=3000
 

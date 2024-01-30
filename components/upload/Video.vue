@@ -96,6 +96,11 @@ onChange(async (files) => {
 })
 
 function onDone() {
+  loading.value = true;
   emits("done");
 }
+
+onMounted(() => {
+  loading.value = false;
+})
 </script>

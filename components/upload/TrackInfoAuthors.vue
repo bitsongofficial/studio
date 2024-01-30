@@ -14,7 +14,7 @@
         </v-row>
         <v-row no-gutters>
           <v-col>
-            <v-text-field label="BitSong Address" variant="outlined"></v-text-field>
+            <v-text-field label="BitSong Address" v-model="ap.address" variant="outlined"></v-text-field>
           </v-col>
         </v-row>
       </v-col>
@@ -27,9 +27,17 @@
         <v-btn @click="add">Add Author & Publisher</v-btn>
       </v-col>
     </v-row>
-    <v-row no-gutters>
+    <v-row v-if="error">
+      <v-col>
+        <v-alert variant="outlined" type="error">
+          {{ error }}
+        </v-alert>
+      </v-col>
+    </v-row>
+
+    <v-row>
       <v-col class="text-right">
-        <v-btn @click="onDone">Continue</v-btn>
+        <v-btn :loading="loading" @click="onContinue">Continue</v-btn>
       </v-col>
     </v-row>
   </v-container>
@@ -47,7 +55,10 @@ const emits = defineEmits<{
   "done": [];
 }>()
 
-const props = defineProps<{ modelValue: AuthorPublisher[] }>();
+const error = ref("");
+const loading = ref(false);
+
+const props = defineProps<{ modelValue: AuthorPublisher[], trackId: string }>();
 const modelValue = useVModel(props, 'modelValue', emits, {
   passive: true,
 })
@@ -61,6 +72,7 @@ const publisherRoles = [
   "Co-Producer",
   "Remixer",
   "Arranger",
+  "Web3 Team"
 ]
 
 const canAdd = computed(() => modelValue.value.length === 0 || modelValue.value[modelValue.value.length - 1].role && modelValue.value[modelValue.value.length - 1].name);
@@ -77,7 +89,26 @@ function remove(index: number) {
   modelValue.value.splice(index, 1);
 }
 
-function onDone() {
-  emits("done");
+async function onContinue() {
+  error.value = "";
+  loading.value = true;
+
+  try {
+    await $fetch(`/api/me/tracks/${props.trackId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: {
+        authors_publishers: modelValue.value.filter(ap => ap.name && ap.role && ap.address)
+      }
+    })
+
+    emits("done");
+  } catch (e) {
+    error.value = e.data.message;
+  } finally {
+    loading.value = false;
+  }
 }
 </script>

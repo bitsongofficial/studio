@@ -1,9 +1,6 @@
 <template>
   <div>
     <ClientOnly>
-      {{ trackId }}<br>
-      {{ form.trackInfo }}
-
       <v-window v-model="currentStep">
         <v-window-item :value="0">
           <UploadArtwork :track-id="trackId" @done="onUploadArtworkDone" />
@@ -12,13 +9,13 @@
           <UploadVideo :track-id="trackId" @done="onUploadVideoDone" />
         </v-window-item>
         <v-window-item :value="2">
-          <UploadTrackInfo :track-id="trackId" v-model="form.trackInfo" @done="currentStep = 4" />
+          <UploadTrackInfo :track-id="trackId" v-model="form.trackInfo" @done="currentStep = 3" />
         </v-window-item>
         <v-window-item :value="3">
-          <UploadRoyalties v-model="form.royalties" @done="currentStep = 5" />
+          <UploadRoyalties :track-id="trackId" v-model="form.royalties" @done="currentStep = 4" />
         </v-window-item>
         <v-window-item :value="4">
-          <UploadMarketplace v-model="form.marketplace" @done="currentStep = 0" />
+          <UploadMarketplace :track-id="trackId" v-model="form.marketplace" @done="currentStep = 0" />
         </v-window-item>
       </v-window>
     </ClientOnly>
@@ -26,6 +23,7 @@
 </template>
 
 <script lang="ts" setup>
+import type { MarketPlace } from '~/components/upload/Marketplace.vue';
 import type { RoylatiesItem } from '~/components/upload/Royalties.vue';
 import type { TrackInfo } from '~/components/upload/TrackInfo.vue';
 import type { TrackInfoAdditionalData } from '~/components/upload/TrackInfoAdditionalData.vue';
@@ -54,20 +52,26 @@ const form = reactive({
       role: "",
       address: "",
     }] as Artist[],
-    additionalData: {} as TrackInfoAdditionalData,
     authors_publishers: [{
       name: "",
-      role: ""
+      role: "",
+      address: ""
     }] as AuthorPublisher[],
+    additionalData: {} as TrackInfoAdditionalData,
     lyrics: {} as TrackInfoLyrics,
     video: "",
     track: "",
   } as TrackInfo,
   royalties: [{
     role: "",
+    address: "",
     shares: 1000,
   }] as RoylatiesItem[],
-  marketplace: {},
+  marketplace: {
+    creatorFee: 3,
+    referralFee: 0.5,
+    ratio: 100,
+  } as MarketPlace,
 });
 
 const { data: track, error, refresh } = await useFetch(`/api/me/tracks/${trackId}`, {
@@ -94,6 +98,7 @@ watch(track, (newValue) => {
   form.trackInfo.additionalData.previousRelease = newValue?.previousRelease ?? false
   form.trackInfo.lyrics.lyrics = newValue?.lyrics ?? ""
   form.trackInfo.lyrics.lyricsLocale = newValue?.lyricsLocale ?? ""
+
   form.trackInfo.artists = newValue?.artists ? newValue.artists.map((artist) => {
     return {
       name: artist.name,
@@ -105,6 +110,38 @@ watch(track, (newValue) => {
     role: "",
     address: "",
   }] as Artist[]
+
+
+  form.trackInfo.authors_publishers = newValue?.authors_publishers ? newValue.authors_publishers.map((author) => {
+    return {
+      name: author.name,
+      role: author.role,
+      address: author.address,
+    }
+  }) as AuthorPublisher[] : [{
+    name: "",
+    role: "",
+    address: "",
+  }] as AuthorPublisher[]
+
+  form.royalties = newValue?.royalties_info ? newValue.royalties_info.map((royalty) => {
+    return {
+      role: royalty.role,
+      address: royalty.address,
+      shares: royalty.shares,
+    }
+  }) as RoylatiesItem[] : [{
+    role: "",
+    address: "",
+    shares: 1000,
+  }] as RoylatiesItem[]
+
+  if (newValue?.marketplace && newValue?.marketplace?.length > 0) {
+    form.marketplace.curveRatio = newValue.marketplace[0].ratio ?? 1
+    form.marketplace.creatorFee = newValue.marketplace[0].creator_fee ?? 3
+    form.marketplace.referralFee = newValue.marketplace[0].referral_fee ?? 0.5
+  }
+
 }, {
   immediate: true
 })

@@ -89,7 +89,13 @@ const modelValue = useVModel(props, 'modelValue', emits, {
 
 const languages = ref(["English", "Spanish", "French", "German", "Italian", "Portuguese", "Russian", "Japanese", "Chinese", "Korean", "Arabic", "Hindi", "Other"]);
 
-const artistRoles = ref(["Main Artist", "Featured Artist", "Remixer", "Producer", "Composer", "Lyricist", "Arranger", "Orchestra", "Conductor", "DJ", "MC", "Vocalist", "Instrumentalist", "Band", "Group", "Ensemble", "Choir", "Other"]);
+const artistRoles = ref([
+  "Main Artist",
+  "Featuring",
+  "Remixed By",
+  "Versus (vs)",
+  "With"
+]);
 
 const canAddArtist = computed(() => modelValue.value.artists.length === 0 || modelValue.value.artists[modelValue.value.artists.length - 1].role && modelValue.value.artists[modelValue.value.artists.length - 1].name);
 
@@ -119,7 +125,6 @@ async function onContinue() {
         title: modelValue.value.title,
         titleLocale: modelValue.value.titleLocale,
         version: modelValue.value.version,
-        // modelValue.value.artists filter only not empty artists
         artists: modelValue.value.artists.filter(artist => artist.name && artist.role && artist.address)
       }
     })

@@ -9,7 +9,7 @@
 
     <v-row justify="center" class="mt-12">
       <v-col cols="2">
-        <v-card class="d-flex flex-column pa-4" @click.stop="onDone">
+        <v-card class="d-flex flex-column pa-4">
           <v-img cover gradient="to bottom, rgba(0,0,0,.10), rgba(0,0,0,.7)"
             :src="img(modelValue.artwork, { width: 250, height: 250, fit: 'cover' })" height="230" width="100%">
           </v-img>
@@ -38,7 +38,7 @@
             <UploadTrackInfoLyrics :track-id="trackId" v-model="modelValue.lyrics" @done="currentStep = 4" />
           </v-window-item>
           <v-window-item :key="4">
-            <UploadTrackInfoAuthors v-model="modelValue.authors_publishers" @done="onDone" />
+            <UploadTrackInfoAuthors :track-id="trackId" v-model="modelValue.authors_publishers" @done="onDone" />
           </v-window-item>
         </v-window>
       </v-col>

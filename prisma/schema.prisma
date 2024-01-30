@@ -91,10 +91,13 @@ model tracks {
   previewStartTime Int?     @default(0)
   previewDuration  Int?     @default(15000)
 
-  version    String?
-  created_at DateTime        @default(now())
-  updated_at DateTime        @default(now()) @updatedAt
-  artists    track_artists[]
+  version            String?
+  created_at         DateTime                   @default(now())
+  updated_at         DateTime                   @default(now()) @updatedAt
+  artists            track_artists[]
+  authors_publishers track_authors_publishers[]
+  royalties_info     track_royalties_info[]
+  marketplace        track_marketplace[]
 
   @@index([user_id])
   @@schema("public")
@@ -107,6 +110,42 @@ model track_artists {
   name     String?
   role     String?
   track    tracks  @relation(fields: [track_id], references: [id])
+
+  @@index([track_id])
+  @@schema("public")
+}
+
+model track_authors_publishers {
+  id       String  @id @unique
+  track_id String
+  address  String?
+  name     String?
+  role     String?
+  track    tracks  @relation(fields: [track_id], references: [id])
+
+  @@index([track_id])
+  @@schema("public")
+}
+
+model track_royalties_info {
+  id       String  @id @unique
+  track_id String
+  address  String?
+  role     String?
+  shares   Int?
+  track    tracks  @relation(fields: [track_id], references: [id])
+
+  @@index([track_id])
+  @@schema("public")
+}
+
+model track_marketplace {
+  id           String @id @unique
+  track_id     String
+  ratio        Int?
+  creator_fee  Float?
+  referral_fee Float?
+  track        tracks @relation(fields: [track_id], references: [id])
 
   @@index([track_id])
   @@schema("public")

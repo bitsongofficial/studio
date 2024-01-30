@@ -18,40 +18,37 @@
             <v-col cols="4">
               <v-row no-gutters>
                 <v-col cols="6">
-                  <v-slider v-model="modelValue.creatorFee" :min="0.5" :max="7.5" :step="0.5"></v-slider>
+                  <v-slider v-model="modelValue.curveRatio" :min="1" :max="1000" :step="1"></v-slider>
                 </v-col>
                 <v-col cols="6">
                   <div class="text-center text-h4 text-surface-variant">
-                    {{ modelValue.creatorFee }} <span class="text-h6">%</span>
+                    {{ modelValue.curveRatio }}
                   </div>
                 </v-col>
               </v-row>
-              <v-row no-gutters>
+              <v-row no-gutters class="mt-n4">
                 <v-col>
-                  <v-chip color="green" v-if="modelValue.creatorFee! <= 2.5">Reccomended</v-chip>
+                  <v-chip color="green" v-if="modelValue.curveRatio! <= 2.5">Reccomended</v-chip>
                   <v-chip color="yellow"
-                    v-if="modelValue.creatorFee! > 2.5 && modelValue.creatorFee! <= 5">Medium</v-chip>
-                  <v-chip color="red" v-if="modelValue.creatorFee! > 5">Not Reccomended</v-chip>
+                    v-if="modelValue.curveRatio! > 2.5 && modelValue.curveRatio! <= 5">Medium</v-chip>
+                  <v-chip color="red" v-if="modelValue.curveRatio! > 5">Not Reccomended</v-chip>
                 </v-col>
               </v-row>
             </v-col>
           </v-row>
 
-          <v-row justify="center" align="center">
+          <v-row class="pb-10" justify="center" align="center">
             <v-col cols="10">
-              <v-alert class="pb-2">
-                <v-row align="center">
-                  <v-col>
-                    <v-card-title class="pt-0">Simulazione</v-card-title>
-                    <v-card-text>
-                      Esegui una simulazione con questi parametri, TODO continuare descrizione
-                    </v-card-text>
-                  </v-col>
-                  <v-col cols="2" class="text-right">
-                    <v-btn variant="text" color="white" icon="mdi-arrow-right" @click="onDone"></v-btn>
-                  </v-col>
-                </v-row>
-              </v-alert>
+              <v-card class="justify-space-between d-flex align-center">
+                <div>
+                  <v-card-title>Simulazione</v-card-title>
+                  <v-card-text>
+                    Esegui una simulazione con questi parametri, TODO continuare descrizione
+                  </v-card-text>
+                </div>
+                <v-spacer></v-spacer>
+                <v-btn variant="text" color="white" icon="mdi-arrow-right"></v-btn>
+              </v-card>
             </v-col>
           </v-row>
 
@@ -72,7 +69,7 @@
                   </div>
                 </v-col>
               </v-row>
-              <v-row no-gutters>
+              <v-row no-gutters class="mt-n4">
                 <v-col>
                   <v-chip color="green" v-if="modelValue.creatorFee! <= 2.5">Reccomended</v-chip>
                   <v-chip color="yellow"
@@ -99,7 +96,7 @@
                   </div>
                 </v-col>
               </v-row>
-              <v-row no-gutters>
+              <v-row no-gutters class="mt-n4">
                 <v-col>
                   <v-chip color="green" v-if="modelValue.referralFee! <= 2.5">Reccomended</v-chip>
                   <v-chip color="yellow"
@@ -110,32 +107,37 @@
             </v-col>
           </v-row>
 
-          <v-row justify="center" align="center">
+          <v-row class="pt-1" justify="center" align="center">
             <v-col cols="10">
-              <v-alert>
-                <v-card-title class="pt-0">Example</v-card-title>
-                <v-card-text>
-                  Se qualcuno compra o vende e tu sei solo otterrai il X. Se qualcuno compra o vende e tu sei
-                  con un referrer otterrai il X - Y.
-                </v-card-text>
+              <v-card class="justify-space-between d-flex align-center">
+                <div>
+                  <v-card-title>Esempio</v-card-title>
+                  <v-card-text>
+                    TODO: aggiungere esempio. Se qualcuno compra o vende e tu sei solo otterrai il X. Se qualcuno compra o
+                    vende e tu sei
+                    con un referrer otterrai il X - Y.
+                  </v-card-text>
+                </div>
+              </v-card>
+            </v-col>
+          </v-row>
+
+
+          <v-row v-if="error">
+            <v-col>
+              <v-alert variant="outlined" type="error">
+                {{ error }}
               </v-alert>
             </v-col>
           </v-row>
 
-
-
-        </v-container>
-
-
-
-
-        <v-container>
-
           <v-row>
             <v-col class="text-right">
-              <v-btn @click="onDone">Continue</v-btn>
+              <v-btn :loading="loading" @click="onContinue">Continue</v-btn>
             </v-col>
           </v-row>
+
+
         </v-container>
       </v-col>
     </v-row>
@@ -152,16 +154,15 @@ export interface MarketPlace {
   maxEditions?: number;
 }
 
+const error = ref("");
+const loading = ref(false);
+
 const emits = defineEmits<{
   'update:modelValue': [payload: MarketPlace];
   "done": [];
 }>();
 
-function onDone() {
-  emits("done");
-}
-
-const props = defineProps<{ modelValue: MarketPlace }>();
+const props = defineProps<{ modelValue: MarketPlace, trackId: string }>();
 const modelValue = useVModel(props, 'modelValue', emits, {
   passive: true,
 })
@@ -170,5 +171,37 @@ const startTime = ref();
 
 const setStartTime = (value: any) => {
   startTime.value = value;
+}
+
+async function onContinue() {
+  error.value = "";
+  loading.value = true;
+
+  if (!modelValue.value.curveRatio || !modelValue.value.creatorFee || !modelValue.value.referralFee) {
+    loading.value = false;
+    return;
+  }
+
+  try {
+    await $fetch(`/api/me/tracks/${props.trackId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: {
+        marketplace: {
+          ratio: modelValue.value.curveRatio,
+          creator_fee: modelValue.value.creatorFee,
+          referral_fee: modelValue.value.referralFee,
+        }
+      }
+    })
+
+    //emits("done");
+  } catch (e) {
+    error.value = e.data.message;
+  } finally {
+    loading.value = false;
+  }
 }
 </script>

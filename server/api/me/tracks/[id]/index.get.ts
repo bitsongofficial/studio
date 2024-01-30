@@ -21,6 +21,9 @@ export default defineEventHandler(async (event) => {
     },
     include: {
       artists: true,
+      authors_publishers: true,
+      royalties_info: true,
+      marketplace: true,
     }
   })
 

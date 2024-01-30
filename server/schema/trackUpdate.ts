@@ -13,19 +13,11 @@ export const trackUpdateSchema = z
       .optional(),
     titleLocale: z.string({
       required_error: 'Title locale is required',
-    }).min(1, {
-      message: 'Title locale must be at least 1 character',
-    }).max(100, {
-      message: 'Title locale must be at most 100 characters',
     })
       .transform((val) => val.trim())
       .optional(),
     version: z.string({
       required_error: 'Version is required',
-    }).min(1, {
-      message: 'Version must be at least 1 character',
-    }).max(100, {
-      message: 'Version must be at most 100 characters',
     })
       .transform((val) => val.trim())
       .optional(),
@@ -72,19 +64,11 @@ export const trackUpdateSchema = z
     previewDuration: z.number().optional(),
     lyrics: z.string({
       required_error: 'Lyrics are required',
-    }).min(1, {
-      message: 'Lyrics must be at least 1 character',
-    }).max(1000, {
-      message: 'Lyrics must be at most 1000 characters',
     })
       .transform((val) => val.trim())
       .optional(),
     lyricsLocale: z.string({
       required_error: 'Lyrics locale is required',
-    }).min(1, {
-      message: 'Lyrics locale must be at least 1 character',
-    }).max(100, {
-      message: 'Lyrics locale must be at most 100 characters',
     })
       .transform((val) => val.trim())
       .optional(),
@@ -93,4 +77,19 @@ export const trackUpdateSchema = z
       name: z.string().optional(),
       role: z.string().optional(),
     })).optional(),
+    authors_publishers: z.array(z.object({
+      address: z.string().optional(),
+      name: z.string().optional(),
+      role: z.string().optional(),
+    })).optional(),
+    royalties_info: z.array(z.object({
+      address: z.string().optional(),
+      role: z.string().optional(),
+      shares: z.number().optional(),
+    })).optional(),
+    marketplace: z.object({
+      ratio: z.number().optional(),
+      creator_fee: z.number().optional(),
+      referral_fee: z.number().optional(),
+    }).optional(),
   })

@@ -2,7 +2,7 @@
   <v-container class="mt-8">
     <v-row justify="center">
       <v-col cols="auto" class="text-center">
-        <h1 class="text-h3 font-weight-bold">Royaltyes</h1>
+        <h1 class="text-h3 font-weight-bold">Royalties</h1>
         <h2 class="text-h6 pt-2 text-surface-variant">Indicate the percentage of royalties you want to pay to the
           authors of the track</h2>
       </v-col>
@@ -49,9 +49,17 @@
               <v-btn @click="add">Add Royalties Recipient</v-btn>
             </v-col>
           </v-row>
+          <v-row v-if="error">
+            <v-col>
+              <v-alert variant="outlined" type="error">
+                {{ error }}
+              </v-alert>
+            </v-col>
+          </v-row>
+
           <v-row>
             <v-col class="text-right">
-              <v-btn @click="onDone">Continue</v-btn>
+              <v-btn :loading="loading" @click="onContinue">Continue</v-btn>
             </v-col>
           </v-row>
         </v-container>
@@ -72,11 +80,10 @@ const emits = defineEmits<{
   "done": [];
 }>();
 
-function onDone() {
-  emits("done");
-}
+const error = ref("");
+const loading = ref(false);
 
-const props = defineProps<{ modelValue: RoylatiesItem[] }>();
+const props = defineProps<{ modelValue: RoylatiesItem[], trackId: string }>();
 const modelValue = useVModel(props, 'modelValue', emits, {
   passive: true,
 })
@@ -126,6 +133,29 @@ function validateShares(index: number) {
     modelValue.value[index].shares = 1;
   } else {
     modelValue.value[index].shares = sharesNumber;
+  }
+}
+
+async function onContinue() {
+  error.value = "";
+  loading.value = true;
+
+  try {
+    await $fetch(`/api/me/tracks/${props.trackId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: {
+        royalties_info: modelValue.value.filter(royalty => royalty.address && royalty.role && royalty.shares)
+      }
+    })
+
+    emits("done");
+  } catch (e) {
+    error.value = e.data.message;
+  } finally {
+    loading.value = false;
   }
 }
 </script>
