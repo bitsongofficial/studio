@@ -18,11 +18,11 @@ dependencies:
     specifier: ^3.501.0
     version: 3.501.0
   '@bitsongjs/metadata':
-    specifier: ^0.1.3
-    version: 0.1.3
+    specifier: ^0.1.4
+    version: 0.1.4
   '@bitsongjs/telescope':
-    specifier: 3.0.0-dev.21
-    version: 3.0.0-dev.21
+    specifier: 3.0.0-dev.22
+    version: 3.0.0-dev.22
   '@chenfengyuan/vue-countdown':
     specifier: '2'
     version: 2.1.2(vue@3.4.10)
@@ -1560,8 +1560,8 @@ packages:
       '@babel/helper-validator-identifier': 7.22.20
       to-fast-properties: 2.0.0
 
-  /@bitsongjs/metadata@0.1.3:
-    resolution: {integrity: sha512-h+mVJ1VwkCSjUnQ3L1xdEDa5T/lkGy9caw782t/1vmsJNksxtk2dFz4ynHEDYY9BNZ9VAZbUMDiT8U8tu6EMUg==}
+  /@bitsongjs/metadata@0.1.4:
+    resolution: {integrity: sha512-IUmz9KkTHYVa7YFt9d4QlndcCdH5ReFHYP+wEc8lopEI5IPbOkTETv2f6VwyehzN9fBRXJJ28O3aQBo5vptGFQ==}
     dependencies:
       '@cosmjs/encoding': 0.32.2
       uuid: 9.0.1
@@ -1569,8 +1569,8 @@ packages:
       zod-to-json-schema: 3.22.4(zod@3.22.4)
     dev: false
 
-  /@bitsongjs/telescope@3.0.0-dev.21:
-    resolution: {integrity: sha512-p7dCNo+uc0hOIB2oVNrJ2Z7FDeDJsUDzcF/0lViI7ClALFdT7WG7Qpdj6WZvNDPqQIpmv4LQziyt+zX8wPgSfQ==}
+  /@bitsongjs/telescope@3.0.0-dev.22:
+    resolution: {integrity: sha512-ZT7yCFLwkBdOdwp7IxBR4G6Opzk8p4oimxBsBz5cIbPeOYXWeycjLnx9UcMrVQJM3bDhdePoIEZakZd9mQND7w==}
     dependencies:
       '@babel/runtime': 7.23.8
       '@cosmjs/amino': 0.31.3
