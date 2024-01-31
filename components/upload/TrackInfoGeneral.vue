@@ -8,8 +8,8 @@
 
     <v-row class="mt-0">
       <v-col>
-        <v-select variant="outlined" :items="languages" label="Title Language" append-inner-icon="mdi-menu-down"
-          v-model="modelValue.titleLocale"></v-select>
+        <v-select variant="outlined" :items="languages" item-title="text" item-value="value" label="Title Language"
+          append-inner-icon="mdi-menu-down" v-model="modelValue.titleLocale"></v-select>
       </v-col>
       <v-col>
         <v-text-field label="Version (optional)" variant="outlined" v-model="modelValue.version"></v-text-field>
@@ -24,8 +24,8 @@
             <v-text-field label="Name" variant="outlined" v-model="artist.name"></v-text-field>
           </v-col>
           <v-col cols="6">
-            <v-select variant="outlined" :items="artistRoles" label="Role" append-inner-icon="mdi-menu-down"
-              v-model="artist.role"></v-select>
+            <v-select variant="outlined" :items="artistRoles" item-title="text" item-value="value" label="Role"
+              append-inner-icon="mdi-menu-down" v-model="artist.role"></v-select>
           </v-col>
         </v-row>
         <v-row no-gutters>
@@ -61,6 +61,49 @@
 </template>
 
 <script lang="ts" setup>
+import iso from 'iso-639-1'
+
+import { z } from 'zod'
+import { bitsongAddressSchema, nonEmptyStringSchema, LocaleSchema } from '@bitsongjs/metadata';
+
+const artistRoles = [{
+  text: "Main Artist",
+  value: "Main Artist"
+}, {
+  text: "Featuring",
+  value: "Featuring"
+}, {
+  text: "Remixed By",
+  value: "Remixed By"
+}, {
+  text: "Versus (vs)",
+  value: "Versus (vs)"
+}, {
+  text: "With",
+  value: "With"
+}]
+
+const FormSchema = z.object({
+  title: nonEmptyStringSchema('The title of the track.'),
+  titleLocale: LocaleSchema,
+  version: z.string({ description: 'The version of the track.' }).optional(),
+  artists: z.array(
+    z.object({
+      name: nonEmptyStringSchema('The name of the artist.'),
+      role: z.string().min(1, {
+        message: 'You must select an artist role.'
+      }).refine((role) => {
+        return artistRoles.map(r => r.value).includes(role)
+      }, {
+        message: 'You must select a valid artist role.'
+      }),
+      address: bitsongAddressSchema(),
+    })
+  ).nonempty(
+    { message: 'At least one artist is required.' }
+  ),
+})
+
 export interface Artist {
   role: string;
   name: string;
@@ -87,15 +130,14 @@ const modelValue = useVModel(props, 'modelValue', emits, {
   passive: true,
 })
 
-const languages = ref(["English", "Spanish", "French", "German", "Italian", "Portuguese", "Russian", "Japanese", "Chinese", "Korean", "Arabic", "Hindi", "Other"]);
-
-const artistRoles = ref([
-  "Main Artist",
-  "Featuring",
-  "Remixed By",
-  "Versus (vs)",
-  "With"
-]);
+const languages = iso.getLanguages(iso.getAllCodes())
+  .map(lang => {
+    return {
+      text: lang.name,
+      value: lang.code
+    }
+  })
+  .sort((a, b) => a.text.localeCompare(b.text))
 
 const canAddArtist = computed(() => modelValue.value.artists.length === 0 || modelValue.value.artists[modelValue.value.artists.length - 1].role && modelValue.value.artists[modelValue.value.artists.length - 1].name);
 
@@ -116,6 +158,12 @@ async function onContinue() {
   loading.value = true;
 
   try {
+    const data = FormSchema.safeParse(modelValue.value);
+    if (!data.success) {
+      error.value = data.error.errors[0].message;
+      return
+    }
+
     await $fetch(`/api/me/tracks/${props.trackId}`, {
       method: 'PUT',
       headers: {
@@ -131,7 +179,11 @@ async function onContinue() {
 
     emits("done");
   } catch (e) {
-    error.value = e.data.message;
+    if (e instanceof z.ZodError) {
+      error.value = e.message
+    } else {
+      error.value = e.data.message;
+    }
   } finally {
     loading.value = false;
   }

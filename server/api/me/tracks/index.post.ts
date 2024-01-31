@@ -1,6 +1,8 @@
 import { PrismaClient } from '@prisma/client';
 import { v4 as uuidv4 } from 'uuid';
 import { storeTrackToS3 } from '~/server/services/s3';
+import ffmpeg, { FfprobeData } from 'fluent-ffmpeg'
+import { getMediaData, validateAudioData } from '~/server/utils/media';
 
 const prisma = new PrismaClient()
 export default defineEventHandler(async (event) => {
@@ -22,19 +24,22 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  if (!_file.mimetype.startsWith('audio/')) {
-    throw createError({
-      message: 'No audio file',
-      status: 400
-    })
-  }
+  // if (!_file.mimetype.startsWith('audio/')) {
+  //   throw createError({
+  //     message: 'No audio file',
+  //     status: 400
+  //   })
+  // }
 
   try {
-    const id = uuidv4()
-    const fileExtension = _file.originalFilename.split('.').pop()
-    const newFilename = `audio.${fileExtension}`
+    const audio = await getMediaData(_file.filepath)
+    const { format_name, duration, size } = audio.format
+    validateAudioData(audio)
 
-    await storeTrackToS3({
+    const id = uuidv4()
+    const newFilename = `audio.${format_name}`
+
+    const { contenType, path } = await storeTrackToS3({
       userId: user.userId,
       id,
       filepath: _file.filepath,
@@ -45,6 +50,11 @@ export default defineEventHandler(async (event) => {
       data: {
         id,
         user_id: user.userId,
+        audio: path,
+        audio_mime_type: contenType,
+        format: format_name,
+        duration: Math.round(duration! * 1000),
+        size: size,
       }
     })
 

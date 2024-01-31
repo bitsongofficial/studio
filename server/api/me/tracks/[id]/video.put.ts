@@ -1,12 +1,25 @@
+import { PrismaClient } from '@prisma/client';
 import { storeTrackImageToS3, storeTrackVideoToS3 } from '~/server/services/s3';
+import { getMediaData } from '~/server/utils/media';
 
 export default defineEventHandler(async (event) => {
   const user = await ensureAuth(event)
   const id = getRouterParam(event, 'id')
 
-  console.log('id', id)
+  const prisma = new PrismaClient()
+  const _track = await prisma.tracks.findUnique({
+    where: {
+      id: id!,
+      user_id: user.userId
+    }
+  })
 
-  // TODO: check if track exists, and if user is the owner
+  if (!_track) {
+    throw createError({
+      message: 'Track not found',
+      status: 404
+    })
+  }
 
   const { files } = await readForm(event, {
     maxFileSize: 300 * 1024 * 1024, // 300MB
@@ -24,8 +37,6 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  console.log(_file.mimetype)
-
   if (!_file.mimetype.startsWith('video/')) {
     throw createError({
       message: 'No video file',
@@ -34,18 +45,35 @@ export default defineEventHandler(async (event) => {
   }
 
   try {
+    const videoData = await getMediaData(_file.filepath)
+    const { format_name, duration, size, bit_rate } = videoData.format
+
     const fileExtension = _file.originalFilename.split('.').pop()
     const newFilename = `video.${fileExtension}`
 
-    const { contenType: content_type, path: video } = await storeTrackVideoToS3({
+    const { contenType, path } = await storeTrackVideoToS3({
       userId: user.userId,
       id: id!,
       filepath: _file.filepath,
       filename: newFilename,
     })
 
-    console.log('video', video)
-    console.log('content_type', content_type)
+    const track = await prisma.tracks.update({
+      where: {
+        id: id!,
+        user_id: user.userId,
+      },
+      data: {
+        video: path,
+        video_mime_type: contenType,
+        video_format: format_name,
+        video_duration: Math.round(duration! * 1000),
+        video_bit_rate: bit_rate,
+        video_size: size,
+      }
+    })
+
+    return track
   } catch (e) {
     console.log(e)
     throw createError({
@@ -53,6 +81,4 @@ export default defineEventHandler(async (event) => {
       status: 500
     })
   }
-
-  return 'ok'
 })

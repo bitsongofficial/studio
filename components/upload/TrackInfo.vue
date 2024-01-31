@@ -10,15 +10,23 @@
     <v-row justify="center" class="mt-12">
       <v-col cols="2">
         <v-card class="d-flex flex-column pa-4">
-          <v-img cover gradient="to bottom, rgba(0,0,0,.10), rgba(0,0,0,.7)"
-            :src="img(modelValue.artwork, { width: 250, height: 250, fit: 'cover' })" height="230" width="100%">
-          </v-img>
+          <video class="w-100 mb-6" controls :poster="modelValue.artwork">
+            <source :src="modelValue.audio" :type="modelValue.audio_mime_type" />
+          </video>
           <v-card-subtitle :style="{ whiteSpace: 'normal', lineHeight: '1.4rem' }" class="px-0 mt-2">
             {{ formattedArtists || '-' }}
           </v-card-subtitle>
           <v-card-title class="px-0 mt-n1" :style="{ whiteSpace: 'normal' }">
             {{ modelValue.title || '-' }} {{ modelValue.version ? `(${modelValue.version})` : '' }}
           </v-card-title>
+
+          <v-card-title class="px-0 text-surface-variant text-body-1 font-weight-bold" v-if="modelValue.video">
+            Video
+          </v-card-title>
+          <video v-if="modelValue.video" class="w-100" controls>
+            <source :src="modelValue.video" :type="modelValue.video_mime_type" />
+          </video>
+
         </v-card>
       </v-col>
       <v-col cols="5">
@@ -28,17 +36,19 @@
           </v-window-item>
           <v-window-item :key="1">
             <UploadTrackInfoDescription :track-id="trackId" v-model="modelValue.description"
-              @done="onTrackInfoDescriptionDone" />
+              @done="onTrackInfoDescriptionDone" @back="currentStep = 0" />
           </v-window-item>
           <v-window-item :key="2">
-            <UploadTrackInfoAdditionalData :track-id="trackId" v-model="modelValue.additionalData"
-              @done="currentStep = 3" />
+            <UploadTrackInfoAdditionalData :track-id="trackId" v-model="modelValue.additionalData" @done="currentStep = 3"
+              @back="currentStep = 1" />
           </v-window-item>
           <v-window-item :key="3">
-            <UploadTrackInfoLyrics :track-id="trackId" v-model="modelValue.lyrics" @done="currentStep = 4" />
+            <UploadTrackInfoLyrics :track-id="trackId" v-model="modelValue.lyrics" @done="currentStep = 4"
+              @back="currentStep = 2" />
           </v-window-item>
           <v-window-item :key="4">
-            <UploadTrackInfoAuthors :track-id="trackId" v-model="modelValue.authors_publishers" @done="onDone" />
+            <UploadTrackInfoAuthors :track-id="trackId" v-model="modelValue.authors_publishers" @done="onDone"
+              @back="currentStep = 3" />
           </v-window-item>
         </v-window>
       </v-col>
@@ -51,6 +61,7 @@ import type { TrackInfoAdditionalData } from './TrackInfoAdditionalData.vue';
 import type { AuthorPublisher } from './TrackInfoAuthors.vue';
 import type { Artist } from './TrackInfoGeneral.vue';
 import type { TrackInfoLyrics } from './TrackInfoLyrics.vue';
+import defaultImage from '@/assets/images/default.png';
 
 const img = useImage();
 
@@ -74,6 +85,10 @@ export interface TrackInfo {
   authors_publishers: AuthorPublisher[];
   lyrics: TrackInfoLyrics;
   artwork: string;
+  audio: string;
+  audio_mime_type: string;
+  video: string;
+  video_mime_type: string;
 }
 
 const props = defineProps<{ modelValue: TrackInfo, trackId: string }>();
@@ -90,4 +105,12 @@ function onTrackInfoGeneralDone() {
 function onTrackInfoDescriptionDone() {
   currentStep.value = 2;
 }
+
+const imagePreview = computed(() => {
+  if (modelValue.value.artwork) {
+    return img(`http://localhost:3000/api/me/tracks/${props.trackId}/artwork`, { width: 250, height: 250, fit: 'cover' });
+  }
+
+  return defaultImage;
+})
 </script>

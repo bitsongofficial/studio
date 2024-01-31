@@ -15,7 +15,10 @@
           <UploadRoyalties :track-id="trackId" v-model="form.royalties" @done="currentStep = 4" />
         </v-window-item>
         <v-window-item :value="4">
-          <UploadMarketplace :track-id="trackId" v-model="form.marketplace" @done="currentStep = 0" />
+          <UploadMarketplace :track-id="trackId" v-model="form.marketplace" @done="currentStep = 5" />
+        </v-window-item>
+        <v-window-item :value="5">
+          <UploadStartTime :track-id="trackId" v-model="form.marketplace.releaseDate" @done="onEditDone" />
         </v-window-item>
       </v-window>
     </ClientOnly>
@@ -44,6 +47,10 @@ const form = reactive({
     id: trackId,
     title: "",
     artwork: "",
+    audio: "",
+    audio_mime_type: "",
+    video: "",
+    video_mime_type: "",
     titleLocale: "",
     version: "",
     description: "",
@@ -59,8 +66,6 @@ const form = reactive({
     }] as AuthorPublisher[],
     additionalData: {} as TrackInfoAdditionalData,
     lyrics: {} as TrackInfoLyrics,
-    video: "",
-    track: "",
   } as TrackInfo,
   royalties: [{
     role: "",
@@ -71,6 +76,7 @@ const form = reactive({
     creatorFee: 3,
     referralFee: 0.5,
     ratio: 100,
+    releaseDate: 0,
   } as MarketPlace,
 });
 
@@ -79,8 +85,12 @@ const { data: track, error, refresh } = await useFetch(`/api/me/tracks/${trackId
 })
 
 watch(track, (newValue) => {
-  if (newValue?.artwork) {
+  if (newValue?.artwork?.endsWith('default.png')) {
+    currentStep.value = 0
+  } else if (!newValue?.video) {
     currentStep.value = 1
+  } else {
+    currentStep.value = 2
   }
 
   form.trackInfo.title = newValue?.title ?? ""
@@ -88,6 +98,12 @@ watch(track, (newValue) => {
   form.trackInfo.version = newValue?.version ?? ""
   form.trackInfo.description = newValue?.description ?? ""
   form.trackInfo.artwork = newValue?.artwork ?? ""
+  form.trackInfo.audio = newValue?.audio!
+  form.trackInfo.audio_mime_type = newValue?.audio_mime_type!
+
+  form.trackInfo.video = newValue?.video! ?? ""
+  form.trackInfo.video_mime_type = newValue?.video_mime_type! ?? ""
+
   form.trackInfo.additionalData.genre = newValue?.genre ?? ""
   form.trackInfo.additionalData.country = newValue?.country ?? ""
   form.trackInfo.additionalData.license = newValue?.license ?? ""
@@ -136,11 +152,12 @@ watch(track, (newValue) => {
     shares: 1000,
   }] as RoylatiesItem[]
 
-  if (newValue?.marketplace && newValue?.marketplace?.length > 0) {
-    form.marketplace.curveRatio = newValue.marketplace[0].ratio ?? 1
-    form.marketplace.creatorFee = newValue.marketplace[0].creator_fee ?? 3
-    form.marketplace.referralFee = newValue.marketplace[0].referral_fee ?? 0.5
-  }
+  form.marketplace = {
+    creatorFee: (newValue?.marketplace && newValue?.marketplace.length > 0) ? newValue.marketplace[0].creator_fee ?? 3 : 3,
+    referralFee: (newValue?.marketplace && newValue?.marketplace.length > 0) ? newValue.marketplace[0].referral_fee ?? 0.5 : 0.5,
+    curveRatio: (newValue?.marketplace && newValue?.marketplace.length > 0) ? newValue.marketplace[0].ratio ?? 100 : 100,
+    releaseDate: newValue?.start_time ?? 0,
+  } as MarketPlace
 
 }, {
   immediate: true
@@ -158,5 +175,9 @@ async function onUploadArtworkDone() {
 async function onUploadVideoDone() {
   await refresh()
   currentStep.value = 2
+}
+
+async function onEditDone() {
+  navigateTo(`/me/tracks/${trackId}/confirm`)
 }
 </script>

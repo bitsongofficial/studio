@@ -1,40 +1,27 @@
+// import { GetObjectCommand } from "@aws-sdk/client-s3";
+// import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
+// import { PrismaClient } from "@prisma/client";
 import { GetObjectCommand } from "@aws-sdk/client-s3";
-import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
-import { PrismaClient } from "@prisma/client";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+import { Prisma, PrismaClient } from "@prisma/client";
+import { ensureUserTrack } from "~/server/utils/media";
 
-const prisma = new PrismaClient()
 export default defineEventHandler(async (event) => {
-  const user = await ensureAuth(event)
-  const id = getRouterParam(event, 'id')
+  const { track } = await ensureUserTrack(event)
+  return await withPrivateSignedUrls(track)
+})
 
-  if (!id) {
-    throw createError({
-      message: 'No id',
-      status: 400
-    })
+type TrackWithSignedUrls = Prisma.tracksGetPayload<{
+  include: {
+    artists: true,
+    authors_publishers: true,
+    marketplace: true,
+    royalties_info: true,
   }
+}>
 
-  const track = await prisma.tracks.findUnique({
-    where: {
-      id,
-      user_id: user.userId,
-    },
-    include: {
-      artists: true,
-      authors_publishers: true,
-      royalties_info: true,
-      marketplace: true,
-    }
-  })
-
-  if (!track) {
-    throw createError({
-      message: 'No track found',
-      status: 404
-    })
-  }
-
-  let artwork;
+async function withPrivateSignedUrls(track: TrackWithSignedUrls): Promise<TrackWithSignedUrls> {
+  let artwork, audio, video;
 
   if (track.artwork) {
     artwork = await getSignedUrl(
@@ -44,10 +31,43 @@ export default defineEventHandler(async (event) => {
         Key: `${track.artwork}`,
       }),
       {
-        expiresIn: 4 * 60 * 60, // 4 hour
+        expiresIn: 1 * 60 * 60, // 1 hour
+      },
+    )
+  } else {
+    artwork = 'http://localhost:3000/images/default.png'
+  }
+
+  if (track.audio) {
+    audio = await getSignedUrl(
+      getS3Client(),
+      new GetObjectCommand({
+        Bucket: useRuntimeConfig().awsS3BucketTracks,
+        Key: `${track.audio}`,
+      }),
+      {
+        expiresIn: 1 * 60 * 60, // 1 hour
       },
     )
   }
 
-  return { ...track, artwork }
-})
+  if (track.video) {
+    video = await getSignedUrl(
+      getS3Client(),
+      new GetObjectCommand({
+        Bucket: useRuntimeConfig().awsS3BucketTracks,
+        Key: `${track.video}`,
+      }),
+      {
+        expiresIn: 1 * 60 * 60, // 1 hour
+      },
+    )
+  }
+
+  return {
+    ...track,
+    artwork: artwork || null,
+    audio: audio || null,
+    video: video || null,
+  }
+}

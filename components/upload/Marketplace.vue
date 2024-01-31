@@ -28,10 +28,12 @@
               </v-row>
               <v-row no-gutters class="mt-n4">
                 <v-col>
-                  <v-chip color="green" v-if="modelValue.curveRatio! <= 2.5">Reccomended</v-chip>
+                  <v-chip color="red" v-if="modelValue.curveRatio! <= 20">Very Aggressive</v-chip>
+                  <v-chip color="red"
+                    v-if="modelValue.curveRatio! > 20 && modelValue.curveRatio! <= 90">Aggressive</v-chip>
                   <v-chip color="yellow"
-                    v-if="modelValue.curveRatio! > 2.5 && modelValue.curveRatio! <= 5">Medium</v-chip>
-                  <v-chip color="red" v-if="modelValue.curveRatio! > 5">Not Reccomended</v-chip>
+                    v-if="modelValue.curveRatio! > 90 && modelValue.curveRatio! <= 250">Medium</v-chip>
+                  <v-chip color="green" v-if="modelValue.curveRatio! > 250">Conservative</v-chip>
                 </v-col>
               </v-row>
             </v-col>
@@ -88,7 +90,7 @@
             <v-col cols="4">
               <v-row no-gutters>
                 <v-col cols="6">
-                  <v-slider v-model="modelValue.referralFee" :min="0.1" :max="1.5" :step="0.1"></v-slider>
+                  <v-slider v-model="modelValue.referralFee" :min="0.1" :max="maxReferralFee" :step="0.1"></v-slider>
                 </v-col>
                 <v-col cols="6">
                   <div class="text-center text-h4 text-surface-variant">
@@ -145,10 +147,12 @@
 </template>
 
 <script lang="ts" setup>
+import { z } from 'zod'
+
 export interface MarketPlace {
   creatorFee?: number;
   referralFee?: number;
-  releaseDate?: Date;
+  releaseDate?: number;
   curveRatio?: number;
   maxPerAddress?: number;
   maxEditions?: number;
@@ -167,11 +171,37 @@ const modelValue = useVModel(props, 'modelValue', emits, {
   passive: true,
 })
 
-const startTime = ref();
+const maxReferralFee = computed(() => {
+  let maxFee = Math.round((modelValue.value.creatorFee ?? 3) / 3 * 10) / 10;
+  if (maxFee > 1.5) {
+    maxFee = 1.5;
+  }
 
-const setStartTime = (value: any) => {
-  startTime.value = value;
-}
+  if (modelValue.value.referralFee && modelValue.value.referralFee > maxFee) {
+    modelValue.value.referralFee = maxFee;
+  }
+
+  return maxFee;
+
+})
+
+const FormSchema = z.object({
+  creatorFee: z.number().min(0.5, {
+    message: "Creator fee must be at least 0.5%"
+  }).max(7.5, {
+    message: "Creator fee must be at most 7.5%"
+  }),
+  referralFee: z.number().min(0.1, {
+    message: "Referral fee must be at least 0.1%"
+  }).max(toValue(maxReferralFee), {
+    message: `Referral fee must be at most ${toValue(maxReferralFee)}%`
+  }),
+  curveRatio: z.number().min(1, {
+    message: "Curve ratio must be at least 1"
+  }).max(1000, {
+    message: "Curve ratio must be at most 1000"
+  }),
+})
 
 async function onContinue() {
   error.value = "";
@@ -183,6 +213,12 @@ async function onContinue() {
   }
 
   try {
+    const data = FormSchema.safeParse(modelValue.value);
+    if (!data.success) {
+      error.value = data.error.errors[0].message;
+      return
+    }
+
     await $fetch(`/api/me/tracks/${props.trackId}`, {
       method: 'PUT',
       headers: {
@@ -190,14 +226,14 @@ async function onContinue() {
       },
       body: {
         marketplace: {
-          ratio: modelValue.value.curveRatio,
-          creator_fee: modelValue.value.creatorFee,
-          referral_fee: modelValue.value.referralFee,
+          ratio: data.data.curveRatio,
+          creator_fee: data.data.creatorFee,
+          referral_fee: data.data.referralFee,
         }
       }
     })
 
-    //emits("done");
+    emits("done");
   } catch (e) {
     error.value = e.data.message;
   } finally {

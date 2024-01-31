@@ -27,6 +27,11 @@
         <v-col cols="12" md="4">
           <v-row no-gutters align="center">
             <v-col>
+              <v-btn @click.stop="navigateTo('/me/tracks')">Return to My Tracks</v-btn>
+            </v-col>
+          </v-row>
+          <!--<v-row no-gutters align="center">
+            <v-col>
               <v-card-title>Royalties Contract</v-card-title>
               <v-card-subtitle v-if="txRoyalties">TX: {{ txRoyalties }}</v-card-subtitle>
               <v-card-subtitle v-if="royaltiesAddress">Address: {{ royaltiesAddress }}</v-card-subtitle>
@@ -48,7 +53,7 @@
                 Create
               </v-btn>
             </v-col>
-          </v-row>
+          </v-row>-->
         </v-col>
       </v-row>
     </v-container>
@@ -84,59 +89,59 @@ const txCurveLoading = ref(false)
 
 const { success, error } = useNotify()
 
-async function onCreateRoyalties() {
-  txRoyaltiesLoading.value = true
+// async function onCreateRoyalties() {
+//   txRoyaltiesLoading.value = true
 
-  try {
-    const address = getAddress("bitsong");
-    const factoryAddress = "bitsong1wug8sewp6cedgkmrmvhl3lf3tulagm9hnvy8p0rppz9yjw0g4wtqy04vy2";
+//   try {
+//     const address = getAddress("bitsong");
+//     const factoryAddress = "bitsong1wug8sewp6cedgkmrmvhl3lf3tulagm9hnvy8p0rppz9yjw0g4wtqy04vy2";
 
-    const factoryClient = new Bs721FactoryClient(
-      await useCWClient(),
-      address,
-      factoryAddress,
-    );
+//     const factoryClient = new Bs721FactoryClient(
+//       await useCWClient(),
+//       address,
+//       factoryAddress,
+//     );
 
-    const msg = await $fetch(`/api/me/tracks/${trackId}/msgs/royalties`)
-    const tx = await factoryClient.createRoyaltiesGroup(msg, "auto", "", []);
+//     const msg = await $fetch(`/api/me/tracks/${trackId}/msgs/royalties`)
+//     const tx = await factoryClient.createRoyaltiesGroup(msg, "auto", "", []);
 
-    success("Transaction success")
+//     success("Transaction success")
 
-    txRoyalties.value = tx
-    royaltiesAddress.value = tx.logs[0].events[1].attributes[0].value
-  } catch (e) {
-    error((e as Error).message)
-  } finally {
-    txRoyaltiesLoading.value = false
-  }
-}
+//     txRoyalties.value = tx
+//     royaltiesAddress.value = tx.logs[0].events[1].attributes[0].value
+//   } catch (e) {
+//     error((e as Error).message)
+//   } finally {
+//     txRoyaltiesLoading.value = false
+//   }
+// }
 
-async function onCreateCurve() {
-  txCurveLoading.value = true
+// async function onCreateCurve() {
+//   txCurveLoading.value = true
 
-  try {
-    const msg = await $fetch(`/api/me/tracks/${trackId}/msgs/curve`)
-    msg.paymentAddress = toValue(royaltiesAddress.value)
-    //msg.paymentAddress = "bitsong1wug8sewp6cedgkmrmvhl3lf3tulagm9hnvy8p0rppz9yjw0g4wtqy04vy2"
+//   try {
+//     const msg = await $fetch(`/api/me/tracks/${trackId}/msgs/curve`)
+//     msg.paymentAddress = toValue(royaltiesAddress.value)
+//     //msg.paymentAddress = "bitsong1wug8sewp6cedgkmrmvhl3lf3tulagm9hnvy8p0rppz9yjw0g4wtqy04vy2"
 
-    const address = getAddress("bitsong");
-    const factoryAddress = "bitsong1wug8sewp6cedgkmrmvhl3lf3tulagm9hnvy8p0rppz9yjw0g4wtqy04vy2";
+//     const address = getAddress("bitsong");
+//     const factoryAddress = "bitsong1wug8sewp6cedgkmrmvhl3lf3tulagm9hnvy8p0rppz9yjw0g4wtqy04vy2";
 
-    const factoryClient = new Bs721FactoryClient(
-      await useCWClient(),
-      address,
-      factoryAddress,
-    );
+//     const factoryClient = new Bs721FactoryClient(
+//       await useCWClient(),
+//       address,
+//       factoryAddress,
+//     );
 
-    const tx = await factoryClient.createCurve(msg, "auto", "", [{ amount: "500000000", denom: "ubtsg" }],);
+//     const tx = await factoryClient.createCurve(msg, "auto", "", [{ amount: "500000000", denom: "ubtsg" }],);
 
-    success("Transaction success")
+//     success("Transaction success")
 
-    // txCurve.value = tx
-  } catch (e) {
-    error((e as Error).message)
-  } finally {
-    txCurveLoading.value = false
-  }
-}
+//     // txCurve.value = tx
+//   } catch (e) {
+//     error((e as Error).message)
+//   } finally {
+//     txCurveLoading.value = false
+//   }
+// }
 </script>

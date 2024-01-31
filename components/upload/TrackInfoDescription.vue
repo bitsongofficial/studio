@@ -16,6 +16,7 @@
 
     <v-row>
       <v-col class="text-right">
+        <v-btn @click="onBack" class="mr-4" variant="text" color="surface-variant">Back</v-btn>
         <v-btn :loading="loading" @click="onContinue">Continue</v-btn>
       </v-col>
     </v-row>
@@ -29,12 +30,17 @@ const loading = ref(false);
 const emits = defineEmits<{
   'update:modelValue': [payload: string];
   "done": [];
+  "back": [];
 }>()
 
 const props = defineProps<{ modelValue?: string, trackId: string }>();
 const modelValue = useVModel(props, 'modelValue', emits, {
   passive: true,
 })
+
+function onBack() {
+  emits("back");
+}
 
 async function onContinue() {
   error.value = "";

@@ -19,8 +19,8 @@
                     <v-text-field label="BitSong Address" variant="outlined" v-model="r.address"></v-text-field>
                   </v-col>
                   <v-col cols="6">
-                    <v-select variant="outlined" :items="royaltiesRoles" label="Role" append-inner-icon="mdi-menu-down"
-                      v-model="r.role"></v-select>
+                    <v-select variant="outlined" :items="royaltiesRoles" item-title="text" item-value="value" label="Role"
+                      append-inner-icon="mdi-menu-down" v-model="r.role"></v-select>
                   </v-col>
                 </v-row>
                 <v-row no-gutters>
@@ -69,6 +69,9 @@
 </template>
 
 <script lang="ts" setup>
+import { bitsongAddressSchema, nonEmptyStringSchema } from '@bitsongjs/metadata';
+import { z } from 'zod'
+
 export interface RoylatiesItem {
   role?: string;
   address?: string;
@@ -88,21 +91,38 @@ const modelValue = useVModel(props, 'modelValue', emits, {
   passive: true,
 })
 
-const royaltiesRoles = [
-  "Author",
-  "Composer",
-  "Publisher",
-  "Producer",
-  "Executive Producer",
-  "Other",
-];
+const royaltiesRoles = [{
+  value: 'Arranger',
+  text: 'Arranger'
+}, {
+  value: 'Composer',
+  text: 'Composer'
+}, {
+  value: 'Lyricist',
+  text: 'Lyricist'
+}, {
+  value: 'Producer',
+  text: 'Producer'
+}, {
+  value: 'Publisher',
+  text: 'Publisher'
+}, {
+  value: 'Songwriter',
+  text: 'Songwriter'
+}, {
+  value: 'Artist',
+  text: 'Artist'
+}, {
+  value: 'Other',
+  text: 'Other'
+}].sort((a, b) => a.text.localeCompare(b.text))
 
 const canAdd = computed(() => modelValue.value.length === 0 || modelValue.value[modelValue.value.length - 1].role && modelValue.value[modelValue.value.length - 1].shares);
 
 function add() {
   modelValue.value.push({
     role: "",
-    shares: 1,
+    shares: 1000,
     address: ""
   });
 }
@@ -136,11 +156,38 @@ function validateShares(index: number) {
   }
 }
 
+const FormSchema = z.array(
+  z.object({
+    address: bitsongAddressSchema(),
+    role: z.string().min(1, {
+      message: 'You must select a role.'
+    }).refine((role) => {
+      return royaltiesRoles.map(r => r.value).includes(role)
+    }, {
+      message: 'You must select a valid role.'
+    }),
+    shares: z.number().min(1, {
+      message: 'You must specify at least 1 share.'
+    }).max(1000, {
+      message: 'You cannot specify more than 1000 shares.'
+    }),
+  })
+).nonempty({
+  message: 'You must add at least one royalties recipient.'
+})
+
+
 async function onContinue() {
   error.value = "";
   loading.value = true;
 
   try {
+    const data = FormSchema.safeParse(modelValue.value);
+    if (!data.success) {
+      error.value = data.error.errors[0].message;
+      return
+    }
+
     await $fetch(`/api/me/tracks/${props.trackId}`, {
       method: 'PUT',
       headers: {

@@ -1,11 +1,11 @@
 import { PrismaClient } from '@prisma/client';
 import { storeTrackImageToS3 } from '~/server/services/s3';
 
-const prisma = new PrismaClient()
 export default defineEventHandler(async (event) => {
   const user = await ensureAuth(event)
   const id = getRouterParam(event, 'id')
 
+  const prisma = new PrismaClient()
   const _track = await prisma.tracks.findUnique({
     where: {
       id: id!,
@@ -46,6 +46,14 @@ export default defineEventHandler(async (event) => {
   try {
     const fileExtension = _file.originalFilename.split('.').pop()
     const newFilename = `artwork.${fileExtension}`
+
+    // TODO: add validation
+    // - file format jpg
+    // - square aspect ratio
+    // - 72dpi
+    // - RGB
+    // - min 3000x3000px
+    // - max 15000x15000px
 
     const { path } = await storeTrackImageToS3({
       userId: user.userId,

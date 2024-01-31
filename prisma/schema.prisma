@@ -76,8 +76,12 @@ model tracks {
   user_id          String
   title            String?
   titleLocale      String?
+  format           String?
+  size             Int?
   license          String?
   artwork          String?
+  audio            String?
+  audio_mime_type  String?
   video            String?
   duration         Int?
   genre            String?
@@ -91,7 +95,16 @@ model tracks {
   previewStartTime Int?     @default(0)
   previewDuration  Int?     @default(15000)
 
-  version            String?
+  video_format    String?
+  video_bit_rate  Int?
+  video_duration  Int?
+  video_size      Int?
+  video_mime_type String?
+
+  version String?
+
+  start_time Int?
+
   created_at         DateTime                   @default(now())
   updated_at         DateTime                   @default(now()) @updatedAt
   artists            track_artists[]

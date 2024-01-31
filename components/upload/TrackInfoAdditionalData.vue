@@ -6,8 +6,8 @@
           v-model="modelValue.genre"></v-select>
       </v-col>
       <v-col>
-        <v-select variant="outlined" :items="countries" label="Country" append-inner-icon="mdi-menu-down"
-          v-model="modelValue.country"></v-select>
+        <v-select variant="outlined" :items="countries" item-title="text" item-value="value" label="Country"
+          append-inner-icon="mdi-menu-down" v-model="modelValue.country"></v-select>
       </v-col>
     </v-row>
 
@@ -38,10 +38,10 @@
       <v-col>
         <v-row>
           <v-col>
-            <v-slider class="mt-5" :min="5" :max="30" :step="0.5" v-model="modelValue.previewDuration"></v-slider>
+            <v-slider class="mt-5" :min="15000" :max="30000" :step="500" v-model="modelValue.previewDuration"></v-slider>
           </v-col>
           <v-col>
-            <div class="mt-6">{{ modelValue.previewDuration > 5 ? modelValue.previewDuration : 5 }} sec</div>
+            <div class="mt-6">{{ previewDuration }} sec</div>
           </v-col>
         </v-row>
       </v-col>
@@ -87,6 +87,7 @@
 
     <v-row>
       <v-col class="text-right">
+        <v-btn @click="onBack" class="mr-4" variant="text" color="surface-variant">Back</v-btn>
         <v-btn :loading="loading" @click="onContinue">Continue</v-btn>
       </v-col>
     </v-row>
@@ -94,8 +95,16 @@
 </template>
 
 <script lang="ts" setup>
-//import { TrackGenre, Country } from '@bitsongjs/metadata'
-import { Country } from '@bitsongjs/metadata'
+import iso from 'iso-3166-1'
+
+const countries = iso.all()
+  .map((country) => {
+    return {
+      text: country.country,
+      value: country.alpha2,
+    }
+  })
+  .sort((a, b) => a.text.localeCompare(b.text))
 
 export interface TrackInfoAdditionalData {
   genre: string;
@@ -114,12 +123,17 @@ const loading = ref(false);
 const emits = defineEmits<{
   'update:modelValue': [payload: TrackInfoAdditionalData];
   "done": [];
+  "back": [];
 }>()
 
 const props = defineProps<{ modelValue: TrackInfoAdditionalData, trackId: string }>();
 const modelValue = useVModel(props, 'modelValue', emits, {
   passive: true,
 })
+
+function onBack() {
+  emits("back");
+}
 
 enum TrackGenre {
   ALTERNATIVE = 'Alternative',
@@ -151,9 +165,18 @@ enum TrackGenre {
   WORLD = 'World',
 }
 
+const previewDuration = computed({
+  get() {
+    return modelValue.value.previewDuration / 1000
+  },
+  set(value) {
+    modelValue.value.previewDuration = value * 1000
+  },
+});
+
 const trackGenres = computed(() => Object.values(TrackGenre));
 
-const countries = computed(() => Object.values(Country));
+//const countries = computed(() => Object.values(Country));
 
 const licenses = [
   "All Rights Reserved",

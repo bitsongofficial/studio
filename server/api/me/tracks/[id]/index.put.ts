@@ -4,36 +4,14 @@ import { trackUpdateSchema } from "~/server/schema/trackUpdate";
 
 const prisma = new PrismaClient()
 export default defineEventHandler(async (event) => {
-  const user = await ensureAuth(event)
-  const id = getRouterParam(event, 'id')
-
-  if (!id) {
-    throw createError({
-      message: 'No id',
-      status: 400
-    })
-  }
-
-  const _track = await prisma.tracks.findUnique({
-    where: {
-      id,
-      user_id: user.userId,
-    },
-  })
-
-  if (!_track) {
-    throw createError({
-      message: 'No track found',
-      status: 404
-    })
-  }
+  const { track: _track, user } = await ensureUserTrack(event)
 
   try {
     const data = trackUpdateSchema.parse(await readBody(event))
 
     const track = await prisma.tracks.update({
       where: {
-        id,
+        id: _track.id,
         user_id: user.userId,
       },
       data: {
@@ -51,10 +29,23 @@ export default defineEventHandler(async (event) => {
         previousRelease: data.previousRelease,
         lyrics: data.lyrics?.trim(),
         lyricsLocale: data.lyricsLocale?.trim(),
+        start_time: data.start_time,
+      },
+      include: {
+        artists: true,
+        authors_publishers: true,
+        royalties_info: true,
+        marketplace: true,
       }
     })
 
     if (data.artists && data.artists?.length > 0) {
+      await prisma.track_artists.deleteMany({
+        where: {
+          track_id: _track.id,
+        },
+      })
+
       await prisma.track_artists.createMany({
         data: data.artists.map((artist) => ({
           track_id: _track.id,
@@ -68,6 +59,12 @@ export default defineEventHandler(async (event) => {
     }
 
     if (data.authors_publishers && data.authors_publishers?.length > 0) {
+      await prisma.track_authors_publishers.deleteMany({
+        where: {
+          track_id: _track.id,
+        },
+      })
+
       await prisma.track_authors_publishers.createMany({
         data: data.authors_publishers.map((author_publisher) => ({
           track_id: _track.id,
@@ -81,6 +78,12 @@ export default defineEventHandler(async (event) => {
     }
 
     if (data.royalties_info && data.royalties_info?.length > 0) {
+      await prisma.track_royalties_info.deleteMany({
+        where: {
+          track_id: _track.id,
+        },
+      })
+
       await prisma.track_royalties_info.createMany({
         data: data.royalties_info.map((royalties_info) => ({
           track_id: _track.id,

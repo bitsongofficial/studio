@@ -92,4 +92,5 @@ export const trackUpdateSchema = z
       creator_fee: z.number().optional(),
       referral_fee: z.number().optional(),
     }).optional(),
+    start_time: z.number().optional(),
   })

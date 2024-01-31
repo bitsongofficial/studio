@@ -10,7 +10,8 @@
     <v-row no-gutters>
       <v-col>
         <v-select variant="outlined" :items="languages" label="Lyrics Language (optional)"
-          append-inner-icon="mdi-menu-down" v-model="modelValue.lyricsLocale"></v-select>
+          append-inner-icon="mdi-menu-down" v-model="modelValue.lyricsLocale" item-title="text"
+          item-value="value"></v-select>
       </v-col>
     </v-row>
 
@@ -24,6 +25,7 @@
 
     <v-row>
       <v-col class="text-right">
+        <v-btn @click="onBack" class="mr-4" variant="text" color="surface-variant">Back</v-btn>
         <v-btn :loading="loading" @click="onContinue">Continue</v-btn>
       </v-col>
     </v-row>
@@ -31,6 +33,8 @@
 </template>
 
 <script lang="ts" setup>
+import iso from 'iso-639-1'
+
 const error = ref("");
 const loading = ref(false);
 
@@ -42,6 +46,7 @@ export interface TrackInfoLyrics {
 const emits = defineEmits<{
   'update:modelValue': [payload: TrackInfoLyrics];
   "done": [];
+  "back": [];
 }>()
 
 const props = defineProps<{ modelValue: TrackInfoLyrics, trackId: string }>();
@@ -49,7 +54,18 @@ const modelValue = useVModel(props, 'modelValue', emits, {
   passive: true,
 })
 
-const languages = ref(["English", "Spanish", "French", "German", "Italian", "Portuguese", "Russian", "Japanese", "Chinese", "Korean", "Arabic", "Hindi", "Other"]);
+const languages = iso.getLanguages(iso.getAllCodes())
+  .map(lang => {
+    return {
+      text: lang.name,
+      value: lang.code
+    }
+  })
+  .sort((a, b) => a.text.localeCompare(b.text))
+
+function onBack() {
+  emits("back");
+}
 
 async function onContinue() {
   error.value = "";

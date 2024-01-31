@@ -49,7 +49,10 @@ export default defineNuxtConfig({
   },
   image: {
     domains: [
-      'yellow-hilarious-jay-665.mypinata.cloud'
+      'yellow-hilarious-jay-665.mypinata.cloud',
+      'localhost',
+      'bitsong.studio',
+      'testnet.bitsong.studio'
     ],
   },
   extends: ['nuxt-umami'],

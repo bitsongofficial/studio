@@ -70,12 +70,10 @@ async function upload(file: File) {
     const formData = new FormData()
     formData.append('video', file)
 
-    const response = await $fetch(`/api/me/tracks/${props.trackId}/video`, {
+    await $fetch(`/api/me/tracks/${props.trackId}/video`, {
       method: 'PUT',
       body: formData,
     })
-
-    console.log(response)
 
     emits("done");
   } catch (e) {

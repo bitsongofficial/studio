@@ -1,6 +1,6 @@
 <template>
   <v-layout>
-    <app-bar :show-user-menu="false"> </app-bar>
+    <app-bar :show-user-menu="true"> </app-bar>
     <v-main>
       <slot> </slot>
     </v-main>
