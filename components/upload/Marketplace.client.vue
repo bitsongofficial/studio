@@ -18,7 +18,7 @@
             <v-col cols="12" md="4">
               <v-row no-gutters>
                 <v-col cols="6">
-                  <v-slider v-model="modelValue.curveRatio" :min="1" :max="1000" :step="1"></v-slider>
+                  <v-slider v-model="modelValue.curveRatio" :min="1" :max="1000" :step="10"></v-slider>
                 </v-col>
                 <v-col cols="6">
                   <div class="text-center text-h4 text-surface-variant">
