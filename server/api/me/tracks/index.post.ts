@@ -1,10 +1,8 @@
 import { PrismaClient } from '@prisma/client';
 import { v4 as uuidv4 } from 'uuid';
 import { storeTrackToS3 } from '~/server/services/s3';
-import ffmpeg, { FfprobeData } from 'fluent-ffmpeg'
 import { getMediaData, validateAudioData } from '~/server/utils/media';
 
-const prisma = new PrismaClient()
 export default defineEventHandler(async (event) => {
   const user = await ensureAuth(event)
 
@@ -46,6 +44,7 @@ export default defineEventHandler(async (event) => {
       filename: newFilename,
     })
 
+    const prisma = new PrismaClient()
     const newTrack = await prisma.tracks.create({
       data: {
         id,

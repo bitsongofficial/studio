@@ -6,9 +6,6 @@ import { Readable } from 'stream';
 import { v4 as uuidv4 } from 'uuid';
 import { sendEmailVerification } from '~/server/utils/email';
 
-const prismaClient = new PrismaClient();
-const pinata = new pinataSDK(useRuntimeConfig().pinataApiKey, useRuntimeConfig().pinataApiSecret);
-
 export default defineEventHandler(async (event) => {
   const user = await ensureAuth(event)
 
@@ -41,6 +38,7 @@ export default defineEventHandler(async (event) => {
     })
   }
 
+  const prismaClient = new PrismaClient();
   const usernameResult = await prismaClient.user.findFirst({
     where: {
       username
@@ -70,6 +68,8 @@ export default defineEventHandler(async (event) => {
   let attrs: Partial<Lucia.DatabaseUserAttributes> = {
     username
   }
+
+  const pinata = new pinataSDK(useRuntimeConfig().pinataApiKey, useRuntimeConfig().pinataApiSecret);
 
   if (avatar !== undefined) {
     if (avatar.data.toString() === null || avatar.data.toString() === '') {

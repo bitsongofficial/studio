@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import { storeTrackImageToS3, storeTrackVideoToS3 } from '~/server/services/s3';
+import { storeTrackVideoToS3 } from '~/server/services/s3';
 import { getMediaData } from '~/server/utils/media';
 
 export default defineEventHandler(async (event) => {

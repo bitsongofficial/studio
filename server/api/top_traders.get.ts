@@ -1,7 +1,5 @@
 import { PrismaClient } from "@prisma/client";
 
-const prismaClient = new PrismaClient();
-
 interface TopTrader {
   address: string;
   username: string;
@@ -12,6 +10,7 @@ interface TopTrader {
 }
 
 export default defineEventHandler(async (event) => {
+  const prismaClient = new PrismaClient();
   const result = await prismaClient.$queryRaw<TopTrader[]>`
         SELECT
           na.sender AS address,

@@ -1,8 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { useIpfsLink } from "~/composables/useIpfsLink";
 
-const prismaClient = new PrismaClient();
-
 export default defineEventHandler(async (event) => {
   const contract = getRouterParam(event, 'contract')
 
@@ -24,6 +22,7 @@ export default defineEventHandler(async (event) => {
     owners: string;
   }
 
+  const prismaClient = new PrismaClient();
   const stats = await prismaClient.$queryRaw<NftStats[]>`
       SELECT 
           COUNT(*)::text AS editions, 

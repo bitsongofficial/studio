@@ -3,7 +3,6 @@ import { dropNotificationSchema } from "../../../schema/dropNotification"
 import { PrismaClient } from "@prisma/client";
 import { v4 as uuidv4 } from 'uuid';
 
-const prismaClient = new PrismaClient();
 export default defineEventHandler(async (event) => {
   try {
     const user = await ensureAuth(event)
@@ -17,6 +16,7 @@ export default defineEventHandler(async (event) => {
 
     const { email } = dropNotificationSchema.parse(await readBody(event))
 
+    const prismaClient = new PrismaClient();
     const notification = await prismaClient.dropNotifications.findFirst({
       where: {
         AND: {

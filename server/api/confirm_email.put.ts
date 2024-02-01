@@ -1,6 +1,5 @@
 import { PrismaClient } from "@prisma/client";
 
-const prismaClient = new PrismaClient();
 export default defineEventHandler(async (event) => {
   const { token } = await readBody<{ token: string; }>(event);
 
@@ -22,6 +21,7 @@ export default defineEventHandler(async (event) => {
     }
   }
 
+  const prismaClient = new PrismaClient();
   await prismaClient.user.update({
     where: {
       address: user.address

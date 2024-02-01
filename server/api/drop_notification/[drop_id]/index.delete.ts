@@ -1,6 +1,5 @@
 import { PrismaClient } from "@prisma/client";
 
-const prismaClient = new PrismaClient();
 export default defineEventHandler(async (event) => {
   try {
     const user = await ensureAuth(event)
@@ -12,6 +11,7 @@ export default defineEventHandler(async (event) => {
       })
     }
 
+    const prismaClient = new PrismaClient();
     await prismaClient.dropNotifications.deleteMany({
       where: {
         AND: {

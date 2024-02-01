@@ -1,6 +1,5 @@
 import { PrismaClient } from "@prisma/client";
 
-const prismaClient = new PrismaClient();
 export default defineEventHandler(async (event) => {
   try {
     const user = await ensureAuth(event)
@@ -13,6 +12,7 @@ export default defineEventHandler(async (event) => {
       })
     }
 
+    const prismaClient = new PrismaClient();
     const data = await prismaClient.dropNotifications.findFirst({
       where: {
         user_id: user.userId,

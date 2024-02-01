@@ -1,10 +1,10 @@
 import { PrismaClient } from "@prisma/client"
 import { v4 as uuidv4 } from 'uuid';
 
-const prismaClient = new PrismaClient()
 export default defineEventHandler(async (event) => {
   const user = await ensureAuth(event)
 
+  const prismaClient = new PrismaClient()
   const userResult = await prismaClient.user.findFirst({
     where: {
       AND: {
