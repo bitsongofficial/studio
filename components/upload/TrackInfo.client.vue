@@ -105,12 +105,4 @@ function onTrackInfoGeneralDone() {
 function onTrackInfoDescriptionDone() {
   currentStep.value = 2;
 }
-
-const imagePreview = computed(() => {
-  if (modelValue.value.artwork) {
-    return img(`http://localhost:3000/api/me/tracks/${props.trackId}/artwork`, { width: 250, height: 250, fit: 'cover' });
-  }
-
-  return defaultImage;
-})
 </script>

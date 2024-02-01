@@ -20,14 +20,14 @@ export default defineEventHandler(async (event) => {
     }
   })
 
-  return await withPrivateSignedUrls(tracks)
+  return await withPrivateSignedUrls(tracks, useSiteConfig(event).url)
 })
 
 async function withPrivateSignedUrls(tracks: {
   id: string;
   title: string | null;
   artwork: string | null;
-}[]): Promise<{
+}[], baseUrl: string): Promise<{
   id: string;
   title: string | null;
   artwork: string | null;
@@ -35,7 +35,7 @@ async function withPrivateSignedUrls(tracks: {
   return Promise.all(tracks.map(async (track) => {
     if (!track.artwork) return {
       ...track,
-      artwork: 'http://localhost:3000/images/default.png'
+      artwork: `${baseUrl}/images/default.png`
     }
 
     const url = await getSignedUrl(

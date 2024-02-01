@@ -5,7 +5,7 @@ import { ensureUserTrack } from "~/server/utils/media";
 
 export default defineEventHandler(async (event) => {
   const { track } = await ensureUserTrack(event)
-  return await withPrivateSignedUrls(track)
+  return await withPrivateSignedUrls(track, useSiteConfig(event).url)
 })
 
 type TrackWithSignedUrls = Prisma.tracksGetPayload<{
@@ -17,7 +17,7 @@ type TrackWithSignedUrls = Prisma.tracksGetPayload<{
   }
 }>
 
-async function withPrivateSignedUrls(track: TrackWithSignedUrls): Promise<TrackWithSignedUrls> {
+async function withPrivateSignedUrls(track: TrackWithSignedUrls, baseUrl: string): Promise<TrackWithSignedUrls> {
   let artwork, audio, video;
 
   if (track.artwork) {
@@ -32,7 +32,7 @@ async function withPrivateSignedUrls(track: TrackWithSignedUrls): Promise<TrackW
       },
     )
   } else {
-    artwork = 'http://localhost:3000/images/default.png'
+    artwork = `${baseUrl}/images/default.png`
   }
 
   if (track.audio) {
