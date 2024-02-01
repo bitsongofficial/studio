@@ -101,27 +101,35 @@ const amPm = computed(() => {
 })
 
 function increaseHours() {
-  if (modelValue.value) {
-    modelValue.value += 3600;
+  if (!modelValue.value) {
+    modelValue.value = new Date().getTime() / 1000;
   }
+
+  modelValue.value += 3600;
 }
 
 function decreaseHours() {
-  if (modelValue.value) {
-    modelValue.value -= 3600;
+  if (!modelValue.value) {
+    modelValue.value = new Date().getTime() / 1000;
   }
+
+  modelValue.value -= 3600;
 }
 
 function increaseMinutes() {
-  if (modelValue.value) {
-    modelValue.value += 60;
+  if (!modelValue.value) {
+    modelValue.value = new Date().getTime() / 1000;
   }
+
+  modelValue.value += 60;
 }
 
 function decreaseMinutes() {
-  if (modelValue.value) {
-    modelValue.value -= 60;
+  if (!modelValue.value) {
+    modelValue.value = new Date().getTime() / 1000;
   }
+
+  modelValue.value -= 60;
 }
 
 const minDate = computed(() => {
