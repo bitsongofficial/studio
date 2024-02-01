@@ -31,6 +31,13 @@ const drops = [{
   title: "Amnesia",
   startTime: 1706637600,
   link: "/nfts/bitsong1nwnejwsdpqktusvh8qhxe5arsznjd5asdwutmaz9n5qcpl3dcmhswz930x"
+}, {
+  id: 'stimulation-growth',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmYLRV4zMcFoREqaxNucwMBxWuNsZ1vKiNWmqYYP65ku8C",
+  subtitle: "Goose Pärk",
+  title: "Stimulation Growth",
+  startTime: 1706810400,
+  link: "/nfts/bitsong18a0pvw326fydfdat5tzyf4t8lhz0v6fyfaujpeg07fwqkygcxejsv0vqlr"
 }]
 
 const activeDrops = computed(() => {
