@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client"
 
 export default defineEventHandler(async (event) => {
+  const prismaClient = new PrismaClient()
   const latestUsers = await prismaClient.user.findMany({
     take: 25,
     orderBy: {
@@ -13,7 +14,6 @@ export default defineEventHandler(async (event) => {
     }
   })
 
-  const prismaClient = new PrismaClient()
   const totalUsers = await prismaClient.user.count()
 
   // sort users with avatar and username first

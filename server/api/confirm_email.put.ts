@@ -3,6 +3,7 @@ import { PrismaClient } from "@prisma/client";
 export default defineEventHandler(async (event) => {
   const { token } = await readBody<{ token: string; }>(event);
 
+  const prismaClient = new PrismaClient();
   const user = await prismaClient.user.findFirst({
     where: {
       AND: {
@@ -21,7 +22,6 @@ export default defineEventHandler(async (event) => {
     }
   }
 
-  const prismaClient = new PrismaClient();
   await prismaClient.user.update({
     where: {
       address: user.address

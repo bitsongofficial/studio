@@ -4,6 +4,7 @@ import { useIpfsLink } from "~/composables/useIpfsLink";
 export default defineEventHandler(async (event) => {
   const contract = getRouterParam(event, 'contract')
 
+  const prismaClient = new PrismaClient();
   const nft = await prismaClient.nftview.findUnique({
     where: {
       id: contract
@@ -22,7 +23,6 @@ export default defineEventHandler(async (event) => {
     owners: string;
   }
 
-  const prismaClient = new PrismaClient();
   const stats = await prismaClient.$queryRaw<NftStats[]>`
       SELECT 
           COUNT(*)::text AS editions, 
