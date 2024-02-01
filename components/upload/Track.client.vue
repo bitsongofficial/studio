@@ -34,7 +34,7 @@ const emits = defineEmits<{
 const loading = ref(false);
 
 const { open, onChange } = useFileDialog({
-  accept: 'audio/*',
+  accept: '*',
   multiple: false,
 })
 
