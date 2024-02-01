@@ -3,7 +3,7 @@
     <v-container class="mt-8">
       <v-row justify="center">
         <v-col cols="auto" class="text-center">
-          <h1 class="text-h3 font-weight-bold">Review & Confirm</h1>
+          <h1 class="text-h4 text-md-h3 font-weight-bold">Review & Confirm</h1>
           <h2 class="text-h6 pt-2 text-surface-variant">Review the information you have provided and confirm the
             Music NFT</h2>
         </v-col>

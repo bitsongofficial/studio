@@ -7,11 +7,11 @@
     </v-row>
 
     <v-row class="mt-0">
-      <v-col>
+      <v-col cols="12" md="6">
         <v-select variant="outlined" :items="languages" item-title="text" item-value="value" label="Title Language"
-          append-inner-icon="mdi-menu-down" v-model="modelValue.titleLocale"></v-select>
+          append-inner-icon="mdi-menu-down" v-model="modelValue.titleLocale" hide-details></v-select>
       </v-col>
-      <v-col>
+      <v-col cols="12" md="6">
         <v-text-field label="Version (optional)" variant="outlined" v-model="modelValue.version"></v-text-field>
       </v-col>
     </v-row>
@@ -20,10 +20,10 @@
     <v-row v-for="(artist, index) in modelValue.artists" :key="index" align="center" no-gutters>
       <v-col>
         <v-row>
-          <v-col>
-            <v-text-field label="Name" variant="outlined" v-model="artist.name"></v-text-field>
+          <v-col cols="12" md="6">
+            <v-text-field label="Name" variant="outlined" v-model="artist.name" hide-details></v-text-field>
           </v-col>
-          <v-col cols="6">
+          <v-col cols="12" md="6">
             <v-select variant="outlined" :items="artistRoles" item-title="text" item-value="value" label="Role"
               append-inner-icon="mdi-menu-down" v-model="artist.role"></v-select>
           </v-col>

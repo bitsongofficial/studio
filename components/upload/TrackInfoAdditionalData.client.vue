@@ -1,13 +1,13 @@
 <template>
   <v-container class="pa-1">
     <v-row class="pt-1">
-      <v-col>
+      <v-col cols="12" md="6">
         <v-select variant="outlined" :items="trackGenres" label="Genre" append-inner-icon="mdi-menu-down"
-          v-model="modelValue.genre"></v-select>
+          v-model="modelValue.genre" hide-details></v-select>
       </v-col>
-      <v-col>
+      <v-col cols="12" md="6">
         <v-select variant="outlined" :items="countries" item-title="text" item-value="value" label="Country"
-          append-inner-icon="mdi-menu-down" v-model="modelValue.country"></v-select>
+          append-inner-icon="mdi-menu-down" v-model="modelValue.country" hide-details></v-select>
       </v-col>
     </v-row>
 
@@ -19,11 +19,11 @@
     </v-row>
 
     <v-row no-gutters>
-      <v-col cols="8">
+      <v-col cols="12" md="8">
         <v-card-title class="px-0">Preview Start Time</v-card-title>
         <v-card-subtitle class="px-0">Indicate the start time of the preview of your track.</v-card-subtitle>
       </v-col>
-      <v-col cols="2">
+      <v-col cols="12" md="2">
         <v-text-field v-model="modelValue.previewStartTime" class="mt-2" placeholder="0s" variant="outlined">
           <template #append-inner>sec</template>
         </v-text-field>
@@ -31,7 +31,7 @@
     </v-row>
 
     <v-row no-gutters class="mt-n2">
-      <v-col cols="8">
+      <v-col cols="12" md="8">
         <v-card-title class="px-0">Preview Duration</v-card-title>
         <v-card-subtitle class="px-0">Indicate the duration of the preview of your track.</v-card-subtitle>
       </v-col>
@@ -48,7 +48,7 @@
     </v-row>
 
     <v-row no-gutters>
-      <v-col cols="8">
+      <v-col cols="10" md="8">
         <v-card-title class="px-0">Explicit</v-card-title>
         <v-card-subtitle class="px-0">If this track contains explicit content</v-card-subtitle>
       </v-col>
@@ -58,9 +58,10 @@
     </v-row>
 
     <v-row no-gutters>
-      <v-col cols="8">
+      <v-col cols="10" md="8">
         <v-card-title class="px-0">Live Recording</v-card-title>
-        <v-card-subtitle class="px-0">If this is a live recording, please check this box.</v-card-subtitle>
+        <v-card-subtitle class="px-0">If this is a live recording, please check this
+          box.</v-card-subtitle>
       </v-col>
       <v-col>
         <v-switch v-model="modelValue.liveRecording" color="primary"></v-switch>
@@ -68,7 +69,7 @@
     </v-row>
 
     <v-row no-gutters>
-      <v-col cols="8">
+      <v-col cols="10" md="8">
         <v-card-title class="px-0">Previously Released</v-card-title>
         <v-card-subtitle class="px-0">If this track has been previously released, please check this box.</v-card-subtitle>
       </v-col>

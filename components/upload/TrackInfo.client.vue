@@ -2,13 +2,13 @@
   <v-container class="mt-8">
     <v-row justify="center">
       <v-col cols="auto" class="text-center">
-        <h1 class="text-h3 font-weight-bold">Track Info</h1>
+        <h1 class="text-h4 text-md-h3 font-weight-bold">Track Info</h1>
         <h2 class="text-h6 pt-2 text-surface-variant">Enter the track information</h2>
       </v-col>
     </v-row>
 
     <v-row justify="center" class="mt-12">
-      <v-col cols="2">
+      <v-col cols="12" md="2">
         <v-card class="d-flex flex-column pa-4">
           <video class="w-100 mb-6" controls :poster="modelValue.artwork">
             <source :src="modelValue.audio" :type="modelValue.audio_mime_type" />
@@ -29,8 +29,8 @@
 
         </v-card>
       </v-col>
-      <v-col cols="5">
-        <v-window v-model="currentStep">
+      <v-col cols="12" md="5">
+        <v-window v-model="currentStep" :touch="false">
           <v-window-item :key="0">
             <UploadTrackInfoGeneral :track-id="trackId" v-model="modelValue" @done="onTrackInfoGeneralDone" />
           </v-window-item>

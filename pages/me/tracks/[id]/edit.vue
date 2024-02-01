@@ -1,6 +1,6 @@
 <template>
   <ClientOnly>
-    <v-window v-model="currentStep">
+    <v-window v-model="currentStep" :touch="false">
       <v-window-item :key="0" :value="0">
         <UploadArtwork :track-id="trackId" @done="onUploadArtworkDone" />
       </v-window-item>

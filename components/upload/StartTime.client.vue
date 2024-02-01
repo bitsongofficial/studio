@@ -2,18 +2,18 @@
   <v-container class="mt-8">
     <v-row justify="center">
       <v-col cols="auto" class="text-center">
-        <h1 class="text-h3 font-weight-bold">Wen release? 🚀</h1>
+        <h1 class="text-h4 text-md-h3 font-weight-bold">Wen release? 🚀</h1>
         <h2 class="text-h6 pt-2 text-surface-variant">Set the date and time of the release of your Music NFT</h2>
       </v-col>
     </v-row>
 
     <v-row justify="center" class="mt-12">
-      <v-col cols="7">
+      <v-col cols="12" md="7">
         <v-row justify="space-around">
           <v-date-picker v-if="date" v-model="date" :min="minDate" show-adjacent-months color="primary"
             class="date-picker"></v-date-picker>
 
-          <v-col cols="4">
+          <v-col cols="12" md="4">
             <v-row justify="left" align="center" class="pt-9 pb-2">
               <v-col cols="auto" class="d-flex align-center">
                 <div class="text-h4 px-4">Time</div>

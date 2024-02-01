@@ -2,20 +2,20 @@
   <v-container class="mt-8">
     <v-row justify="center">
       <v-col cols="auto" class="text-center">
-        <h1 class="text-h3 font-weight-bold">Marketplace</h1>
+        <h1 class="text-h4 text-md-h3 font-weight-bold">Marketplace</h1>
         <h2 class="text-h6 pt-2 text-surface-variant">Set the parameters of the marketplace</h2>
       </v-col>
     </v-row>
 
     <v-row justify="center" class="mt-12">
-      <v-col cols="7">
+      <v-col cols="12" md="7">
         <v-container>
           <v-row no-gutters justify="center" align="center">
-            <v-col cols="6">
+            <v-col cols="12" md="6">
               <v-card-title>Curve Ratio</v-card-title>
               <v-card-subtitle>TODO: aggiungere descrizione e link di spiegazione</v-card-subtitle>
             </v-col>
-            <v-col cols="4">
+            <v-col cols="12" md="4">
               <v-row no-gutters>
                 <v-col cols="6">
                   <v-slider v-model="modelValue.curveRatio" :min="1" :max="1000" :step="1"></v-slider>
@@ -40,7 +40,7 @@
           </v-row>
 
           <v-row class="pb-10" justify="center" align="center">
-            <v-col cols="10">
+            <v-col cols="12" md="10">
               <v-card class="justify-space-between d-flex align-center">
                 <div>
                   <v-card-title>Simulazione</v-card-title>
@@ -56,11 +56,11 @@
 
 
           <v-row no-gutters justify="center" align="center">
-            <v-col cols="6">
+            <v-col cols="12" md="6">
               <v-card-title>Creator Fee</v-card-title>
               <v-card-subtitle>Percentage of the fee that the creator will receive</v-card-subtitle>
             </v-col>
-            <v-col cols="4">
+            <v-col cols="12" md="4">
               <v-row no-gutters>
                 <v-col cols="6">
                   <v-slider v-model="modelValue.creatorFee" :min="0.5" :max="7.5" :step="0.5"></v-slider>
@@ -83,11 +83,11 @@
           </v-row>
 
           <v-row no-gutters justify="center" align="center">
-            <v-col cols="6">
+            <v-col cols="12" md="6">
               <v-card-title>Referral Fee</v-card-title>
               <v-card-subtitle>TODO: Percentage of the fee that the creator will receive</v-card-subtitle>
             </v-col>
-            <v-col cols="4">
+            <v-col cols="12" md="4">
               <v-row no-gutters>
                 <v-col cols="6">
                   <v-slider v-model="modelValue.referralFee" :min="0.1" :max="maxReferralFee" :step="0.1"></v-slider>
@@ -110,7 +110,7 @@
           </v-row>
 
           <v-row class="pt-1" justify="center" align="center">
-            <v-col cols="10">
+            <v-col cols="12" md="10">
               <v-card class="justify-space-between d-flex align-center">
                 <div>
                   <v-card-title>Esempio</v-card-title>

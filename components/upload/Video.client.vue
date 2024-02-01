@@ -2,13 +2,13 @@
   <v-container class="mt-8">
     <v-row justify="center">
       <v-col cols="auto" class="text-center">
-        <h1 class="text-h3 font-weight-bold">Upload your video</h1>
+        <h1 class="text-h4 text-md-h3 font-weight-bold">Upload your video</h1>
         <h2 class="text-h6 pt-2 text-surface-variant">Choose the video you want to upload</h2>
       </v-col>
     </v-row>
 
     <v-row justify="center" class="mt-12">
-      <v-col cols="7">
+      <v-col cols="12" md="7">
         <v-card :variant="isOverDropZone ? 'teal' : 'flat'" ref="dropZoneRef" :loading="loading" :disabled="loading"
           height="300" class="d-flex align-center justify-center flex-column"
           :style="{ border: '1px dashed rgb(139 139 139)' }" @click.stop="open">

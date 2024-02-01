@@ -4,10 +4,10 @@
     <v-row v-for="(ap, index) in modelValue" :key="index" align="center" no-gutters>
       <v-col>
         <v-row>
-          <v-col>
-            <v-text-field label="Name" variant="outlined" v-model="ap.name"></v-text-field>
+          <v-col cols="12" md="6">
+            <v-text-field label="Name" variant="outlined" v-model="ap.name" hide-details></v-text-field>
           </v-col>
-          <v-col cols="6">
+          <v-col cols="12" md="6">
             <v-select variant="outlined" :items="publisherRoles" item-title="text" item-value="value" label="Role"
               append-inner-icon="mdi-menu-down" v-model="ap.role"></v-select>
           </v-col>
