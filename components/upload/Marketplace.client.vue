@@ -44,13 +44,15 @@
             <v-col cols="12" md="10">
               <v-card class="justify-space-between d-flex align-center">
                 <div>
-                  <v-card-title>Simulazione</v-card-title>
+                  <v-card-title>Simulator</v-card-title>
                   <v-card-text>
-                    Esegui una simulazione con questi parametri, TODO continuare descrizione
+                    Try the online simulator to see how the curve ratio affects the price of your Music NFT.
                   </v-card-text>
                 </div>
                 <v-spacer></v-spacer>
-                <v-btn variant="text" color="white" icon="mdi-arrow-right"></v-btn>
+                <NuxtLink class="text-white px-4" to="/tools/curve-simulator" target="_blank">
+                  <v-icon>mdi-arrow-right</v-icon>
+                </NuxtLink>
               </v-card>
             </v-col>
           </v-row>
@@ -110,7 +112,7 @@
             </v-col>
           </v-row>
 
-          <v-row class="pt-1" justify="center" align="center">
+          <!--<v-row class="pt-1" justify="center" align="center">
             <v-col cols="12" md="10">
               <v-card class="justify-space-between d-flex align-center">
                 <div>
@@ -123,7 +125,7 @@
                 </div>
               </v-card>
             </v-col>
-          </v-row>
+          </v-row>-->
 
 
           <v-row v-if="error">
