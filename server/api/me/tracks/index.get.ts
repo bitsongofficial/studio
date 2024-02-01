@@ -1,11 +1,10 @@
 import { GetObjectCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
-import { PrismaClient } from '@prisma/client';
+import prisma from '~/server/utils/db'
 
 export default defineEventHandler(async (event) => {
   const user = await ensureAuth(event)
 
-  const prisma = new PrismaClient()
   const tracks = await prisma.tracks.findMany({
     where: {
       user_id: user.userId

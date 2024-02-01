@@ -1,6 +1,6 @@
 import { H3Event } from 'h3'
-import { PrismaClient } from '@prisma/client'
 import ffmpeg, { FfprobeData } from 'fluent-ffmpeg'
+import prisma from '~/server/utils/db'
 
 export async function ensureUserTrack(event: H3Event) {
   const user = await ensureAuth(event)
@@ -13,7 +13,6 @@ export async function ensureUserTrack(event: H3Event) {
     })
   }
 
-  const prisma = new PrismaClient()
   const track = await prisma.tracks.findUnique({
     where: {
       id,

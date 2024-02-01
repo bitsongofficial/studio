@@ -1,12 +1,10 @@
 import { lucia } from "lucia";
-import { prisma } from "@lucia-auth/adapter-prisma";
-import { PrismaClient } from "@prisma/client";
+import { prisma as prismaAdapter } from "@lucia-auth/adapter-prisma";
 import { h3 } from "lucia/middleware";
-
-const client = new PrismaClient();
+import prisma from '~/server/utils/db'
 
 export const auth = lucia({
-  adapter: prisma(client, {
+  adapter: prismaAdapter(prisma, {
     user: "user",
     session: "userSession",
     key: "userKey"

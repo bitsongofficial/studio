@@ -1,10 +1,9 @@
-import { PrismaClient } from "@prisma/client";
+import prisma from '~/server/utils/db'
 
 export default defineEventHandler(async (event) => {
   const address = getRouterParam(event, 'address')
 
-  const prismaClient = new PrismaClient();
-  const nfts = await prismaClient.nfttokenview.findMany({
+  const nfts = await prisma.nfttokenview.findMany({
     where: {
       owner: address
     }

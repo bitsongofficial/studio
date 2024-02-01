@@ -1,8 +1,7 @@
 import { ContributorMsg } from "@bitsongjs/telescope/types/codegen/Bs721Factory.types";
-import { PrismaClient } from "@prisma/client";
+import prisma from '~/server/utils/db'
 
 export default defineEventHandler(async (event) => {
-  const prisma = new PrismaClient()
   const user = await ensureAuth(event)
   const id = getRouterParam(event, 'id')
 

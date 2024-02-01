@@ -1,10 +1,9 @@
-import { PrismaClient } from "@prisma/client";
+import prisma from '~/server/utils/db'
 
 export default defineEventHandler(async (event) => {
   const contract = getRouterParam(event, 'contract')
 
-  const prismaClient = new PrismaClient();
-  const activities = await prismaClient.nftactivityview.findMany({
+  const activities = await prisma.nftactivityview.findMany({
     where: {
       nft_id: contract
     },

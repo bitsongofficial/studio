@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import prisma from '~/server/utils/db'
 
 export default defineEventHandler(async (event) => {
   try {
@@ -12,8 +12,7 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    const prismaClient = new PrismaClient();
-    const data = await prismaClient.dropNotifications.findFirst({
+    const data = await prisma.dropNotifications.findFirst({
       where: {
         user_id: user.userId,
         drop_id

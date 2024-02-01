@@ -1,12 +1,11 @@
-import { PrismaClient } from '@prisma/client';
 import { storeTrackVideoToS3 } from '~/server/services/s3';
 import { getMediaData } from '~/server/utils/media';
+import prisma from '~/server/utils/db'
 
 export default defineEventHandler(async (event) => {
   const user = await ensureAuth(event)
   const id = getRouterParam(event, 'id')
 
-  const prisma = new PrismaClient()
   const _track = await prisma.tracks.findUnique({
     where: {
       id: id!,

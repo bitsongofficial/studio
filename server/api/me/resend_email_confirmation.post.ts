@@ -1,11 +1,10 @@
-import { PrismaClient } from "@prisma/client"
 import { v4 as uuidv4 } from 'uuid';
+import prisma from '~/server/utils/db'
 
 export default defineEventHandler(async (event) => {
   const user = await ensureAuth(event)
 
-  const prismaClient = new PrismaClient()
-  const userResult = await prismaClient.user.findFirst({
+  const userResult = await prisma.user.findFirst({
     where: {
       AND: {
         email_verified: false,
@@ -29,7 +28,7 @@ export default defineEventHandler(async (event) => {
 
   await sendEmailVerification(userResult.email_to_verify!, userResult.username!, email_verification_token)
 
-  await prismaClient.user.update({
+  await prisma.user.update({
     where: {
       address: user.address
     },

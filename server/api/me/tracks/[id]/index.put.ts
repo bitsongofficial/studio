@@ -1,6 +1,6 @@
-import { PrismaClient } from "@prisma/client";
 import { ZodError } from "zod";
 import { trackUpdateSchema } from "~/server/schema/trackUpdate";
+import prisma from '~/server/utils/db'
 
 export default defineEventHandler(async (event) => {
   const { track: _track, user } = await ensureUserTrack(event)
@@ -8,7 +8,6 @@ export default defineEventHandler(async (event) => {
   try {
     const data = trackUpdateSchema.parse(await readBody(event))
 
-    const prisma = new PrismaClient()
     const track = await prisma.tracks.update({
       where: {
         id: _track.id,

@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import prisma from '~/server/utils/db'
 
 export default defineEventHandler(async (event) => {
   try {
@@ -11,8 +11,7 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    const prismaClient = new PrismaClient();
-    await prismaClient.dropNotifications.deleteMany({
+    await prisma.dropNotifications.deleteMany({
       where: {
         AND: {
           drop_id: drop_id,

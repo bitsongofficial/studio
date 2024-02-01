@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import prisma from '~/server/utils/db'
 
 export default defineEventHandler(async (event) => {
   const address = getRouterParam(event, 'address')
@@ -17,8 +17,7 @@ export default defineEventHandler(async (event) => {
     selectColumns.email = true
   }
 
-  const prismaClient = new PrismaClient();
-  const user = await prismaClient.user.findUnique({
+  const user = await prisma.user.findUnique({
     where: {
       address
     },

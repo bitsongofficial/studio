@@ -1,9 +1,8 @@
 import { toMarkdown, trackMetadata, LicenseType, TrackGenre, Country, TrackExpicit } from "@bitsongjs/metadata";
-import { PrismaClient } from "@prisma/client";
 import pinataSDK from '@pinata/sdk'
+import prisma from '~/server/utils/db'
 
 export default defineEventHandler(async (event) => {
-  const prisma = new PrismaClient()
   const user = await ensureAuth(event)
   const id = getRouterParam(event, 'id')
 

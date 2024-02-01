@@ -1,10 +1,10 @@
-import { PrismaClient } from '@prisma/client';
 import { ZodError } from 'zod';
 import { userUpdateProfileSchema } from '~/server/schema/updateProfile';
 import pinataSDK from '@pinata/sdk'
 import { Readable } from 'stream';
 import { v4 as uuidv4 } from 'uuid';
 import { sendEmailVerification } from '~/server/utils/email';
+import prisma from '~/server/utils/db'
 
 export default defineEventHandler(async (event) => {
   const user = await ensureAuth(event)
@@ -38,8 +38,7 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  const prismaClient = new PrismaClient();
-  const usernameResult = await prismaClient.user.findFirst({
+  const usernameResult = await prisma.user.findFirst({
     where: {
       username
     }
@@ -52,7 +51,7 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  const emailResult = await prismaClient.user.findFirst({
+  const emailResult = await prisma.user.findFirst({
     where: {
       email
     }
