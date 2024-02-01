@@ -93,4 +93,5 @@ export const trackUpdateSchema = z
       referral_fee: z.number().optional(),
     }).optional(),
     start_time: z.number().optional(),
+    payment_address: z.string().optional(),
   })

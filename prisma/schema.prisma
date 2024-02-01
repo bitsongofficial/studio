@@ -80,9 +80,12 @@ model tracks {
   size             Int?
   license          String?
   artwork          String?
+  artwork_ipfs_cid String?
   audio            String?
+  audio_ipfs_cid   String?
   audio_mime_type  String?
   video            String?
+  video_ipfs_cid   String?
   duration         Int?
   genre            String?
   country          String?
@@ -104,6 +107,11 @@ model tracks {
   version String?
 
   start_time Int?
+
+  payment_address String?
+  payment_denom   String?
+
+  metadata_ipfs_cid String?
 
   created_at         DateTime                   @default(now())
   updated_at         DateTime                   @default(now()) @updatedAt

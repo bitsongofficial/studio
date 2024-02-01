@@ -39,47 +39,15 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  const metadata = trackMetadata({
-    id: track.id,
-    title: track.title!,
-    titleLocale: "en",
-    description: toMarkdown(track.description!),
-    artists: track.artists.map((artist) => ({
-      name: artist.name,
-      role: artist.role,
-      address: artist.address,
-    })),
-    artwork: "ipfs://QmYWrmVQnEYL317cZbsAH9wv6eJihbdpxjPDyLtbotR2Zq",
-    audio: "ipfs://QmRS3uRQ929bMa5683G7jKagpQ4nwcbmB3bAihjsCg2XAo",
-    duration: 142000,
-    license: LicenseType.ALL_RIGHTS_RESERVED,
-    genre: TrackGenre.DRUM_AND_BASS,
-    country: Country.ITALY,
-    explicit: TrackExpicit.CLEAN,
-    liveRecording: false,
-    previousRelease: false,
-    previewStartTime: 0,
-    previewDuration: 15000,
-    label: "Delta9 Recordings",
-    authors_publishers: track.authors_publishers.map((author) => ({
-      name: author.name,
-      role: author.role,
-      address: author.address,
-    })),
-  })
-
-  const pinata = new pinataSDK(useRuntimeConfig().pinataApiKey, useRuntimeConfig().pinataApiSecret);
-  const { IpfsHash: cid } = await pinata.pinJSONToIPFS(metadata, { pinataMetadata: { name: `track_exept_amnesia_metadata.json` } })
-
   return {
-    symbol: "MNFTEXAMN",
+    symbol: "STMGRWT",
     name: track.title,
-    uri: `ipfs://${cid}`,
+    uri: `ipfs://${track.metadata_ipfs_cid}`,
     paymentDenom: "ubtsg",
-    paymentAddress: "",
+    paymentAddress: track.payment_address,
     sellerFeeBps: 500,
     referralFeeBps: 2000, // referral fee / seller fee * 10000
-    startTime: "1706637600000000000",
-    ratio: 100
+    startTime: "1706810400000000000",
+    ratio: 50
   }
 })

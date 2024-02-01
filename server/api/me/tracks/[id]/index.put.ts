@@ -29,6 +29,8 @@ export default defineEventHandler(async (event) => {
         lyrics: data.lyrics?.trim(),
         lyricsLocale: data.lyricsLocale?.trim(),
         start_time: data.start_time,
+        payment_address: data.payment_address?.trim(),
+        payment_denom: "ubtsg",
       },
       include: {
         artists: true,
