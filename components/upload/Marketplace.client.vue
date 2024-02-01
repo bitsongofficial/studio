@@ -18,11 +18,12 @@
             <v-col cols="12" md="4">
               <v-row no-gutters>
                 <v-col cols="6">
-                  <v-slider v-model="modelValue.curveRatio" :min="1" :max="1000" :step="10"></v-slider>
+                  <v-slider v-model="modelValue.curveRatio" :min="1" :max="1000" :step="1"></v-slider>
                 </v-col>
                 <v-col cols="6">
                   <div class="text-center text-h4 text-surface-variant">
-                    {{ modelValue.curveRatio }}
+                    <input type="text" class="text-h4 text-surface-variant" v-model="modelValue.curveRatio"
+                      :style="{ width: '90px' }" @change="validateCurveRatio" />
                   </div>
                 </v-col>
               </v-row>
@@ -202,6 +203,16 @@ const FormSchema = z.object({
     message: "Curve ratio must be at most 1000"
   }),
 })
+
+function validateCurveRatio() {
+  if (modelValue.value.curveRatio && modelValue.value.curveRatio < 1) {
+    modelValue.value.curveRatio = 1;
+  }
+
+  if (modelValue.value.curveRatio && modelValue.value.curveRatio > 1000) {
+    modelValue.value.curveRatio = 1000;
+  }
+}
 
 async function onContinue() {
   error.value = "";
