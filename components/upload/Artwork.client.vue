@@ -71,6 +71,8 @@ const { isOverDropZone } = useDropZone(dropZoneRef, {
   dataTypes: ['image/jpg', 'image/jpeg']
 })
 
+const { error } = useNotify()
+
 async function upload(file: File) {
   try {
     loading.value = true
@@ -87,9 +89,9 @@ async function upload(file: File) {
 
     emits("done");
   } catch (e) {
-    console.error((e as Error).message)
-  } finally {
     loading.value = false
+    error((e as Error).message)
+    console.error((e as Error).message)
   }
 }
 
@@ -101,5 +103,10 @@ onChange(async (files) => {
   }
 
   await upload(files[0])
+})
+
+onMounted(async () => {
+  await nextTick()
+  loading.value = false
 })
 </script>

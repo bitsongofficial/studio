@@ -63,6 +63,7 @@ const { isOverDropZone } = useDropZone(dropZoneRef, {
   dataTypes: ['video/mp4']
 })
 
+const { error } = useNotify()
 async function upload(file: File) {
   try {
     loading.value = true
@@ -77,9 +78,9 @@ async function upload(file: File) {
 
     emits("done");
   } catch (e) {
-    console.error((e as Error).message)
-  } finally {
     loading.value = false
+    error((e as Error).message)
+    console.error((e as Error).message)
   }
 }
 
@@ -98,7 +99,8 @@ function onDone() {
   emits("done");
 }
 
-onMounted(() => {
+onMounted(async () => {
+  await nextTick()
   loading.value = false;
 })
 </script>

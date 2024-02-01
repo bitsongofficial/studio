@@ -1,28 +1,26 @@
 <template>
-  <div>
-    <ClientOnly>
-      <v-window v-model="currentStep">
-        <v-window-item :value="0">
-          <UploadArtwork :track-id="trackId" @done="onUploadArtworkDone" />
-        </v-window-item>
-        <v-window-item :value="1">
-          <UploadVideo :track-id="trackId" @done="onUploadVideoDone" />
-        </v-window-item>
-        <v-window-item :value="2">
-          <UploadTrackInfo :track-id="trackId" v-model="form.trackInfo" @done="currentStep = 3" />
-        </v-window-item>
-        <v-window-item :value="3">
-          <UploadRoyalties :track-id="trackId" v-model="form.royalties" @done="currentStep = 4" />
-        </v-window-item>
-        <v-window-item :value="4">
-          <UploadMarketplace :track-id="trackId" v-model="form.marketplace" @done="currentStep = 5" />
-        </v-window-item>
-        <v-window-item :value="5">
-          <UploadStartTime :track-id="trackId" v-model="form.marketplace.releaseDate" @done="onEditDone" />
-        </v-window-item>
-      </v-window>
-    </ClientOnly>
-  </div>
+  <ClientOnly>
+    <v-window v-model="currentStep">
+      <v-window-item :key="0" :value="0">
+        <UploadArtwork :track-id="trackId" @done="onUploadArtworkDone" />
+      </v-window-item>
+      <v-window-item :key="1" :value="1">
+        <UploadVideo :track-id="trackId" @done="onUploadVideoDone" />
+      </v-window-item>
+      <v-window-item :key="2" :value="2">
+        <UploadTrackInfo :track-id="trackId" v-model="form.trackInfo" @done="currentStep = 3" />
+      </v-window-item>
+      <v-window-item :key="3" :value="3">
+        <UploadRoyalties :track-id="trackId" v-model="form.royalties" @done="currentStep = 4" />
+      </v-window-item>
+      <v-window-item :key="4" :value="4">
+        <UploadMarketplace :track-id="trackId" v-model="form.marketplace" @done="currentStep = 5" />
+      </v-window-item>
+      <v-window-item :key="5" :value="5">
+        <UploadStartTime :track-id="trackId" v-model="form.marketplace.releaseDate" @done="onEditDone" />
+      </v-window-item>
+    </v-window>
+  </ClientOnly>
 </template>
 
 <script lang="ts" setup>
@@ -180,4 +178,8 @@ async function onUploadVideoDone() {
 async function onEditDone() {
   navigateTo(`/me/tracks/${trackId}/confirm`)
 }
+
+onMounted(async () => {
+  await nextTick()
+})
 </script>

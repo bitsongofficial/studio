@@ -1,5 +1,7 @@
 <template>
-  <UploadTrack @done="onUploadTrackDone" />
+  <ClientOnly>
+    <UploadTrack @done="onUploadTrackDone" />
+  </ClientOnly>
 </template>
 
 <script lang="ts" setup>
