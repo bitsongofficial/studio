@@ -31,6 +31,7 @@ export default defineEventHandler(async (event) => {
         start_time: data.start_time,
         payment_address: data.payment_address?.trim(),
         payment_denom: "ubtsg",
+        nft_address: data.nft_address?.trim(),
       },
       include: {
         artists: true,

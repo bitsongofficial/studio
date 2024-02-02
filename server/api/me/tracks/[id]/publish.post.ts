@@ -1,5 +1,5 @@
 import { GetObjectCommand } from "@aws-sdk/client-s3";
-import { Country, LicenseType, TrackExpicit, TrackGenre, toMarkdown, trackMetadata } from "@bitsongjs/metadata";
+import { Country, LicenseType, TrackExpicit, TrackGenre, toCountry, toExplicit, toLicense, toMarkdown, toTrackGenre, trackMetadata } from "@bitsongjs/metadata";
 import pinataSDK from '@pinata/sdk'
 import prisma from "~/server/utils/db";
 
@@ -71,22 +71,24 @@ export default defineEventHandler(async (event) => {
       })),
       artwork: `ipfs://${artworkCid}`,
       audio: `ipfs://${audioCid}`,
+      video: track.video ? `ipfs://${videoCid}` : undefined,
       duration: track.duration!,
-      license: LicenseType.ALL_RIGHTS_RESERVED,
-      genre: TrackGenre.R_AND_B,
-      country: Country.ITALY,
-      explicit: TrackExpicit.EXPLICIT,
-      liveRecording: false,
-      previousRelease: false,
-      previewStartTime: 0,
-      previewDuration: 15000,
+      license: toLicense(track.license!),
+      genre: toTrackGenre(track.genre!),
+      country: toCountry(track.country!),
+      explicit: toExplicit(track.explicit!),
+      liveRecording: track.liveRecording!,
+      previousRelease: track.previousRelease!,
+      previewStartTime: track.previewStartTime!,
+      previewDuration: track.previewDuration!,
       authors_publishers: track.authors_publishers.map((author) => ({
         name: author.name,
         role: author.role,
         address: author.address,
       })),
-      lyrics: track.lyrics,
-      lyricsLocale: track.lyricsLocale,
+      lyrics: track.lyrics ? toMarkdown(track.lyrics) : undefined,
+      lyricsLocale: track.lyricsLocale ? track.lyricsLocale : undefined,
+      version: track.version ? track.version : undefined,
     })
 
     const { IpfsHash: metadataCid } = await pinata.pinJSONToIPFS(metadata, { pinataMetadata: { name: `track_metadata_${track.id}.json` } })

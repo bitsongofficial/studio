@@ -21,8 +21,8 @@ dependencies:
     specifier: ^3.501.0
     version: 3.501.0
   '@bitsongjs/metadata':
-    specifier: ^0.1.4
-    version: 0.1.4
+    specifier: ^0.2.1
+    version: 0.2.1
   '@bitsongjs/telescope':
     specifier: 3.0.0-dev.22
     version: 3.0.0-dev.22
@@ -1575,8 +1575,8 @@ packages:
       '@babel/helper-validator-identifier': 7.22.20
       to-fast-properties: 2.0.0
 
-  /@bitsongjs/metadata@0.1.4:
-    resolution: {integrity: sha512-IUmz9KkTHYVa7YFt9d4QlndcCdH5ReFHYP+wEc8lopEI5IPbOkTETv2f6VwyehzN9fBRXJJ28O3aQBo5vptGFQ==}
+  /@bitsongjs/metadata@0.2.1:
+    resolution: {integrity: sha512-VcbJw8I9FAzIqIwCFCzoeY3NgNGkcQoqhGctmPoawnC4HIla8ohaWyoLVXDPJKc1Md4Inw9B1t6cwYS8MeBpGg==}
     dependencies:
       '@cosmjs/encoding': 0.32.2
       uuid: 9.0.1

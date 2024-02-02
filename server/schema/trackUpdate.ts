@@ -94,4 +94,5 @@ export const trackUpdateSchema = z
     }).optional(),
     start_time: z.number().optional(),
     payment_address: z.string().optional(),
+    nft_address: z.string().optional(),
   })

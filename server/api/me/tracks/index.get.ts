@@ -13,6 +13,7 @@ export default defineEventHandler(async (event) => {
       id: true,
       title: true,
       artwork: true,
+      status: true,
     },
     take: 10,
     orderBy: {

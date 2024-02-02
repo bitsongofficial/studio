@@ -1,36 +1,5 @@
-import { toMarkdown, trackMetadata, LicenseType, TrackGenre, Country, TrackExpicit } from "@bitsongjs/metadata";
-import pinataSDK from '@pinata/sdk'
-import prisma from '~/server/utils/db'
-
 export default defineEventHandler(async (event) => {
-  const user = await ensureAuth(event)
-  const id = getRouterParam(event, 'id')
-
-  if (!id) {
-    throw createError({
-      message: 'No id',
-      status: 400
-    })
-  }
-
-  const track = await prisma.tracks.findUnique({
-    where: {
-      id,
-      user_id: user.userId,
-    },
-    include: {
-      artists: true,
-      authors_publishers: true,
-      royalties_info: true,
-    }
-  })
-
-  if (!track) {
-    throw createError({
-      message: 'No track found',
-      status: 404
-    })
-  }
+  const { track } = await ensureUserTrack(event)
 
   if (!track.royalties_info) {
     throw createError({
@@ -39,15 +8,22 @@ export default defineEventHandler(async (event) => {
     })
   }
 
+  const generateSymbol = (name: string) => {
+    let upperName = name.toUpperCase()
+    return upperName.charAt(0) + upperName.slice(1).replace(/[AEIOU]/g, '');
+  }
+
+  const startTime = (time: number) => (time * 1000000000).toString()
+
   return {
-    symbol: "STMGRWT",
+    symbol: generateSymbol(track.title!),
     name: track.title,
     uri: `ipfs://${track.metadata_ipfs_cid}`,
     paymentDenom: "ubtsg",
     paymentAddress: track.payment_address,
-    sellerFeeBps: 500,
-    referralFeeBps: 2000, // referral fee / seller fee * 10000
-    startTime: "1706810400000000000",
-    ratio: 50
+    sellerFeeBps: Math.round(track.marketplace[0].creator_fee! * 100),
+    referralFeeBps: Math.round(track.marketplace[0].referral_fee! * 100 / track.marketplace[0].creator_fee! * 100),
+    startTime: startTime(track.start_time!),
+    ratio: track.marketplace[0].ratio,
   }
 })

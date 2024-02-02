@@ -68,30 +68,6 @@
               <v-btn>View Music Nft</v-btn>
             </v-col>
           </v-row>
-          <!--<v-row no-gutters align="center">
-            <v-col>
-              <v-card-title>Royalties Contract</v-card-title>
-              <v-card-subtitle v-if="txRoyalties">TX: {{ txRoyalties }}</v-card-subtitle>
-              <v-card-subtitle v-if="royaltiesAddress">Address: {{ royaltiesAddress }}</v-card-subtitle>
-            </v-col>
-            <v-col class="text-right">
-              <v-btn v-if="royaltiesAddress === ''" :loading="txRoyaltiesLoading" :disabled="txRoyaltiesLoading"
-                @click.stop="onCreateRoyalties">
-                Create
-              </v-btn>
-            </v-col>
-          </v-row>
-
-          <v-row no-gutters align="center" class="pt-6">
-            <v-col>
-              <v-card-title>Create Music NFT</v-card-title>
-            </v-col>
-            <v-col class="text-right">
-              <v-btn :loading="txCurveLoading" :disabled="txCurveLoading" @click.stop="onCreateCurve">
-                Create
-              </v-btn>
-            </v-col>
-          </v-row>-->
         </v-col>
       </v-row>
     </v-container>
@@ -155,16 +131,7 @@ const musicNftSuccess = computed(() => {
   return currentStep.value > 2
 })
 
-function nextStep() {
-  if (currentStep.value < 3) {
-    currentStep.value += 1
-  } else {
-    currentStep.value = 0
-  }
-}
-
 const loading = ref(false)
-const royaltiesAddress = ref("aaa")
 const { success, error } = useNotify()
 
 async function publishMetadata() {
@@ -240,11 +207,18 @@ async function createCurve() {
 
     const tx = await factoryClient.createCurve(msg, "auto", "", [{ amount: "500000000", denom: "ubtsg" }],);
 
+    const nft_address = tx.logs[0].events[3].attributes[2].value
+
+    await $fetch(`/api/me/tracks/${trackId}/confirm`, {
+      method: "POST",
+      body: {
+        nft_address
+      }
+    })
+
     await refresh()
     success("Transaction success")
     currentStep.value = 3
-
-    // txCurve.value = tx
   } catch (e) {
     error((e as Error).message)
   } finally {

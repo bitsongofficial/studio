@@ -113,6 +113,8 @@ model tracks {
 
   metadata_ipfs_cid String?
 
+  status             TrackStatus                @default(Draft)
+  nft_address        String?
   created_at         DateTime                   @default(now())
   updated_at         DateTime                   @default(now()) @updatedAt
   artists            track_artists[]
@@ -121,6 +123,14 @@ model tracks {
   marketplace        track_marketplace[]
 
   @@index([user_id])
+  @@schema("public")
+}
+
+enum TrackStatus {
+  Draft
+  To_Mint
+  Minted
+
   @@schema("public")
 }
 
