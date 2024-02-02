@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols="auto" v-for="track in tracks" :key="track.id">
         <AppMyTracksItem :image="track.artwork!" :subtitle="``" :title="track.title || '-'" :link="getTrackLink(track)"
-          :btnText="getButtonText(track)" />
+          :btnText="getButtonText(track)" :status="getStatusText(track)" />
       </v-col>
     </v-row>
   </v-container>
@@ -35,5 +35,17 @@ function getButtonText(track: { status: string }) {
   }
 
   return 'View Music NFT'
+}
+
+function getStatusText(track: { status: string }) {
+  if (track.status.toLowerCase() === 'draft') {
+    return 'Draft'
+  }
+
+  if (track.status.toLowerCase() === 'to_mint') {
+    return 'To Mint'
+  }
+
+  return null
 }
 </script>

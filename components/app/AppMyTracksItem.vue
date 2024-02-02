@@ -15,7 +15,7 @@
         {{ title }}
       </NuxtLink>
     </v-card-title>
-    <v-chip class="my-2 mx-4">Draft</v-chip>
+    <v-chip class="my-2 mx-4" v-if="status">{{ status }}</v-chip>
     <v-btn color="primary" class="mt-2" block variant="outlined" :to="link">
       {{ btnText }}
     </v-btn>
@@ -31,6 +31,7 @@ interface Props {
   title: string;
   link: string;
   btnText: string;
+  status?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
