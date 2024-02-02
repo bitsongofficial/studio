@@ -299,50 +299,93 @@ function openMarketplaceDialog(side: "buy" | "sell") {
 
 const { Bs721CurveQueryClient } = contracts.Bs721Curve;
 
-async function fetchPrices(amount: number = 1) {
-  await execute();
-  await executeActivities();
+const { error: errorNotify } = useNotify()
 
-  const marketplace = data.value?.marketplace_address;
-  if (!marketplace) {
-    return;
+// Buy Price:
+// Marketplace Address: bitsong1kj8q8g2pmhnagmfepp9jh9g2mda7gzd0m5zdq0s08ulvac8ck4dqalzxgv
+// Query: '{"buy_price":{"amount":"1"}}' | base64
+// Url: https://lcd.explorebitsong.com/cosmwasm/wasm/v1/contract/bitsong1kj8q8g2pmhnagmfepp9jh9g2mda7gzd0m5zdq0s08ulvac8ck4dqalzxgv/smart/eyJidXlfcHJpY2UiOnsiYW1vdW50IjoiMjkxIn19Cg==
+async function fetchContractPrices(amount: number = 1) {
+  try {
+    const { restAddress } = useRuntimeConfig().public
+
+    const buyQuery = btoa(`{"buy_price":{"amount":"${amount}"}}`);
+    const sellQuery = btoa(`{"sell_price":{"amount":"${amount}"}}`);
+    const marketplace = toValue(data.value?.marketplace_address);
+    if (!marketplace) {
+      return;
+    }
+
+    const urlQueryBuy = `${restAddress}/cosmwasm/wasm/v1/contract/${marketplace}/smart/${buyQuery}`;
+    const urlQuerySell = `${restAddress}/cosmwasm/wasm/v1/contract/${marketplace}/smart/${sellQuery}`;
+
+    interface QueryResponse {
+      data: {
+        base_price: string
+        protocol_fee: string
+        referral: string
+        royalties: string
+        total_price: string
+      };
+    }
+
+    const [buy_price, sell_price] = await Promise.all([
+      $fetch(urlQueryBuy),
+      $fetch(urlQuerySell),
+    ]);
+    prices.buy = parseInt((buy_price as QueryResponse).data.total_price);
+    prices.sell = parseInt((sell_price as QueryResponse).data.total_price);
+
+    loadings.buy = false;
+    loadings.sell = false;
+
+  } catch (e) {
+    errorNotify('Error fetching prices')
   }
 
-  const bs721QueryClient = new Bs721CurveQueryClient(
-    await useQueryClient("bitsong"),
-    marketplace,
-  );
+  // const bs721QueryClient = new Bs721CurveQueryClient(
+  //   await useQueryClient("bitsong"),
+  //   marketplace,
+  // );
 
-  const [buy_price, sell_price] = await Promise.all([
-    bs721QueryClient.buyPrice({
-      // @ts-ignore
-      amount: amount.toString(),
-    }),
-    bs721QueryClient.sellPrice({
-      // @ts-ignore
-      amount: amount.toString(),
-    }),
-  ]);
+  // const [buy_price, sell_price] = await Promise.all([
+  //   bs721QueryClient.buyPrice({
+  //     // @ts-ignore
+  //     amount: amount.toString(),
+  //   }),
+  //   bs721QueryClient.sellPrice({
+  //     // @ts-ignore
+  //     amount: amount.toString(),
+  //   }),
+  // ]);
 
-  prices.buy = parseInt(buy_price.total_price);
-  prices.sell = parseInt(sell_price.total_price);
 
-  loadings.buy = false;
-  loadings.sell = false;
+}
+
+async function fetchPrices(amount: number = 1) {
+  await execute();
+  await fetchContractPrices(amount);
 }
 
 let interval: string | number | NodeJS.Timeout | undefined;
+let intervalActivities: string | number | NodeJS.Timeout | undefined;
 
 onMounted(async () => {
   await fetchPrices();
+  await executeActivities();
 
   interval = setInterval(async () => {
     await fetchPrices();
+  }, 2000);
+
+  intervalActivities = setInterval(async () => {
+    await executeActivities();
   }, 5000);
 });
 
 onUnmounted(() => {
   clearInterval(interval);
+  clearInterval(intervalActivities);
 });
 </script>
 
