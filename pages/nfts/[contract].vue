@@ -225,7 +225,6 @@
 
 <script lang="ts" setup>
 import { marked } from 'marked'
-import { contracts } from "@bitsongjs/telescope";
 import defaultImage from "@/assets/images/default.png";
 import { useTimeAgo } from '@vueuse/core'
 import { formatNumber, formatCoinAmount } from '~/utils';
@@ -297,8 +296,6 @@ function openMarketplaceDialog(side: "buy" | "sell") {
   marketplaceDialog.value = true;
 }
 
-const { Bs721CurveQueryClient } = contracts.Bs721Curve;
-
 const { error: errorNotify } = useNotify()
 
 // Buy Price:
@@ -342,24 +339,6 @@ async function fetchContractPrices(amount: number = 1) {
   } catch (e) {
     errorNotify('Error fetching prices')
   }
-
-  // const bs721QueryClient = new Bs721CurveQueryClient(
-  //   await useQueryClient("bitsong"),
-  //   marketplace,
-  // );
-
-  // const [buy_price, sell_price] = await Promise.all([
-  //   bs721QueryClient.buyPrice({
-  //     // @ts-ignore
-  //     amount: amount.toString(),
-  //   }),
-  //   bs721QueryClient.sellPrice({
-  //     // @ts-ignore
-  //     amount: amount.toString(),
-  //   }),
-  // ]);
-
-
 }
 
 async function fetchPrices(amount: number = 1) {

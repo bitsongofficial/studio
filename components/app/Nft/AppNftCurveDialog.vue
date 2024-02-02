@@ -28,21 +28,48 @@
           </v-col>
         </v-row>
 
-        <v-row>
-          <v-col>
-            <v-text-field label="Amount" type="number" v-model="formData.amount" variant="outlined"
-              hide-details></v-text-field>
+        <v-row align="center" justify="center" no-gutters class="mt-2">
+          <v-col cols="10">
+            <v-container fluid>
+              <v-row>
+                <v-col class="text-center">
+                  <v-btn :disabled="!canDecrement" variant="text" color="white" icon="mdi-chevron-left"
+                    @click="decrement"></v-btn>
+                </v-col>
+                <v-col class="text-center">
+                  <v-text-field variant="solo-filled" v-model="amount" hide-details></v-text-field>
+                </v-col>
+                <v-col class="text-center">
+                  <v-btn variant="text" color="white" icon="mdi-chevron-right" @click="increment"></v-btn>
+                </v-col>
+              </v-row>
+            </v-container>
           </v-col>
-          <v-col>
-            <v-text-field v-if="side === 'buy'" label="Max Bid" type="number" v-model="formData.maxBid" variant="outlined"
+        </v-row>
+
+
+
+        <v-row align="center" class="mt-0">
+          <v-col class="text-center">
+            <v-text-field v-if="side === 'buy'" label="Max Bid" type="number" v-model="maxBid" variant="outlined"
               hide-details>
               <template #append-inner>BTSG</template>
             </v-text-field>
-
-            <v-text-field v-else label="Min. Accepted" type="number" v-model="formData.maxBid" variant="outlined"
-              hide-details readonly>
+            <v-text-field v-if="side === 'sell'" label="Min Bid" type="number" v-model="maxBid" variant="outlined"
+              hide-details>
               <template #append-inner>BTSG</template>
             </v-text-field>
+          </v-col>
+
+          <v-col cols="auto">
+            <v-btn @click.stop="multiply" color="surface-variant" variant="tonal">x1.10</v-btn>
+          </v-col>
+        </v-row>
+        <v-row align="center" no-gutters class="pt-2">
+          <v-col>
+            <div class="text-surface-variant text-body-2">
+              Min. Bid: <span class="text-white">{{ minBid }} BTSG</span>
+            </div>
           </v-col>
         </v-row>
 
@@ -117,6 +144,56 @@ const formData = reactive({
   isAllowedToSell: false,
 });
 
+const minBid = computed(() => {
+  return useFromMicroAmount(formData.amount * props.buy_price);
+});
+
+const maxBid = computed({
+  get: () => formData.maxBid as number,
+  set: (value: string | number) => {
+    let num = Number(value);
+    console.log(num)
+
+    if (num < 0) num = 0;
+
+    if (num < minBid.value) num = minBid.value;
+
+    formData.maxBid = num
+  },
+});
+
+
+const amount = computed({
+  get: () => formData.amount as number,
+  set: (value: string | number) => {
+    let num = Number(value);
+
+    if (num < 1) num = 1;
+
+    formData.amount = num
+
+    if (props.side === "buy") {
+      maxBid.value = parseFloat((num * useFromMicroAmount(props.buy_price)).toFixed(6));
+    }
+  },
+});
+
+const canDecrement = computed(() => {
+  return amount.value > 1;
+});
+
+function increment() {
+  amount.value++;
+}
+
+function decrement() {
+  amount.value--;
+}
+
+function multiply() {
+  maxBid.value = parseFloat((toValue(maxBid) * 1.1).toFixed(6));
+}
+
 function reset() {
   loading.value = false;
   formData.amount = 1;
@@ -155,10 +232,12 @@ async function fetchConfig() {
   });
   formData.tokenIds = tokens;
 
-  const { operators } = await bs721QueryClient.allOperators({
-    owner: address,
-  });
-  formData.isAllowedToSell = operators.some((op) => op.spender === props.marketplaceAddress);
+  if (!formData.isAllowedToSell) {
+    const { operators } = await bs721QueryClient.allOperators({
+      owner: address,
+    });
+    formData.isAllowedToSell = operators.some((op) => op.spender === props.marketplaceAddress);
+  }
 }
 
 const canSell = computed(() => {
@@ -196,14 +275,14 @@ async function onBuy() {
       toValue(props.marketplaceAddress),
     );
 
-    const tx = await curveClient.mint(
+    await curveClient.mint(
       {
-        amount: Number(formData.amount),
+        amount: toValue(amount),
         //referral: referralAddress,
       },
       "auto",
       "",
-      [{ amount: useToMicroAmount(toValue(formData.maxBid)).toString(), denom: "ubtsg" }],
+      [{ amount: useToMicroAmount(toValue(maxBid)).toString(), denom: "ubtsg" }],
     );
 
     success("Transaction success")
