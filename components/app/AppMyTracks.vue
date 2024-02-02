@@ -13,7 +13,7 @@
 <script lang="ts" setup>
 const { data: tracks, error } = await useFetch(`/api/me/tracks`)
 
-function getTrackLink(track: { id: string; status: string }) {
+function getTrackLink(track: { id: string; status: string, nft_address?: string }) {
   if (track.status.toLowerCase() === 'draft') {
     return `/me/tracks/${track.id}/edit`
   }
@@ -22,7 +22,7 @@ function getTrackLink(track: { id: string; status: string }) {
     return `/me/tracks/${track.id}/mint`
   }
 
-  return ``
+  return `/nfts/${track.nft_address}`
 }
 
 function getButtonText(track: { status: string }) {
@@ -34,6 +34,6 @@ function getButtonText(track: { status: string }) {
     return 'Mint as Music NFT'
   }
 
-  return ''
+  return 'View Music NFT'
 }
 </script>
