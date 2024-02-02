@@ -45,6 +45,13 @@ const drops = [{
   title: "Orderly",
   startTime: 1706882400,
   link: "/nfts/bitsong12njsx22ne73swjqxxn5e7xtc2n95y2aw8r73cqdth0g86way24cq6f5az9"
+}, {
+  id: 'toxic',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmeWR7bdNDpZZSCKdY3fPgNPB2nkBJ1PS7fJaDFmp56MKW",
+  subtitle: "Rawanne",
+  title: "Toxic",
+  startTime: 1706896800,
+  link: "/nfts/bitsong16p5fm4qrpjpxd8f5wpt48fgyyd5c79q4n35fgvq7x2yks2lu8llq3kre6f"
 }]
 
 const activeDrops = computed(() => {
