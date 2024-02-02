@@ -38,6 +38,13 @@ const drops = [{
   title: "Stimulation Growth",
   startTime: 1706810400,
   link: "/nfts/bitsong18a0pvw326fydfdat5tzyf4t8lhz0v6fyfaujpeg07fwqkygcxejsv0vqlr"
+}, {
+  id: 'orderly',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmTiA71AFHvN68KQncdwEnvYVoS9s4djrCCiwri7jsXjmU",
+  subtitle: "Alan Scarlato",
+  title: "Orderly",
+  startTime: 1706882400,
+  link: "/nfts/bitsong12njsx22ne73swjqxxn5e7xtc2n95y2aw8r73cqdth0g86way24cq6f5az9"
 }]
 
 const activeDrops = computed(() => {
