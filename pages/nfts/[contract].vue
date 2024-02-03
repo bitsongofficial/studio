@@ -5,9 +5,6 @@
         <v-row>
           <v-col cols="12" md="8" class="text-center pb-0">
             <div>
-              <!--<video v-if="data?.animation_url" class="mx-auto rounded-xl media__content" controls :poster="nftImage">
-                <source :src="useIpfsLink(data?.animation_url)" type="audio/mp3" />
-              </video>-->
               <video v-if="data?.animation_url" class="mx-auto rounded-xl media__content" controls playsinline
                 :poster="nftImage" :src="useIpfsLink(data?.animation_url)"></video>
               <v-img v-else class="mx-auto rounded-xl w-75" :src="nftImage">
