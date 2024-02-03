@@ -4,7 +4,7 @@
       My Assets
     </template>
     <template #append>
-      <v-btn @click.stop="openDialog">Buy / Sell</v-btn>
+      <v-btn @click.stop="openDialog">Buy</v-btn>
     </template>
     <template #body>
       <v-container fluid class="pt-0">
