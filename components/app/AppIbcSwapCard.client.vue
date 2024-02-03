@@ -8,35 +8,23 @@
     </v-toolbar>
     <v-container fluid class="pt-0 px-0">
       <v-row class="d-flex" no-gutters>
-
         <v-col>
           <iframe :src="squidUrl" width="100%" height="680px" frameborder="0" scrolling="no"></iframe>
         </v-col>
-
       </v-row>
     </v-container>
   </v-card>
 </template>
 
 <script lang="ts" setup>
-import { useDisplay } from 'vuetify';
-
 interface Props {
   modelValue: boolean;
 }
 
-const props = defineProps<Props>();
+defineProps<Props>();
 const emits = defineEmits<{
   (e: "update:modelValue", value: boolean): void;
 }>();
-
-const loading = ref(false);
-
-function handleClose() {
-  emits("update:modelValue", false);
-}
-
-const { mobile } = useDisplay()
 
 const config = {
   integratorId: "squid-swap-widget",
