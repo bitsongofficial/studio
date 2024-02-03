@@ -52,6 +52,13 @@ const drops = [{
   title: "Toxic",
   startTime: 1706896800,
   link: "/nfts/bitsong16p5fm4qrpjpxd8f5wpt48fgyyd5c79q4n35fgvq7x2yks2lu8llq3kre6f"
+}, {
+  id: 'cubana',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmQZEdsvxqkoUTA9YLzgiHfPJtyh2fTToqhJ1zyzdTc4PT",
+  subtitle: "BlackJack Records",
+  title: "Cubana",
+  startTime: 1706968800,
+  link: "/nfts/bitsong19jq6mj84cnt9p7sagjxqf8hxtczwc8wlpuwe4sh62w45aheseueststug5"
 }]
 
 const activeDrops = computed(() => {
