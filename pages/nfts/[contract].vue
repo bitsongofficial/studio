@@ -9,7 +9,7 @@
                 <source :src="useIpfsLink(data?.animation_url)" type="audio/mp3" />
               </video>-->
               <video v-if="data?.animation_url" class="mx-auto rounded-xl media__content" controls muted playsinline
-                :src="useIpfsLink(data?.animation_url)"></video>
+                :poster="nftImage" :src="useIpfsLink(data?.animation_url)"></video>
               <v-img v-else class="mx-auto rounded-xl w-75" :src="nftImage">
               </v-img>
             </div>
