@@ -59,6 +59,13 @@ const drops = [{
   title: "Cubana",
   startTime: 1706968800,
   link: "/nfts/bitsong19jq6mj84cnt9p7sagjxqf8hxtczwc8wlpuwe4sh62w45aheseueststug5"
+}, {
+  id: 'next-level',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmWh6qGWacSv3VAVWyAKVirJqMXD7X8pUVPXTTjM9Fh1kA",
+  subtitle: "Florin Dumbraveanu",
+  title: "Next Level",
+  startTime: 1707242400,
+  link: "/nfts/bitsong1ypk8p7c82whs9xdja6ku7q6slzj8kvfwkgxnyeuevhtf03fteylqg2wymp"
 }]
 
 const activeDrops = computed(() => {
