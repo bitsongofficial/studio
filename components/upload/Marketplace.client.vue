@@ -70,7 +70,8 @@
                 </v-col>
                 <v-col cols="6">
                   <div class="text-center text-h4 text-surface-variant">
-                    {{ modelValue.creatorFee }} <span class="text-h6">%</span>
+                    <input type="text" class="text-h4 text-surface-variant" v-model="modelValue.creatorFee"
+                      :style="{ width: '90px' }" @change="validateCreatorFee" /> <span class="text-h6">%</span>
                   </div>
                 </v-col>
               </v-row>
@@ -97,7 +98,8 @@
                 </v-col>
                 <v-col cols="6">
                   <div class="text-center text-h4 text-surface-variant">
-                    {{ modelValue.referralFee }} <span class="text-h6">%</span>
+                    <input type="text" class="text-h4 text-surface-variant" v-model="modelValue.referralFee"
+                      :style="{ width: '90px' }" @change="validateReferralFee" /> <span class="text-h6">%</span>
                   </div>
                 </v-col>
               </v-row>
@@ -176,8 +178,8 @@ const modelValue = useVModel(props, 'modelValue', emits, {
 
 const maxReferralFee = computed(() => {
   let maxFee = Math.round((modelValue.value.creatorFee ?? 3) / 3 * 10) / 10;
-  if (maxFee > 1.5) {
-    maxFee = 1.5;
+  if (maxFee > 1.3) {
+    maxFee = 1.3;
   }
 
   if (modelValue.value.referralFee && modelValue.value.referralFee > maxFee) {
@@ -185,21 +187,20 @@ const maxReferralFee = computed(() => {
   }
 
   return maxFee;
-
 })
 
 const FormSchema = z.object({
-  creatorFee: z.number().min(0.5, {
+  creatorFee: z.coerce.number().min(0.5, {
     message: "Creator fee must be at least 0.5%"
   }).max(7.5, {
     message: "Creator fee must be at most 7.5%"
   }),
-  referralFee: z.number().min(0.1, {
+  referralFee: z.coerce.number().min(0.1, {
     message: "Referral fee must be at least 0.1%"
   }).max(toValue(maxReferralFee), {
     message: `Referral fee must be at most ${toValue(maxReferralFee)}%`
   }),
-  curveRatio: z.number().min(1, {
+  curveRatio: z.coerce.number().min(1, {
     message: "Curve ratio must be at least 1"
   }).max(1000, {
     message: "Curve ratio must be at most 1000"
@@ -213,6 +214,26 @@ function validateCurveRatio() {
 
   if (modelValue.value.curveRatio && modelValue.value.curveRatio > 1000) {
     modelValue.value.curveRatio = 1000;
+  }
+}
+
+function validateCreatorFee() {
+  if (modelValue.value.creatorFee && modelValue.value.creatorFee < 0.5) {
+    modelValue.value.creatorFee = 0.5;
+  }
+
+  if (modelValue.value.creatorFee && modelValue.value.creatorFee > 7.5) {
+    modelValue.value.creatorFee = 7.5;
+  }
+}
+
+function validateReferralFee() {
+  if (modelValue.value.referralFee && modelValue.value.referralFee < 0.1) {
+    modelValue.value.referralFee = 0.1;
+  }
+
+  if (modelValue.value.referralFee && modelValue.value.referralFee > toValue(maxReferralFee)) {
+    modelValue.value.referralFee = toValue(maxReferralFee);
   }
 }
 

@@ -90,6 +90,7 @@ watch(track, (newValue) => {
   } else {
     currentStep.value = 2
   }
+  //currentStep.value = 4
 
   form.trackInfo.title = newValue?.title ?? ""
   form.trackInfo.titleLocale = newValue?.titleLocale ?? ""
