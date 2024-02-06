@@ -5,7 +5,11 @@ import { ensureUserTrack } from "~/server/utils/media";
 
 export default defineEventHandler(async (event) => {
   const { track } = await ensureUserTrack(event)
-  return await withPrivateSignedUrls(track, useSiteConfig(event).url)
+  const url = useNuxtApp().ssrContext?.event.node.req.headers.host
+  if (!url) throw createError({ status: 500, message: "Missing host" })
+
+  //const url = useSiteConfig(event).url
+  return await withPrivateSignedUrls(track, url)
 })
 
 type TrackWithSignedUrls = Prisma.tracksGetPayload<{

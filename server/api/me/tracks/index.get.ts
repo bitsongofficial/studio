@@ -21,7 +21,12 @@ export default defineEventHandler(async (event) => {
     }
   })
 
-  return await withPrivateSignedUrls(tracks, useSiteConfig(event).url)
+  const url = useNuxtApp().ssrContext?.event.node.req.headers.host
+  if (!url) throw createError({ status: 500, message: "Missing host" })
+
+  //const url = useSiteConfig(event).url
+
+  return await withPrivateSignedUrls(tracks, url)
 })
 
 async function withPrivateSignedUrls(tracks: {
