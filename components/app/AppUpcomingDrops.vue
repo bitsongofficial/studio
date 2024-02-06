@@ -18,47 +18,26 @@
 
 <script lang="ts" setup>
 const drops = [{
-  id: 'ready_or_not',
-  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmWF5LpGkH67fqv89cTrB36UAcxo2ZtbY9VSMv7wKKaAoQ",
-  subtitle: "Adam Clay",
-  title: "Ready or Not",
-  startTime: 1706205600,
-  link: "/preview/ready-or-not"
+  id: 'next-level',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmWh6qGWacSv3VAVWyAKVirJqMXD7X8pUVPXTTjM9Fh1kA",
+  subtitle: "Florin Dumbraveanu",
+  title: "Next Level",
+  startTime: 1707242400,
+  link: "/preview/next-level"
 }, {
-  id: 'amnesia',
-  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmXpdm3A9YB6vgLjyiA7xKrv8UKeXhtPpTjAKEzEPKeehN",
-  subtitle: "Exept",
-  title: "Amnesia",
-  startTime: 1706637600,
-  link: "/preview/amnesia"
+  id: 'sing-for-me',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmZXSzWNcx6WFB4FSsHURzrPge1pyiJEstcH2haFgsgJyX",
+  subtitle: "Anirbas",
+  title: "Sing For Me",
+  startTime: 1707328800,
+  link: "/preview/sing-for-me"
 }, {
-  id: 'stimulation-growth',
-  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmXecjfvfZB1qs24EU1ra1i7hWUMNd9YDMriKHSAmFD3sg",
-  subtitle: "Goose Pärk",
-  title: "Stimulation Growth",
-  startTime: 1706810400,
-  link: "/preview/stimulation-growth"
-}, {
-  id: 'orderly',
-  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmTiA71AFHvN68KQncdwEnvYVoS9s4djrCCiwri7jsXjmU",
-  subtitle: "Alan Scarlato",
-  title: "Orderly",
-  startTime: 1706882400,
-  link: "/preview/orderly"
-}, {
-  id: 'toxic',
-  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmeWR7bdNDpZZSCKdY3fPgNPB2nkBJ1PS7fJaDFmp56MKW",
-  subtitle: "Rawanne",
-  title: "Toxic",
-  startTime: 1706896800,
-  link: "/preview/toxic"
-}, {
-  id: 'cubana',
-  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmQZEdsvxqkoUTA9YLzgiHfPJtyh2fTToqhJ1zyzdTc4PT",
-  subtitle: "BlackJack Records",
-  title: "Cubana",
-  startTime: 1706968800,
-  link: "/preview/cubana"
+  id: 'i-will-never-see-you-again',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmY1FVpeTN4BcZuR8wR5jSN1XN3gQZNLWWg6Qo6ACLqxHx",
+  subtitle: "A.way",
+  title: "I Will Never See You Again",
+  startTime: 1707501600,
+  link: "/preview/i-will-never-see-you-again"
 }]
 
 const activeDrops = computed(() => {

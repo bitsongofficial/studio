@@ -17,7 +17,9 @@
                 <h1 class="text-md-h4 text-h5">
                   {{ data.title }}
                 </h1>
-                <h3 class="text-surface-variant">Goose Pärk</h3>
+                <h3 class="text-surface-variant">
+                  {{ data.artists.join(', ') }}
+                </h3>
               </v-col>
 
               <ClientOnly>
@@ -37,9 +39,9 @@
                   <v-card-title>Price Alert</v-card-title>
                   <v-card-text class="text-white text-md-h4 text-h6">
                     <v-chip class="mb-2">Initial Price</v-chip>
-                    0.02BTSG
+                    0.018BTSG
                   </v-card-text>
-                  <AppDropNotificationBtn class="mt-n1 ma-3" drop-id="stimulation-growth" :title="data.title"
+                  <AppDropNotificationBtn class="mt-n1 ma-3" :drop-id="data.id" :title="data.title"
                     :subtitle="data.artists.join(', ')" :image="data.artworkUrl" :start-time="data.startTime" />
                 </v-card>
               </v-col>
@@ -77,13 +79,6 @@
               </v-col>
 
               <v-col cols="12" md="6">
-                <div class="text-caption text-grey text-uppercase">MOOD</div>
-                <div>
-                  {{ data.mood }}
-                </div>
-              </v-col>
-
-              <v-col cols="12" md="6">
                 <div class="text-caption text-grey text-uppercase">EXPLICIT</div>
                 <div>
                   {{ data.explicit }}
@@ -116,29 +111,25 @@
 import VueCountdown from '@chenfengyuan/vue-countdown';
 import { marked } from 'marked'
 
-const description = `🚀 Introducing Goose Pärk, your #1 artist hailing from the vibrant city of Miami, FL! 🌴 My journey into the world of music started with a Harlem Globetrotters jersey in high school, leading to the nickname "Goose." After evolving from YabOiGoOse to Goose Park, my producer identity truly took flight during my time in the army stationed in Germany, adding the distinctive two dots over the A, birthing the iconic Goose Pärk.
+const description = `We are SINFUL MAZE Recordings, a group of producers originating from the Czech Republic, and over the past 5 years, we've expanded our influence worldwide. 
 
-My musical influences include legends like Outkast, Goodie Mob, Big Krit, Zaytoven, Uncle Luke, and the infectious Miami bass scene. Little did I know, my childhood fascination with recording on a tape recorder would pave the way for my current musical endeavors.
+The future has arrived! 
 
-Enter "Stimulation Growth," a beat born out of pure inspiration, which organically transformed into a deep dive into the realms of cryptocurrencies, web3, and decentralization. Originally named "3rd Eye," the song found its true identity as "Stimulation Growth," a track carefully crafted to resonate with the ethos of BitSong.
-
-The stars aligned when I stumbled upon the BitSong NFT contest on their testnet, mirroring the very essence of "Stimulation Growth." The result? A meticulously perfected masterpiece that seamlessly intertwines lyrics, mixing, and mastering, all set to the rhythm of BitSong's groundbreaking platform.
-
-"Stimulation Growth" isn't just a song; it's a groundbreaking musical odyssey that ventures into the heart of the digital realm. It serves as an anthem for the decentralized dreamers, NFT enthusiasts, and blockchain believers. Let the beats of "Stimulation Growth" transport you to a world where technology and creativity unite, pushing the boundaries of what's possible in this new digital era.`
+Martin, a talented and industrious Slovak producer also known as A.way, is introducing our debut on SINFUL MAZE Bitsong in this distinctive competition with a delightful House track titled "I Will Never See You Again".`
 
 const data = reactive({
-  title: "Stimulation Growth",
-  artists: ["Goose Pärk"],
+  id: 'i-will-never-see-you-again',
+  title: "I Will Never See You Again",
+  artists: ["A.way"],
   description,
-  creator: "bitsong13xknrd2t5d28w3rnkly2dx3yxdwr97vhqr4z5w",
+  creator: "bitsong19svnd02l742vx275sqruhan3aeayd92phv2y38",
   sellerFeeBps: 500,
-  referralFeeBps: 100,
-  previewUrl: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmaiZ12QbbZr6gZdJZAdPXPWWmxqEYN9kueD16b69diyuq",
-  artworkUrl: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmXecjfvfZB1qs24EU1ra1i7hWUMNd9YDMriKHSAmFD3sg",
-  startTime: 1706810400,
-  genre: "Rap",
-  mood: "Motivational",
-  explicit: "Explicit",
+  referralFeeBps: 70,
+  previewUrl: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmXxzQnXJjTVoKVLobx8U8cqFiYKCgEnPdW2JpcWUqj9LG",
+  artworkUrl: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmY1FVpeTN4BcZuR8wR5jSN1XN3gQZNLWWg6Qo6ACLqxHx",
+  startTime: 1707501600,
+  genre: "House",
+  explicit: "Clean",
   license: "All Rights Reserved",
 })
 
