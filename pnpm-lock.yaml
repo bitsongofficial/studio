@@ -65,6 +65,12 @@ dependencies:
   '@quirks/wallets':
     specifier: ^0.7.4
     version: 0.7.5(@cosmjs/amino@0.31.3)(@cosmjs/proto-signing@0.31.3)(@cosmjs/stargate@0.31.3)(@cosmostation/extension-client@0.1.15)(@keplr-wallet/types@0.12.60)(@walletconnect/types@2.11.0)(@walletconnect/universal-provider@2.11.0)(base64-js@1.5.1)(cosmjs-types@0.8.0)(eventemitter3@5.0.1)(long@5.2.3)(pino-pretty@10.3.1)(semver@7.5.4)
+  '@trpc/client':
+    specifier: ^10.45.0
+    version: 10.45.0(@trpc/server@10.45.0)
+  '@trpc/server':
+    specifier: ^10.45.0
+    version: 10.45.0
   '@vueuse/core':
     specifier: ^10.7.0
     version: 10.7.1(vue@3.4.10)
@@ -116,9 +122,15 @@ dependencies:
   sharp:
     specifier: 0.32.6
     version: 0.32.6
+  superjson:
+    specifier: ^2.2.1
+    version: 2.2.1
   swiper:
     specifier: ^11.0.5
     version: 11.0.5
+  trpc-nuxt:
+    specifier: ^0.10.17
+    version: 0.10.17(@trpc/client@10.45.0)(@trpc/server@10.45.0)
   uuid:
     specifier: ^9.0.1
     version: 9.0.1
@@ -3701,6 +3713,10 @@ packages:
     requiresBuild: true
     optional: true
 
+  /@shikijs/core@1.0.0-beta.1:
+    resolution: {integrity: sha512-z3gdznaRj/DJSLQdR2Gdx6AB3e5+Il/kSGdLTGHI7HnalgPL15RbGgBSdLHW8rKAz4+dezAcTdnxm8z6YTu7nA==}
+    dev: true
+
   /@shuding/opentype.js@1.4.0-beta.0:
     resolution: {integrity: sha512-3NgmNyH3l/Hv6EvsWJbsvpcpUba6R8IREQ83nH83cyakCw7uM1arZKNfHwv1Wz6jgqrF/j4x5ELvR6PnK9nTcA==}
     engines: {node: '>= 8.0.0'}
@@ -4703,6 +4719,18 @@ packages:
     resolution: {integrity: sha512-OvjF+z51L3ov0OyAU0duzsYuvO01PH7x4t6DJx+guahgTnBHkhJdG7soQeTSFLWN3efnHyibZ4Z8l2EuWwJN3A==}
     dev: false
 
+  /@trpc/client@10.45.0(@trpc/server@10.45.0):
+    resolution: {integrity: sha512-m091R1qte9rvkvL8N1e/mzrbb8S4gb+Q4ZNJnEGDgd7kic/6a8DFgSciBTiCoSp0YwOTVhyQzSrrA/sZI6PhBg==}
+    peerDependencies:
+      '@trpc/server': 10.45.0
+    dependencies:
+      '@trpc/server': 10.45.0
+    dev: false
+
+  /@trpc/server@10.45.0:
+    resolution: {integrity: sha512-2Fwzv6nqpE0Ie/G7PeS0EVR89zLm+c1Mw7T+RAGtU807j4oaUx0zGkBXTu5u9AI+j+BYNN2GZxJcuDTAecbr1A==}
+    dev: false
+
   /@trysound/sax@0.2.0:
     resolution: {integrity: sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA==}
     engines: {node: '>=10.13.0'}
@@ -5139,11 +5167,11 @@ packages:
       vite: 5.0.11(sass@1.69.7)
       vue: 3.4.10(typescript@5.3.3)
 
-  /@vue-email/cli@0.0.11(typescript@5.3.3)(vue@3.4.10):
-    resolution: {integrity: sha512-nPOiCwRYc0Z3BIsTJ1rnFNcQaJQ2iE1QB/GaHVMR0fxM72VB0qcQ/LsrMDgvewAgY1ZJkpGGVrwwIR7T6PEU/w==}
+  /@vue-email/cli@0.0.12(typescript@5.3.3)(vue@3.4.10):
+    resolution: {integrity: sha512-20Yvbkn9xU+sbWg0c7f/Jo5/K8bo1483NQpF0AyYHDI+cvD+F76j+LkXyRRbgVN84Adi1aFKRi6Mcrov1+uo9Q==}
     hasBin: true
     dependencies:
-      '@vue-email/compiler': 0.8.9(typescript@5.3.3)(vue@3.4.10)
+      '@vue-email/compiler': 0.8.10(typescript@5.3.3)(vue@3.4.10)
     transitivePeerDependencies:
       - bufferutil
       - canvas
@@ -5152,6 +5180,25 @@ packages:
       - typescript
       - utf-8-validate
       - vue
+    dev: true
+
+  /@vue-email/compiler@0.8.10(typescript@5.3.3)(vue@3.4.10):
+    resolution: {integrity: sha512-CDV+VhCcPdAQDvb3dAT+l46GVNNxRG/VA+yJDMRtIEY/h7ddEGqZoYhGxGxbZZi+U4/xEUxvPT5BTPdS3V6RvA==}
+    peerDependencies:
+      vue: ^3.3.8
+    dependencies:
+      import-string: 0.1.2(typescript@5.3.3)
+      kolorist: 1.8.0
+      scule: 1.2.0
+      vue: 3.4.10(typescript@5.3.3)
+      vue-email: 0.8.8(typescript@5.3.3)(vue@3.4.10)
+    transitivePeerDependencies:
+      - bufferutil
+      - canvas
+      - supports-color
+      - ts-node
+      - typescript
+      - utf-8-validate
     dev: true
 
   /@vue-email/compiler@0.8.7(typescript@5.3.3)(vue@3.4.10):
@@ -5164,25 +5211,6 @@ packages:
       scule: 1.2.0
       vue: 3.4.10(typescript@5.3.3)
       vue-email: 0.8.5(typescript@5.3.3)(vue@3.4.10)
-    transitivePeerDependencies:
-      - bufferutil
-      - canvas
-      - supports-color
-      - ts-node
-      - typescript
-      - utf-8-validate
-    dev: true
-
-  /@vue-email/compiler@0.8.9(typescript@5.3.3)(vue@3.4.10):
-    resolution: {integrity: sha512-5sHZiK/jQ/cDgCOAlenO7LZjN5DpAnnUsA7RX5n+xgMW/HrrBO2x1l9Za20TuH09CPmpePPIVGoT8DACA08IjQ==}
-    peerDependencies:
-      vue: ^3.3.8
-    dependencies:
-      import-string: 0.1.2(typescript@5.3.3)
-      kolorist: 1.8.0
-      scule: 1.2.0
-      vue: 3.4.10(typescript@5.3.3)
-      vue-email: 0.8.7(typescript@5.3.3)(vue@3.4.10)
     transitivePeerDependencies:
       - bufferutil
       - canvas
@@ -6653,6 +6681,13 @@ packages:
 
   /cookie-es@1.0.0:
     resolution: {integrity: sha512-mWYvfOLrfEc996hlKcdABeIiPHUPC6DM2QYZdGGOvhOTbA3tjm2eBwqlJpoFdjC89NI4Qt6h0Pu06Mp+1Pj5OQ==}
+
+  /copy-anything@3.0.5:
+    resolution: {integrity: sha512-yCEafptTtb4bk7GLEQoM8KVJpxAfdBJYaXyzQEgQQQgYrZiDp8SJmGKlYza6CYjEDNstAdNdKA3UuoULlEbS6w==}
+    engines: {node: '>=12.13'}
+    dependencies:
+      is-what: 4.1.16
+    dev: false
 
   /core-util-is@1.0.3:
     resolution: {integrity: sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==}
@@ -8684,6 +8719,11 @@ packages:
     engines: {node: '>= 0.4'}
     dependencies:
       which-typed-array: 1.1.13
+    dev: false
+
+  /is-what@4.1.16:
+    resolution: {integrity: sha512-ZhMwEosbFJkA0YhFnNDgTM4ZxDRsS6HqTo7qsZM08fehyRYIYa0yHu5R6mgo1n/8MgaPBXiPimPD77baVFYg+A==}
+    engines: {node: '>=12.13'}
     dev: false
 
   /is-wsl@2.2.0:
@@ -11576,14 +11616,10 @@ packages:
     deprecated: Please migrate to https://github.com/antfu/shikiji
     dev: true
 
-  /shikiji-core@0.10.2:
-    resolution: {integrity: sha512-9Of8HMlF96usXJHmCL3Gd0Fcf0EcyJUF9m8EoAKKd98mHXi0La2AZl1h6PegSFGtiYcBDK/fLuKbDa1l16r1fA==}
-    dev: true
-
-  /shikiji@0.10.2:
-    resolution: {integrity: sha512-wtZg3T0vtYV2PnqusWQs3mDaJBdCPWxFDrBM/SE5LfrX92gjUvfEMlc+vJnoKY6Z/S44OWaCRzNIsdBRWcTAiw==}
+  /shiki@1.0.0-beta.1:
+    resolution: {integrity: sha512-iq32WxjemJVlAHg5HjYoL1qCxGmvyh3Z8kr2E/gMTQdcxyXxTpMhahIC7myxFBapAk9o8QN8mxCpr4JT5rqpRQ==}
     dependencies:
-      shikiji-core: 0.10.2
+      '@shikijs/core': 1.0.0-beta.1
     dev: true
 
   /signal-exit@3.0.7:
@@ -11923,6 +11959,13 @@ packages:
       ts-interface-checker: 0.1.13
     dev: true
 
+  /superjson@2.2.1:
+    resolution: {integrity: sha512-8iGv75BYOa0xRJHK5vRLEjE2H/i4lulTjzpUXic3Eg8akftYjkmQDa8JARQ42rlczXyFR3IeRoeFCc7RxHsYZA==}
+    engines: {node: '>=16'}
+    dependencies:
+      copy-anything: 3.0.5
+    dev: false
+
   /supports-color@5.5.0:
     resolution: {integrity: sha512-QjVjwdXIt408MIiAqCX4oUKsgU2EqAGzs2Ppkm4aQYbjm+ZEWEcW4SfFNTr4uMNZma0ey4f5lgLrkB0aX0QMow==}
     engines: {node: '>=4'}
@@ -12206,6 +12249,19 @@ packages:
   /trim-newlines@3.0.1:
     resolution: {integrity: sha512-c1PTsA3tYrIsLGkJkzHF+w9F2EyxfXGo4UyJc4pFL++FMjnq0HJS69T3M7d//gKrFKwy429bouPescbjecU+Zw==}
     engines: {node: '>=8'}
+    dev: false
+
+  /trpc-nuxt@0.10.17(@trpc/client@10.45.0)(@trpc/server@10.45.0):
+    resolution: {integrity: sha512-8J/34N4nMb4WfAnjOLajubM76b4DlX3YqyoLga07p/9UrnGahLK7D3BX7PDRj8HBGsUDS329S+92E8n7ysq1Jw==}
+    peerDependencies:
+      '@trpc/client': ^10.38.1 <11
+      '@trpc/server': ^10.38.1 <11
+    dependencies:
+      '@trpc/client': 10.45.0(@trpc/server@10.45.0)
+      '@trpc/server': 10.45.0
+      h3: 1.10.0
+      ofetch: 1.3.3
+      ohash: 1.1.3
     dev: false
 
   /ts-interface-checker@0.1.13:
@@ -12895,7 +12951,7 @@ packages:
     peerDependencies:
       vue: ^3.3.8
     dependencies:
-      '@vue-email/cli': 0.0.11(typescript@5.3.3)(vue@3.4.10)
+      '@vue-email/cli': 0.0.12(typescript@5.3.3)(vue@3.4.10)
       '@vue-email/tailwind': 0.0.6
       isomorphic-dompurify: 1.13.0
       ufo: 1.3.2
@@ -12910,16 +12966,16 @@ packages:
       - utf-8-validate
     dev: true
 
-  /vue-email@0.8.7(typescript@5.3.3)(vue@3.4.10):
-    resolution: {integrity: sha512-VxJHqXpVnFIezZ4Oj+vhtjBNBQZtqbKud+WicLQLSIqdtcV9hnM6f3+BQIXW2AijglVCTtUel/Z2Tn1m7/teRA==}
+  /vue-email@0.8.8(typescript@5.3.3)(vue@3.4.10):
+    resolution: {integrity: sha512-wBPvGhh3okP6qk5XBELLikYHUzt6OgNRMmB9Cyk7QXOgNFo3D6DNaaSsZQ9cZrwtM35lD8bH/awy9QO4MoDZtg==}
     hasBin: true
     peerDependencies:
       vue: ^3.4.15
     dependencies:
-      '@vue-email/cli': 0.0.11(typescript@5.3.3)(vue@3.4.10)
+      '@vue-email/cli': 0.0.12(typescript@5.3.3)(vue@3.4.10)
       '@vue-email/tailwind': 0.0.6
       isomorphic-dompurify: 2.3.0
-      shikiji: 0.10.2
+      shiki: 1.0.0-beta.1
       ufo: 1.3.2
       vue: 3.4.10(typescript@5.3.3)
       vue-i18n: 9.9.0(vue@3.4.10)

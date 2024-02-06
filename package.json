@@ -52,6 +52,8 @@
     "@quirks/store": "^0.10.0",
     "@quirks/vue": "^0.4.6",
     "@quirks/wallets": "^0.7.4",
+    "@trpc/client": "^10.45.0",
+    "@trpc/server": "^10.45.0",
     "@vueuse/core": "^10.7.0",
     "@vueuse/nuxt": "^10.7.0",
     "bignumber.js": "^9.1.2",
@@ -69,7 +71,9 @@
     "nuxt-umami": "^2.5.7",
     "pinia": "^2.1.7",
     "sharp": "^0.32.6",
+    "superjson": "^2.2.1",
     "swiper": "^11.0.5",
+    "trpc-nuxt": "^0.10.17",
     "uuid": "^9.0.1",
     "vue-toastification": "2.0.0-rc.5",
     "zod": "^3.22.4"

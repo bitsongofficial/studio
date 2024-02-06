@@ -10,7 +10,7 @@
       <v-container fluid class="pt-0">
         <v-row no-gutters>
           <v-col>
-            <AppMyTracks />
+            {{ data }}
           </v-col>
         </v-row>
       </v-container>
@@ -22,4 +22,7 @@
 definePageMeta({
   middleware: ["protected"]
 });
+
+const { $studio } = useNuxtApp();
+const { data } = await $studio.admin.tracks.useQuery();
 </script>
