@@ -66,6 +66,13 @@ const drops = [{
   title: "Next Level",
   startTime: 1707242400,
   link: "/nfts/bitsong1ypk8p7c82whs9xdja6ku7q6slzj8kvfwkgxnyeuevhtf03fteylqg2wymp"
+}, {
+  id: 'sing-for-me',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmZXSzWNcx6WFB4FSsHURzrPge1pyiJEstcH2haFgsgJyX",
+  subtitle: "Anirbas",
+  title: "Sing For Me",
+  startTime: 1707328800,
+  link: "/nfts/sbitsong1hz3svgdhmv67lsqlduu0tcnd3f75c0xr0mu48l6ywuwlz43zssjqsm3f2z"
 }]
 
 const activeDrops = computed(() => {
