@@ -72,7 +72,7 @@ const drops = [{
   subtitle: "Anirbas",
   title: "Sing For Me",
   startTime: 1707328800,
-  link: "/nfts/sbitsong1hz3svgdhmv67lsqlduu0tcnd3f75c0xr0mu48l6ywuwlz43zssjqsm3f2z"
+  link: "/nfts/bitsong1hz3svgdhmv67lsqlduu0tcnd3f75c0xr0mu48l6ywuwlz43zssjqsm3f2z"
 }]
 
 const activeDrops = computed(() => {
