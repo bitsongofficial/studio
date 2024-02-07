@@ -2,7 +2,8 @@ import BigNumber from "bignumber.js";
 
 export function useFromNumberToBN(value: number): BigNumber {
   if (Number.isNaN(value)) {
-    throw new Error("Cannot convert NaN to BN");
+    //throw new Error("Cannot convert NaN to BN");
+    return new BigNumber(0);
   }
 
   return new BigNumber(value);

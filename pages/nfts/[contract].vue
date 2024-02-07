@@ -20,41 +20,18 @@
                   {{ data?.name }}
                 </h1>
               </v-col>
-              <v-col class="text-center">
-                <div class="text-grey text-body-2">Buy Price</div>
-                <v-skeleton-loader v-if="loadings.buy" class="mx-auto" type="text"></v-skeleton-loader>
-                <div v-else>{{ formatCoinAmount(useFromMicroAmount(prices.buy)) }}<br /><span
-                    class="text-subtitle-2">BTSG</span>
-                </div>
-              </v-col>
+            </v-row>
 
-              <v-col class="text-center">
-                <div class="text-grey text-body-2">Last Price</div>
-                <v-skeleton-loader v-if="loadings.last" class="mx-auto" type="text"></v-skeleton-loader>
-                <div class="text-grey" v-else-if="!loadings.last && prices.last > 0">
-                  {{ formatCoinAmount(useFromMicroAmount(prices.last)) }}<br /><span class="text-subtitle-2">BTSG</span>
-                </div>
-              </v-col>
-
-              <v-col class="text-center">
-                <div class="text-grey text-body-2">Sell Price</div>
-                <v-skeleton-loader v-if="loadings.sell" class="mx-auto" type="text"></v-skeleton-loader>
-                <div v-else-if="!loadings.sell && prices.sell > 0">{{ formatCoinAmount(useFromMicroAmount(prices.sell))
-                }}<br /><span class="text-subtitle-2">BTSG</span>
-                </div>
-              </v-col>
-
-              <v-col cols="12">
-                <v-row>
-                  <v-col cols="12" class="d-flex align-center pb-4 justify-space-between">
-
-                    <AppNftMarketplace v-if="data?.marketplace_address && (prices.buy > 0 || prices.sell > 0)"
-                      @openDialog="openMarketplaceDialog" />
-
-                  </v-col>
-                </v-row>
+            <v-row>
+              <v-col cols="12" class="px-0">
+                <ClientOnly>
+                  <AppNftMarketplace v-if="data?.marketplace_address" @openDialog="openMarketplaceDialog"
+                    :marketplace-address="data?.marketplace_address" :nft-address="data.id" />
+                </ClientOnly>
               </v-col>
             </v-row>
+
+
 
             <v-row>
 

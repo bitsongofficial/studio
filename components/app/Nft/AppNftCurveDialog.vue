@@ -1,5 +1,5 @@
 <template>
-  <v-dialog persistent width="450" :model-value="props.modelValue"
+  <v-dialog persistent width="466" :model-value="props.modelValue"
     @update:model-value="$emit('update:modelValue', $event)">
     <v-card :disabled="loading">
       <v-toolbar color="transparent">
@@ -19,11 +19,11 @@
             <div class="text-h5">{{ title }}</div>
             <div class="text-body-2" v-if="side === 'buy'">
               <span class="text-grey">buy @</span>
-              {{ useFromMicroAmount(props.buy_price) }} BTSG
+              {{ buyPrice.totalPrice }} BTSG
             </div>
             <div class="text-body-2" v-else>
               <span class="text-grey">sell @</span>
-              {{ useFromMicroAmount(props.sell_price) }} BTSG
+              {{ sellPrice.totalPrice }} BTSG
             </div>
           </v-col>
         </v-row>
@@ -33,66 +33,109 @@
             <v-container fluid>
               <v-row>
                 <v-col class="text-center">
-                  <v-btn :disabled="!canDecrement" variant="text" color="white" icon="mdi-chevron-left"
-                    @click="decrement"></v-btn>
+                  <v-btn :disabled="amount <= 1" variant="text" color="white" icon="mdi-chevron-left"
+                    @click="amount--"></v-btn>
                 </v-col>
                 <v-col class="text-center">
                   <v-text-field variant="solo-filled" v-model="amount" hide-details></v-text-field>
                 </v-col>
                 <v-col class="text-center">
-                  <v-btn variant="text" color="white" icon="mdi-chevron-right" @click="increment"></v-btn>
+                  <v-btn variant="text" color="white" icon="mdi-chevron-right" @click="amount++"></v-btn>
                 </v-col>
               </v-row>
             </v-container>
           </v-col>
         </v-row>
 
-
-
-        <v-row align="center" class="mt-0">
-          <v-col class="text-center">
-            <v-text-field v-if="side === 'buy'" label="Max Bid" type="number" v-model="maxBid" variant="outlined"
-              hide-details>
-              <template #append-inner>BTSG</template>
-            </v-text-field>
-            <v-text-field v-if="side === 'sell'" label="Min Bid" type="number" v-model="maxBid" variant="outlined"
-              hide-details>
-              <template #append-inner>BTSG</template>
-            </v-text-field>
+        <v-row justify="space-between" no-gutters>
+          <v-col cols="auto" class="text-surface-variant text-subtitle-2">
+            Base Price
           </v-col>
+          <v-col cols="auto" class="mr-1 text-subtitle-2">
+            {{ formatCoinAmount(buyPrice.basePrice) }} BTSG
+          </v-col>
+        </v-row>
 
+        <v-row justify="space-between" no-gutters class="mt-1">
+          <v-col cols="auto" class="text-surface-variant text-subtitle-2">
+            Creator Fee
+          </v-col>
+          <v-col cols="auto" class="mr-1 text-subtitle-2">
+            {{ formatCoinAmount(buyPrice.creatorFee) }} BTSG
+          </v-col>
+        </v-row>
+
+        <v-row justify="space-between" no-gutters class="mt-1">
+          <v-col cols="auto" class="text-surface-variant text-subtitle-2">
+            Referral Fee
+          </v-col>
+          <v-col cols="auto" class="mr-1 text-subtitle-2">
+            {{ formatCoinAmount(buyPrice.referralFee) }} BTSG
+          </v-col>
+        </v-row>
+
+        <v-row justify="space-between" no-gutters class="mt-1">
+          <v-col cols="auto" class="text-surface-variant text-subtitle-2">
+            Protocol Fee
+          </v-col>
+          <v-col cols="auto" class="mr-1 text-subtitle-2">
+            {{ formatCoinAmount(buyPrice.protocolFee) }} BTSG
+          </v-col>
+        </v-row>
+
+        <v-row no-gutters class="mt-1">
+          <v-col>
+            <v-divider></v-divider>
+          </v-col>
+        </v-row>
+
+        <v-row justify="space-between" no-gutters class="mt-1">
+          <v-col cols="auto" class="text-surface-variant text-subtitle-2">
+            Avg. Price
+          </v-col>
+          <v-col cols="auto" class="mr-1 text-subtitle-2">
+            {{ formatCoinAmount(buyPrice.avgPrice) }} BTSG
+          </v-col>
+        </v-row>
+
+        <v-row justify="space-between" class="mt-2" no-gutters>
+          <v-col cols="auto" class="text-surface-variant">
+            Min. Bid:
+          </v-col>
+          <v-col cols="auto" class="mr-1">
+            {{ formatCoinAmount(minBid) }} BTSG
+          </v-col>
+        </v-row>
+
+        <v-row align="center" justify="space-between">
+          <v-col cols="auto" class="text-h4">
+            <div class="text-surface-variant">Your bid</div>
+            <div>{{ formatCoinAmount(yourBid) }} <span class="text-surface-variant text-h5">BTSG</span></div>
+          </v-col>
           <v-col cols="auto">
             <v-btn @click.stop="multiply" color="surface-variant" variant="tonal">x1.10</v-btn>
           </v-col>
         </v-row>
-        <v-row align="center" no-gutters class="pt-2">
-          <v-col>
-            <div class="text-surface-variant text-body-2">
-              Min. Bid: <span class="text-white">{{ minBid }} BTSG</span>
-            </div>
-          </v-col>
-        </v-row>
 
-        <v-row>
+        <v-row v-if="bidDiffPerc > 50">
           <v-col>
-            <v-alert variant="outlined" color="red" class="text-body-2">
-              BitSong Studio's NFT trading feature, powered by bs721-curve, is in BETA! Despite audits, malfunctions may
-              occur, risking fund loss. Users trade at their own risk, acknowledging uncertainties in beta software.
+            <v-alert icon="mdi-alert" color="red">
+              Your bid is {{ bidDiffPerc.toFixed(2) }}% higher than the minimum bid
             </v-alert>
           </v-col>
         </v-row>
-
+        {{ config }}aa
         <v-row>
           <v-col>
-            <v-btn v-if="side === 'buy'" color="green" block rounded="xl" size="large" @click.stop="onBuy"
-              :loading="loading">
+            <v-btn v-if="side === 'buy'" :disabled="bidDiffPerc > 250" color="green" block rounded="xl" size="large"
+              @click.stop="onBuy" :loading="loading">
               Buy
             </v-btn>
-            <v-btn v-else-if="side === 'sell' && formData.isAllowedToSell" color="red" block rounded="xl" size="large"
+            <v-btn v-else-if="side === 'sell' && isAllowedToSell" color="red" block rounded="xl" size="large"
               @click.stop="onSell" :disabled="!canSell" :loading="loading">
               Sell
             </v-btn>
-            <v-btn v-else-if="!formData.isAllowedToSell" variant="text" color="red" block rounded="xl" size="large"
+            <v-btn v-else-if="!isAllowedToSell" variant="text" color="red" block rounded="xl" size="large"
               @click.stop="onAllow" :loading="loading">
               Authorize Sell
             </v-btn>
@@ -114,14 +157,11 @@ interface Props {
   image?: string | null;
   title?: string | null;
   creator?: string | null;
-  buy_price: number;
-  sell_price: number;
+  config: CurveOptions;
 }
 
-const props = withDefaults(defineProps<Props>(), {
-  buy_price: 0,
-  sell_price: 0,
-});
+const props = defineProps<Props>()
+const config = toRef(props, "config")
 
 const emits = defineEmits<{
   (e: "update:modelValue", value: boolean): void;
@@ -137,83 +177,52 @@ const toolbarTitle = computed(() => {
   }
 });
 
-const formData = reactive({
-  amount: 1,
-  maxBid: 0,
-  tokenIds: [] as string[],
-  isAllowedToSell: false,
-});
+const _config = computed(() => props.config)
 
+const { amount, buyPrice, sellPrice } = useCurveSimulator(_config.value);
 const minBid = computed(() => {
-  return useFromMicroAmount(formData.amount * props.buy_price);
+  return props.side === "buy" ? buyPrice.value.totalPrice : sellPrice.value.totalPrice;
 });
 
-const maxBid = computed({
-  get: () => formData.maxBid as number,
-  set: (value: string | number) => {
-    let num = Number(value);
-    console.log(num)
+const yourBid = ref<number>(0);
+const tokenIds = ref<string[]>([]);
+const isAllowedToSell = ref(false);
 
-    if (num < 0) num = 0;
+watch(buyPrice, (newVal) => {
+  yourBid.value = newVal.totalPrice;
+}, {
+  immediate: true,
+  deep: true
+})
 
-    if (num < minBid.value) num = minBid.value;
-
-    formData.maxBid = num
-  },
+const bidDiffPerc = computed(() => {
+  return (yourBid.value - minBid.value) / minBid.value * 100
 });
-
-
-const amount = computed({
-  get: () => formData.amount as number,
-  set: (value: string | number) => {
-    let num = Number(value);
-
-    if (num < 1) num = 1;
-
-    formData.amount = num
-
-    if (props.side === "buy") {
-      maxBid.value = parseFloat((num * useFromMicroAmount(props.buy_price)).toFixed(6));
-    }
-  },
-});
-
-const canDecrement = computed(() => {
-  return amount.value > 1;
-});
-
-function increment() {
-  amount.value++;
-}
-
-function decrement() {
-  amount.value--;
-}
 
 function multiply() {
-  maxBid.value = parseFloat((toValue(maxBid) * 1.1).toFixed(6));
+  yourBid.value = parseFloat((toValue(yourBid) * 1.1).toFixed(6));
 }
 
 function reset() {
   loading.value = false;
-  formData.amount = 1;
-  formData.maxBid = 0;
-  formData.tokenIds = [];
-  formData.isAllowedToSell = false;
+  // formData.amount = 1;
+  // formData.maxBid = 0;
+  // formData.tokenIds = [];
+  // formData.isAllowedToSell = false;
 }
 
-watch(() => props.modelValue, async (value) => {
-  if (!value) {
-    reset();
-  } else {
-    if (props.side === "buy") {
-      formData.maxBid = useFromMicroAmount(props.buy_price);
-    } else {
-      formData.maxBid = useFromMicroAmount(props.sell_price);
-    }
-    await fetchConfig();
-  }
-});
+// watch(() => props.modelValue, async (value) => {
+//   if (!value) {
+//     reset();
+//   } else {
+//     if (props.side === "buy") {
+//       formData.maxBid = useFromMicroAmount(props.buy_price);
+//     } else {
+//       formData.maxBid = useFromMicroAmount(props.sell_price);
+//     }
+//     await fetchConfig();
+//   }
+// });
 
 const { Bs721CurveClient } = contracts.Bs721Curve;
 const { Bs721BaseQueryClient, Bs721BaseClient } = contracts.Bs721Base;
@@ -230,32 +239,28 @@ async function fetchConfig() {
     limit: 100,
     owner: address,
   });
-  formData.tokenIds = tokens;
+  tokenIds.value = tokens;
 
-  if (!formData.isAllowedToSell) {
+  if (!isAllowedToSell.value) {
     const { operators } = await bs721QueryClient.allOperators({
       owner: address,
     });
-    formData.isAllowedToSell = operators.some((op) => op.spender === props.marketplaceAddress);
+    isAllowedToSell.value = operators.some((op) => op.spender === props.marketplaceAddress);
   }
 }
 
 const canSell = computed(() => {
-  const amt = Number(formData.amount);
+  const amt = Number(amount.value);
 
   if (amt <= 0) {
     return false;
   }
 
-  if (formData.maxBid === 0) {
-    return false;
-  }
-
-  return formData.tokenIds.length >= amt;
+  return tokenIds.value.length >= amt;
 });
 
 function getMaxTokenIds(amt: number): number[] {
-  return toValue(formData.tokenIds)
+  return toValue(tokenIds)
     .map(Number)
     .sort((a, b) => b - a)
     .slice(0, amt);
@@ -282,14 +287,14 @@ async function onBuy() {
       },
       "auto",
       "",
-      [{ amount: useToMicroAmount(toValue(maxBid)).toString(), denom: "ubtsg" }],
+      [{ amount: useToMicroAmount(toValue(yourBid)).toString(), denom: "ubtsg" }],
     );
 
     success("Transaction success")
-    umTrackEvent('buy-nft', { nftAddress: props.nftAddress, amount: formData.amount, maxBid: formData.maxBid })
+    umTrackEvent('buy-nft', { nftAddress: props.nftAddress, amount: toValue(amount), maxBid: toValue(yourBid) })
   } catch (e) {
-    error(e.message)
-    umTrackEvent('buy-nft-error', { nftAddress: props.nftAddress, amount: formData.amount, maxBid: formData.maxBid })
+    error((e as Error).message)
+    umTrackEvent('buy-nft-error', { nftAddress: props.nftAddress, amount: toValue(amount), maxBid: toValue(yourBid) })
   } finally {
     await fetchConfig();
     loading.value = false;
@@ -311,7 +316,7 @@ async function onSell() {
 
     const tx = await curveClient.burn(
       {
-        tokenIds: getMaxTokenIds(Number(formData.amount)),
+        tokenIds: getMaxTokenIds(toValue(amount)),
         // @ts-ignore
         minOutAmount: useToMicroAmount(toValue(formData.maxBid)).toString(),
         //referral: referralAddress,
@@ -322,10 +327,10 @@ async function onSell() {
     );
 
     success("Transaction success")
-    umTrackEvent('sell-nft', { nftAddress: props.nftAddress, amount: formData.amount, maxBid: formData.maxBid })
+    umTrackEvent('sell-nft', { nftAddress: props.nftAddress, amount: toValue(amount), maxBid: toValue(yourBid) })
   } catch (e) {
-    error(e.message)
-    umTrackEvent('sell-nft-error', { nftAddress: props.nftAddress, amount: formData.amount, maxBid: formData.maxBid })
+    error((e as Error).message)
+    umTrackEvent('sell-nft-error', { nftAddress: props.nftAddress, amount: toValue(amount), maxBid: toValue(yourBid) })
   } finally {
     await fetchConfig();
     loading.value = false;
@@ -357,7 +362,7 @@ async function onAllow() {
     success("Transaction success")
     umTrackEvent('allow-sell-nft', { nftAddress: props.nftAddress })
   } catch (e) {
-    error(e.message)
+    error((e as Error).message)
     umTrackEvent('allow-sell-nft-error', { nftAddress: props.nftAddress })
   } finally {
     await fetchConfig();
