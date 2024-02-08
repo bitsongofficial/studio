@@ -34,6 +34,7 @@ export default defineNuxtConfig({
       ipfsGateway: 'https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/{cid}',
       umamiHost: '',
       umamiId: '',
+      walletconnectProjectId: '',
     },
   },
   css: [

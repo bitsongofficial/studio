@@ -2,7 +2,9 @@
   <v-dialog width="350" :model-value="props.modelValue" @update:model-value="$emit('update:modelValue', $event)">
     <v-card>
       <v-card-title>Connect Wallet</v-card-title>
-      <v-list class="mb-1">
+      <VueQrcode v-if="pairingURI" :value="pairingURI" type="image/png"
+        :color="{ dark: '#000000ff', light: '#ffffffff' }" />
+      <v-list v-else class="mb-1">
         <v-list-item v-for="wallet in wallets" :key="wallet.options.wallet_name" class="mx-2 pa-2"
           :prepend-avatar="wallet.logoLight" :title="wallet.options.pretty_name"
           @click.stop="open(wallet.options.wallet_name); umTrackEvent('connect-wallet', { provider: wallet.options.wallet_name })">
@@ -26,9 +28,11 @@
 import { useConnect, useConfig } from "@quirks/vue";
 import { suggestChains, signArbitrary, getAddress } from "@quirks/store";
 import { bitsong, bitsongAssetList } from "@nabla-studio/chain-registry";
+import VueQrcode from "vue-qrcode";
 
 const { wallets } = useConfig();
 const { connect, status, connecting } = useConnect();
+const { pairingURI } = useWalletConnect();
 
 interface Props {
   modelValue: boolean;
