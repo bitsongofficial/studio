@@ -19,41 +19,18 @@
                   {{ data?.name }}
                 </h1>
               </v-col>
-              <v-col class="text-center">
-                <div class="text-grey text-body-2">Buy Price</div>
-                <v-skeleton-loader v-if="loadings.buy" class="mx-auto" type="text"></v-skeleton-loader>
-                <div v-else>{{ formatCoinAmount(useFromMicroAmount(prices.buy)) }}<br /><span
-                    class="text-subtitle-2">BTSG</span>
-                </div>
-              </v-col>
+            </v-row>
 
-              <v-col class="text-center">
-                <div class="text-grey text-body-2">Last Price</div>
-                <v-skeleton-loader v-if="loadings.last" class="mx-auto" type="text"></v-skeleton-loader>
-                <div class="text-grey" v-else-if="!loadings.last && prices.last > 0">
-                  {{ formatCoinAmount(useFromMicroAmount(prices.last)) }}<br /><span class="text-subtitle-2">BTSG</span>
-                </div>
-              </v-col>
-
-              <v-col class="text-center">
-                <div class="text-grey text-body-2">Sell Price</div>
-                <v-skeleton-loader v-if="loadings.sell" class="mx-auto" type="text"></v-skeleton-loader>
-                <div v-else-if="!loadings.sell && prices.sell > 0">{{ formatCoinAmount(useFromMicroAmount(prices.sell))
-                }}<br /><span class="text-subtitle-2">BTSG</span>
-                </div>
-              </v-col>
-
-              <v-col cols="12">
-                <v-row>
-                  <v-col cols="12" class="d-flex align-center pb-4 justify-space-between">
-
-                    <AppNftMarketplace v-if="data?.marketplace_address && (prices.buy > 0 || prices.sell > 0)"
-                      @openDialog="openMarketplaceDialog" />
-
-                  </v-col>
-                </v-row>
+            <v-row>
+              <v-col cols="12" class="px-0">
+                <ClientOnly>
+                  <AppNftMarketplace v-if="data?.marketplace_address" @openDialog="openMarketplaceDialog"
+                    :marketplace-address="data?.marketplace_address" :nft-address="data.id" :title="data?.name"
+                    :image="data?.image!" :last-price="prices.last" />
+                </ClientOnly>
               </v-col>
             </v-row>
+
 
             <v-row>
 
@@ -217,14 +194,10 @@
       </v-container>
     </template>
   </app-page>
-  <AppNftCurveDialog v-if="data?.marketplace_address" v-model="marketplaceDialog"
-    :marketplaceAddress="data?.marketplace_address" :nftAddress="contractAddress" :side="marketplaceSide"
-    :image="data?.image" :title="data?.name" :creator="data?.sender" :buy_price="prices.buy" :sell_price="prices.sell" />
 </template>
 
 <script lang="ts" setup>
 import { marked } from 'marked'
-import { contracts } from "@bitsongjs/telescope";
 import defaultImage from "@/assets/images/default.png";
 import { useTimeAgo } from '@vueuse/core'
 import { formatNumber, formatCoinAmount } from '~/utils';
@@ -296,52 +269,25 @@ function openMarketplaceDialog(side: "buy" | "sell") {
   marketplaceDialog.value = true;
 }
 
-const { Bs721CurveQueryClient } = contracts.Bs721Curve;
+let interval: string | number | NodeJS.Timeout | undefined;
+let intervalActivities: string | number | NodeJS.Timeout | undefined;
 
-async function fetchPrices(amount: number = 1) {
+onMounted(async () => {
   await execute();
   await executeActivities();
 
-  const marketplace = data.value?.marketplace_address;
-  if (!marketplace) {
-    return;
-  }
-
-  const bs721QueryClient = new Bs721CurveQueryClient(
-    await useQueryClient("bitsong"),
-    marketplace,
-  );
-
-  const [buy_price, sell_price] = await Promise.all([
-    bs721QueryClient.buyPrice({
-      // @ts-ignore
-      amount: amount.toString(),
-    }),
-    bs721QueryClient.sellPrice({
-      // @ts-ignore
-      amount: amount.toString(),
-    }),
-  ]);
-
-  prices.buy = parseInt(buy_price.total_price);
-  prices.sell = parseInt(sell_price.total_price);
-
-  loadings.buy = false;
-  loadings.sell = false;
-}
-
-let interval: string | number | NodeJS.Timeout | undefined;
-
-onMounted(async () => {
-  await fetchPrices();
-
   interval = setInterval(async () => {
-    await fetchPrices();
+    await execute();
+  }, 2000);
+
+  intervalActivities = setInterval(async () => {
+    await executeActivities();
   }, 5000);
 });
 
 onUnmounted(() => {
   clearInterval(interval);
+  clearInterval(intervalActivities);
 });
 </script>
 

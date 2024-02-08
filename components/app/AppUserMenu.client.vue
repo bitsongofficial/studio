@@ -4,7 +4,7 @@
       <template v-slot:activator="{ props }">
         <v-list width="210" :style="{ cursor: 'pointer' }" v-bind="props" bg-color="transparent" variant="text"
           density="comfortable" rounded="pill">
-          <v-list-item :prepend-avatar="avatar" :title="name" :subtitle="balance">
+          <v-list-item :prepend-avatar="avatar" :title="name" :subtitle="formattedBalance">
           </v-list-item>
         </v-list>
       </template>
@@ -23,8 +23,8 @@
           <v-card-subtitle v-if="user?.username">
             {{ formatShortAddress(address, 6) }}
           </v-card-subtitle>
-          <v-btn icon="mdi-refresh" :loading="loadingBalance" size="small" variant="text" rounded="pill"
-            color="grey-lighten-1" @click.stop="fetchBalance"></v-btn>
+          <v-btn icon="mdi-refresh" :loading="loading" size="small" variant="text" rounded="pill" color="grey-lighten-1"
+            @click.stop="fetchBalance"></v-btn>
           <AppCopyBtn v-if="address" :text="address" />
         </div>
         <v-divider></v-divider>
@@ -52,35 +52,39 @@ const { disconnect, connected } = useConnect();
 
 const menu = ref(false);
 const user = await useUser();
-const userBalance = ref<number>(0);
-const loadingBalance = ref(false);
+const { balance, formattedBalance, loading, fetchBalance: _fecthBalance } = useUserBalance();
+
+// const userBalance = ref<number>(0);
+//const loadingBalance = ref(false);
 
 useWalletEvents("keystorechange", () => {
   disconnect()
 });
 
-const client = await useQueryClient("bitsong")
-
-watch(
-  () => connected.value,
-  async (connected) => {
-    if (connected) {
-      await fetchBalance()
-    }
-  }
-)
+//const client = await useQueryClient("bitsong")
 
 async function fetchBalance() {
-  loadingBalance.value = true
-  try {
-    const balance = await client.getBalance(address.value!, "ubtsg")
-    userBalance.value = parseInt(balance.amount)
-  } catch (e) {
-    console.error(e)
-  } finally {
-    loadingBalance.value = false
+  await _fecthBalance(address)
+}
+
+watch(connected, async (val) => {
+  if (val) {
+    await fetchBalance()
   }
 }
+)
+
+// async function fetchBalance() {
+//   loadingBalance.value = true
+//   try {
+//     const balance = await client.getBalance(address.value!, "ubtsg")
+//     userBalance.value = parseInt(balance.amount)
+//   } catch (e) {
+//     console.error(e)
+//   } finally {
+//     loadingBalance.value = false
+//   }
+// }
 
 const avatar = computed(() => {
   if (user.value?.avatar) return useIpfsLink(user.value.avatar)
@@ -92,10 +96,10 @@ const name = computed(() => {
   return formatShortAddress(toValue(address), 6)
 })
 
-const balance = computed(() => {
-  if (userBalance.value) return `${useFromMicroAmount(userBalance.value)} BTSG`
-  return "0 BTSG"
-})
+// const balance = computed(() => {
+//   if (userBalance.value) return `${useFromMicroAmount(userBalance.value)} BTSG`
+//   return "0 BTSG"
+// })
 
 onMounted(async () => {
   if (connected.value) {

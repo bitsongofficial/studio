@@ -2,14 +2,15 @@ import BigNumber from "bignumber.js";
 
 export function useFromNumberToBN(value: number): BigNumber {
   if (Number.isNaN(value)) {
-    throw new Error("Cannot convert NaN to BN");
+    //throw new Error("Cannot convert NaN to BN");
+    return new BigNumber(0);
   }
 
   return new BigNumber(value);
 }
 
-export function useFromBasisPoints(bps: number): number {
-  return useFromNumberToBN(bps).dividedBy(useFromNumberToBN(100)).toNumber();
+export function useFromBasisPoints(bps: MaybeRefOrGetter<number>): number {
+  return useFromNumberToBN(toValue(bps)).dividedBy(useFromNumberToBN(100)).toNumber();
 }
 
 export function useFromMicroAmount(amount: number): number {
