@@ -3,17 +3,17 @@
     <v-card>
       <v-card-title>Connect Wallet</v-card-title>
       <v-list class="mb-1">
-        <v-list-item v-for="wallet in wallets" :key="wallet.options.name" class="mx-2 pa-2"
-          :prepend-avatar="`/images/wallets/${wallet.options.name}.png`" :title="wallet.options.prettyName"
-          @click.stop="open(wallet.options.name); umTrackEvent('connect-wallet', { provider: wallet.options.name })">
+        <v-list-item v-for="wallet in wallets" :key="wallet.options.wallet_name" class="mx-2 pa-2"
+          :prepend-avatar="`/images/wallets/${wallet.options.wallet_name}.png`" :title="wallet.options.pretty_name"
+          @click.stop="open(wallet.options.wallet_name); umTrackEvent('connect-wallet', { provider: wallet.options.wallet_name })">
           <template #subtitle v-if="wallet.injected">
-            Connect with {{ wallet.options.prettyName }}
+            Connect with {{ wallet.options.pretty_name }}
           </template>
           <template #subtitle v-else>
             Install {{ wallet.options.prettyName }}
           </template>
           <template v-slot:append>
-            <v-progress-circular v-if="status === 'WAITING' && selectedWallet === wallet.options.name" indeterminate
+            <v-progress-circular v-if="connecting && selectedWallet === wallet.options.wallet_name" indeterminate
               color="primary" size="22" width="3"></v-progress-circular>
           </template>
         </v-list-item>
@@ -28,7 +28,7 @@ import { suggestChains, signArbitrary, getAddress } from "@quirks/store";
 import { bitsong, bitsongAssetList } from "@nabla-studio/chain-registry";
 
 const { wallets } = useConfig();
-const { connect, status } = useConnect();
+const { connect, status, connecting } = useConnect();
 
 interface Props {
   modelValue: boolean;
@@ -42,9 +42,9 @@ const selectedWallet = ref("");
 const open = async (walletName: string) => {
   selectedWallet.value = walletName;
 
-  const wallet = wallets.value.find((w) => w.options.name === walletName);
-  if (wallet && !wallet.injected && Array.isArray(wallet.options.downloads) && wallet.options.downloads.length > 0) {
-    window.open(wallet.options.downloads[0].link, "_blank");
+  const wallet = wallets.value.find((w) => w.options.wallet_name === walletName);
+  if (wallet && !wallet.injected && Array.isArray(wallet.options.platforms) && wallet.options.platforms.length > 0) {
+    window.open(wallet.options.platforms[0].install_link, "_blank");
     return
   }
 
