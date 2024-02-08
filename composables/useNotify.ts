@@ -8,7 +8,9 @@ export const useNotify = () => {
       toast.success(message)
     },
     error: (message: string) => {
-      toast.error(message)
+      toast.error(message, {
+        timeout: 8000
+      })
     },
   }
 }

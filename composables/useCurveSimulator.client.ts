@@ -1,15 +1,21 @@
 import type { MaybeRefOrGetter } from '@vueuse/shared'
 
 export interface CurveOptions {
-  ratio: MaybeRefOrGetter<number>
-  sellerFeeBps: MaybeRefOrGetter<number>
-  referralFeeBps: MaybeRefOrGetter<number>
-  protocolFeeBps: MaybeRefOrGetter<number>
-  totalSupply: MaybeRefOrGetter<number>
+  ratio: number
+  sellerFeeBps: number
+  referralFeeBps: number
+  protocolFeeBps: number
+  totalSupply: number
 }
 
 export function useCurveSimulator(options: MaybeRefOrGetter<CurveOptions>) {
-  let _options: CurveOptions
+  const _options = computed(() => {
+    let opts = options
+    if (typeof opts === 'function') {
+      opts = opts()
+    }
+    return toValue(opts)
+  })
 
   function validateAmount(value: number | string): number {
     const _value = Number(value)
@@ -32,12 +38,6 @@ export function useCurveSimulator(options: MaybeRefOrGetter<CurveOptions>) {
       _amount.value = validateAmount(value)
     }
   })
-
-  watch(toRef(options), (value) => {
-    // TODO: this should work only on client side
-    console.log('options changed', value)
-    _options = toValue(value)
-  }, { immediate: true, deep: true })
 
   function sumOfSquares(n: number): number {
     if (n === 0) {
@@ -64,31 +64,20 @@ export function useCurveSimulator(options: MaybeRefOrGetter<CurveOptions>) {
       avgPrice: 0
     };
 
-    if (!toValue(_options)) {
-      return response
-    }
-
-    const basePrice = computeBasePrice(toValue(_options.ratio), toValue(_options.totalSupply), toValue(amount))
+    const basePrice = computeBasePrice(_options.value.ratio, _options.value.totalSupply, toValue(amount))
     if (!basePrice || Number.isNaN(basePrice) || basePrice === Infinity) {
       return response
     }
 
-    const creatorFee = useFromBasisPoints(toValue(_options.sellerFeeBps)) / 100 * basePrice
+    const creatorFee = useFromBasisPoints(_options.value.sellerFeeBps) / 100 * basePrice
     if (!creatorFee || Number.isNaN(creatorFee) || creatorFee === Infinity) {
       return response
     }
 
     const referralFee = 0 // TODO: fix it
-    const protocolFee = useFromBasisPoints(toValue(_options.protocolFeeBps)) / 100 * basePrice
+    const protocolFee = useFromBasisPoints(_options.value.protocolFeeBps) / 100 * basePrice
 
     const totalPrice = basePrice + creatorFee + referralFee + protocolFee
-
-    console.log('creatofee from buyprice', toValue(_options.sellerFeeBps))
-
-    console.log('ratio from buyprice', toValue(_options.ratio))
-    console.log('supply from buyprice', toValue(_options.totalSupply))
-    console.log('basePrice', basePrice)
-    console.log('newTotalPrice', totalPrice)
 
     return {
       basePrice: useFromMicroAmount(basePrice),
@@ -110,18 +99,14 @@ export function useCurveSimulator(options: MaybeRefOrGetter<CurveOptions>) {
       avgPrice: 0
     };
 
-    if (!toValue(_options)) {
-      return response
-    }
-
-    const basePrice = computeBasePrice(toValue(_options.ratio), toValue(_options.totalSupply) - toValue(amount), toValue(amount))
+    const basePrice = computeBasePrice(toValue(options).ratio, toValue(toValue(options).totalSupply) - toValue(amount), toValue(amount))
     if (!basePrice) {
       return response
     }
 
-    const creatorFee = useFromBasisPoints(toValue(_options.sellerFeeBps)) / 100 * basePrice
+    const creatorFee = useFromBasisPoints(toValue(options).sellerFeeBps) / 100 * basePrice
     const referralFee = 0 // TODO: fix it
-    const protocolFee = useFromBasisPoints(toValue(_options.protocolFeeBps)) / 100 * basePrice
+    const protocolFee = useFromBasisPoints(toValue(options).protocolFeeBps) / 100 * basePrice
 
     const totalPrice = basePrice - creatorFee - referralFee - protocolFee
 

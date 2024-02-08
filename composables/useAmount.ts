@@ -9,8 +9,8 @@ export function useFromNumberToBN(value: number): BigNumber {
   return new BigNumber(value);
 }
 
-export function useFromBasisPoints(bps: number): number {
-  return useFromNumberToBN(bps).dividedBy(useFromNumberToBN(100)).toNumber();
+export function useFromBasisPoints(bps: MaybeRefOrGetter<number>): number {
+  return useFromNumberToBN(toValue(bps)).dividedBy(useFromNumberToBN(100)).toNumber();
 }
 
 export function useFromMicroAmount(amount: number): number {

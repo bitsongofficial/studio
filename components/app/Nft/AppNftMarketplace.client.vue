@@ -10,8 +10,9 @@
 
       <v-col class="text-center">
         <div class="text-grey text-body-2">Last Price</div>
-        <div class="text-grey">
-          0<br /><span class="text-subtitle-2">BTSG</span>
+        <v-skeleton-loader v-if="!lastPrice || lastPrice === 0" class="mx-auto" type="text"></v-skeleton-loader>
+        <div v-else class="text-grey">
+          {{ formatCoinAmount(useFromMicroAmount(lastPrice ?? 0)) }}<br /><span class="text-subtitle-2">BTSG</span>
         </div>
       </v-col>
 
@@ -25,24 +26,22 @@
     <v-row>
       <v-col cols="12" class="d-flex align-center pb-4 justify-space-between">
         <AppConnectBtn v-if="!connected" />
-        <v-btn v-if="connected" color="green" rounded="xl" size="large" width="170"
-          @click.stop="$emit('openDialog', 'buy'); umTrackEvent('open-buy-dialog')">
+        <v-btn v-if="connected" color="green" rounded="xl" size="large" width="170" @click.stop="openBuyDialog">
           Buy
         </v-btn>
-
-        <v-btn v-if="connected" color="red" rounded="xl" width="170" size="large"
-          @click.stop="$emit('openDialog', 'sell'); umTrackEvent('open-sell-dialog')">
+        <v-btn v-if="connected" color="red" rounded="xl" width="170" size="large" @click.stop="openSellDialog">
           Sell
         </v-btn>
       </v-col>
     </v-row>
   </v-container>
-  <AppNftCurveDialog v-if="toValue(_contractConfig.ratio) > 0" v-model="marketplaceDialog"
-    :marketplaceAddress="props.marketplaceAddress" :nftAddress="props.nftAddress" :side="marketplaceSide"
-    :image="props.image" :title="props.title" :creator="props.creator" :config="_contractConfig" />
+
+  <AppNftCurveDialog v-if="loaded" v-model="marketplaceDialog" :side="marketplaceSide" :title="title" :image="image"
+    :contract-config="contractConfig" />
 </template>
 
 <script setup lang="ts">
+
 const { error } = useNotify()
 const { connected } = useConnect();
 
@@ -53,16 +52,22 @@ const emits = defineEmits<{
 const props = defineProps<{
   marketplaceAddress: string;
   nftAddress: string;
-  image?: string | null;
-  title?: string | null;
+  image?: string;
+  title?: string;
+  lastPrice?: number;
   creator?: string | null;
 }>();
 
+const { marketplaceAddress, nftAddress, image, title, lastPrice } = toRefs(props)
+
 const loading = ref(true)
+const loaded = ref(false)
 const marketplaceDialog = ref(false)
 const marketplaceSide = ref<'buy' | 'sell'>('buy')
 
-const contractConfig = ref<CurveOptions>({
+const contractConfig = shallowRef({
+  marketplaceAddress: marketplaceAddress.value,
+  nftAddress: nftAddress.value,
   ratio: 0,
   sellerFeeBps: 0,
   referralFeeBps: 0,
@@ -70,19 +75,17 @@ const contractConfig = ref<CurveOptions>({
   totalSupply: 0,
 })
 
-const _contractConfig = computed(() => toValue(contractConfig))
-
-const { buyPrice, sellPrice } = useCurveSimulator(contractConfig.value);
+const { buyPrice, sellPrice } = useCurveSimulator(contractConfig);
 
 async function fetchConfigAndSupply() {
   try {
     const { restAddress } = useRuntimeConfig().public
 
     const configQuery = btoa(`{"get_config":{}}`);
-    const configUrl = `${restAddress}/cosmwasm/wasm/v1/contract/${props.marketplaceAddress}/smart/${configQuery}`;
+    const configUrl = `${restAddress}/cosmwasm/wasm/v1/contract/${toValue(marketplaceAddress)}/smart/${configQuery}`;
 
     const supplyQuery = btoa(`{"num_tokens":{}}`);
-    const supplyUrl = `${restAddress}/cosmwasm/wasm/v1/contract/${props.nftAddress}/smart/${supplyQuery}`;
+    const supplyUrl = `${restAddress}/cosmwasm/wasm/v1/contract/${toValue(nftAddress)}/smart/${supplyQuery}`;
 
     interface QueryConfigResponse {
       data: {
@@ -106,22 +109,44 @@ async function fetchConfigAndSupply() {
       $fetch<QuerySupplyResponse>(supplyUrl),
     ]);
 
-    contractConfig.value.ratio = config.data.ratio;
-    contractConfig.value.sellerFeeBps = config.data.seller_fee_bps;
-    contractConfig.value.referralFeeBps = config.data.referral_fee_bps;
-    contractConfig.value.protocolFeeBps = config.data.protocol_fee_bps;
-    contractConfig.value.totalSupply = supply.data.count;
-
-    console.dir('contractConfig', toValue(contractConfig))
+    contractConfig.value = {
+      marketplaceAddress: marketplaceAddress.value,
+      nftAddress: nftAddress.value,
+      ratio: config.data.ratio,
+      sellerFeeBps: config.data.seller_fee_bps,
+      referralFeeBps: config.data.referral_fee_bps,
+      protocolFeeBps: config.data.protocol_fee_bps,
+      totalSupply: supply.data.count,
+    }
 
     loading.value = false
+    loaded.value = true
   } catch (e) {
     error('Error fetching marketplace data')
   }
 }
 
+function openBuyDialog() {
+  marketplaceSide.value = 'buy'
+  marketplaceDialog.value = true
+  umTrackEvent('open-buy-dialog')
+}
+
+function openSellDialog() {
+  marketplaceSide.value = 'sell'
+  marketplaceDialog.value = true
+  umTrackEvent('open-sell-dialog')
+}
+
+let interval: string | number | NodeJS.Timeout | undefined;
+
 onMounted(async () => {
-  //await nextTick()
-  await fetchConfigAndSupply()
+  interval = setInterval(async () => {
+    await fetchConfigAndSupply()
+  }, 1000);
+})
+
+onUnmounted(() => {
+  clearInterval(interval as number)
 })
 </script>

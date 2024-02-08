@@ -26,11 +26,11 @@
               <v-col cols="12" class="px-0">
                 <ClientOnly>
                   <AppNftMarketplace v-if="data?.marketplace_address" @openDialog="openMarketplaceDialog"
-                    :marketplace-address="data?.marketplace_address" :nft-address="data.id" />
+                    :marketplace-address="data?.marketplace_address" :nft-address="data.id" :title="data?.name"
+                    :image="data?.image!" :last-price="prices.last" />
                 </ClientOnly>
               </v-col>
             </v-row>
-
 
 
             <v-row>
@@ -195,9 +195,6 @@
       </v-container>
     </template>
   </app-page>
-  <AppNftCurveDialog v-if="data?.marketplace_address" v-model="marketplaceDialog"
-    :marketplaceAddress="data?.marketplace_address" :nftAddress="contractAddress" :side="marketplaceSide"
-    :image="data?.image" :title="data?.name" :creator="data?.sender" :buy_price="prices.buy" :sell_price="prices.sell" />
 </template>
 
 <script lang="ts" setup>
@@ -273,65 +270,15 @@ function openMarketplaceDialog(side: "buy" | "sell") {
   marketplaceDialog.value = true;
 }
 
-const { error: errorNotify } = useNotify()
-
-// Buy Price:
-// Marketplace Address: bitsong1kj8q8g2pmhnagmfepp9jh9g2mda7gzd0m5zdq0s08ulvac8ck4dqalzxgv
-// Query: '{"buy_price":{"amount":"1"}}' | base64
-// Url: https://lcd.explorebitsong.com/cosmwasm/wasm/v1/contract/bitsong1kj8q8g2pmhnagmfepp9jh9g2mda7gzd0m5zdq0s08ulvac8ck4dqalzxgv/smart/eyJidXlfcHJpY2UiOnsiYW1vdW50IjoiMjkxIn19Cg==
-async function fetchContractPrices(amount: number = 1) {
-  try {
-    const { restAddress } = useRuntimeConfig().public
-
-    const buyQuery = btoa(`{"buy_price":{"amount":"${amount}"}}`);
-    const sellQuery = btoa(`{"sell_price":{"amount":"${amount}"}}`);
-    const marketplace = toValue(data.value?.marketplace_address);
-    if (!marketplace) {
-      return;
-    }
-
-    const urlQueryBuy = `${restAddress}/cosmwasm/wasm/v1/contract/${marketplace}/smart/${buyQuery}`;
-    const urlQuerySell = `${restAddress}/cosmwasm/wasm/v1/contract/${marketplace}/smart/${sellQuery}`;
-
-    interface QueryResponse {
-      data: {
-        base_price: string
-        protocol_fee: string
-        referral: string
-        royalties: string
-        total_price: string
-      };
-    }
-
-    const [buy_price, sell_price] = await Promise.all([
-      $fetch(urlQueryBuy),
-      $fetch(urlQuerySell),
-    ]);
-    prices.buy = parseInt((buy_price as QueryResponse).data.total_price);
-    prices.sell = parseInt((sell_price as QueryResponse).data.total_price);
-
-    loadings.buy = false;
-    loadings.sell = false;
-
-  } catch (e) {
-    errorNotify('Error fetching prices')
-  }
-}
-
-async function fetchPrices(amount: number = 1) {
-  await execute();
-  await fetchContractPrices(amount);
-}
-
 let interval: string | number | NodeJS.Timeout | undefined;
 let intervalActivities: string | number | NodeJS.Timeout | undefined;
 
 onMounted(async () => {
-  await fetchPrices();
+  await execute();
   await executeActivities();
 
   interval = setInterval(async () => {
-    await fetchPrices();
+    await execute();
   }, 2000);
 
   intervalActivities = setInterval(async () => {
