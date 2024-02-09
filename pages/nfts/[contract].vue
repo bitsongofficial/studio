@@ -374,6 +374,7 @@ async function onWithdraw() {
 
     umTrackEvent('withdraw-royalties', { nftAddress: contractAddress })
   } catch (e) {
+    // TODO: fix cosmos errors, check if the address doesn't have enough funds or exists on chain
     console.error(e)
     errorNotify("Error while withdrawing")
     umTrackEvent('withdraw-royalties-error', { nftAddress: contractAddress })
