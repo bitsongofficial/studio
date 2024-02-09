@@ -138,6 +138,7 @@
             <v-tabs v-model="selectedTab">
               <v-tab :value="1">Description</v-tab>
               <v-tab :value="2">Activity</v-tab>
+              <v-tab :value="3">Royalties</v-tab>
             </v-tabs>
 
 
@@ -188,6 +189,70 @@
                   {{ useTimeAgo(activity.timestamp).value }}
                 </div>
               </div>
+            </div>
+
+            <div v-if="selectedTab === 3">
+              <v-container fluid v-if="errorRoyalties">
+                <v-row>
+                  <v-col>
+                    Error while loading royalties
+                  </v-col>
+                </v-row>
+              </v-container>
+              <v-container fluid v-else>
+                <v-row>
+                  <v-col>
+                    <div class="text-body-1 text-surface-variant">Royalties Contract</div>
+                    <div class="text-h6">bitsong1...tqy04vy2</div>
+                  </v-col>
+                  <v-col>
+                    <div class="text-body-1 text-surface-variant">Total Royalties</div>
+                    <div class="text-h6">0 BTSG</div>
+                  </v-col>
+                </v-row>
+
+                <v-row>
+                  <v-col>
+                    <v-card>
+                      <v-table>
+                        <thead>
+                          <tr>
+                            <th>Address</th>
+                            <th>Role</th>
+                            <th>Shares</th>
+                            <th>Available</th>
+                            <th></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td class="w-25">bitsong1...tqy04vy2</td>
+                            <td class="w-25">Owner</td>
+                            <td class="w-25">1000 <span class="text-surface-variant">(50%)</span></td>
+                            <td>
+                              0 BTSG
+                            </td>
+                            <td>
+                              <v-btn size="small">Withdraw</v-btn>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="w-25">bitsong1...tqy04vy2</td>
+                            <td class="w-25">Owner</td>
+                            <td class="w-25">1000 <span class="text-surface-variant">(50%)</span></td>
+                            <td>
+                              0 BTSG
+                            </td>
+                            <td>
+
+                            </td>
+                          </tr>
+                        </tbody>
+                      </v-table>
+                    </v-card>
+                  </v-col>
+                </v-row>
+              </v-container>
             </div>
           </v-col>
         </v-row>
@@ -268,6 +333,8 @@ function openMarketplaceDialog(side: "buy" | "sell") {
   marketplaceSide.value = side;
   marketplaceDialog.value = true;
 }
+
+const { data: royalties, error: errorRoyalties } = await useFetch(`/api/nfts/${contractAddress}/royalties`);
 
 let interval: string | number | NodeJS.Timeout | undefined;
 let intervalActivities: string | number | NodeJS.Timeout | undefined;
