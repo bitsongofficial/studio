@@ -1,6 +1,4 @@
-import { PrismaClient } from "@prisma/client";
-
-const prismaClient = new PrismaClient();
+import prisma from '~/server/utils/db'
 
 interface TopTrader {
   address: string;
@@ -12,7 +10,14 @@ interface TopTrader {
 }
 
 export default defineEventHandler(async (event) => {
-  const result = await prismaClient.$queryRaw<TopTrader[]>`
+  if (!prisma) {
+    throw createError({
+      message: 'database is not available',
+      status: 500
+    })
+  }
+
+  const result = await prisma.$queryRaw<TopTrader[]>`
         SELECT
           na.sender AS address,
           u.username,

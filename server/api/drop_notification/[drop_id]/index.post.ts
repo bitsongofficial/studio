@@ -1,11 +1,17 @@
 import { ZodError } from "zod"
 import { dropNotificationSchema } from "../../../schema/dropNotification"
-import { PrismaClient } from "@prisma/client";
 import { v4 as uuidv4 } from 'uuid';
+import prisma from '~/server/utils/db'
 
-const prismaClient = new PrismaClient();
 export default defineEventHandler(async (event) => {
   try {
+    if (!prisma) {
+      throw createError({
+        message: 'database is not available',
+        status: 500
+      })
+    }
+
     const user = await ensureAuth(event)
     const drop_id = getRouterParam(event, 'drop_id')
     if (drop_id === null || drop_id === undefined || drop_id === '') {
@@ -17,7 +23,7 @@ export default defineEventHandler(async (event) => {
 
     const { email } = dropNotificationSchema.parse(await readBody(event))
 
-    const notification = await prismaClient.dropNotifications.findFirst({
+    const notification = await prisma.dropNotifications.findFirst({
       where: {
         AND: {
           drop_id: drop_id,
@@ -33,7 +39,7 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    await prismaClient.dropNotifications.create({
+    await prisma.dropNotifications.create({
       data: {
         drop_id: drop_id,
         user_id: user.userId,

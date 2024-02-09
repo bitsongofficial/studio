@@ -1,8 +1,14 @@
-import { PrismaClient } from "@prisma/client";
+import prisma from '~/server/utils/db'
 
-const prismaClient = new PrismaClient();
 export default defineEventHandler(async (event) => {
   try {
+    if (!prisma) {
+      throw createError({
+        message: 'database is not available',
+        status: 500
+      })
+    }
+
     const user = await ensureAuth(event)
 
     const drop_id = getRouterParam(event, 'drop_id')
@@ -13,7 +19,7 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    const data = await prismaClient.dropNotifications.findFirst({
+    const data = await prisma.dropNotifications.findFirst({
       where: {
         user_id: user.userId,
         drop_id

@@ -1,9 +1,14 @@
-import { PrismaClient } from "@prisma/client"
-
-const prismaClient = new PrismaClient()
+import prisma from '~/server/utils/db'
 
 export default defineEventHandler(async (event) => {
-  const latestUsers = await prismaClient.user.findMany({
+  if (!prisma) {
+    throw createError({
+      message: 'database is not available',
+      status: 500
+    })
+  }
+
+  const latestUsers = await prisma.user.findMany({
     take: 25,
     orderBy: {
       created_at: 'desc'
@@ -15,7 +20,7 @@ export default defineEventHandler(async (event) => {
     }
   })
 
-  const totalUsers = await prismaClient.user.count()
+  const totalUsers = await prisma.user.count()
 
   // sort users with avatar and username first
   latestUsers.sort((a, b) => {

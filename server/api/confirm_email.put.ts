@@ -1,10 +1,16 @@
-import { PrismaClient } from "@prisma/client";
+import prisma from '~/server/utils/db'
 
-const prismaClient = new PrismaClient();
 export default defineEventHandler(async (event) => {
   const { token } = await readBody<{ token: string; }>(event);
 
-  const user = await prismaClient.user.findFirst({
+  if (!prisma) {
+    throw createError({
+      message: 'database is not available',
+      status: 500
+    })
+  }
+
+  const user = await prisma.user.findFirst({
     where: {
       AND: {
         email_verified: false,
@@ -22,7 +28,7 @@ export default defineEventHandler(async (event) => {
     }
   }
 
-  await prismaClient.user.update({
+  await prisma.user.update({
     where: {
       address: user.address
     },

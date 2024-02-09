@@ -1,12 +1,17 @@
-import { PrismaClient } from "@prisma/client";
 import { useIpfsLink } from "~/composables/useIpfsLink";
-
-const prismaClient = new PrismaClient();
+import prisma from '~/server/utils/db'
 
 export default defineEventHandler(async (event) => {
   const contract = getRouterParam(event, 'contract')
 
-  const nft = await prismaClient.nftview.findUnique({
+  if (!prisma) {
+    throw createError({
+      message: 'database is not available',
+      status: 500
+    })
+  }
+
+  const nft = await prisma.nftview.findUnique({
     where: {
       id: contract
     }
@@ -24,7 +29,7 @@ export default defineEventHandler(async (event) => {
     owners: string;
   }
 
-  const stats = await prismaClient.$queryRaw<NftStats[]>`
+  const stats = await prisma.$queryRaw<NftStats[]>`
       SELECT 
           COUNT(*)::text AS editions, 
           COUNT(DISTINCT owner)::text AS owners

@@ -1,11 +1,16 @@
-import { PrismaClient } from "@prisma/client";
-
-const prismaClient = new PrismaClient();
+import prisma from '~/server/utils/db'
 
 export default defineEventHandler(async (event) => {
   const contract = getRouterParam(event, 'contract')
 
-  const activities = await prismaClient.nftactivityview.findMany({
+  if (!prisma) {
+    throw createError({
+      message: 'database is not available',
+      status: 500
+    })
+  }
+
+  const activities = await prisma.nftactivityview.findMany({
     where: {
       nft_id: contract
     },

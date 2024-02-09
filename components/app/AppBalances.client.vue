@@ -63,7 +63,6 @@ const balanceList = ref<Balance[]>([]);
 const fetchBalances = async () => {
   const res = await $fetch<{ balances: Coin[] }>(`https://lcd.explorebitsong.com/cosmos/bank/v1beta1/balances/${address}?pagination.limit=100`);
   const { bitsong: { usd: price } } = await $fetch<{ [key: string]: { usd: number } }>("https://api.coingecko.com/api/v3/simple/price?ids=bitsong&vs_currencies=usd");
-  console.log(price)
 
   const balances: Balance[] = assets.value
     .filter((asset) => asset.base !== "ft347B1612A2B7659913679CF6CD45B8B130C50A00")

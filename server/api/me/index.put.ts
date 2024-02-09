@@ -1,15 +1,21 @@
-import { PrismaClient } from '@prisma/client';
 import { ZodError } from 'zod';
 import { userUpdateProfileSchema } from '~/server/schema/updateProfile';
 import pinataSDK from '@pinata/sdk'
 import { Readable } from 'stream';
 import { v4 as uuidv4 } from 'uuid';
 import { sendEmailVerification } from '~/server/utils/email';
+import prisma from '~/server/utils/db'
 
-const prismaClient = new PrismaClient();
 const pinata = new pinataSDK(useRuntimeConfig().pinataApiKey, useRuntimeConfig().pinataApiSecret);
 
 export default defineEventHandler(async (event) => {
+  if (!prisma) {
+    throw createError({
+      message: 'database is not available',
+      status: 500
+    })
+  }
+
   const user = await ensureAuth(event)
 
   const data = await readMultipartFormData(event)
@@ -41,26 +47,26 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  const usernameResult = await prismaClient.user.findFirst({
+  const usernameResult = await prisma.user.findFirst({
     where: {
       username
     }
   })
 
-  if (usernameResult !== null && usernameResult.address !== user.address) {
+  if (usernameResult !== null && usernameResult?.address !== user.address) {
     throw createError({
       message: 'Username is already taken',
       status: 400
     })
   }
 
-  const emailResult = await prismaClient.user.findFirst({
+  const emailResult = await prisma.user.findFirst({
     where: {
       email
     }
   })
 
-  if (emailResult !== null && emailResult.address !== user.address) {
+  if (emailResult !== null && emailResult?.address !== user.address) {
     throw createError({
       message: 'Email is already taken',
       status: 400

@@ -1,9 +1,14 @@
-import { PrismaClient } from "@prisma/client";
-
-const prismaClient = new PrismaClient();
+import prisma from '~/server/utils/db'
 
 export default defineEventHandler(async (event) => {
   const address = getRouterParam(event, 'address')
+
+  if (!prisma) {
+    throw createError({
+      message: 'database is not available',
+      status: 500
+    })
+  }
 
   const selectColumns = {
     avatar: true,
@@ -19,7 +24,7 @@ export default defineEventHandler(async (event) => {
     selectColumns.email = true
   }
 
-  const user = await prismaClient.user.findUnique({
+  const user = await prisma.user.findUnique({
     where: {
       address
     },
