@@ -237,7 +237,8 @@
                             </td>
                             <td>
                               <ClientOnly>
-                                <v-btn v-if="getAddress('bitsong') === contributor.address" size="small">Withdraw</v-btn>
+                                <v-btn :loading="withdrawLoading" v-if="getAddress('bitsong') === contributor.address"
+                                  size="small" @click.stop="onWithdraw">Withdraw</v-btn>
                               </ClientOnly>
                             </td>
                           </tr>
@@ -260,7 +261,9 @@ import { marked } from 'marked'
 import defaultImage from "@/assets/images/default.png";
 import { useTimeAgo } from '@vueuse/core'
 import { formatNumber, formatCoinAmount } from '~/utils';
-import { contracts } from "@bitsongjs/telescope";
+import { cosmwasm } from '@bitsongjs/telescope'
+import { toUtf8 } from '@cosmjs/encoding'
+import { faDiagramSuccessor } from '@fortawesome/free-solid-svg-icons';
 
 const img = useImage();
 
@@ -332,36 +335,51 @@ function openMarketplaceDialog(side: "buy" | "sell") {
 
 const { data: royalties, error: errorRoyalties, refresh: refreshRoyalties } = await useFetch(`/api/nfts/${contractAddress}/royalties`);
 
-// async function onWithdraw() {
-//   withdrawLoading.value = true;
+const { success, error: errorNotify } = useNotify()
+const withdrawLoading = ref(false)
 
-//   try {
-//     const address = getAddress("bitsong");
+async function onWithdraw() {
+  withdrawLoading.value = true;
 
-//     const { Bs721RoyaltiesClient } = contracts.Bs721Royalties;
+  try {
+    const address = getAddress("bitsong");
 
-//     const royaltiesClient = new Bs721RoyaltiesClient(
-//       await useCWClient(),
-//       address,
-//       data.value?.payment_address!,
-//     );
+    const { executeContract } = cosmwasm.wasm.v1.MessageComposer.withTypeUrl
 
-//     await royaltiesClient.distribute("auto", "", []);
+    const msgs = [
+      executeContract({
+        sender: address,
+        contract: contractAddress,
+        msg: toUtf8(JSON.stringify({ distribute: {} })),
+        funds: [],
+      }),
+      executeContract({
+        sender: address,
+        contract: contractAddress,
+        msg: toUtf8(JSON.stringify({ withdraw: {} })),
+        funds: [],
+      }),
+    ]
 
-//     //await fetchBalance(address)
+    const txRaw = await signCW("bitsong", msgs);
+    const broadcast = (await import("@quirks/store")).broadcast;
+    await broadcast("bitsong", txRaw);
 
-//     //success("Transaction success")
-//     //umTrackEvent('buy-nft', { nftAddress: contractConfig.value.nftAddress, amount: toValue(amount), maxBid: toValue(yourBid) })
-//   } catch (e) {
-//     // TODO: this metod is just temporary, we need to handle the error properly
-//     //error(parseCosmosError(e as Error))
-//     //umTrackEvent('buy-nft-error', { nftAddress: contractConfig.value.nftAddress, amount: toValue(amount), maxBid: toValue(yourBid) })
-//   } finally {
-//     //await fetchConfig();
-//     loading.value = false;
-//     //emits("update:modelValue", false)
-//   }
-// }
+    success("Withdrawn successfully")
+
+    await refreshRoyalties();
+
+    const { fetchBalance } = useUserBalance();
+    await fetchBalance(address)
+
+    umTrackEvent('withdraw-royalties', { nftAddress: contractAddress })
+  } catch (e) {
+    errorNotify("Error while withdrawing")
+    umTrackEvent('withdraw-royalties-error', { nftAddress: contractAddress })
+  } finally {
+    withdrawLoading.value = false;
+  }
+}
 
 let interval: string | number | NodeJS.Timeout | undefined;
 let intervalActivities: string | number | NodeJS.Timeout | undefined;
