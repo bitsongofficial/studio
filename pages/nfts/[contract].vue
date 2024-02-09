@@ -237,7 +237,8 @@
                             </td>
                             <td>
                               <ClientOnly>
-                                <v-btn :loading="withdrawLoading" v-if="getAddress('bitsong') === contributor.address"
+                                <v-btn :loading="withdrawLoading"
+                                  v-if="getAddress('bitsong') === contributor.address && contributor.available_amount > 0"
                                   size="small" @click.stop="onWithdraw">Withdraw</v-btn>
                               </ClientOnly>
                             </td>
@@ -263,7 +264,6 @@ import { useTimeAgo } from '@vueuse/core'
 import { formatNumber, formatCoinAmount } from '~/utils';
 import { cosmwasm } from '@bitsongjs/telescope'
 import { toUtf8 } from '@cosmjs/encoding'
-import { faDiagramSuccessor } from '@fortawesome/free-solid-svg-icons';
 
 const img = useImage();
 
@@ -349,13 +349,13 @@ async function onWithdraw() {
     const msgs = [
       executeContract({
         sender: address,
-        contract: contractAddress,
+        contract: data.value?.payment_address!, // TODO: fix this, it should be the contract address
         msg: toUtf8(JSON.stringify({ distribute: {} })),
         funds: [],
       }),
       executeContract({
         sender: address,
-        contract: contractAddress,
+        contract: data.value?.payment_address!, // TODO: fix this, it should be the contract address
         msg: toUtf8(JSON.stringify({ withdraw: {} })),
         funds: [],
       }),
@@ -374,6 +374,7 @@ async function onWithdraw() {
 
     umTrackEvent('withdraw-royalties', { nftAddress: contractAddress })
   } catch (e) {
+    console.error(e)
     errorNotify("Error while withdrawing")
     umTrackEvent('withdraw-royalties-error', { nftAddress: contractAddress })
   } finally {
