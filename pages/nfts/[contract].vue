@@ -341,25 +341,37 @@ const withdrawLoading = ref(false)
 async function onWithdraw() {
   withdrawLoading.value = true;
 
+  if (!royalties.value) {
+    withdrawLoading.value = false;
+    return;
+  }
+
   try {
     const address = getAddress("bitsong");
 
     const { executeContract } = cosmwasm.wasm.v1.MessageComposer.withTypeUrl
 
-    const msgs = [
-      executeContract({
-        sender: address,
-        contract: data.value?.payment_address!, // TODO: fix this, it should be the contract address
-        msg: toUtf8(JSON.stringify({ distribute: {} })),
-        funds: [],
-      }),
+    let msgs = [];
+
+    if (parseFloat(toValue(royalties.value.distributable ?? "")) > 0) {
+      msgs.push(
+        executeContract({
+          sender: address,
+          contract: data.value?.payment_address!, // TODO: fix this, it should be the contract address
+          msg: toUtf8(JSON.stringify({ distribute: {} })),
+          funds: [],
+        })
+      )
+    }
+
+    msgs.push(
       executeContract({
         sender: address,
         contract: data.value?.payment_address!, // TODO: fix this, it should be the contract address
         msg: toUtf8(JSON.stringify({ withdraw: {} })),
         funds: [],
       }),
-    ]
+    )
 
     const txRaw = await signCW("bitsong", msgs);
     const broadcast = (await import("@quirks/store")).broadcast;
