@@ -73,6 +73,13 @@ const drops = [{
   title: "Sing For Me",
   startTime: 1707328800,
   link: "/nfts/bitsong1hz3svgdhmv67lsqlduu0tcnd3f75c0xr0mu48l6ywuwlz43zssjqsm3f2z"
+}, {
+  id: 'i-will-never-see-you-again',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmY1FVpeTN4BcZuR8wR5jSN1XN3gQZNLWWg6Qo6ACLqxHx",
+  subtitle: "A.way",
+  title: "I Will Never See You Again",
+  startTime: 1707501600,
+  link: "/nfts/bitsong1lj48z799hq4hgzg6ppdzsq55h6cezfe0cmrnnv7cclkpw9qrvf9sj4u92l"
 }]
 
 const activeDrops = computed(() => {
