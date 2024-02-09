@@ -74,7 +74,7 @@ export default defineEventHandler(async (event) => {
       initial_shares: contributor.initial_shares,
       percentage_shares: contributor.percentage_shares,
       withdrawable_royalties: contributor.withdrawable_royalties,
-      available_amount: (parseFloat(contributor.withdrawable_royalties) + parseFloat(distributable.data)) * parseFloat(contributor.percentage_shares)
+      available_amount: parseFloat(contributor.withdrawable_royalties) + (parseFloat(distributable.data) * parseFloat(contributor.percentage_shares))
     })).sort((a, b) => b.initial_shares - a.initial_shares),
     withdrawable: withdrawable.data,
     distributable: distributable.data,
