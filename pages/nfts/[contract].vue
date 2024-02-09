@@ -138,6 +138,7 @@
             <v-tabs v-model="selectedTab">
               <v-tab :value="1">Description</v-tab>
               <v-tab :value="2">Activity</v-tab>
+              <v-tab :value="3">Royalties</v-tab>
             </v-tabs>
 
 
@@ -189,6 +190,66 @@
                 </div>
               </div>
             </div>
+
+            <div v-if="selectedTab === 3">
+              <v-container fluid v-if="errorRoyalties">
+                <v-row>
+                  <v-col>
+                    Error while loading royalties
+                  </v-col>
+                </v-row>
+              </v-container>
+              <v-container fluid v-else>
+                <v-row>
+                  <v-col cols="12" md="6">
+                    <div class="text-body-1 text-surface-variant">Royalties Contract</div>
+                    <div class="text-h6">{{ formatShortAddress(data?.payment_address || '', 8) }}</div>
+                  </v-col>
+                  <v-col cols="12" md="6">
+                    <div class="text-body-1 text-surface-variant">Total Royalties</div>
+                    <div class="text-h6">{{ formatCoinAmount(useFromMicroAmount(royalties?.totalRoyalties || 0)) }} BTSG
+                    </div>
+                  </v-col>
+                </v-row>
+
+                <v-row>
+                  <v-col>
+                    <v-card>
+                      <v-table>
+                        <thead>
+                          <tr>
+                            <th>Address</th>
+                            <th>Role</th>
+                            <th>Shares</th>
+                            <th>Available</th>
+                            <th></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr v-for="contributor in royalties?.contributors">
+                            <td class="w-25">{{ formatShortAddress(contributor.address, 8) }}</td>
+                            <td class="w-25">{{ contributor.role }}</td>
+                            <td class="w-25">{{ contributor.initial_shares }} <span class="text-surface-variant">
+                                ({{ (parseFloat(contributor.percentage_shares) * 100).toFixed(2) }} %)
+                              </span></td>
+                            <td class="w-25">
+                              {{ formatCoinAmount(useFromMicroAmount(contributor.available_amount)) }} BTSG
+                            </td>
+                            <td>
+                              <ClientOnly>
+                                <v-btn :loading="withdrawLoading"
+                                  v-if="getAddress('bitsong') === contributor.address && contributor.available_amount > 0"
+                                  size="small" @click.stop="onWithdraw">Withdraw</v-btn>
+                              </ClientOnly>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </v-table>
+                    </v-card>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </div>
           </v-col>
         </v-row>
       </v-container>
@@ -201,11 +262,14 @@ import { marked } from 'marked'
 import defaultImage from "@/assets/images/default.png";
 import { useTimeAgo } from '@vueuse/core'
 import { formatNumber, formatCoinAmount } from '~/utils';
+import { cosmwasm } from '@bitsongjs/telescope'
+import { toUtf8 } from '@cosmjs/encoding'
 
 const img = useImage();
 
 const contractAddress = useRoute().params.contract as string
 const selectedTab = ref(1)
+
 const prices = reactive({
   buy: 0,
   sell: 0,
@@ -267,6 +331,68 @@ if (error.value) {
 function openMarketplaceDialog(side: "buy" | "sell") {
   marketplaceSide.value = side;
   marketplaceDialog.value = true;
+}
+
+const { data: royalties, error: errorRoyalties, refresh: refreshRoyalties } = await useFetch(`/api/nfts/${contractAddress}/royalties`);
+
+const { success, error: errorNotify } = useNotify()
+const withdrawLoading = ref(false)
+
+async function onWithdraw() {
+  withdrawLoading.value = true;
+
+  if (!royalties.value) {
+    withdrawLoading.value = false;
+    return;
+  }
+
+  try {
+    const address = getAddress("bitsong");
+
+    const { executeContract } = cosmwasm.wasm.v1.MessageComposer.withTypeUrl
+
+    let msgs = [];
+
+    if (parseFloat(toValue(royalties.value.distributable ?? "")) > 0) {
+      msgs.push(
+        executeContract({
+          sender: address,
+          contract: data.value?.payment_address!, // TODO: fix this, it should be the contract address
+          msg: toUtf8(JSON.stringify({ distribute: {} })),
+          funds: [],
+        })
+      )
+    }
+
+    msgs.push(
+      executeContract({
+        sender: address,
+        contract: data.value?.payment_address!, // TODO: fix this, it should be the contract address
+        msg: toUtf8(JSON.stringify({ withdraw: {} })),
+        funds: [],
+      }),
+    )
+
+    const txRaw = await signCW("bitsong", msgs);
+    const broadcast = (await import("@quirks/store")).broadcast;
+    await broadcast("bitsong", txRaw);
+
+    success("Withdrawn successfully")
+
+    await refreshRoyalties();
+
+    const { fetchBalance } = useUserBalance();
+    await fetchBalance(address)
+
+    umTrackEvent('withdraw-royalties', { nftAddress: contractAddress })
+  } catch (e) {
+    // TODO: fix cosmos errors, check if the address doesn't have enough funds or exists on chain
+    console.error(e)
+    errorNotify("Error while withdrawing")
+    umTrackEvent('withdraw-royalties-error', { nftAddress: contractAddress })
+  } finally {
+    withdrawLoading.value = false;
+  }
 }
 
 let interval: string | number | NodeJS.Timeout | undefined;
