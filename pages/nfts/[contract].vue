@@ -201,13 +201,14 @@
               </v-container>
               <v-container fluid v-else>
                 <v-row>
-                  <v-col>
+                  <v-col cols="12" md="6">
                     <div class="text-body-1 text-surface-variant">Royalties Contract</div>
-                    <div class="text-h6">bitsong1...tqy04vy2</div>
+                    <div class="text-h6">{{ formatShortAddress(data?.payment_address || '', 8) }}</div>
                   </v-col>
-                  <v-col>
+                  <v-col cols="12" md="6">
                     <div class="text-body-1 text-surface-variant">Total Royalties</div>
-                    <div class="text-h6">0 BTSG</div>
+                    <div class="text-h6">{{ formatCoinAmount(useFromMicroAmount(royalties?.totalRoyalties || 0)) }} BTSG
+                    </div>
                   </v-col>
                 </v-row>
 
@@ -225,26 +226,19 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td class="w-25">bitsong1...tqy04vy2</td>
-                            <td class="w-25">Owner</td>
-                            <td class="w-25">1000 <span class="text-surface-variant">(50%)</span></td>
-                            <td>
-                              0 BTSG
+                          <tr v-for="contributor in royalties?.contributors">
+                            <td class="w-25">{{ formatShortAddress(contributor.address, 8) }}</td>
+                            <td class="w-25">{{ contributor.role }}</td>
+                            <td class="w-25">{{ contributor.initial_shares }} <span class="text-surface-variant">
+                                ({{ (parseFloat(contributor.percentage_shares) * 100).toFixed(2) }} %)
+                              </span></td>
+                            <td class="w-25">
+                              {{ formatCoinAmount(useFromMicroAmount(contributor.available_amount)) }} BTSG
                             </td>
                             <td>
-                              <v-btn size="small">Withdraw</v-btn>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="w-25">bitsong1...tqy04vy2</td>
-                            <td class="w-25">Owner</td>
-                            <td class="w-25">1000 <span class="text-surface-variant">(50%)</span></td>
-                            <td>
-                              0 BTSG
-                            </td>
-                            <td>
-
+                              <ClientOnly>
+                                <v-btn v-if="getAddress('bitsong') === contributor.address" size="small">Withdraw</v-btn>
+                              </ClientOnly>
                             </td>
                           </tr>
                         </tbody>
@@ -266,11 +260,13 @@ import { marked } from 'marked'
 import defaultImage from "@/assets/images/default.png";
 import { useTimeAgo } from '@vueuse/core'
 import { formatNumber, formatCoinAmount } from '~/utils';
+import { contracts } from "@bitsongjs/telescope";
 
 const img = useImage();
 
 const contractAddress = useRoute().params.contract as string
 const selectedTab = ref(1)
+
 const prices = reactive({
   buy: 0,
   sell: 0,
@@ -334,7 +330,38 @@ function openMarketplaceDialog(side: "buy" | "sell") {
   marketplaceDialog.value = true;
 }
 
-const { data: royalties, error: errorRoyalties } = await useFetch(`/api/nfts/${contractAddress}/royalties`);
+const { data: royalties, error: errorRoyalties, refresh: refreshRoyalties } = await useFetch(`/api/nfts/${contractAddress}/royalties`);
+
+// async function onWithdraw() {
+//   withdrawLoading.value = true;
+
+//   try {
+//     const address = getAddress("bitsong");
+
+//     const { Bs721RoyaltiesClient } = contracts.Bs721Royalties;
+
+//     const royaltiesClient = new Bs721RoyaltiesClient(
+//       await useCWClient(),
+//       address,
+//       data.value?.payment_address!,
+//     );
+
+//     await royaltiesClient.distribute("auto", "", []);
+
+//     //await fetchBalance(address)
+
+//     //success("Transaction success")
+//     //umTrackEvent('buy-nft', { nftAddress: contractConfig.value.nftAddress, amount: toValue(amount), maxBid: toValue(yourBid) })
+//   } catch (e) {
+//     // TODO: this metod is just temporary, we need to handle the error properly
+//     //error(parseCosmosError(e as Error))
+//     //umTrackEvent('buy-nft-error', { nftAddress: contractConfig.value.nftAddress, amount: toValue(amount), maxBid: toValue(yourBid) })
+//   } finally {
+//     //await fetchConfig();
+//     loading.value = false;
+//     //emits("update:modelValue", false)
+//   }
+// }
 
 let interval: string | number | NodeJS.Timeout | undefined;
 let intervalActivities: string | number | NodeJS.Timeout | undefined;

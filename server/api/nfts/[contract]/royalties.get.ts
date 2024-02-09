@@ -30,6 +30,15 @@ export default defineEventHandler(async (event) => {
     })
   }
 
+  const totalRoyalties = await prisma.nftactivityview.aggregate({
+    _sum: {
+      royalties: true
+    },
+    where: {
+      nft_id: contract
+    }
+  })
+
   interface QueryListContributorsResponse {
     data: {
       contributors: {
@@ -64,9 +73,11 @@ export default defineEventHandler(async (event) => {
       role: contributor.role,
       initial_shares: contributor.initial_shares,
       percentage_shares: contributor.percentage_shares,
-      withdrawable_royalties: contributor.withdrawable_royalties
-    })),
+      withdrawable_royalties: contributor.withdrawable_royalties,
+      available_amount: (parseFloat(contributor.withdrawable_royalties) + parseFloat(distributable.data)) * parseFloat(contributor.percentage_shares)
+    })).sort((a, b) => b.initial_shares - a.initial_shares),
     withdrawable: withdrawable.data,
-    distributable: distributable.data
+    distributable: distributable.data,
+    totalRoyalties: totalRoyalties._sum.royalties || 0
   }
 })
