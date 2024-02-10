@@ -5,14 +5,32 @@ import {
   osmosisAssetList,
 } from "@nabla-studio/chain-registry";
 import type { Config } from "@quirks/store";
-import { keplrExtension, leapExtension, keplrMobile } from "@quirks/wallets";
+import { keplrExtension, leapExtension, keplrMobile, leapMobile } from "@quirks/wallets";
+
+const newbitsong = {
+  ...bitsong,
+  apis: {
+    rpc: [
+      {
+        address: "https://rpc.explorebitsong.com",
+        provider: "bitsong"
+      }
+    ],
+    rest: [
+      {
+        address: "https://lcd.explorebitsong.com",
+        provider: "bitsong"
+      },
+    ]
+  },
+}
 
 export default defineNuxtPlugin((nuxtApp) => {
   const { walletconnectProjectId } = useRuntimeConfig().public;
 
   const config: Config = {
-    wallets: [keplrExtension, leapExtension, keplrMobile],
-    chains: [osmosis, bitsong],
+    wallets: [keplrExtension, leapExtension, keplrMobile, leapMobile],
+    chains: [osmosis, newbitsong],
     assetsLists: [osmosisAssetList, bitsongAssetList],
     autoAccountChange: false,
     walletConnectOptions: {
