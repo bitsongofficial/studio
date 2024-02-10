@@ -27,9 +27,11 @@
             <v-col cols="12">
               <nuxt-link :to="item.titleLink" class="text-decoration-none text-grey">
                 <v-avatar size="160" v-if="item.variant === 'profile'">
-                  <v-img :src="item.image || defaultImage" :alt="item.title" cover />
+                  <NuxtImg :src="item.image || defaultImage" :alt="item.title" width="160" height="160" format="webp"
+                    fit="cover" />
                 </v-avatar>
-                <v-img v-else width="180" height="180" :src="item.image || defaultImage" :alt="item.title" cover />
+                <NuxtImg v-else :src="item.image || defaultImage" :alt="item.title" width="180" height="180" format="webp"
+                  fit="cover" />
               </nuxt-link>
             </v-col>
           </v-row>

@@ -1,7 +1,8 @@
 <template>
   <v-card rounded="lg" width="230" color="black">
     <NuxtLink :to="link" class="text-decoration-none text-white">
-      <v-img height="230" width="230" :src="img(image, { width: 230, height: 230, fit: 'cover' })"
+      <v-img :transition="false" height="230" width="230"
+        :src="img(image, { width: 230, height: 230, fit: 'cover', format: 'webp' })"
         gradient="to bottom, rgba(0,0,0,.10), rgba(0,0,0,.7)">
 
         <div class="d-flex justify-space-between" v-if="!isStarted">
