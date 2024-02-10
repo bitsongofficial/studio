@@ -1,5 +1,5 @@
 <template>
-  <v-card class="pa-1 pa-md-3 px-4" variant="text" :to="`/u/${trader.address}`">
+  <v-card v-if="trader" class="pa-1 pa-md-3 px-4" variant="text" :to="`/u/${trader.address}`">
     <v-row class="align-center">
       <v-col cols="auto" class="text-h6" style="min-width: 46px;">
         {{ trader.rank }}
@@ -7,8 +7,7 @@
       <v-col cols="auto">
         <NuxtLink>
           <v-avatar size="42">
-            <NuxtImg :src="trader.avatar ? useIpfsLink(trader.avatar) : '/images/default.png'" width="42" height="42"
-              :alt="trader.username || trader.address" format="webp" />
+            <v-img :src="avatar" :alt="trader.username || trader.address" cover></v-img>
           </v-avatar>
         </NuxtLink>
       </v-col>
@@ -24,6 +23,10 @@
 </template>
 
 <script lang="ts" setup>
+import defaultImage from "@/assets/images/default.png";
+
+const img = useImage();
+
 export interface TopTraderItem {
   rank: number;
   address: string;
@@ -35,6 +38,10 @@ export interface TopTraderItem {
 }
 
 const props = defineProps<{
-  trader: TopTraderItem;
+  trader?: TopTraderItem;
 }>()
+
+const avatar = computed(() => {
+  return props.trader?.avatar ? img(useIpfsLink(props.trader.avatar)!, { width: 42, format: 'webp' }) : defaultImage;
+});
 </script>

@@ -13,7 +13,16 @@
 
       <AppTopTraders class="my-8" />
 
-      <AppSwiper v-if="data" title="Users" :chip-text="data.total" :items="users as SwiperItem[]" class="my-8" />
+      <v-container v-if="pending" fluid class="pb-0">
+        <v-row>
+          <v-col>
+            <v-skeleton-loader class="py-2"
+              type="heading, avatar, avatar, avatar, avatar, avatar, avatar, avatar, avatar"></v-skeleton-loader>
+          </v-col>
+        </v-row>
+      </v-container>
+
+      <AppSwiper v-else title="Users" :chip-text="data?.total" :items="users as SwiperItem[]" class="my-8" />
     </template>
   </app-page>
 </template>
@@ -28,14 +37,14 @@ interface LatestUser {
   avatar?: string;
 }
 
-const { data, error } = await useAsyncData(async () => {
+const { data, pending, execute } = useAsyncData(async () => {
   const users = await $fetch(`/api/latest/users`)
 
   return {
     total: users.total.toString(),
     users: users.users as LatestUser[],
   }
-})
+}, { immediate: false })
 
 const users = computed(() => {
   return data.value?.users.map((user) => ({
@@ -52,9 +61,9 @@ useSeoMeta({
   description: "BitSong Studio is a decentralized platform that allows music artists and fans to interact with each other in a fair and transparent way.",
 })
 
-if (error.value) {
-  throw createError(error.value)
-}
+onMounted(() => {
+  execute()
+})
 </script>
 
 <style>
