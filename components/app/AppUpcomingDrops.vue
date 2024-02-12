@@ -18,26 +18,12 @@
 
 <script lang="ts" setup>
 const drops = [{
-  id: 'next-level',
-  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmWh6qGWacSv3VAVWyAKVirJqMXD7X8pUVPXTTjM9Fh1kA",
-  subtitle: "Florin Dumbraveanu",
-  title: "Next Level",
-  startTime: 1707242400,
-  link: "/preview/next-level"
-}, {
-  id: 'sing-for-me',
-  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmZXSzWNcx6WFB4FSsHURzrPge1pyiJEstcH2haFgsgJyX",
-  subtitle: "Anirbas",
-  title: "Sing For Me",
-  startTime: 1707328800,
-  link: "/preview/sing-for-me"
-}, {
-  id: 'i-will-never-see-you-again',
-  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmY1FVpeTN4BcZuR8wR5jSN1XN3gQZNLWWg6Qo6ACLqxHx",
-  subtitle: "A.way",
-  title: "I Will Never See You Again",
-  startTime: 1707501600,
-  link: "/preview/i-will-never-see-you-again"
+  id: 'perrea',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmbfyAeFNxMFBtBP6UrxRTEe8oKjJeNSiEsJ7RZ1otgcjA",
+  subtitle: "Joe Bertè",
+  title: "Perrea",
+  startTime: 1707760800,
+  link: "/preview/perrea"
 }]
 
 const activeDrops = computed(() => {

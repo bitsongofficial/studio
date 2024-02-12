@@ -18,6 +18,9 @@
                 <h1 class="text-md-h4 text-h5">
                   {{ data?.name }}
                 </h1>
+                <h3 class="text-surface-variant">
+                  {{ data?.metadata?.bitsong?.artists.map(a => a.name).join(', ') }}
+                </h3>
               </v-col>
             </v-row>
 

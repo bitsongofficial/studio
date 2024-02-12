@@ -80,6 +80,13 @@ const drops = [{
   title: "I Will Never See You Again",
   startTime: 1707501600,
   link: "/nfts/bitsong1lj48z799hq4hgzg6ppdzsq55h6cezfe0cmrnnv7cclkpw9qrvf9sj4u92l"
+}, {
+  id: 'perrea',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmbfyAeFNxMFBtBP6UrxRTEe8oKjJeNSiEsJ7RZ1otgcjA",
+  subtitle: "Joe Bertè",
+  title: "Perrea",
+  startTime: 1707760800,
+  link: "/nfts/bitsong1cvt7dz7fhhuhh8qrzjnq6uel4wnpswt5uq7d97kg4sh99dlrehds54w5t8"
 }]
 
 const activeDrops = computed(() => {
