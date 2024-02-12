@@ -111,10 +111,6 @@ const providers = computed(() => [{
   name: 'X (twitter)',
   icon: '/images/social-shares/x.jpeg'
 }, {
-  id: 'facebook',
-  name: 'Facebook',
-  icon: '/images/social-shares/facebook.svg'
-}, {
   id: 'reddit',
   name: 'Reddit',
   icon: '/images/social-shares/reddit.svg'
@@ -136,14 +132,11 @@ function onShare(provider: string) {
       text = text.replace('bitsong.studio', '@bitsongofficial')
       shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
       break;
-    case 'facebook':
-      shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(text)}`;
-      break;
     case 'reddit':
       shareUrl = `https://www.reddit.com/submit?url=${encodeURIComponent(text)}`;
       break;
     case 'linkedin':
-      shareUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(text)}`;
+      shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url.value)}`;
       break;
     case 'telegram':
       shareUrl = `https://t.me/share/url?url=${encodeURIComponent(text)}`;
