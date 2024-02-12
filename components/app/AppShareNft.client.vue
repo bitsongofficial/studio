@@ -36,7 +36,7 @@
                   Share and Earn
                 </v-card-title>
                 <v-card-subtitle>
-                  Your referral link was generated successfully
+                  Your referral link is successfully generated
                 </v-card-subtitle>
               </v-col>
               <v-col class="text-right" v-if="!connected">
