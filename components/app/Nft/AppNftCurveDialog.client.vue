@@ -348,11 +348,19 @@ async function onBuy() {
       contractConfig.value.marketplaceAddress
     );
 
-    await curveClient.mint(
-      {
-        amount: toValue(amount),
-        //referral: referralAddress,
-      },
+    let mintData = {
+      amount: toValue(amount),
+    }
+
+    const { referral } = useReferral()
+    if (referral.value) {
+      mintData = {
+        ...mintData,
+        referral: toValue(referral)
+      }
+    }
+
+    await curveClient.mint(mintData,
       "auto",
       "",
       [{ amount: useToMicroAmount(toValue(yourBid)).toString(), denom: "ubtsg" }],
@@ -385,13 +393,21 @@ async function onSell() {
       contractConfig.value.marketplaceAddress,
     );
 
-    const tx = await curveClient.burn(
-      {
-        tokenIds: getMaxTokenIds(toValue(amount)),
-        // @ts-ignore
-        minOutAmount: useToMicroAmount(toValue(yourBid)).toString(),
-        //referral: referralAddress,
-      },
+    let burnData = {
+      tokenIds: getMaxTokenIds(toValue(amount)),
+      // @ts-ignore
+      minOutAmount: useToMicroAmount(toValue(yourBid)).toString(),
+    }
+
+    const { referral } = useReferral()
+    if (referral.value) {
+      burnData = {
+        ...burnData,
+        referral: toValue(referral)
+      }
+    }
+
+    const tx = await curveClient.burn(burnData,
       "auto",
       "",
       [],

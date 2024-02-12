@@ -8,6 +8,9 @@ dependencies:
   '@aws-sdk/client-ses':
     specifier: ^3.490.0
     version: 3.490.0
+  '@bitsongjs/metadata':
+    specifier: ^0.2.1
+    version: 0.2.1
   '@bitsongjs/telescope':
     specifier: 3.0.0-dev.21
     version: 3.0.0-dev.21
@@ -973,6 +976,15 @@ packages:
       '@babel/helper-validator-identifier': 7.22.20
       to-fast-properties: 2.0.0
 
+  /@bitsongjs/metadata@0.2.1:
+    resolution: {integrity: sha512-VcbJw8I9FAzIqIwCFCzoeY3NgNGkcQoqhGctmPoawnC4HIla8ohaWyoLVXDPJKc1Md4Inw9B1t6cwYS8MeBpGg==}
+    dependencies:
+      '@cosmjs/encoding': 0.32.2
+      uuid: 9.0.1
+      zod: 3.22.4
+      zod-to-json-schema: 3.22.4(zod@3.22.4)
+    dev: false
+
   /@bitsongjs/telescope@3.0.0-dev.21:
     resolution: {integrity: sha512-p7dCNo+uc0hOIB2oVNrJ2Z7FDeDJsUDzcF/0lViI7ClALFdT7WG7Qpdj6WZvNDPqQIpmv4LQziyt+zX8wPgSfQ==}
     dependencies:
@@ -1053,6 +1065,14 @@ packages:
 
   /@cosmjs/encoding@0.31.3:
     resolution: {integrity: sha512-6IRtG0fiVYwyP7n+8e54uTx2pLYijO48V3t9TLiROERm5aUAIzIlz6Wp0NYaI5he9nh1lcEGJ1lkquVKFw3sUg==}
+    dependencies:
+      base64-js: 1.5.1
+      bech32: 1.1.4
+      readonly-date: 1.0.0
+    dev: false
+
+  /@cosmjs/encoding@0.32.2:
+    resolution: {integrity: sha512-WX7m1wLpA9V/zH0zRcz4EmgZdAv1F44g4dbXOgNj1eXZw1PIGR12p58OEkLN51Ha3S4DKRtCv5CkhK1KHEvQtg==}
     dependencies:
       base64-js: 1.5.1
       bech32: 1.1.4
@@ -1769,6 +1789,14 @@ packages:
       '@intlify/shared': 9.9.0
     dev: true
 
+  /@intlify/core-base@9.9.1:
+    resolution: {integrity: sha512-qsV15dg7jNX2faBRyKMgZS8UcFJViWEUPLdzZ9UR0kQZpFVeIpc0AG7ZOfeP7pX2T9SQ5jSiorq/tii9nkkafA==}
+    engines: {node: '>= 16'}
+    dependencies:
+      '@intlify/message-compiler': 9.9.1
+      '@intlify/shared': 9.9.1
+    dev: true
+
   /@intlify/message-compiler@9.9.0:
     resolution: {integrity: sha512-yDU/jdUm9KuhEzYfS+wuyja209yXgdl1XFhMlKtXEgSFTxz4COZQCRXXbbH8JrAjMsaJ7bdoPSLsKlY6mXG2iA==}
     engines: {node: '>= 16'}
@@ -1777,8 +1805,21 @@ packages:
       source-map-js: 1.0.2
     dev: true
 
+  /@intlify/message-compiler@9.9.1:
+    resolution: {integrity: sha512-zTvP6X6HeumHOXuAE1CMMsV6tTX+opKMOxO1OHTCg5N5Sm/F7d8o2jdT6W6L5oHUsJ/vvkGefHIs7Q3hfowmsA==}
+    engines: {node: '>= 16'}
+    dependencies:
+      '@intlify/shared': 9.9.1
+      source-map-js: 1.0.2
+    dev: true
+
   /@intlify/shared@9.9.0:
     resolution: {integrity: sha512-1ECUyAHRrzOJbOizyGufYP2yukqGrWXtkmTu4PcswVnWbkcjzk3YQGmJ0bLkM7JZ0ZYAaohLGdYvBYnTOGYJ9g==}
+    engines: {node: '>= 16'}
+    dev: true
+
+  /@intlify/shared@9.9.1:
+    resolution: {integrity: sha512-b3Pta1nwkz5rGq434v0psHwEwHGy1pYCttfcM22IE//K9owbpkEvFptx9VcuRAxjQdrO2If249cmDDjBu5wMDA==}
     engines: {node: '>= 16'}
     dev: true
 
@@ -3082,6 +3123,10 @@ packages:
     requiresBuild: true
     optional: true
 
+  /@shikijs/core@1.0.0:
+    resolution: {integrity: sha512-UMKGMZ+8b88N0/n6DWwWth1PHsOaxjW+R2u+hzSiargZWTv+l3s1l8dhuIxUSsEUPlBDKLs2CSMiFZeviKQM1w==}
+    dev: true
+
   /@shuding/opentype.js@1.4.0-beta.0:
     resolution: {integrity: sha512-3NgmNyH3l/Hv6EvsWJbsvpcpUba6R8IREQ83nH83cyakCw7uM1arZKNfHwv1Wz6jgqrF/j4x5ELvR6PnK9nTcA==}
     engines: {node: '>= 8.0.0'}
@@ -4049,11 +4094,11 @@ packages:
       vite: 5.0.11(sass@1.69.7)
       vue: 3.4.10(typescript@5.3.3)
 
-  /@vue-email/cli@0.0.10(typescript@5.3.3)(vue@3.4.10):
-    resolution: {integrity: sha512-F99FOPQ8++SGJ8toAqboiW78o2d9ZDMmh7B9x8OZBvHyq/cH4KZca3VCQ9JaaOX4Rrovu6R3mwdPgJhtfK+l8A==}
+  /@vue-email/cli@0.0.12(typescript@5.3.3)(vue@3.4.10):
+    resolution: {integrity: sha512-20Yvbkn9xU+sbWg0c7f/Jo5/K8bo1483NQpF0AyYHDI+cvD+F76j+LkXyRRbgVN84Adi1aFKRi6Mcrov1+uo9Q==}
     hasBin: true
     dependencies:
-      '@vue-email/compiler': 0.8.8(typescript@5.3.3)(vue@3.4.10)
+      '@vue-email/compiler': 0.8.11(typescript@5.3.3)(vue@3.4.10)
     transitivePeerDependencies:
       - bufferutil
       - canvas
@@ -4062,6 +4107,25 @@ packages:
       - typescript
       - utf-8-validate
       - vue
+    dev: true
+
+  /@vue-email/compiler@0.8.11(typescript@5.3.3)(vue@3.4.10):
+    resolution: {integrity: sha512-KSxn9cabAeOG7FIkdylp80sm6pRZL++eYyLME7qHZtJEF5jWpPSux+pydgrEjOxFQZW1+aJ5xw5ocufmpSG/5Q==}
+    peerDependencies:
+      vue: ^3.3.8
+    dependencies:
+      import-string: 0.1.2(typescript@5.3.3)
+      kolorist: 1.8.0
+      scule: 1.3.0
+      vue: 3.4.10(typescript@5.3.3)
+      vue-email: /vue-email-edge@0.8.8-28456447.eb83a24(typescript@5.3.3)(vue@3.4.10)
+    transitivePeerDependencies:
+      - bufferutil
+      - canvas
+      - supports-color
+      - ts-node
+      - typescript
+      - utf-8-validate
     dev: true
 
   /@vue-email/compiler@0.8.7(typescript@5.3.3)(vue@3.4.10):
@@ -4074,25 +4138,6 @@ packages:
       scule: 1.2.0
       vue: 3.4.10(typescript@5.3.3)
       vue-email: 0.8.5(typescript@5.3.3)(vue@3.4.10)
-    transitivePeerDependencies:
-      - bufferutil
-      - canvas
-      - supports-color
-      - ts-node
-      - typescript
-      - utf-8-validate
-    dev: true
-
-  /@vue-email/compiler@0.8.8(typescript@5.3.3)(vue@3.4.10):
-    resolution: {integrity: sha512-oYYFxps8c7KJ1/pg72JfoBAhzq0PJCRx+YsUhv++t062G281vrPcMn36MfDtPPejn3cafBWU5H2P6d2HvrBY1g==}
-    peerDependencies:
-      vue: ^3.3.8
-    dependencies:
-      import-string: 0.1.2(typescript@5.3.3)
-      kolorist: 1.8.0
-      scule: 1.2.0
-      vue: 3.4.10(typescript@5.3.3)
-      vue-email: 0.8.6(typescript@5.3.3)(vue@3.4.10)
     transitivePeerDependencies:
       - bufferutil
       - canvas
@@ -10285,6 +10330,10 @@ packages:
   /scule@1.2.0:
     resolution: {integrity: sha512-CRCmi5zHQnSoeCik9565PONMg0kfkvYmcSqrbOJY4txFfy1wvVULV4FDaiXhUblUgahdqz3F2NwHZ8i4eBTwUw==}
 
+  /scule@1.3.0:
+    resolution: {integrity: sha512-6FtHJEvt+pVMIB9IBY+IcCJ6Z5f1iQnytgyfKMhDKgmzYG+TeH/wx1y3l27rshSbLiSanrR9ffZDrEsmjlQF2g==}
+    dev: true
+
   /secure-json-parse@2.7.0:
     resolution: {integrity: sha512-6aU+Rwsezw7VR8/nyvKTx8QpWH9FrcYiXXlqC4z5d5XQBDRqtbfsRjnwGyqbi3gddNtWHuEk9OANUotL26qKUw==}
     dev: false
@@ -10394,14 +10443,10 @@ packages:
     deprecated: Please migrate to https://github.com/antfu/shikiji
     dev: true
 
-  /shikiji-core@0.10.0-beta.9:
-    resolution: {integrity: sha512-7dgwTyN9PeKyc4KJeyKo/qW8gi8XbR//c1CO+0B5GaeozWexNTpEL/tSohyIKkj0Z+7spfm2REmAaS39NlC4Lw==}
-    dev: true
-
-  /shikiji@0.10.0-beta.9:
-    resolution: {integrity: sha512-I+sv642n9M7/FK/dVcXp9vMv7v5Wa8gU2UuKwkIWKQFvyo+qKB8eV1zNNtRYas+jC7BLwdAaflc5BFUozAonFQ==}
+  /shiki@1.0.0:
+    resolution: {integrity: sha512-rOUGJa3yFGgOrEoiELYxraoBbag3ZWf9bpodlr05Wjm85Scx8OIX+otdSefq9Pk7L47TKEzGodSQb4L38jka6A==}
     dependencies:
-      shikiji-core: 0.10.0-beta.9
+      '@shikijs/core': 1.0.0
     dev: true
 
   /signal-exit@3.0.7:
@@ -11055,6 +11100,10 @@ packages:
   /ufo@1.3.2:
     resolution: {integrity: sha512-o+ORpgGwaYQXgqGDwd+hkS4PuZ3QnmqMMxRuajK/a38L6fTpcE5GPIfrf+L/KemFzfUpeUQc1rRS1iDBozvnFA==}
 
+  /ufo@1.4.0:
+    resolution: {integrity: sha512-Hhy+BhRBleFjpJ2vchUNN40qgkh0366FWJGqVLYBHev0vpHTrXSA0ryT+74UiW6KWsldNurQMKGqCm1M2zBciQ==}
+    dev: true
+
   /uint8arrays@3.1.1:
     resolution: {integrity: sha512-+QJa8QRnbdXVpHYjLoTpJIdCTiw9Ir62nocClWuXIq2JIh4Uta0cQsTSpFL678p2CN8B+XSApwcU+pQEqVpKWg==}
     dependencies:
@@ -11677,18 +11726,19 @@ packages:
   /vue-devtools-stub@0.1.0:
     resolution: {integrity: sha512-RutnB7X8c5hjq39NceArgXg28WZtZpGc3+J16ljMiYnFhKvd8hITxSWQSQ5bvldxMDU6gG5mkxl1MTQLXckVSQ==}
 
-  /vue-email@0.8.5(typescript@5.3.3)(vue@3.4.10):
-    resolution: {integrity: sha512-NE3o2H6jcZNFdQJvtYlsCWxfNDRQl2xNdBcVhpLI9K7IkLMhhrbbMmeIGdPbx4ChncQjA1z8Oe/a4+8VYzcIRw==}
+  /vue-email-edge@0.8.8-28456447.eb83a24(typescript@5.3.3)(vue@3.4.10):
+    resolution: {integrity: sha512-y6UxMn93DSXTZQAkevbG/QxMvWgifXhXsrNAZmSVphZBswA5U4T7x3KKESA+MtqtG2KuRgsg/FG/mjTOmGXYLw==}
     hasBin: true
     peerDependencies:
-      vue: ^3.3.8
+      vue: ^3.4.15
     dependencies:
-      '@vue-email/cli': 0.0.10(typescript@5.3.3)(vue@3.4.10)
+      '@vue-email/cli': 0.0.12(typescript@5.3.3)(vue@3.4.10)
       '@vue-email/tailwind': 0.0.6
-      isomorphic-dompurify: 1.13.0
-      ufo: 1.3.2
+      isomorphic-dompurify: 2.3.0
+      shiki: 1.0.0
+      ufo: 1.4.0
       vue: 3.4.10(typescript@5.3.3)
-      vue-i18n: 9.9.0(vue@3.4.10)
+      vue-i18n: 9.9.1(vue@3.4.10)
     transitivePeerDependencies:
       - bufferutil
       - canvas
@@ -11698,16 +11748,15 @@ packages:
       - utf-8-validate
     dev: true
 
-  /vue-email@0.8.6(typescript@5.3.3)(vue@3.4.10):
-    resolution: {integrity: sha512-1U7xUdBcBn0ava2hz5gXPe7/6vL3Zts/8XBIVzhjfG9nuNYMKOvfRacLSeQ5lIfUvNhXvdv6NSQNOELLkdoMAQ==}
+  /vue-email@0.8.5(typescript@5.3.3)(vue@3.4.10):
+    resolution: {integrity: sha512-NE3o2H6jcZNFdQJvtYlsCWxfNDRQl2xNdBcVhpLI9K7IkLMhhrbbMmeIGdPbx4ChncQjA1z8Oe/a4+8VYzcIRw==}
     hasBin: true
     peerDependencies:
       vue: ^3.3.8
     dependencies:
-      '@vue-email/cli': 0.0.10(typescript@5.3.3)(vue@3.4.10)
+      '@vue-email/cli': 0.0.12(typescript@5.3.3)(vue@3.4.10)
       '@vue-email/tailwind': 0.0.6
-      isomorphic-dompurify: 2.3.0
-      shikiji: 0.10.0-beta.9
+      isomorphic-dompurify: 1.13.0
       ufo: 1.3.2
       vue: 3.4.10(typescript@5.3.3)
       vue-i18n: 9.9.0(vue@3.4.10)
@@ -11728,6 +11777,18 @@ packages:
     dependencies:
       '@intlify/core-base': 9.9.0
       '@intlify/shared': 9.9.0
+      '@vue/devtools-api': 6.5.1
+      vue: 3.4.10(typescript@5.3.3)
+    dev: true
+
+  /vue-i18n@9.9.1(vue@3.4.10):
+    resolution: {integrity: sha512-xyQ4VspLdNSPTKBFBPWa1tvtj+9HuockZwgFeD2OhxxXuC2CWeNvV4seu2o9+vbQOyQbhAM5Ez56oxUrrnTWdw==}
+    engines: {node: '>= 16'}
+    peerDependencies:
+      vue: ^3.0.0
+    dependencies:
+      '@intlify/core-base': 9.9.1
+      '@intlify/shared': 9.9.1
       '@vue/devtools-api': 6.5.1
       vue: 3.4.10(typescript@5.3.3)
     dev: true
@@ -12066,6 +12127,14 @@ packages:
       archiver-utils: 4.0.1
       compress-commons: 5.0.1
       readable-stream: 3.6.2
+
+  /zod-to-json-schema@3.22.4(zod@3.22.4):
+    resolution: {integrity: sha512-2Ed5dJ+n/O3cU383xSY28cuVi0BCQhF8nYqWU5paEpl7fVdqdAmiLdqLyfblbNdfOFwFfi/mqU4O1pwc60iBhQ==}
+    peerDependencies:
+      zod: ^3.22.4
+    dependencies:
+      zod: 3.22.4
+    dev: false
 
   /zod@3.22.4:
     resolution: {integrity: sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==}

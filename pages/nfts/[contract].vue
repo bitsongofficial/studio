@@ -211,7 +211,7 @@
                   </span>
                   <span v-if="activity.referral">
                     referred by
-                    <span class="text-white">{{ activity.referral }}</span>
+                    <span class="text-white">{{ formatShortAddress(activity.referral, 8) }}</span>
                   </span>
                 </div>
                 <div class="text-grey text-right">
@@ -293,6 +293,8 @@ import { useTimeAgo } from '@vueuse/core'
 import { formatNumber, formatCoinAmount } from '~/utils';
 import { cosmwasm } from '@bitsongjs/telescope'
 import { toUtf8 } from '@cosmjs/encoding'
+
+const { referral } = useReferral()
 
 const img = useImage();
 
