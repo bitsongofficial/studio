@@ -34,6 +34,32 @@
               </v-col>
             </v-row>
 
+            <v-row no-gutters class="mt-1">
+              <v-col>
+                <v-card>
+                  <v-row class="mb-1 align-center">
+                    <v-col>
+                      <v-card-title>
+                        Share and Earn {{ (((Number(data?.seller_fee_bps) / 10000) *
+                          (Number(data?.referral_fee_bps) / 10000)) *
+                          100).toFixed(2) }} %
+                      </v-card-title>
+                      <v-card-subtitle>
+                        Earn the referral fee by sharing this NFT
+                      </v-card-subtitle>
+                    </v-col>
+                    <v-col class="text-right">
+                      <v-btn color="text-surface-variant" class="mt-3" variant="plain" icon="mdi-share"
+                        @click="openShareDialog"> </v-btn>
+                    </v-col>
+                  </v-row>
+                </v-card>
+                <ClientOnly>
+                  <AppShareNft v-model="shareDialog" />
+                </ClientOnly>
+              </v-col>
+            </v-row>
+
 
             <v-row>
 
@@ -185,7 +211,7 @@
                   </span>
                   <span v-if="activity.referral">
                     referred by
-                    <span class="text-white">{{ activity.referral }}</span>
+                    <span class="text-white">{{ formatShortAddress(activity.referral, 8) }}</span>
                   </span>
                 </div>
                 <div class="text-grey text-right">
@@ -268,10 +294,17 @@ import { formatNumber, formatCoinAmount } from '~/utils';
 import { cosmwasm } from '@bitsongjs/telescope'
 import { toUtf8 } from '@cosmjs/encoding'
 
+const { referral } = useReferral()
+
 const img = useImage();
 
 const contractAddress = useRoute().params.contract as string
 const selectedTab = ref(1)
+const shareDialog = ref(false)
+
+function openShareDialog() {
+  shareDialog.value = true
+}
 
 const prices = reactive({
   buy: 0,
