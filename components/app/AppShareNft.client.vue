@@ -88,10 +88,11 @@ watch(copied, (copied) => {
 const url = computed(() => {
   const newUrl = window.location.href.split('?')[0];
 
-  const address = getAddress('bitsong')
-
-  if (address) {
-    return `${newUrl}?ref=${address}`;
+  if (connected.value) {
+    const address = getAddress('bitsong')
+    if (address) {
+      return `${newUrl}?ref=${address}`;
+    }
   }
 
   return newUrl;
