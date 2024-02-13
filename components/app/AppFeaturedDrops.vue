@@ -87,6 +87,13 @@ const drops = [{
   title: "Perrea",
   startTime: 1707760800,
   link: "/nfts/bitsong1cvt7dz7fhhuhh8qrzjnq6uel4wnpswt5uq7d97kg4sh99dlrehds54w5t8"
+}, {
+  id: '14',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmQ7rFzs8wbuvJxMb6AYDUHT6mVFtz6cMweo9pE5Hg3MZw",
+  subtitle: "Puro Lobo",
+  title: "14",
+  startTime: 1707847200,
+  link: "/nfts/bitsong1r57m20afwdhkwy67520p8vzdchzecesmlmc8k8w2z7t3h9aevjvseq4k7r"
 }]
 
 const activeDrops = computed(() => {

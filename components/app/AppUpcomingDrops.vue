@@ -24,6 +24,13 @@ const drops = [{
   title: "Perrea",
   startTime: 1707760800,
   link: "/preview/perrea"
+}, {
+  id: '14',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmQ7rFzs8wbuvJxMb6AYDUHT6mVFtz6cMweo9pE5Hg3MZw",
+  subtitle: "Puro Lobo",
+  title: "14",
+  startTime: 1707847200,
+  link: "/preview/14"
 }]
 
 const activeDrops = computed(() => {
