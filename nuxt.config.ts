@@ -22,6 +22,10 @@ export default defineNuxtConfig({
     pinataApiKey: '',
     pinataApiSecret: '',
     public: {
+      sentry: {
+        dsn: '',
+        environment: 'development',
+      },
       network: process.env.NUXT_PUBLIC_NETWORK || 'testnet',
       rpcAddress: process.env.NUXT_PUBLIC_RPC_ADDRESS || 'https://rpc.bwasmnet-1.bitsong.network',
       restAddress: process.env.NUXT_PUBLIC_REST_ADDRESS || 'https://api.bwasmnet-1.bitsong.network',
