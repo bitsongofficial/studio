@@ -5,7 +5,7 @@
         <v-row>
           <v-col cols="12" md="8" class="text-center">
             <div>
-              <video class="mx-auto rounded-xl w-75" controls :poster="data.artworkUrl">
+              <video class="mx-auto rounded-xl w-75" controls playsinline :poster="data.artworkUrl">
                 <source :src="data.previewUrl" type="audio/mp3" />
               </video>
             </div>
