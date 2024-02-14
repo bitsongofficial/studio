@@ -94,6 +94,20 @@ const drops = [{
   title: "14",
   startTime: 1707847200,
   link: "/nfts/bitsong1r57m20afwdhkwy67520p8vzdchzecesmlmc8k8w2z7t3h9aevjvseq4k7r"
+}, {
+  id: 'on-the-fly',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmY9Qe1VUTjnvrXNAqeH3YV564STJ3HogWM1EQfe5G1Bn8",
+  subtitle: "Joe Mangione",
+  title: "On The Fly",
+  startTime: 1707933600,
+  link: "/nfts/bitsong10t2y7f9m0twpsrz3kvfp55nlgzc86kace2se3uarkv380h3pk6qqtkt9p7"
+}, {
+  id: 'need-backup',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmeZqmGpw2BD6mtVAPFmjSZ2ypas4iB3rqHLZnPqWWfaRR",
+  subtitle: "Florin Dumbraveanu",
+  title: "Need Backup",
+  startTime: 1708020000,
+  link: "/nfts/bitsong14tccd5wwd6ygwtx67xdfpzz8xn8ysd3rkmkd3pj326l2v7asjr6qxgf7gr"
 }]
 
 const activeDrops = computed(() => {

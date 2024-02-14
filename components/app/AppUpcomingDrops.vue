@@ -31,6 +31,20 @@ const drops = [{
   title: "14",
   startTime: 1707847200,
   link: "/preview/14"
+}, {
+  id: 'on-the-fly',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmY9Qe1VUTjnvrXNAqeH3YV564STJ3HogWM1EQfe5G1Bn8",
+  subtitle: "Joe Mangione",
+  title: "On The Fly",
+  startTime: 1707933600,
+  link: "/preview/on-the-fly"
+}, {
+  id: 'need-backup',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmeZqmGpw2BD6mtVAPFmjSZ2ypas4iB3rqHLZnPqWWfaRR",
+  subtitle: "Florin Dumbraveanu",
+  title: "Need Backup",
+  startTime: 1708020000,
+  link: "/preview/need-backup"
 }]
 
 const activeDrops = computed(() => {
