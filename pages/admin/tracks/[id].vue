@@ -1,7 +1,27 @@
 <template>
   <app-page>
     <template #body>
-      <v-container>
+      <v-container v-if="isLoading">
+        <v-row align="center">
+          <v-col cols="auto">
+            <v-skeleton-loader width="300" height="300" type="image"></v-skeleton-loader>
+          </v-col>
+          <v-col>
+            <v-skeleton-loader max-width="500" type="article"></v-skeleton-loader>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col>
+            <v-skeleton-loader type="article"></v-skeleton-loader>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col>
+            <v-skeleton-loader type="article"></v-skeleton-loader>
+          </v-col>
+        </v-row>
+      </v-container>
+      <v-container v-else>
         <v-row align="center">
           <v-col cols="auto">
             <NuxtImg :src="`http://localhost:3000/api/tracks/${trackId}/artwork`" height="265" width="265" cover />
@@ -29,9 +49,7 @@
             </v-row>
           </v-col>
         </v-row>
-      </v-container>
 
-      <v-container>
         <v-row>
           <v-col>
             <v-card>
@@ -285,9 +303,7 @@
             </v-card>
           </v-col>
         </v-row>
-      </v-container>
 
-      <v-container>
         <v-row>
           <v-col>
             <v-card variant="text">
@@ -411,15 +427,16 @@ import { marked } from 'marked'
 
 const { $studio } = useNuxtApp();
 
-const trackId = useRoute().params.id as string
+const trackId = computed(() => useRoute().params.id as string)
+
 const queryFn = async () => {
-  return await $studio.admin.track.query({
-    id: trackId
+  return await $studio.admin.tracks.get.query({
+    id: trackId.value
   })
 }
 
-const { isLoading, isPending, isFetching, isError, data, error, refetch } = useQuery({
-  queryKey: ['admin', 'track', { id: trackId }],
+const { isLoading, isPending, isFetching, isError, data, error, suspense } = useQuery({
+  queryKey: ['admin', 'track', trackId],
   queryFn
 })
 
@@ -429,9 +446,13 @@ watch(isError, (value) => {
   }
 })
 
-onMounted(async () => {
-  await refetch()
+onServerPrefetch(async () => {
+  await suspense().catch((e) => console.log((e as Error).message))
 })
+
+// onMounted(async () => {
+//   await refetch()
+// })
 
 const isDeleting = ref(false)
 const { success, error: errorNotify } = useNotify()
@@ -442,8 +463,8 @@ async function onDeleteTrack() {
   try {
     isDeleting.value = true
 
-    await $studio.admin.trackDelete.mutate({
-      id: trackId
+    await $studio.admin.tracks.delete.mutate({
+      id: trackId.value
     })
 
     success('Track deleted successfully')

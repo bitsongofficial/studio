@@ -3,8 +3,8 @@ import { string, z } from 'zod'
 import { adminProcedure, router } from '../../trpc'
 import { DeleteObjectCommand } from '@aws-sdk/client-s3'
 
-export const trackAdminRouter = router({
-  tracks: adminProcedure
+export const tracksAdminRouter = router({
+  list: adminProcedure
     .input(
       z.object({
         //createdAtFrom: z.coerce.date().nullish(),
@@ -53,7 +53,7 @@ export const trackAdminRouter = router({
 
       return tracks
     }),
-  tracksCount: adminProcedure
+  count: adminProcedure
     .query(async ({ ctx }) => {
       // TODO: handle filtering
 
@@ -72,7 +72,7 @@ export const trackAdminRouter = router({
         draft: parseInt(result[0].draft)
       }
     }),
-  track: adminProcedure
+  get: adminProcedure
     .input(
       z.object({
         id: string()
@@ -96,7 +96,7 @@ export const trackAdminRouter = router({
 
       return track
     }),
-  trackDelete: adminProcedure
+  delete: adminProcedure
     .input(
       z.object({
         id: string()

@@ -10,21 +10,6 @@ const t = initTRPC
     transformer: superjson,
   })
 
-//   export async function ensureAuth(event: H3Event) {
-//     const authRequest = auth.handleRequest(event);
-//     const session = await authRequest.validate();
-//     const user = session?.user ?? null
-
-//     if (user === null) {
-//         throw createError({
-//             message: 'You must be logged in',
-//             status: 401
-//         })
-//     }
-
-//     return user
-// }
-
 const authMiddleware = t.middleware(async ({ next, ctx }) => {
   const session = await ctx.authRequest.validate()
   if (!session)

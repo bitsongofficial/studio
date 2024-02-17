@@ -1,8 +1,14 @@
 import { router } from '../trpc'
-import { trackAdminRouter } from './track/admin.router'
+import { tracksAdminRouter } from './tracks/admin.router'
+import { nftsAdminRouter } from './nfts/admin.router'
+
+const adminRouter = router({
+  nfts: nftsAdminRouter,
+  tracks: tracksAdminRouter
+})
 
 export const appRouter = router({
-  admin: trackAdminRouter
+  admin: adminRouter
 })
 
 // export type definition of API

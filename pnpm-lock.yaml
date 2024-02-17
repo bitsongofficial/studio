@@ -137,6 +137,9 @@ dependencies:
   uuid:
     specifier: ^9.0.1
     version: 9.0.1
+  vue-json-pretty:
+    specifier: ^2.3.0
+    version: 2.3.0(vue@3.4.10)
   vue-toastification:
     specifier: 2.0.0-rc.5
     version: 2.0.0-rc.5(vue@3.4.10)
@@ -13033,6 +13036,15 @@ packages:
       '@vue/devtools-api': 6.5.1
       vue: 3.4.10(typescript@5.3.3)
     dev: true
+
+  /vue-json-pretty@2.3.0(vue@3.4.10):
+    resolution: {integrity: sha512-iBul6Xg7vZfMV2MQC/gGtzbyg8FLk6cJ8KG91f37UEkQyXqHg91VQJ24bDBXNVuOSP04BUKxWagD3V2N/WEy0g==}
+    engines: {node: '>= 10.0.0', npm: '>= 5.0.0'}
+    peerDependencies:
+      vue: '>=3.0.0'
+    dependencies:
+      vue: 3.4.10(typescript@5.3.3)
+    dev: false
 
   /vue-resize@2.0.0-alpha.1(vue@3.4.10):
     resolution: {integrity: sha512-7+iqOueLU7uc9NrMfrzbG8hwMqchfVfSzpVlCMeJQe4pyibqyoifDNbKTZvwxZKDvGkB+PdFeKvnGZMoEb8esg==}

@@ -35,6 +35,7 @@ model User {
   auth_session UserSession[]
   key          UserKey[]
   tracks       tracks[]
+  nftview      nftview[]
 
   @@schema("web3auth")
 }
@@ -217,6 +218,8 @@ view nftview {
   volume              Int?
   last_price          Int?
   timestamp           DateTime?
+
+  user User? @relation(fields: [sender], references: [address])
 
   @@schema("public")
 }

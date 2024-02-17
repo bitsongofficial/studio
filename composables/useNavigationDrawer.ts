@@ -31,6 +31,13 @@ export const useNavigationDrawer = () => {
         exact: true,
       },
       {
+        title: "NFTs",
+        icon: "mdi-music-box",
+        to: "/admin/nfts",
+        onlyLoggedIn: false,
+        exact: true,
+      },
+      {
         title: "Tracks",
         icon: "mdi-music",
         to: "/admin/tracks",
