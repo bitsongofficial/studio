@@ -108,6 +108,13 @@ const drops = [{
   title: "Need Backup",
   startTime: 1708020000,
   link: "/nfts/bitsong14tccd5wwd6ygwtx67xdfpzz8xn8ysd3rkmkd3pj326l2v7asjr6qxgf7gr"
+}, {
+  id: 'under-pressure',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/Qmb74GezcrGpucDDank3WE8HEQVLDFfTAyea2jmbJz2Lct",
+  subtitle: "H.O.D.E.",
+  title: "Under Pressure",
+  startTime: 1708192800,
+  link: "/nfts/bitsong1pcmlq5cwmy9lxfhynnuhd0r2djm2xn3ff2xc6njncs8sxzlgle3s06wsc8"
 }]
 
 const activeDrops = computed(() => {

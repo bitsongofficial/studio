@@ -45,6 +45,13 @@ const drops = [{
   title: "Need Backup",
   startTime: 1708020000,
   link: "/preview/need-backup"
+}, {
+  id: 'under-pressure',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/Qmb74GezcrGpucDDank3WE8HEQVLDFfTAyea2jmbJz2Lct",
+  subtitle: "H.O.D.E.",
+  title: "Under Pressure",
+  startTime: 1708192800,
+  link: "/preview/under-pressure"
 }]
 
 const activeDrops = computed(() => {
