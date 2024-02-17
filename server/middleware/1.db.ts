@@ -11,10 +11,8 @@ let prisma: PrismaClient<Prisma.PrismaClientOptions, never, DefaultArgs>
 
 export default defineEventHandler((event) => {
   if (prisma) {
-    console.log('prisma is already defined')
     event.context.database = prisma
   } else {
-    console.log('prisma is not defined')
     prisma = new PrismaClient()
 
     event.context.database = prisma

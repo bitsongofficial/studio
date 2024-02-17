@@ -5,7 +5,7 @@ import { ensureUserTrack } from "~/server/utils/media";
 
 export default defineEventHandler(async (event) => {
   const { track } = await ensureUserTrack(event)
-  const url = useNuxtApp().ssrContext?.event.node.req.headers.host
+  const url = event.node.req.headers.host
   if (!url) throw createError({ status: 500, message: "Missing host" })
 
   //const url = useSiteConfig(event).url

@@ -34,6 +34,7 @@ model User {
 
   auth_session UserSession[]
   key          UserKey[]
+  tracks       tracks[]
 
   @@schema("web3auth")
 }
@@ -121,6 +122,8 @@ model tracks {
   authors_publishers track_authors_publishers[]
   royalties_info     track_royalties_info[]
   marketplace        track_marketplace[]
+
+  user User @relation(fields: [user_id], references: [id])
 
   @@index([user_id])
   @@schema("public")
