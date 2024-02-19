@@ -24,3 +24,4 @@ logs
 !.env.example
 prisma/db
 secrets.sh
+storage

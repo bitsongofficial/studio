@@ -182,6 +182,45 @@ model track_marketplace {
   @@schema("public")
 }
 
+model music_nfts {
+  id          String @id @unique
+  title       String
+  titleLocale String
+  artwork     String
+  audio       String
+
+  artists            music_nft_artists[]
+  authors_publishers music_nft_authors_publishers[]
+
+  @@schema("public")
+}
+
+model music_nft_artists {
+  id        String     @id @unique
+  nft_id    String
+  address   String?
+  name      String
+  role      String
+  music_nft music_nfts @relation(fields: [nft_id], references: [id])
+
+  @@index([nft_id])
+  @@index([address])
+  @@schema("public")
+}
+
+model music_nft_authors_publishers {
+  id        String     @id @unique
+  nft_id    String
+  address   String?
+  name      String
+  role      String
+  music_nft music_nfts @relation(fields: [nft_id], references: [id])
+
+  @@index([nft_id])
+  @@index([address])
+  @@schema("public")
+}
+
 view nfttokenview {
   nft_id    String  @id @unique
   nft_name  String
