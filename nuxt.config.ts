@@ -72,6 +72,14 @@ export default defineNuxtConfig({
       })
     },
   ],
+  nitro: {
+    storage: {
+      mnft: {
+        driver: 'fs',
+        base: './storage/mnft',
+      }
+    }
+  },
   vueEmail: {
     baseUrl: process.env.NUXT_PUBLIC_SITE_URL || 'http://localhost:3000',
   },

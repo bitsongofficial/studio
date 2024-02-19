@@ -39,7 +39,7 @@
             </v-row>
             <v-row>
               <v-col class="text-surface-variant">
-                <!--<v-btn color="red" @click.stop="onDeleteTrack" :loading="isDeleting">Delete Track</v-btn>-->
+                <v-btn color="primary" @click.stop="onTranscode" :loading="isTranscoding">Transcode</v-btn>
               </v-col>
             </v-row>
           </v-col>
@@ -111,6 +111,25 @@ const { data: metadata, refetch } = useQuery({
   }
 })
 
+const isTranscoding = ref(false)
+const { success, error: errorNotify } = useNotify()
+async function onTranscode() {
+  try {
+    isTranscoding.value = true
+
+    await $studio.admin.nfts.transcode.mutate({
+      id: nftId.value
+    })
+
+    success('NFT transcoded successfully')
+    //navigateTo('/admin/tracks')
+  } catch (error) {
+    console.error(error)
+    errorNotify(`Failed to transcode NFT: ${(error as Error).message}`)
+  } finally {
+    isTranscoding.value = false
+  }
+}
 
 </script>
 

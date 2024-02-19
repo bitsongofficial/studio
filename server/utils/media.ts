@@ -1,6 +1,7 @@
 import { H3Event } from 'h3'
 import ffmpeg, { FfprobeData } from 'fluent-ffmpeg'
 import prisma from '~/server/utils/db'
+import * as stream from "stream";
 
 export async function ensureUserTrack(event: H3Event) {
   const user = await ensureAuth(event)
@@ -39,7 +40,7 @@ export async function ensureUserTrack(event: H3Event) {
   }
 }
 
-export function getMediaData(filePath: string): Promise<FfprobeData> {
+export function getMediaData(filePath: string | stream.Readable): Promise<FfprobeData> {
   return new Promise((resolve, reject) => {
     ffmpeg()
       .input(filePath)
