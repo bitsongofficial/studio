@@ -5,6 +5,7 @@ import { TrackMetadata, TrackSchema } from '@bitsongjs/metadata'
 import { useIpfsLink } from '~/composables/useIpfsLink'
 import sharp from 'sharp'
 import ffmpeg, { FfprobeData } from 'fluent-ffmpeg'
+import { nanoid } from 'nanoid'
 
 export const nftsAdminRouter = router({
   list: adminProcedure
@@ -128,9 +129,16 @@ export const nftsAdminRouter = router({
         }
       })
 
-      if (!nft) throw new TRPCError({ code: 'NOT_FOUND', message: 'NFT not found' })
-      if (!nft.uri || !nft.uri.startsWith('ipfs://')) throw new TRPCError({ code: 'NOT_FOUND', message: 'NFT metadata not found' })
+      if (!nft) throw new TRPCError({ code: 'NOT_FOUND', message: 'not found' })
+      if (!nft.uri || !nft.uri.startsWith('ipfs://')) throw new TRPCError({ code: 'NOT_FOUND', message: 'metadata not found' })
 
+      const mnft = await ctx.database.music_nfts.findUnique({
+        where: {
+          id: nft.id
+        }
+      })
+
+      if (mnft) throw new TRPCError({ code: 'INTERNAL_SERVER_ERROR', message: 'already transcoded' })
 
       /**
        * Metadata
@@ -290,6 +298,40 @@ export const nftsAdminRouter = router({
       ])
 
       console.log('transcoding done')
+
+      await ctx.database.music_nfts.create({
+        data: {
+          id: nft.id,
+          title: metadata.data.bitsong.title,
+          titleLocale: metadata.data.bitsong.titleLocale,
+          artwork: metadata.data.bitsong.artwork,
+          audio: metadata.data.bitsong.audio,
+        }
+      })
+
+      await ctx.database.music_nft_artists.createMany({
+        data: metadata.data.bitsong.artists.map(artist => ({
+          id: nanoid(12),
+          nft_id: nft.id,
+          address: artist.address,
+          name: artist.name,
+          role: artist.role,
+        }))
+      })
+
+      if (metadata.data.bitsong.authors_publishers && metadata.data.bitsong.authors_publishers?.length > 0) {
+        await ctx.database.music_nft_authors_publishers.createMany({
+          data: metadata.data.bitsong.authors_publishers.map(author => ({
+            id: nanoid(12),
+            nft_id: nft.id,
+            address: author.address,
+            name: author.name,
+            role: author.role,
+          }))
+        })
+      }
+
+      console.log('music nft saved!')
 
       return {
         success: true
