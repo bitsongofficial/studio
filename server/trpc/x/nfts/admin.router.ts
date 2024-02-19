@@ -7,6 +7,8 @@ import sharp from 'sharp'
 import ffmpeg, { FfprobeData } from 'fluent-ffmpeg'
 import { nanoid } from 'nanoid'
 import pinataSDK from '@pinata/sdk'
+import { generateMp3_128k, generatePreview } from '~/server/utils/media'
+import fs from 'node:fs'
 
 export const nftsAdminRouter = router({
   list: adminProcedure
@@ -216,94 +218,26 @@ export const nftsAdminRouter = router({
 
       // 1. create audio preview
       // ex: ffmpeg -i audio.wav -ss 0 -t 15 preview.mp3
+      const inputAudio = './storage/mnft/' + nft.id + '/audio'
+      const previewOutputAudio = './storage/mnft/' + nft.id + '/audio-preview.mp3'
+      const previewStartTime = metadata.data.bitsong.previewStartTime ?? 0
+      const previewDuration = (metadata.data.bitsong.previewDuration ?? 0) / 1000
+
+      const mediaData = await getMediaData(inputAudio)
+      const { format_name, duration, size } = mediaData.format
+
       await Promise.all([
-        new Promise((resolve, reject) => {
-          ffmpeg()
-            .input('./storage/mnft/' + nft.id + '/audio')
-            .setStartTime(0)
-            .setDuration(15)
-            .output('./storage/mnft/' + nft.id + '/audio-preview.mp3')
-            .on('end', function () {
-              console.log('audio-preview.mp3 created')
-              resolve(true)
-            })
-            .on('error', function (err) {
-              console.log('Error: ' + err.message)
-              reject(err)
-            })
-            .run()
-        }),
-        // new Promise((resolve, reject) => {
-        //   ffmpeg()
-        //     .input('./storage/mnft/' + nft.id + '/audio')
-        //     .audioCodec('libmp3lame')
-        //     .audioBitrate('128k')
-        //     .output('./storage/mnft/' + nft.id + '/audio-128.mp3')
-        //     .on('end', function () {
-        //       console.log('audio-128.mp3 created')
-        //       resolve(true)
-        //     })
-        //     .on('error', function (err) {
-        //       console.log('Error: ' + err.message)
-        //       reject(err)
-        //     })
-        //     .run()
-        // }),
-        // new Promise((resolve, reject) => {
-        //   ffmpeg()
-        //     .input('./storage/mnft/' + nft.id + '/audio')
-        //     .audioCodec('libmp3lame')
-        //     .audioBitrate('320k')
-        //     .output('./storage/mnft/' + nft.id + '/audio-320.mp3')
-        //     .on('end', function () {
-        //       console.log('audio-320.mp3 created')
-        //       resolve(true)
-        //     })
-        //     .on('error', function (err) {
-        //       console.log('Error: ' + err.message)
-        //       reject(err)
-        //     })
-        //     .run()
-        // }),
-        // new Promise((resolve, reject) => {
-        //   ffmpeg()
-        //     .input('./storage/mnft/' + nft.id + '/audio')
-        //     .audioCodec('libopus')
-        //     .audioBitrate('128k')
-        //     .output('./storage/mnft/' + nft.id + '/audio.opus')
-        //     .on('end', function () {
-        //       console.log('audio.opus created')
-        //       resolve(true)
-        //     })
-        //     .on('error', function (err) {
-        //       console.log('Error: ' + err.message)
-        //       reject(err)
-        //     })
-        //     .run()
-        // }),
-        // new Promise((resolve, reject) => {
-        //   ffmpeg()
-        //     .input('./storage/mnft/' + nft.id + '/video')
-        //     .videoCodec('libx264')
-        //     .videoBitrate('720k')
-        //     .output('./storage/mnft/' + nft.id + '/video-720.mp4')
-        //     .on('end', function () {
-        //       console.log('video-720.mp4 created')
-        //       resolve(true)
-        //     })
-        //     .on('error', function (err) {
-        //       console.log('Error: ' + err.message)
-        //       reject(err)
-        //     })
-        //     .run()
-        // }),
+        generatePreview(inputAudio, previewOutputAudio, previewStartTime, previewDuration),
+        //generateMp3_128k(inputAudio, './storage/mnft/' + nft.id + '/audio-128.mp3'),
       ])
 
       console.log('transcoding done')
 
       console.log('pinning to ipfs')
-      const audioPreviewRaw = await useStorage('mnft').getItemRaw(`${nft.id}/audio-preview.mp3`)
-      const { IpfsHash } = await pinata.pinFileToIPFS(audioPreviewRaw, { pinataMetadata: { name: `${nft.id}_audio-preview` } })
+      // open file preview stream
+      const previewStream = fs.createReadStream(previewOutputAudio)
+      const { IpfsHash } = await pinata.pinFileToIPFS(previewStream, { pinataMetadata: { name: `mnft_${nft.id}_audio-preview` } })
+      console.log(`audio-preview.mp3 pinned to ipfs: ${IpfsHash}`)
 
       await ctx.database.music_nfts.create({
         data: {
@@ -315,11 +249,11 @@ export const nftsAdminRouter = router({
           audio_preview: `ipfs://${IpfsHash}`,
           video: metadata.data.bitsong.video,
           country: metadata.data.bitsong.country,
-          duration: 0, // TODO: get duration
+          duration: duration ?? 0,
           genre: metadata.data.bitsong.genre,
           license: metadata.data.bitsong.license,
           cLine: metadata.data.bitsong.cLine,
-          //pLine: metadata.data.bitsong.pLine,
+          pLine: metadata.data.bitsong.pLine,
           explicit: metadata.data.bitsong.explicit,
           isrc: metadata.data.bitsong.isrc,
           iswc: metadata.data.bitsong.iswc,

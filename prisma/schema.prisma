@@ -198,7 +198,7 @@ model music_nfts {
   version          String?
   genre            String
   liveRecording    Boolean @default(false)
-  pline            String?
+  pLine            String?
   cLine            String?
   country          String
   previousRelease  Boolean @default(false)

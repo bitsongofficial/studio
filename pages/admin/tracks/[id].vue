@@ -42,6 +42,13 @@
                 {{ data?.genre }} | {{ useTrackDuration(data?.duration) }}
               </v-col>
             </v-row>
+            <v-row no-gutters>
+              <v-col class="text-surface-variant">
+                Created by <NuxtLink class="text-white" target="_blank" :to="`/u/${data?.user.address}`">
+                  {{ data?.user.username ? data?.user.username : formatShortAddress(data?.user.address, 8) }}
+                </NuxtLink>
+              </v-col>
+            </v-row>
             <v-row>
               <v-col class="text-surface-variant">
                 <v-btn color="red" @click.stop="onDeleteTrack" :loading="isDeleting">Delete Track</v-btn>
@@ -56,7 +63,7 @@
               <v-card-title>Audio Details</v-card-title>
               <v-container v-if="data?.audio">
                 <v-row align="center">
-                  <v-col cols="3">
+                  <v-col cols="4">
                     <audio controls>
                       <source :src="`http://localhost:3000/api/tracks/${trackId}/audio`"
                         :type="data?.audio_mime_type || 'audio/mpeg'">
@@ -66,7 +73,11 @@
                   <v-col>
                     <v-row no-gutters>
                       <v-col>
-                        {{ data?.audio }}<br>
+                        {{ data?.audio }}
+                        <NuxtLink class="ml-1 text-white" target="_blank" :to="`/api/tracks/${trackId}/audio`">
+                          <v-icon size="xs">mdi-open-in-new</v-icon>
+                        </NuxtLink>
+                        <br>
                         <span class="text-surface-variant text-subtitle-2">
                           S3 Bucket
                         </span>
@@ -120,7 +131,7 @@
               </v-container>
               <v-container v-else>
                 <v-row align="center">
-                  <v-col cols="3">
+                  <v-col cols="4">
                     <video controls playsinline height="280" width="280">
                       <source :src="`http://localhost:3000/api/tracks/${trackId}/video`"
                         :type="data?.video_mime_type || 'video/mp4'">
@@ -130,7 +141,12 @@
                   <v-col>
                     <v-row no-gutters>
                       <v-col>
-                        {{ data?.video || '-' }}<br>
+                        {{ data?.video || '-' }}
+                        <NuxtLink v-if="data?.video" class="ml-1 text-white" target="_blank"
+                          :to="`/api/tracks/${trackId}/video`">
+                          <v-icon size="xs">mdi-open-in-new</v-icon>
+                        </NuxtLink>
+                        <br>
                         <span class="text-surface-variant text-subtitle-2">
                           S3 Bucket
                         </span>
@@ -266,7 +282,14 @@
           <v-col>
             <v-card>
               <v-card-title>Marketplace</v-card-title>
-              <v-container>
+              <v-container v-if="data?.marketplace || data?.marketplace.length === 0">
+                <v-row>
+                  <v-col>
+                    No marketplace data found
+                  </v-col>
+                </v-row>
+              </v-container>
+              <v-container v-else>
                 <v-row>
                   <v-col>
                     {{ data?.marketplace[0].ratio }}<br>

@@ -54,6 +54,44 @@ export function getMediaData(filePath: string | stream.Readable): Promise<Ffprob
   });
 }
 
+export function generatePreview(inputPath: string, outputPath: string, start: number, end: number) {
+  return new Promise((resolve, reject) => {
+    ffmpeg()
+      .input(inputPath)
+      .setStartTime(start)
+      .setDuration(end)
+      .output(outputPath)
+      .on('end', function () {
+        console.log('audio-preview.mp3 created')
+        resolve(true)
+      })
+      .on('error', function (err) {
+        console.log('Error: ' + err.message)
+        reject(err)
+      })
+      .run()
+  })
+}
+
+export function generateMp3_128k(inputPath: string, outputPath: string) {
+  new Promise((resolve, reject) => {
+    ffmpeg()
+      .input(inputPath)
+      .audioCodec('libmp3lame')
+      .audioBitrate('128k')
+      .output(outputPath)
+      .on('end', function () {
+        console.log('audio-128.mp3 created')
+        resolve(true)
+      })
+      .on('error', function (err) {
+        console.log('Error: ' + err.message)
+        reject(err)
+      })
+      .run()
+  })
+}
+
 export function validateAudioData(data: FfprobeData) {
   const { format_name, duration, size } = data.format
 
