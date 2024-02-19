@@ -187,14 +187,35 @@ model track_marketplace {
 }
 
 model music_nfts {
-  id          String @id @unique
-  title       String
-  titleLocale String
-  artwork     String
-  audio       String
+  id               String  @id @unique
+  title            String
+  titleLocale      String
+  artwork          String
+  audio            String
+  audio_preview    String
+  video            String?
+  duration         Int
+  version          String?
+  genre            String
+  liveRecording    Boolean @default(false)
+  pline            String?
+  cLine            String?
+  country          String
+  previousRelease  Boolean @default(false)
+  isrc             String?
+  iswc             String?
+  license          String
+  previewStartTime Int?    @default(0)
+  previewDuration  Int?    @default(15000)
+  lyrics           String?
+  lyricsLocale     String?
+  explicit         String? @default("Clean")
+  label            String?
 
   artists            music_nft_artists[]
   authors_publishers music_nft_authors_publishers[]
+
+  featured Boolean? @default(false)
 
   @@schema("public")
 }

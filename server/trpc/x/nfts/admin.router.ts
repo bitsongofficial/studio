@@ -6,6 +6,7 @@ import { useIpfsLink } from '~/composables/useIpfsLink'
 import sharp from 'sharp'
 import ffmpeg, { FfprobeData } from 'fluent-ffmpeg'
 import { nanoid } from 'nanoid'
+import pinataSDK from '@pinata/sdk'
 
 export const nftsAdminRouter = router({
   list: adminProcedure
@@ -211,6 +212,7 @@ export const nftsAdminRouter = router({
       /**
        * Transcoding
        */
+      const pinata = new pinataSDK(useRuntimeConfig().pinataApiKey, useRuntimeConfig().pinataApiSecret);
 
       // 1. create audio preview
       // ex: ffmpeg -i audio.wav -ss 0 -t 15 preview.mp3
@@ -299,6 +301,10 @@ export const nftsAdminRouter = router({
 
       console.log('transcoding done')
 
+      console.log('pinning to ipfs')
+      const audioPreviewRaw = await useStorage('mnft').getItemRaw(`${nft.id}/audio-preview.mp3`)
+      const { IpfsHash } = await pinata.pinFileToIPFS(audioPreviewRaw, { pinataMetadata: { name: `${nft.id}_audio-preview` } })
+
       await ctx.database.music_nfts.create({
         data: {
           id: nft.id,
@@ -306,6 +312,25 @@ export const nftsAdminRouter = router({
           titleLocale: metadata.data.bitsong.titleLocale,
           artwork: metadata.data.bitsong.artwork,
           audio: metadata.data.bitsong.audio,
+          audio_preview: `ipfs://${IpfsHash}`,
+          video: metadata.data.bitsong.video,
+          country: metadata.data.bitsong.country,
+          duration: 0, // TODO: get duration
+          genre: metadata.data.bitsong.genre,
+          license: metadata.data.bitsong.license,
+          cLine: metadata.data.bitsong.cLine,
+          //pLine: metadata.data.bitsong.pLine,
+          explicit: metadata.data.bitsong.explicit,
+          isrc: metadata.data.bitsong.isrc,
+          iswc: metadata.data.bitsong.iswc,
+          label: metadata.data.bitsong.label,
+          liveRecording: metadata.data.bitsong.liveRecording,
+          lyrics: metadata.data.bitsong.lyrics,
+          lyricsLocale: metadata.data.bitsong.lyricsLocale,
+          previewDuration: metadata.data.bitsong.previewDuration,
+          previewStartTime: metadata.data.bitsong.previewStartTime,
+          previousRelease: metadata.data.bitsong.previousRelease,
+          version: metadata.data.bitsong.version,
         }
       })
 
