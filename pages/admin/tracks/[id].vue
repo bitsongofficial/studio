@@ -282,7 +282,7 @@
           <v-col>
             <v-card>
               <v-card-title>Marketplace</v-card-title>
-              <v-container v-if="data?.marketplace || data?.marketplace.length === 0">
+              <v-container v-if="!data?.marketplace || data?.marketplace.length === 0">
                 <v-row>
                   <v-col>
                     No marketplace data found
