@@ -1,9 +1,9 @@
 <template>
   <div>
-    <v-btn v-if="!data && !complete" block variant="tonal" prepend-icon="mdi-bell" @click.stop="openDialog">
+    <v-btn :size="size" v-if="!data && !complete" block variant="tonal" prepend-icon="mdi-bell" @click.stop="openDialog">
       GET NOTIFIED
     </v-btn>
-    <v-btn v-if="(data?.drop_id || complete) && connected" :loading="loading" block variant="text"
+    <v-btn :size="size" v-if="(data?.drop_id || complete) && connected" :loading="loading" block variant="text"
       prepend-icon="mdi-check" @click.stop="deleteNotification">
       TURN OFF ALERT
     </v-btn>
@@ -22,9 +22,16 @@ interface Props {
   subtitle: string;
   image: string;
   startTime?: number;
+  size?: string;
 }
 
-const props = defineProps<Props>();
+const props = withDefaults(defineProps<Props>(), {
+  dropId: '',
+  title: '',
+  subtitle: '',
+  image: '',
+  size: undefined
+})
 const dialog = ref(false);
 const loading = ref(false);
 const complete = ref(false);

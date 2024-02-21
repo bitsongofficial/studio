@@ -39,7 +39,7 @@
                   <v-card-title>Price Alert</v-card-title>
                   <v-card-text class="text-white text-md-h4 text-h6">
                     <v-chip class="mb-2">Initial Price</v-chip>
-                    0.018BTSG
+                    0.053BTSG
                   </v-card-text>
                   <AppDropNotificationBtn class="mt-n1 ma-3" :drop-id="data.id" :title="data.title"
                     :subtitle="data.artists.join(', ')" :image="data.artworkUrl" :start-time="data.startTime" />
