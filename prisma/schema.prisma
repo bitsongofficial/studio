@@ -32,6 +32,8 @@ model User {
 
   created_at DateTime @default(now())
 
+  hidden Boolean @default(false)
+
   auth_session UserSession[]
   key          UserKey[]
 
