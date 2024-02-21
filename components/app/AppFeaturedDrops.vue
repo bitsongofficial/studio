@@ -115,6 +115,20 @@ const drops = [{
   title: "Under Pressure",
   startTime: 1708192800,
   link: "/nfts/bitsong1pcmlq5cwmy9lxfhynnuhd0r2djm2xn3ff2xc6njncs8sxzlgle3s06wsc8"
+}, {
+  id: 'out-of-web',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmYmGZ4zr8mbopBp4Hm2EDPtbMjQR75H8mk1iG97EjeNbA",
+  subtitle: "The Genesis Projection",
+  title: "Out of Web (3.0)",
+  startTime: 1708491600,
+  link: "/nfts/bitsong1xq7yffwchsu2ldw3lukgzcncryva7wt35gv9cr59wt6ts2ktknwqt6atp0"
+}, {
+  id: 'glory',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmRpEuACERGTLctqQaAjiPfQnj8XrzUkF8o6rmLLhCvSzg",
+  subtitle: "Triplo Max",
+  title: "GLORY",
+  startTime: 1709229600,
+  link: "/nfts/bitsong1kjmzvl2us872qverxre5shu747zsx4rh0xp58l4hx838ck7zcp0qzww59y"
 }]
 
 const activeDrops = computed(() => {

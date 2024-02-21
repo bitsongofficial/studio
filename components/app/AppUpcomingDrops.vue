@@ -52,6 +52,20 @@ const drops = [{
   title: "Under Pressure",
   startTime: 1708192800,
   link: "/preview/under-pressure"
+}, {
+  id: 'out-of-web',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmYmGZ4zr8mbopBp4Hm2EDPtbMjQR75H8mk1iG97EjeNbA",
+  subtitle: "The Genesis Projection",
+  title: "Out of Web (3.0)",
+  startTime: 1708491600,
+  link: "/preview/out-of-web"
+}, {
+  id: 'glory',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmRpEuACERGTLctqQaAjiPfQnj8XrzUkF8o6rmLLhCvSzg",
+  subtitle: "Triplo Max",
+  title: "GLORY",
+  startTime: 1709229600,
+  link: "/preview/glory"
 }]
 
 const activeDrops = computed(() => {
