@@ -10,6 +10,9 @@ export default defineEventHandler(async (event) => {
 
   const latestUsers = await prisma.user.findMany({
     take: 25,
+    where: {
+      hidden: false
+    },
     orderBy: {
       created_at: 'desc'
     },
