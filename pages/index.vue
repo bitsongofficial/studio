@@ -10,7 +10,7 @@
           <template v-slot:next="{ props }">
             <v-btn variant="text" color="white" icon="mdi-chevron-right" @click="props.onClick"></v-btn>
           </template>
-          <v-window-item :key="0">
+          <v-window-item :key="0" :value="0">
             <v-card class="app__hero mx-md-4 rounded-xl d-flex align-center" variant="text">
               <v-row>
                 <v-col cols="10" md="8" class="mx-auto">
@@ -65,7 +65,7 @@
             </v-card>
           </v-window-item>
 
-          <v-window-item :key="1">
+          <v-window-item :key="1" :value="1">
             <AppNftHero class="nft-hero mt-8"
               :image="useIpfsLink('ipfs://QmbGwgtpRFX3XiU2ppFEDnwyCzcfYTNBVsuxcxMMwGpP4t')!"
               title="BitSong NFT Genesis Collection"
