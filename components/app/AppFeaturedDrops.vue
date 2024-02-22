@@ -129,9 +129,31 @@ const drops = [{
   title: "GLORY",
   startTime: 1709229600,
   link: "/nfts/bitsong1kjmzvl2us872qverxre5shu747zsx4rh0xp58l4hx838ck7zcp0qzww59y"
+}, {
+  id: 'ethernal-darkness',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmUNf866qqVnoxA5bQXXzsFkGs9KM79UHL3w2GiDUtZX6o",
+  subtitle: "House of Disaster",
+  title: "Ethernal Darkness",
+  startTime: 1708596000,
+  link: "/nfts/bitsong1w9udhqtvuefwfmx7af9qe5jjhmrjk4p7ezxm6py08puykgen6uhqk8nxyh"
+}, {
+  id: 'pure-madness',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmNiDzBVHQKaFn3MiyN4QdeMpsNzUd2G1oLodD5S3Njkp6",
+  subtitle: "H.O.D.E.",
+  title: "Pure Madness",
+  startTime: 1708621200,
+  link: "/nfts/bitsong1cv5er0wsla3u33w6rkn7ckxpn88huqh9aw0xpu0pagksege7v7nssqvs3x"
+}, {
+  id: 'supreme-forces',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmbaW1vD8cYCtGLWxfyS4cbCCnj5fHewXnMA46mC8JC9UY",
+  subtitle: "House Of Disaster",
+  title: "Supreme Forces",
+  startTime: 1708682400,
+  link: "/nfts/bitsong1hdnu502uecmddk9w48kxvekgp43mjdpr3mza9kj2tfvjpgef5grs2t5qp5"
 }]
 
 const activeDrops = computed(() => {
   return drops.filter(drop => drop.startTime < Math.floor(Date.now() / 1000))
+    .sort((a, b) => b.startTime - a.startTime)
 })
 </script>

@@ -66,9 +66,31 @@ const drops = [{
   title: "GLORY",
   startTime: 1709229600,
   link: "/preview/glory"
+}, {
+  id: 'ethernal-darkness',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmUNf866qqVnoxA5bQXXzsFkGs9KM79UHL3w2GiDUtZX6o",
+  subtitle: "House of Disaster",
+  title: "Ethernal Darkness",
+  startTime: 1708596000,
+  link: "/preview/ethernal-darkness"
+}, {
+  id: 'pure-madness',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmNiDzBVHQKaFn3MiyN4QdeMpsNzUd2G1oLodD5S3Njkp6",
+  subtitle: "H.O.D.E.",
+  title: "Pure Madness",
+  startTime: 1708621200,
+  link: "/preview/pure-madness"
+}, {
+  id: 'supreme-forces',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmbaW1vD8cYCtGLWxfyS4cbCCnj5fHewXnMA46mC8JC9UY",
+  subtitle: "House Of Disaster",
+  title: "Supreme Forces",
+  startTime: 1708682400,
+  link: "/preview/supreme-forces"
 }]
 
 const activeDrops = computed(() => {
   return drops.filter(drop => drop.startTime > Math.floor(Date.now() / 1000))
+    .sort((a, b) => a.startTime - b.startTime)
 })
 </script>
