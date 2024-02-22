@@ -396,7 +396,7 @@ async function onSell() {
     let burnData = {
       tokenIds: getMaxTokenIds(toValue(amount)),
       // @ts-ignore
-      minOutAmount: useToMicroAmount(toValue(yourBid)).toString(),
+      minOutAmount: (useToMicroAmount(toValue(yourBid)) - 1).toString(),
     }
 
     const { referral } = useReferral()
