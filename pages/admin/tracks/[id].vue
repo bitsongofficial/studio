@@ -121,7 +121,12 @@
         <v-row>
           <v-col>
             <v-card>
-              <v-card-title>Video Details</v-card-title>
+              <v-card-title>Video Details
+                <v-btn v-if="data?.video" class="ml-4" prepend-icon="mdi-delete" size="small" color="red"
+                  @click.stop="onDeleteVideo" :loading="isDeletingVideo" variant="text">
+                  Delete Video
+                </v-btn>
+              </v-card-title>
               <v-container v-if="!data?.video">
                 <v-row>
                   <v-col>
@@ -458,7 +463,7 @@ const queryFn = async () => {
   })
 }
 
-const { isLoading, isPending, isFetching, isError, data, error, suspense } = useQuery({
+const { isLoading, isPending, isFetching, isError, data, error, suspense, refetch } = useQuery({
   queryKey: ['admin', 'track', trackId],
   queryFn
 })
@@ -497,6 +502,28 @@ async function onDeleteTrack() {
     errorNotify(`Failed to delete track: ${(error as Error).message}`)
   } finally {
     isDeleting.value = false
+  }
+}
+
+const isDeletingVideo = ref(false)
+async function onDeleteVideo() {
+  const confirm = window.confirm('Are you sure you want to delete this video? This action cannot be undone.')
+  if (!confirm) return
+
+  try {
+    isDeletingVideo.value = true
+
+    await $studio.admin.tracks.deleteVideo.mutate({
+      id: trackId.value
+    })
+
+    success('Video deleted successfully')
+    await refetch()
+  } catch (error) {
+    console.error(error)
+    errorNotify(`Failed to delete video: ${(error as Error).message}`)
+  } finally {
+    isDeletingVideo.value = false
   }
 }
 </script>

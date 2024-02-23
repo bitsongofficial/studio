@@ -241,4 +241,67 @@ export const tracksAdminRouter = router({
         success: true
       }
     }),
+  deleteVideo: adminProcedure
+    .input(
+      z.object({
+        id: string()
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const track = await ctx.database.tracks.findUnique({
+        include: {
+          artists: true,
+          authors_publishers: true,
+          royalties_info: true,
+          marketplace: true,
+          user: true
+        },
+        where: {
+          id: input.id
+        }
+      })
+
+      if (!track) throw new TRPCError({ code: 'NOT_FOUND', message: 'Track not found' })
+      if (!track.video) throw new TRPCError({ code: 'NOT_FOUND', message: 'Track video not found' })
+      if (track.video_ipfs_cid) throw new TRPCError({ code: 'BAD_REQUEST', message: 'Video is pinned to IPFS, cannot delete' })
+
+      const s3Client = getS3Client()
+      const bucket = useRuntimeConfig().awsS3BucketTracks
+
+      try {
+        console.log('deleting video from s3', track.video)
+
+        await s3Client.send(new DeleteObjectCommand({
+          Bucket: bucket,
+          Key: track.video
+        }))
+        console.log('video deleted from s3')
+      } catch (error) {
+        console.error('Error deleting video from s3', error)
+        throw new TRPCError({ code: 'INTERNAL_SERVER_ERROR', message: 'Error deleting video from s3' })
+      }
+
+      try {
+        await ctx.database.tracks.update({
+          where: {
+            id: track.id
+          },
+          data: {
+            video: null,
+            video_bit_rate: null,
+            video_duration: null,
+            video_format: null,
+            video_mime_type: null,
+            video_size: null,
+          }
+        })
+      } catch (error) {
+        console.error('Error updating track in db', error)
+        throw new TRPCError({ code: 'INTERNAL_SERVER_ERROR', message: 'Error updating track in db' })
+      }
+
+      return {
+        success: true
+      }
+    })
 })
