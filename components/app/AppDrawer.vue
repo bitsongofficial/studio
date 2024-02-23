@@ -15,15 +15,18 @@
         <v-chip color="primary" class="text-capitalize">{{ network }}</v-chip>
       </div>
     </div>
+
     <v-list nav>
       <div v-for="item in navItems" :key="item.to">
-        <v-list-item :exact="item.exact" :to="item.to" :prepend-icon="item.icon" rounded="lg">
+        <v-list-item v-if="(item.onlyAdmin && isAdmin) || !item.onlyAdmin" :exact="item.exact" :to="item.to"
+          :prepend-icon="item.icon" rounded="lg">
           <v-list-item-title class="text-body-1">
             {{ item.title }}
           </v-list-item-title>
         </v-list-item>
       </div>
     </v-list>
+
 
     <template #append>
       <ClientOnly>
@@ -69,6 +72,12 @@ const socials = [
     href: 'https://www.instagram.com/bitsong_official'
   },
 ]
+
+const isAdmin = computed(() => {
+  const user = useUserState();
+  return user.value?.address === "bitsong1h882ezq7dyewld6gfv2e06qymvjxnu842586h2" ||
+    user.value?.address === "bitsong1q49ntyz2wjurrm56ymm5hjnz60ya3x783c5m6e";
+})
 
 const { data: repo } = useFetch<{ stargazers_count: number }>('https://api.github.com/repos/bitsongofficial/studio', {
   pick: ['stargazers_count'],

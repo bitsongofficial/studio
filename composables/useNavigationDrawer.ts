@@ -3,6 +3,7 @@ interface NavItem {
   icon: string;
   to: string;
   onlyLoggedIn?: boolean;
+  onlyAdmin?: boolean;
   exact?: boolean;
 }
 
@@ -35,6 +36,7 @@ export const useNavigationDrawer = () => {
         icon: "mdi-music-box",
         to: "/admin/nfts",
         onlyLoggedIn: false,
+        onlyAdmin: true,
         exact: true,
       },
       {
@@ -42,6 +44,7 @@ export const useNavigationDrawer = () => {
         icon: "mdi-music",
         to: "/admin/tracks",
         onlyLoggedIn: false,
+        onlyAdmin: true,
         exact: true,
       }
     ];
