@@ -1,7 +1,7 @@
 import { toValue } from "vue"
 
-export const useIpfsLink = (cid: Ref<string> | string | undefined) => {
-  if (!cid) return
+export const useIpfsLink = (cid: Ref<string> | string | undefined): string => {
+  if (!cid) return ''
 
   const url = useRuntimeConfig().public.ipfsGateway
   if (toValue(cid).startsWith('ipfs://')) {

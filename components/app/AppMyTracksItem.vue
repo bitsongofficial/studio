@@ -1,8 +1,7 @@
 <template>
   <v-card rounded="lg" width="230" color="black">
     <NuxtLink :to="link" class="text-decoration-none text-white">
-      <v-img height="230" width="230" :src="img(image, { width: 230, height: 230, fit: 'cover' })"
-        gradient="to bottom, rgba(0,0,0,.10), rgba(0,0,0,.7)">
+      <v-img height="230" width="230" :src="image" gradient="to bottom, rgba(0,0,0,.10), rgba(0,0,0,.7)">
       </v-img>
     </NuxtLink>
     <v-card-subtitle class="mt-2 text-caption">
@@ -23,8 +22,6 @@
 </template>
 
 <script lang="ts" setup>
-const img = useImage();
-
 interface Props {
   image: string;
   subtitle: string;
