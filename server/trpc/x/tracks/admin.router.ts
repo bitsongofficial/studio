@@ -303,5 +303,51 @@ export const tracksAdminRouter = router({
       return {
         success: true
       }
+    }),
+  editStatus: adminProcedure
+    .input(
+      z.object({
+        id: string(),
+        status: z.enum(['Minted', 'To_Mint', 'Draft'])
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const track = await ctx.database.tracks.findUnique({
+        include: {
+          artists: true,
+          authors_publishers: true,
+          royalties_info: true,
+          marketplace: true,
+          user: true
+        },
+        where: {
+          id: input.id
+        }
+      })
+
+      if (!track) throw new TRPCError({ code: 'NOT_FOUND', message: 'Track not found' })
+
+      if (track.status === input.status) return { success: true }
+      if (track.status === 'Minted') {
+        throw new TRPCError({ code: 'BAD_REQUEST', message: 'Cannot change status of minted track' })
+      }
+
+      try {
+        await ctx.database.tracks.update({
+          where: {
+            id: track.id
+          },
+          data: {
+            status: input.status
+          }
+        })
+      } catch (error) {
+        console.error('Error updating track in db', error)
+        throw new TRPCError({ code: 'INTERNAL_SERVER_ERROR', message: 'Error updating track in db' })
+      }
+
+      return {
+        success: true
+      }
     })
 })

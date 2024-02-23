@@ -51,7 +51,12 @@
             </v-row>
             <v-row>
               <v-col class="text-surface-variant">
-                <v-btn color="red" @click.stop="onDeleteTrack" :loading="isDeleting">Delete Track</v-btn>
+                <v-btn v-if="data?.status === 'Draft'" color="primary" @click="onChangeStatus('To_Mint')"
+                  :loading="isChangingStatus">Enable Mint</v-btn>
+                <v-btn v-else-if="data?.status === 'To_Mint'" color="primary" @click="onChangeStatus('Draft')"
+                  :loading="isChangingStatus">Set as Draft</v-btn>
+                <v-btn v-if="data?.status !== 'Minted'" class="ml-4" color="red" @click.stop="onDeleteTrack"
+                  :loading="isDeleting">Delete Track</v-btn>
               </v-col>
             </v-row>
           </v-col>
@@ -525,6 +530,29 @@ async function onDeleteVideo() {
     errorNotify(`Failed to delete video: ${(error as Error).message}`)
   } finally {
     isDeletingVideo.value = false
+  }
+}
+
+const isChangingStatus = ref(false)
+async function onChangeStatus(status: "To_Mint" | "Minted" | "Draft") {
+  const confirm = window.confirm(`Are you sure you want to change the status to ${status}?`)
+  if (!confirm) return
+
+  try {
+    isChangingStatus.value = true
+
+    await $studio.admin.tracks.editStatus.mutate({
+      id: trackId.value,
+      status
+    })
+
+    success('Status changed successfully')
+    await refetch()
+  } catch (error) {
+    console.error(error)
+    errorNotify(`Failed to change status: ${(error as Error).message}`)
+  } finally {
+    isChangingStatus.value = false
   }
 }
 </script>
