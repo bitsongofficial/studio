@@ -29,6 +29,12 @@ export const useNavigationDrawer = () => {
         to: "/",
         onlyLoggedIn: false,
         exact: true,
+      }, {
+        title: "useCapsule",
+        icon: "mdi-bank",
+        to: "/capsule",
+        onlyLoggedIn: false,
+        exact: true,
       }
     ];
   });

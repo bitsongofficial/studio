@@ -47,6 +47,7 @@
     "@quirks/store": "^0.10.0",
     "@quirks/vue": "^0.4.6",
     "@quirks/wallets": "^0.7.4",
+    "@usecapsule/web-sdk": "^0.35.1",
     "@vueuse/core": "^10.7.0",
     "@vueuse/nuxt": "^10.7.0",
     "bignumber.js": "^9.1.2",
