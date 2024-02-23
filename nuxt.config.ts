@@ -74,7 +74,9 @@ export default defineNuxtConfig({
   vite: {
     optimizeDeps: {
       include: [
-        '@usecapsule/web-sdk'
+        '@usecapsule/web-sdk',
+        'randomBytes',
+        'crypto'
       ]
     },
     plugins: [polyfillNode()],
