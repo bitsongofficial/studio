@@ -80,8 +80,8 @@
                     <td>
                       <div class="d-flex align-center">
                         <div>
-                          <NuxtImg :src="`http://localhost:3000/api/tracks/${track.id}/artwork`" height="80" width="80"
-                            cover class="mt-2">
+                          <NuxtImg :src="`${baseUrl}/api/tracks/${track.id}/artwork`" height="80" width="80" cover
+                            class="mt-2">
                           </NuxtImg>
                         </div>
                         <div class="ml-2">
@@ -154,6 +154,7 @@ definePageMeta({
   middleware: ["protected"]
 });
 
+const { baseUrl } = useRuntimeConfig().public
 const { y } = useWindowScroll()
 const route = useRoute();
 const router = useRouter();

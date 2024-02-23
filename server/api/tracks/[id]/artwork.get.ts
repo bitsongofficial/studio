@@ -3,7 +3,7 @@ import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 
 export default defineEventHandler(async (event) => {
   const id = getRouterParam(event, 'id')
-  const baseUrl = 'http://localhost:3000'
+  const { baseUrl } = useRuntimeConfig().public
 
   const track = await event.context.database.tracks.findUnique({
     where: {

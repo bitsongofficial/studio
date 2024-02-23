@@ -24,7 +24,7 @@
       <v-container v-else>
         <v-row align="center">
           <v-col cols="auto">
-            <NuxtImg :src="`http://localhost:3000/api/tracks/${trackId}/artwork`" height="265" width="265" cover />
+            <NuxtImg :src="`${baseUrl}/api/tracks/${trackId}/artwork`" height="265" width="265" cover />
           </v-col>
           <v-col>
             <v-row no-gutters>
@@ -65,7 +65,7 @@
                 <v-row align="center">
                   <v-col cols="4">
                     <audio controls>
-                      <source :src="`http://localhost:3000/api/tracks/${trackId}/audio`"
+                      <source :src="`${baseUrl}/api/tracks/${trackId}/audio`"
                         :type="data?.audio_mime_type || 'audio/mpeg'">
                       Your browser does not support the audio element.
                     </audio>
@@ -138,7 +138,7 @@
                 <v-row align="center">
                   <v-col cols="4">
                     <video controls playsinline height="280" width="280">
-                      <source :src="`http://localhost:3000/api/tracks/${trackId}/video`"
+                      <source :src="`${baseUrl}/api/tracks/${trackId}/video`"
                         :type="data?.video_mime_type || 'video/mp4'">
                       Your browser does not support the video element.
                     </video>
@@ -454,6 +454,7 @@ import { useQuery } from '@tanstack/vue-query'
 import { marked } from 'marked'
 
 const { $studio } = useNuxtApp();
+const { baseUrl } = useRuntimeConfig().public
 
 const trackId = computed(() => useRoute().params.id as string)
 
