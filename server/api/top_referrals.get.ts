@@ -1,12 +1,11 @@
 import prisma from '~/server/utils/db'
 
-interface TopTrader {
+interface TopReferral {
   address: string;
   username: string;
   avatar: string;
-  mints: number;
-  burns: number;
-  volume: number;
+  unique_users: string;
+  total_earned: string;
 }
 
 export default defineEventHandler(async (event) => {
@@ -17,24 +16,25 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  const result = await prisma.$queryRaw<TopTrader[]>`
+  const result = await prisma.$queryRaw<TopReferral[]>`
         SELECT
-          na.sender AS address,
+          na.referral AS address,
           u.username,
           u.avatar,
-          COUNT(*) FILTER (WHERE na.side = 'buy')::text AS mints,
-          COUNT(*) FILTER (WHERE na.side = 'sell')::text AS burns,
-          SUM(na.total_price) AS volume
+          COUNT(DISTINCT na.sender)::text AS unique_users,
+          SUM(na.referral_fee) AS total_earned
         FROM
           indexer.nft_activities na
         JOIN
-          web3auth."User" u ON na.sender = u.address
+          web3auth."User" u ON na.referral = u.address
         WHERE
           na.timestamp >= CURRENT_DATE - INTERVAL '7 days'
+          AND na.referral IS NOT NULL
+          AND na.referral_fee IS NOT NULL
         GROUP BY
-          na.sender, u.username, u.avatar
+          na.referral, u.username, u.avatar
         ORDER BY
-          volume DESC
+          total_earned DESC
         LIMIT 15;
     `;
 

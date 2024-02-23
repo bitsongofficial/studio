@@ -84,6 +84,8 @@
 
       <AppTopTraders class="my-8" />
 
+      <AppTopReferrals class="my-8" />
+
       <v-container v-if="pending" fluid class="pb-0">
         <v-row>
           <v-col>
