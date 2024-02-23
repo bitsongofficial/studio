@@ -1,11 +1,11 @@
 <template>
-  <v-card v-bind="$attrs" class="app__hero mx-md-4 rounded-xl d-flex align-center" variant="flat">
+  <v-card v-bind="$attrs" class="app__hero mx-md-4 rounded-xl d-flex align-center" variant="text">
     <v-row>
       <v-col cols="10" md="8" class="mx-auto">
 
         <v-row>
           <v-col cols="12" md="4">
-            <v-img class="rounded-xl" :src="image" width="300"></v-img>
+            <NuxtImg class="rounded-xl" :src="image" width="280" height="280" format="webp" />
           </v-col>
           <v-col cols="12" md="8" class="my-auto">
             <v-row>
@@ -39,7 +39,6 @@
 
 <script lang="ts" setup>
 defineProps<{
-  cover: string;
   image: string;
   title: string;
   description: string;

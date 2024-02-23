@@ -4,7 +4,7 @@ import { h3 } from "lucia/middleware";
 import prisma from '~/server/utils/db'
 
 export const auth = lucia({
-  adapter: prismaAdapter(prisma, {
+  adapter: prismaAdapter(prisma!, {
     user: "user",
     session: "userSession",
     key: "userKey"

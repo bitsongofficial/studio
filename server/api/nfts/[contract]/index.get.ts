@@ -4,6 +4,13 @@ import prisma from '~/server/utils/db'
 export default defineEventHandler(async (event) => {
   const contract = getRouterParam(event, 'contract')
 
+  if (!prisma) {
+    throw createError({
+      message: 'database is not available',
+      status: 500
+    })
+  }
+
   const nft = await prisma.nftview.findUnique({
     where: {
       id: contract

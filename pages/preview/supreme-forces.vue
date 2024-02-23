@@ -5,8 +5,8 @@
         <v-row>
           <v-col cols="12" md="8" class="text-center">
             <div>
-              <video class="mx-auto rounded-xl w-75" controls :poster="data.artworkUrl">
-                <source :src="data.previewUrl" type="audio/wav" />
+              <video class="mx-auto rounded-xl w-75" controls playsinline :poster="data.artworkUrl">
+                <source :src="data.previewUrl" type="audio/mp3" />
               </video>
             </div>
           </v-col>
@@ -17,7 +17,9 @@
                 <h1 class="text-md-h4 text-h5">
                   {{ data.title }}
                 </h1>
-                <h3 class="text-surface-variant">Rawanne</h3>
+                <h3 class="text-surface-variant">
+                  {{ data.artists.join(', ') }}
+                </h3>
               </v-col>
 
               <ClientOnly>
@@ -37,9 +39,9 @@
                   <v-card-title>Price Alert</v-card-title>
                   <v-card-text class="text-white text-md-h4 text-h6">
                     <v-chip class="mb-2">Initial Price</v-chip>
-                    0.027BTSG
+                    0.018BTSG
                   </v-card-text>
-                  <AppDropNotificationBtn class="mt-n1 ma-3" drop-id="toxic" :title="data.title"
+                  <AppDropNotificationBtn class="mt-n1 ma-3" :drop-id="data.id" :title="data.title"
                     :subtitle="data.artists.join(', ')" :image="data.artworkUrl" :start-time="data.startTime" />
                 </v-card>
               </v-col>
@@ -77,13 +79,6 @@
               </v-col>
 
               <v-col cols="12" md="6">
-                <div class="text-caption text-grey text-uppercase">MOOD</div>
-                <div>
-                  {{ data.mood }}
-                </div>
-              </v-col>
-
-              <v-col cols="12" md="6">
                 <div class="text-caption text-grey text-uppercase">EXPLICIT</div>
                 <div>
                   {{ data.explicit }}
@@ -116,28 +111,20 @@
 import VueCountdown from '@chenfengyuan/vue-countdown';
 import { marked } from 'marked'
 
-const description = `The song is composed by Rawanne, Tulea BlackJack, Triplo Max and Karo (Pink Elephant). It’s a dance song with oriental, and trap influences.
-
-Rawanne's "Toxic" stands as a captivating dance masterpiece, skillfully intertwining oriental and trap influences to create a dynamic and innovative sonic experience.
-
-The track opens with an alluring blend of traditional oriental instrumentation, setting the stage for a cultural infusion. As the song progresses, the introduction of trap beats adds a modern and edgy dimension, elevating the overall intensity.
-
-Rawanne's vocals serve as the driving force, navigating effortlessly through the rhythmic twists and turns. Her delivery is both commanding and expressive, enhancing the song's emotional depth. The lyrics, though perhaps veiled in metaphor, add an additional layer of intrigue, making "Toxic" not only a sonic delight but also a lyrical journey.
-
-The production is meticulous, with each element carefully curated to contribute to the song's infectious energy. The danceable beats encourage movement, making it impossible to resist the urge to hit the dance floor. The fusion of oriental and trap elements showcases Rawanne's commitment to pushing boundaries within the dance music genre.`
+const description = "\"Supreme Forces\" by House Of Disaster is a groundbreaking orchestral masterpiece tailored for the cinematic landscape of Web 3.0. This symphonic marvel transcends sound, immersing listeners in realms of emotion and grandeur. With resounding notes and sweeping crescendos, House Of Disaster crafts a sonic tapestry that captivates the soul. In an era of digital innovation, they push boundaries, reaffirming mastery while redefining cinematic soundscapes. Step into this auditory realm to experience the sheer power and majesty of House Of Disaster's artistry, elevating storytelling with each note."
 
 const data = reactive({
-  title: "Toxic",
-  artists: ["Rawanne"],
+  id: 'supreme-forces',
+  title: "Supreme Forces",
+  artists: ["House Of Disaster"],
   description,
-  creator: "bitsong1j2uhmz4lmhjwpstj5rtpsy6pj8a57e37c7e0ey",
-  sellerFeeBps: 750,
+  creator: "bitsong14r978dkxftm36s7a02g6p2xvvypykq376scn9w",
+  sellerFeeBps: 500,
   referralFeeBps: 100,
-  previewUrl: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmbUccafMB6ZgmqC3AAkwiQhZbXAAnQ36ixWfyf7buRPQz",
-  artworkUrl: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmeWR7bdNDpZZSCKdY3fPgNPB2nkBJ1PS7fJaDFmp56MKW",
-  startTime: 1706896800,
-  genre: "Dance",
-  mood: "Energetic",
+  previewUrl: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmPd25EnJo3grbwJywXPDNyyY6VCrqMNXuHCtrsPQczMk3",
+  artworkUrl: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmbaW1vD8cYCtGLWxfyS4cbCCnj5fHewXnMA46mC8JC9UY",
+  startTime: 1708682400,
+  genre: "Classical",
   explicit: "Clean",
   license: "All Rights Reserved",
 })

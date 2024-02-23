@@ -2,6 +2,13 @@ import prisma from '~/server/utils/db'
 
 export default defineEventHandler(async (event) => {
   try {
+    if (!prisma) {
+      throw createError({
+        message: 'database is not available',
+        status: 500
+      })
+    }
+
     const user = await ensureAuth(event)
 
     const drop_id = getRouterParam(event, 'drop_id')

@@ -1,8 +1,18 @@
 import prisma from '~/server/utils/db'
 
 export default defineEventHandler(async (event) => {
+  if (!prisma) {
+    throw createError({
+      message: 'database is not available',
+      status: 500
+    })
+  }
+
   const latestUsers = await prisma.user.findMany({
     take: 25,
+    where: {
+      hidden: false
+    },
     orderBy: {
       created_at: 'desc'
     },

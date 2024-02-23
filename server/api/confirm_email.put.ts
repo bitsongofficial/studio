@@ -3,6 +3,13 @@ import prisma from '~/server/utils/db'
 export default defineEventHandler(async (event) => {
   const { token } = await readBody<{ token: string; }>(event);
 
+  if (!prisma) {
+    throw createError({
+      message: 'database is not available',
+      status: 500
+    })
+  }
+
   const user = await prisma.user.findFirst({
     where: {
       AND: {

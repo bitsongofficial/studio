@@ -7,6 +7,13 @@ import { sendEmailVerification } from '~/server/utils/email';
 import prisma from '~/server/utils/db'
 
 export default defineEventHandler(async (event) => {
+  if (!prisma) {
+    throw createError({
+      message: 'database is not available',
+      status: 500
+    })
+  }
+
   const user = await ensureAuth(event)
 
   const data = await readMultipartFormData(event)
@@ -44,7 +51,7 @@ export default defineEventHandler(async (event) => {
     }
   })
 
-  if (usernameResult !== null && usernameResult.address !== user.address) {
+  if (usernameResult !== null && usernameResult?.address !== user.address) {
     throw createError({
       message: 'Username is already taken',
       status: 400
@@ -57,7 +64,7 @@ export default defineEventHandler(async (event) => {
     }
   })
 
-  if (emailResult !== null && emailResult.address !== user.address) {
+  if (emailResult !== null && emailResult?.address !== user.address) {
     throw createError({
       message: 'Email is already taken',
       status: 400

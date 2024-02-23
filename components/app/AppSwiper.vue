@@ -27,9 +27,12 @@
             <v-col cols="12">
               <nuxt-link :to="item.titleLink" class="text-decoration-none text-grey">
                 <v-avatar size="160" v-if="item.variant === 'profile'">
-                  <v-img :src="item.image || defaultImage" :alt="item.title" cover />
+                  <v-img :src="item.image ? img(item.image, { width: 160, format: 'webp' }) : defaultImage"
+                    :alt="item.title" cover />
                 </v-avatar>
-                <v-img v-else width="180" height="180" :src="item.image || defaultImage" :alt="item.title" cover />
+                <v-img v-else width="180" height="180"
+                  :src="item.image ? img(item.image, { width: 180, format: 'webp' }) : defaultImage" :alt="item.title"
+                  cover />
               </nuxt-link>
             </v-col>
           </v-row>
@@ -77,9 +80,6 @@
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { FreeMode, Pagination } from "swiper/modules";
 import defaultImage from "@/assets/images/default.png";
-// import { usePlayerStore } from "@/store/player";
-
-// const player = usePlayerStore();
 
 import "swiper/css";
 import "swiper/css/free-mode";
@@ -87,6 +87,8 @@ import "swiper/css/pagination";
 
 const modules = ref([FreeMode, Pagination]);
 const swiperRef = ref();
+
+const img = useImage();
 
 export interface SwiperItem {
   id?: string;

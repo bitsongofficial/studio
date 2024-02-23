@@ -6,7 +6,7 @@
           <v-col cols="12" md="8" class="text-center">
             <div>
               <video class="mx-auto rounded-xl w-75" controls :poster="data.artworkUrl">
-                <source :src="data.previewUrl" type="audio/wav" />
+                <source :src="data.previewUrl" type="audio/mp3" />
               </video>
             </div>
           </v-col>
@@ -17,7 +17,9 @@
                 <h1 class="text-md-h4 text-h5">
                   {{ data.title }}
                 </h1>
-                <h3 class="text-surface-variant">BlackJack Records</h3>
+                <h3 class="text-surface-variant">
+                  {{ data.artists.join(', ') }}
+                </h3>
               </v-col>
 
               <ClientOnly>
@@ -34,15 +36,13 @@
 
               <v-col cols="12">
                 <v-card color="primary" variant="outlined">
-                  <v-card-title>Airdrop Alert</v-card-title>
-                  <v-card-text class="text-surface-variant">
-                    If you own one or more pieces from our 'NFT Genesis Collection,' you will receive an exclusive
-                    "Cubana" by BlackJack Records for free!
+                  <v-card-title>Price Alert</v-card-title>
+                  <v-card-text class="text-white text-md-h4 text-h6">
+                    <v-chip class="mb-2">Initial Price</v-chip>
+                    0.018BTSG
                   </v-card-text>
-                  <v-card-actions>
-                    <v-btn color="white" block append-icon="mdi-arrow-right"
-                      to="/nfts/bitsong1yw4xvtc43me9scqfr2jr2gzvcxd3a9y4eq7gaukreugw2yd2f8ts0wu96q">View NFT</v-btn>
-                  </v-card-actions>
+                  <AppDropNotificationBtn class="mt-n1 ma-3" :drop-id="data.id" :title="data.title"
+                    :subtitle="data.artists.join(', ')" :image="data.artworkUrl" :start-time="data.startTime" />
                 </v-card>
               </v-col>
             </v-row>
@@ -79,13 +79,6 @@
               </v-col>
 
               <v-col cols="12" md="6">
-                <div class="text-caption text-grey text-uppercase">MOOD</div>
-                <div>
-                  {{ data.mood }}
-                </div>
-              </v-col>
-
-              <v-col cols="12" md="6">
                 <div class="text-caption text-grey text-uppercase">EXPLICIT</div>
                 <div>
                   {{ data.explicit }}
@@ -118,27 +111,21 @@
 import VueCountdown from '@chenfengyuan/vue-countdown';
 import { marked } from 'marked'
 
-const description = `The song is a summerish tune with an urban-latin vibe. It’s composed by Tulea BlackJack in BlackJack Records studios.
-
-"Cubana" is a musical journey that seamlessly blends the rich tapestry of Latin beats with the contemporary flair of urban music, resulting in a vibrant and infectious composition. From the first note, the song encapsulates the spirited essence of Havana's dynamic streets, where every corner echoes with the pulsating rhythms of life.
-
-"Cubana" is not just a song; it's a celebration of cultural diversity and the universal language of music. The song's magnetic energy is impossible to resist.
-
-With its toe-tapping beats, soulful melodies, and an undeniable sense of celebration, "Cubana" stands as a testament to the power of music to transcend boundaries and unite people in a shared experience of joy. This track is not just a song; it's an invitation to escape into a world where every note is a step closer to the heart of Havana's pulsating rhythm.`
+const description = `Dive into a whirlwind of words and compelling rhythms with '14', the debut single extracted from the EP 'PuroLobo' by the talented Roman rapper, Puro Lobo. This track leaves no room for breath, with an insistent rhythm that captures the listener's attention from the very first beat. Through its penetrating lyrics, Puro Lobo addresses the struggles faced by young people dealing with addictions, left to fend for themselves in a world where institutions offer scant assistance and a society increasingly indifferent to their hardships. '14' is a cry of anger and frustration against a system that seems to turn its back on the most vulnerable, a work that pushes the listener to reflect on the challenges faced by the new generations.`
 
 const data = reactive({
-  title: "Cubana",
-  artists: ["BlackJack Records"],
+  id: '14',
+  title: "14",
+  artists: ["Puro Lobo"],
   description,
-  creator: "bitsong1w35ntzzkf7dugwlq5a6lhrrp2lkq6yamxk42he",
-  sellerFeeBps: 750,
-  referralFeeBps: 100,
-  previewUrl: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmU3cT2KCNRLsFDJa9XTunZhkPFT44hnauxnoBNaYqDsTw",
-  artworkUrl: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmQZEdsvxqkoUTA9YLzgiHfPJtyh2fTToqhJ1zyzdTc4PT",
-  startTime: 1706968800,
-  genre: "Urban Latin",
-  mood: "Dynamic",
-  explicit: "Clean",
+  creator: "bitsong1kttnxt84q5lzx9vhv5wls8f74u445uwg83c4g3",
+  sellerFeeBps: 500,
+  referralFeeBps: 50,
+  previewUrl: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmYf9JweethyFitJMZ5bV5icEr2Xk9Xq6UTnaqmefBt3qe",
+  artworkUrl: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmQ7rFzs8wbuvJxMb6AYDUHT6mVFtz6cMweo9pE5Hg3MZw",
+  startTime: 1707847200,
+  genre: "Hip Hop",
+  explicit: "Explicit",
   license: "All Rights Reserved",
 })
 

@@ -5,8 +5,8 @@
         <v-row>
           <v-col cols="12" md="8" class="text-center">
             <div>
-              <video class="mx-auto rounded-xl w-75" controls :poster="data.artworkUrl">
-                <source :src="data.previewUrl" type="video/mp4" />
+              <video class="mx-auto rounded-xl w-75" controls playsinline :poster="data.artworkUrl">
+                <source :src="data.previewUrl" type="audio/mp3" />
               </video>
             </div>
           </v-col>
@@ -17,7 +17,9 @@
                 <h1 class="text-md-h4 text-h5">
                   {{ data.title }}
                 </h1>
-                <h3 class="text-surface-variant">Adam Clay</h3>
+                <h3 class="text-surface-variant">
+                  {{ data.artists.join(', ') }}
+                </h3>
               </v-col>
 
               <ClientOnly>
@@ -29,23 +31,18 @@
                       {{ days }}d {{ hours }}h {{ minutes }}m {{ seconds }}s
                     </vue-countdown>
                   </h2>
-
-                  <AppDropNotificationBtn class="mt-4" drop-id="ready_or_not" :title="data.title"
-                    :subtitle="data.artists.join(', ')" :image="data.artworkUrl" :start-time="data.startTime" />
                 </v-col>
               </ClientOnly>
 
               <v-col cols="12">
                 <v-card color="primary" variant="outlined">
-                  <v-card-title>Airdrop Alert</v-card-title>
-                  <v-card-text class="text-surface-variant">
-                    If you own one or more pieces from our 'NFT Genesis Collection,' you will receive an exclusive "Ready
-                    or Not" by Adam Clay for free!
+                  <v-card-title>Price Alert</v-card-title>
+                  <v-card-text class="text-white text-md-h4 text-h6">
+                    <v-chip class="mb-2">Initial Price</v-chip>
+                    0.018BTSG
                   </v-card-text>
-                  <v-card-actions>
-                    <v-btn color="white" block append-icon="mdi-arrow-right"
-                      to="/nfts/bitsong1yw4xvtc43me9scqfr2jr2gzvcxd3a9y4eq7gaukreugw2yd2f8ts0wu96q">View NFT</v-btn>
-                  </v-card-actions>
+                  <AppDropNotificationBtn class="mt-n1 ma-3" :drop-id="data.id" :title="data.title"
+                    :subtitle="data.artists.join(', ')" :image="data.artworkUrl" :start-time="data.startTime" />
                 </v-card>
               </v-col>
             </v-row>
@@ -82,13 +79,6 @@
               </v-col>
 
               <v-col cols="12" md="6">
-                <div class="text-caption text-grey text-uppercase">MOOD</div>
-                <div>
-                  {{ data.mood }}
-                </div>
-              </v-col>
-
-              <v-col cols="12" md="6">
                 <div class="text-caption text-grey text-uppercase">EXPLICIT</div>
                 <div>
                   {{ data.explicit }}
@@ -121,35 +111,23 @@
 import VueCountdown from '@chenfengyuan/vue-countdown';
 import { marked } from 'marked'
 
-const description = `**Ready or not** is absolutely the first **Music NFT released by Adam Clay** exclusively for **BitSong**.
-
-The graphic concept is inspired by one of his most iconic photos, immersed in an unknown and vibrant universe, embracing the central concept of the song: diving into that incredible and mysterious journey that is life because only by facing the path will we be able to discover what awaits us along the way. 
-
-As for the musical aspect, the song, composed in collaboration with two well known Italian producers, **Paolo Sandrini** and **Eugenio Ferrara**, is a track with progressive house sounds, that unfolds like a cosmic journey; its energetic beats and ethereal sounds seemingly emanating from another dimension. At its core is a mantra, a lyrical repetition that echoes throughout the song, becoming a rallying cry for the listener.
-
-The words, delivered with warmth by **Adam Clay's voice**, carry a profound message of **hope and liberation**. As the music builds, the mantra gains intensity, reinforcing its transformative power.
-
-The combination of the hypnotic repetition, the dynamic progression of the house beats, and the evocative sounds from beyond infuse the track with a unique energy. It's a musical paradox—dark yet uplifting, grounding yet transcendent, and ultimately a sonic journey that invites the listener to embrace the unknown with open arms.`
+const description = "Introducing \"Need Backup\", an electrifying Deep House track launching exclusively as an NFT on BitSong Studio! 🎵\n\nImmerse yourself in the pulsating rhythms and infectious energy of this captivating tune. Featuring the iconic \"need backup\" sketch from the Counter Strike video game, the track transports you into the heart of the action, where every beat echoes the intensity of the battlefield.\n\nSupport my music on BitSong Studio and I'll take care to give you exclusive benefits in the future and I'll also share my royalties with y'all once the referral system is being implemented on the Studio!"
 
 const data = reactive({
-  title: "Ready or Not",
-  artists: ["Adam Clay"],
+  id: 'need-backup',
+  title: "Need Backup",
+  artists: ["Florin Dumbraveanu"],
   description,
-  creator: "bitsong1f5ze3svwg8fgjuwwnr743j6fr9vtyr58nex7tu",
+  creator: "bitsong1mvqdh3mkc9vaqr5394tkkef08jcnndcernl54j",
   sellerFeeBps: 500,
-  referralFeeBps: 100,
-  previewUrl: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmNtpkkNcmi4iE3GaLsoo6K24nGARWRJeXzVKWgVChEJCa",
-  artworkUrl: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmWF5LpGkH67fqv89cTrB36UAcxo2ZtbY9VSMv7wKKaAoQ",
-  startTime: 1706205600,
+  referralFeeBps: 50,
+  previewUrl: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmewD9aKrXavCMhbgZDP4wpywYwAjfGrsBdjP5t38gSuEk",
+  artworkUrl: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmeZqmGpw2BD6mtVAPFmjSZ2ypas4iB3rqHLZnPqWWfaRR",
+  startTime: 1708020000,
   genre: "House",
-  mood: "Intense",
   explicit: "Clean",
   license: "All Rights Reserved",
 })
-
-if (data.startTime > Math.floor(Date.now() / 1000)) {
-  navigateTo(`/nfts/bitsong1wl59k23zngj34l7d42y9yltask7rjlnxgccawc7ltrknp6n52fpsepyxgg`)
-}
 
 useSeoMeta({
   title: `${data.title} by ${data.artists.join(', ')}`,
