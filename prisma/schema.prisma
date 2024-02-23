@@ -34,6 +34,8 @@ model User {
 
   auth_session UserSession[]
   key          UserKey[]
+  tracks       tracks[]
+  nftview      nftview[]
 
   @@schema("web3auth")
 }
@@ -122,6 +124,8 @@ model tracks {
   royalties_info     track_royalties_info[]
   marketplace        track_marketplace[]
 
+  user User @relation(fields: [user_id], references: [id])
+
   @@index([user_id])
   @@schema("public")
 }
@@ -182,6 +186,66 @@ model track_marketplace {
   @@schema("public")
 }
 
+model music_nfts {
+  id               String  @id @unique
+  title            String
+  titleLocale      String
+  artwork          String
+  audio            String
+  audio_preview    String
+  video            String?
+  duration         Int
+  version          String?
+  genre            String
+  liveRecording    Boolean @default(false)
+  pLine            String?
+  cLine            String?
+  country          String
+  previousRelease  Boolean @default(false)
+  isrc             String?
+  iswc             String?
+  license          String
+  previewStartTime Int?    @default(0)
+  previewDuration  Int?    @default(15000)
+  lyrics           String?
+  lyricsLocale     String?
+  explicit         String? @default("Clean")
+  label            String?
+
+  artists            music_nft_artists[]
+  authors_publishers music_nft_authors_publishers[]
+
+  featured Boolean? @default(false)
+
+  @@schema("public")
+}
+
+model music_nft_artists {
+  id        String     @id @unique
+  nft_id    String
+  address   String?
+  name      String
+  role      String
+  music_nft music_nfts @relation(fields: [nft_id], references: [id])
+
+  @@index([nft_id])
+  @@index([address])
+  @@schema("public")
+}
+
+model music_nft_authors_publishers {
+  id        String     @id @unique
+  nft_id    String
+  address   String?
+  name      String
+  role      String
+  music_nft music_nfts @relation(fields: [nft_id], references: [id])
+
+  @@index([nft_id])
+  @@index([address])
+  @@schema("public")
+}
+
 view nfttokenview {
   nft_id    String  @id @unique
   nft_name  String
@@ -214,6 +278,8 @@ view nftview {
   volume              Int?
   last_price          Int?
   timestamp           DateTime?
+
+  user User? @relation(fields: [sender], references: [address])
 
   @@schema("public")
 }

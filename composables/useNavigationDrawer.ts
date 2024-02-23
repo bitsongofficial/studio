@@ -29,6 +29,20 @@ export const useNavigationDrawer = () => {
         to: "/",
         onlyLoggedIn: false,
         exact: true,
+      },
+      {
+        title: "NFTs",
+        icon: "mdi-music-box",
+        to: "/admin/nfts",
+        onlyLoggedIn: false,
+        exact: true,
+      },
+      {
+        title: "Tracks",
+        icon: "mdi-music",
+        to: "/admin/tracks",
+        onlyLoggedIn: false,
+        exact: true,
       }
     ];
   });

@@ -16,7 +16,7 @@
     "@fortawesome/vue-fontawesome": "^3.0.5",
     "@nuxt/devtools": "latest",
     "@nuxt/image": "^1.2.0",
-    "@prisma/client": "^5.8.1",
+    "@prisma/client": "^5.9.1",
     "@types/fluent-ffmpeg": "^2.1.24",
     "@types/formidable": "^3.4.5",
     "@types/uuid": "^9.0.7",
@@ -25,7 +25,7 @@
     "nuxt": "^3.9.1",
     "nuxt-icon": "^0.6.8",
     "nuxt-og-image": "3.0.0-rc.25",
-    "prisma": "^5.8.1",
+    "prisma": "^5.9.1",
     "sass": "^1.69.5",
     "vite-plugin-vuetify": "^1.0.2",
     "vue": "^3.3.10",
@@ -52,6 +52,9 @@
     "@quirks/store": "^0.10.0",
     "@quirks/vue": "^0.4.6",
     "@quirks/wallets": "^0.7.4",
+    "@tanstack/vue-query": "^5.20.5",
+    "@trpc/client": "^10.45.0",
+    "@trpc/server": "^10.45.0",
     "@vueuse/core": "^10.7.0",
     "@vueuse/nuxt": "^10.7.0",
     "bignumber.js": "^9.1.2",
@@ -64,13 +67,17 @@
     "iso-639-1": "^3.1.0",
     "lucia": "^2.7.5",
     "marked": "^11.1.1",
+    "nanoid": "^5.0.5",
     "nft.storage": "^7.1.1",
     "nuxt-gtag": "^1.1.2",
     "nuxt-umami": "^2.5.7",
     "pinia": "^2.1.7",
-    "sharp": "^0.32.6",
+    "sharp": "0.33.2",
+    "superjson": "^2.2.1",
     "swiper": "^11.0.5",
+    "trpc-nuxt": "^0.10.17",
     "uuid": "^9.0.1",
+    "vue-json-pretty": "^2.3.0",
     "vue-toastification": "2.0.0-rc.5",
     "zod": "^3.22.4"
   },
@@ -80,7 +87,7 @@
   },
   "pnpm": {
     "overrides": {
-      "sharp": "0.32.6"
+      "sharp": "0.33.2"
     },
     "supportedArchitectures": {
       "os": [
