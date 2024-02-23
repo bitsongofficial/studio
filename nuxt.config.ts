@@ -72,6 +72,11 @@ export default defineNuxtConfig({
     baseUrl: process.env.NUXT_PUBLIC_SITE_URL || 'http://localhost:3000',
   },
   vite: {
+    optimizeDeps: {
+      include: [
+        '@usecapsule/web-sdk'
+      ]
+    },
     plugins: [polyfillNode()],
     vue: {
       template: {
