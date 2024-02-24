@@ -72,14 +72,25 @@ export default defineNuxtConfig({
     baseUrl: process.env.NUXT_PUBLIC_SITE_URL || 'http://localhost:3000',
   },
   vite: {
-    optimizeDeps: {
-      include: [
-        '@usecapsule/web-sdk',
-        'randomBytes',
-        'crypto'
-      ]
+    // optimizeDeps: {
+    //   include: [
+    //     '@usecapsule/web-sdk',
+    //     'randomBytes',
+    //     'crypto'
+    //   ]
+    // },
+    plugins: [
+      polyfillNode({
+        polyfills: {
+          crypto: true
+        }
+      })
+    ],
+    resolve: {
+      alias: {
+        'crypto': 'crypto-browserify',
+      }
     },
-    plugins: [polyfillNode()],
     vue: {
       template: {
         transformAssetUrls,
