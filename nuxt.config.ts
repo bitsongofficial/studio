@@ -42,7 +42,7 @@ export default defineNuxtConfig({
     '@fortawesome/fontawesome-free/css/all.css'
   ],
   build: {
-    transpile: ['@usecapsule/web-sdk', 'vue-toastification', 'vuetify'],
+    transpile: ['vue-toastification', 'vuetify'],
   },
   gtag: {
     id: "G-41SQ7H37C8",
@@ -94,6 +94,8 @@ export default defineNuxtConfig({
       },
       include: [
         '@usecapsule/web-sdk',
+        'randomBytes',
+        'crypto'
       ]
     },
     vue: {
