@@ -1,8 +1,10 @@
 import { router } from '../trpc'
 import { tracksAdminRouter } from './tracks/admin.router'
 import { nftsAdminRouter } from './nfts/admin.router'
+import { multisigAdminRouter } from './multisig/admin.router'
 
 const adminRouter = router({
+  multisig: multisigAdminRouter,
   nfts: nftsAdminRouter,
   tracks: tracksAdminRouter
 })

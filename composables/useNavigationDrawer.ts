@@ -32,6 +32,14 @@ export const useNavigationDrawer = () => {
         exact: true,
       },
       {
+        title: "Multisig",
+        icon: "mdi-wallet",
+        to: "/wallet/multisig",
+        onlyLoggedIn: true,
+        onlyAdmin: false,
+        exact: true,
+      },
+      {
         title: "NFTs",
         icon: "mdi-music-box",
         to: "/admin/nfts",
