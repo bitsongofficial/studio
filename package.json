@@ -19,6 +19,7 @@
     "@prisma/client": "^5.8.1",
     "@types/uuid": "^9.0.7",
     "@vue-email/nuxt": "^0.8.8",
+    "crypto-browserify": "^3.12.0",
     "esbuild-plugin-polyfill-node": "^0.3.0",
     "nuxt": "^3.9.1",
     "nuxt-icon": "^0.6.8",
