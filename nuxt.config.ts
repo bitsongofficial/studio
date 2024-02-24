@@ -42,7 +42,7 @@ export default defineNuxtConfig({
     '@fortawesome/fontawesome-free/css/all.css'
   ],
   build: {
-    transpile: ['@usecapsule/web-sdk', 'randomBytes', 'vue-toastification', 'vuetify'],
+    transpile: ['@usecapsule/web-sdk', 'vue-toastification', 'vuetify'],
   },
   gtag: {
     id: "G-41SQ7H37C8",
@@ -82,14 +82,16 @@ export default defineNuxtConfig({
     plugins: [
       polyfillNode({
         polyfills: {
-          crypto: true
-        }
-      })
+          buffer: true,
+        },
+      }),
     ],
-    resolve: {
-      alias: {
-        'crypto': 'crypto-browserify',
-      }
+    optimizeDeps: {
+      esbuildOptions: {
+        define: {
+          global: "globalThis",
+        },
+      },
     },
     vue: {
       template: {
