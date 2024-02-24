@@ -92,6 +92,9 @@ export default defineNuxtConfig({
           global: "globalThis",
         },
       },
+      include: [
+        '@usecapsule/web-sdk',
+      ]
     },
     vue: {
       template: {
