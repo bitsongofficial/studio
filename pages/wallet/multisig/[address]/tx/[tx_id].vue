@@ -12,8 +12,14 @@
         <v-row>
           <v-col>
             <v-card>
-              <v-card-title class="text-surface-variant text-body-2">Created At</v-card-title>
-              <v-card-text class="text-h6">{{ tx.created_at.toLocaleString() }}</v-card-text>
+              <v-card-title class="text-surface-variant text-body-2">Account Number</v-card-title>
+              <v-card-text class="text-h6">{{ tx.account_number }}</v-card-text>
+            </v-card>
+          </v-col>
+          <v-col>
+            <v-card>
+              <v-card-title class="text-surface-variant text-body-2">Sequence</v-card-title>
+              <v-card-text class="text-h6">{{ tx.sequence }}</v-card-text>
             </v-card>
           </v-col>
           <v-col>
@@ -24,8 +30,8 @@
           </v-col>
           <v-col>
             <v-card>
-              <v-card-title class="text-surface-variant text-body-2">Simulation</v-card-title>
-              <v-card-text class="text-h6">-</v-card-text>
+              <v-card-title class="text-surface-variant text-body-2">Created At</v-card-title>
+              <v-card-text class="text-h6">{{ tx.created_at.toLocaleString() }}</v-card-text>
             </v-card>
           </v-col>
         </v-row>
@@ -33,7 +39,8 @@
         <v-row>
           <v-col>
             <v-tabs v-model="tab">
-              <v-tab value="detail">Detail</v-tab>
+              <v-tab value="msgs">Messages</v-tab>
+              <v-tab value="fee">Fee</v-tab>
               <v-tab value="signatures">Signatures <v-chip size="small" class="ml-2 mt-n1" rounded color="primary">
                   {{ signatureCount }}
                 </v-chip>
@@ -42,9 +49,15 @@
           </v-col>
         </v-row>
 
-        <v-row v-if="tab === 'detail'">
+        <v-row v-if="tab === 'msgs'">
           <v-col>
-            <vue-json-pretty :data="JSON.parse(tx.data)" />
+            <vue-json-pretty :data="JSON.parse(tx.msgs)" />
+          </v-col>
+        </v-row>
+
+        <v-row v-if="tab === 'fee'">
+          <v-col>
+            <vue-json-pretty :data="JSON.parse(tx.fee)" />
           </v-col>
         </v-row>
 
@@ -89,7 +102,7 @@
 
 <script lang="ts" setup>
 import type { EncodeObject } from "@cosmjs/proto-signing";
-import { StdFee } from "@cosmjs/amino";
+import type { StdFee } from "@cosmjs/amino";
 import VueJsonPretty from 'vue-json-pretty';
 import 'vue-json-pretty/lib/styles.css';
 
@@ -98,6 +111,9 @@ import { useQuery } from '@tanstack/vue-query'
 import { MsgSend } from "cosmjs-types/cosmos/bank/v1beta1/tx";
 import { getSigningBitsongClient } from "@bitsongjs/telescope";
 import { getOfflineSigner } from "@quirks/store";
+
+import type { MultisigThresholdPubkey } from "@cosmjs/amino";
+import { fromBase64 } from "@cosmjs/encoding";
 
 definePageMeta({
   middleware: ["protected"]
@@ -133,55 +149,45 @@ async function onSign() {
   try {
     if (tx.value === undefined) return
 
-    //const msgs = JSON.parse(tx.value.data).body.messages
-    // const msgs = JSON.parse(tx.value.data).body.messages.map((msg: any) => {
-    //   return {
-    //     typeUrl: msg['@type'],
-    //     value: {
-    //       ...msg
-    //     }
-    //   }
-    // }) as EncodeObject[]
-
-    const cosmos = (await import("@bitsongjs/telescope")).cosmos
-    const { toAmino, aminoType } = cosmos.bank.v1beta1.AminoConverter["/cosmos.bank.v1beta1.MsgSend"]
-
-    const msgs = [
-      {
-        typeUrl: aminoType,
-        value: toAmino({
-          fromAddress: "",
-          toAddress: "",
-          amount: [{ denom: "ubtsg", amount: "1000000" }]
-        })
-      }
-    ]
-
-    const fees = JSON.parse(tx.value.data).auth_info.fee as StdFee
-
-
-    const signer = await getOfflineSigner("bitsong-2b", "amino");
-    console.log(await signer.getAccounts())
-    const client = await getSigningBitsongClient({
-      rpcEndpoint: "https://rpc.explorebitsong.com",
-      signer,
-    })
-    console.log(await client.getChainId())
-    console.log('signerAddress', walletAddress.value)
-    console.log('msgs', msgs)
-    console.log('fees', fees)
-    console.log('accountNumber', parseInt(tx.value.account_number))
-    console.log('sequence', parseInt(tx.value.sequenceReal))
-    const { signatures } = await client.sign(
-      (await signer.getAccounts())[0].address, msgs, fees, "", {
+    const { signatures } = await useMultisigSign("bitsong", JSON.parse(tx.value.msgs), JSON.parse(tx.value.fee), "amino", tx.value.memo, {
       accountNumber: parseInt(tx.value.account_number),
       sequence: parseInt(tx.value.sequenceReal),
       chainId: "bitsong-2b",
     })
+
     console.log(signatures)
   } catch (err) {
     console.error(err)
   }
+}
+
+async function onBroadcast() {
+  // const pubkey: MultisigThresholdPubkey = {
+  //   type: "tendermint/PubKeyMultisigThreshold",
+  //   value: {
+  //     threshold: "2",
+  //     pubkeys: [
+  //       {
+  //         type: "tendermint/PubKeySecp256k1",
+  //         value: "A+"
+  //       },
+  //       {
+  //         type: "tendermint/PubKeySecp256k1",
+  //         value: "B+"
+  //       }
+  //     ]
+  //   }
+  // }
+
+  // const bodyBytes = fromBase64(currentSignatures[0].bodyBytes);
+  // const signedTxBytes = makeMultisignedTxBytes(
+  //   pubkey,
+  //   txInfo.sequence,
+  //   txInfo.fee,
+  //   bodyBytes,
+  //   new Map(currentSignatures.map((s) => [s.address, fromBase64(s.signature)])),
+  // );
+  // const txResponse = await broadcast("bitsong", signedTxBytes, 60_000, 3_000);
 }
 </script>
 

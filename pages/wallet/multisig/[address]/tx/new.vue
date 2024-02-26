@@ -44,6 +44,7 @@ const walletAddress = computed(() => route.params.address as string)
 const title = ref("");
 const description = ref("");
 const txData = ref("");
+const memo = ref("");
 const loading = ref(false);
 
 const { $studio } = useNuxtApp()
@@ -52,11 +53,31 @@ async function onSaveTx() {
   try {
     loading.value = true
 
+    const cosmos = (await import("@bitsongjs/telescope")).cosmos
+    const { send } = cosmos.bank.v1beta1.MessageComposer.withTypeUrl;
+
+    const msgs = [
+      send({
+        amount: [
+          {
+            denom: 'ubtsg',
+            amount: '1',
+          },
+        ],
+        toAddress: "bitsong1h882ezq7dyewld6gfv2e06qymvjxnu842586h2",
+        fromAddress: "bitsong1h882ezq7dyewld6gfv2e06qymvjxnu842586h2",
+      })
+    ]
+
+    const fee = await useEstimateFee("bitsong", msgs)
+
     const { id } = await $studio.admin.multisig.createTx.mutate({
       wallet: walletAddress.value,
       title: title.value,
       description: description.value,
-      data: txData.value.toString(),
+      memo: memo.value,
+      msgs: msgs,
+      fee: fee as any
     })
 
     success("Transaction saved")

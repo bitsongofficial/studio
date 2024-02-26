@@ -157,7 +157,17 @@ export const multisigAdminRouter = router({
       wallet: z.string().refine((v) => isValidAddress(v, 'bitsong')),
       title: z.string().min(1).max(100),
       description: z.string().max(100).optional(),
-      data: z.string().min(1).max(10000)
+      memo: z.string().max(256).optional(),
+      msgs: z.array(z.any()).min(1),
+      fee: z.object({
+        amount: z.array(
+          z.object({
+            denom: z.string(),
+            amount: z.string()
+          })
+        ),
+        gas: z.string()
+      })
     }))
     .mutation(async ({ ctx, input }) => {
       const wallet = await ctx.database.multisig_wallets.findFirst({
@@ -181,8 +191,9 @@ export const multisigAdminRouter = router({
             id: nanoid(12),
             title: input.title,
             description: input.description,
-            data: input.data,
-            memo: '',
+            msgs: JSON.stringify(input.msgs),
+            fee: JSON.stringify(input.fee),
+            memo: input.memo ?? "",
             sequence: 0,
             status: 'Pending_Signatures',
             wallet: {

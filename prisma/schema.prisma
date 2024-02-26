@@ -282,7 +282,8 @@ model multisig_wallet_txs {
   title       String
   description String?
   memo        String
-  data        String
+  msgs        String
+  fee         String
   hash        String?
   sequence    Int
   status      multisig_tx_status

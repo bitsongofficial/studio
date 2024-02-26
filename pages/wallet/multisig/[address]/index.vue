@@ -174,6 +174,6 @@ function onCreateTx() {
     return
   }
 
-  navigateTo(`/wallet/multisig/${walletAddress}/tx/new`)
+  navigateTo(`/wallet/multisig/${walletAddress.value}/tx/new`)
 }
 </script>
