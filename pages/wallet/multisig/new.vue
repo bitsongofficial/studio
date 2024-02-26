@@ -4,7 +4,7 @@
       New Multisig Wallet
     </template>
     <template #body>
-      <v-container>
+      <v-container fluid>
         <v-row>
           <v-col cols="6">
             <v-row>

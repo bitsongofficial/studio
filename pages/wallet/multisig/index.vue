@@ -7,7 +7,7 @@
       <v-btn prepend-icon="mdi-plus" to="/wallet/multisig/new">New Multisig</v-btn>
     </template>
     <template #body>
-      <v-container>
+      <v-container fluid>
         <v-row>
           <v-col cols="12">
             <v-card :disabled="isLoading">

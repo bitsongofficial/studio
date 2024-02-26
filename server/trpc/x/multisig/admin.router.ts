@@ -137,9 +137,104 @@ export const multisigAdminRouter = router({
         throw new Error('Wallet not found')
       }
 
+      const { restAddress } = useRuntimeConfig().public
+      const auth = await $fetch<{ account: { account_number: string, sequence: string } }>(`${restAddress}/cosmos/auth/v1beta1/accounts/${input.address}`, {
+        ignoreResponseError: true
+      })
+      const bank = await $fetch<{ balances: { denom: string, amount: string }[] }>(`${restAddress}/cosmos/bank/v1beta1/balances/${input.address}`, {
+        ignoreResponseError: true
+      })
+
       return {
-        balance: 0,
+        account_number: auth?.account?.account_number || '0',
+        sequence: auth?.account?.sequence || '0',
+        balance: bank?.balances.find((b) => b.denom === 'ubtsg')?.amount || '0',
         ...wallet
+      }
+    }),
+  createTx: adminProcedure
+    .input(z.object({
+      wallet: z.string().refine((v) => isValidAddress(v, 'bitsong')),
+      title: z.string().min(1).max(100),
+      description: z.string().max(100).optional(),
+      data: z.string().min(1).max(10000)
+    }))
+    .mutation(async ({ ctx, input }) => {
+      const wallet = await ctx.database.multisig_wallets.findFirst({
+        where: {
+          id: input.wallet,
+          members: {
+            some: {
+              address: ctx.user.address
+            }
+          }
+        }
+      })
+
+      if (!wallet) {
+        throw new TRPCError({ code: 'BAD_REQUEST', message: 'Wallet not found' })
+      }
+
+      try {
+        const tx = await ctx.database.multisig_wallet_txs.create({
+          data: {
+            id: nanoid(12),
+            title: input.title,
+            description: input.description,
+            data: input.data,
+            memo: '',
+            sequence: 0,
+            status: 'Pending_Signatures',
+            wallet: {
+              connect: {
+                id: wallet.id
+              }
+            }
+          }
+        })
+
+        return {
+          id: tx.id
+        }
+      } catch (e) {
+        console.error(e)
+        throw new TRPCError({ code: 'INTERNAL_SERVER_ERROR', message: 'Failed to create transaction' })
+      }
+    }),
+  getTx: adminProcedure
+    .input(z.object({
+      wallet: z.string().refine((v) => isValidAddress(v, 'bitsong')),
+      id: z.string()
+    }))
+    .query(async ({ ctx, input }) => {
+      const tx = await ctx.database.multisig_wallet_txs.findFirst({
+        where: {
+          id: input.id,
+          wallet_id: input.wallet
+        },
+        include: {
+          wallet: {
+            include: {
+              members: true
+            }
+          },
+          signatures: true
+        }
+      })
+
+      if (!tx) {
+        throw new TRPCError({ code: 'BAD_REQUEST', message: 'Transaction not found' })
+      }
+
+      const { restAddress } = useRuntimeConfig().public
+      const auth = await $fetch<{ account: { account_number: string, sequence: string } }>(`${restAddress}/cosmos/auth/v1beta1/accounts/${tx.wallet?.id}`, {
+        ignoreResponseError: true
+      })
+
+      return {
+        account_number: auth?.account?.account_number || '0',
+        sequenceReal: auth?.account?.sequence || '0',
+        ...tx
       }
     }),
 })
