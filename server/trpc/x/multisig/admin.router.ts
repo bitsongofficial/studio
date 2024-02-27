@@ -57,21 +57,23 @@ export const multisigAdminRouter = router({
 
       const pubKeys = (
         await Promise.all(
-          input.members.map(async (m) => {
-            const data = await $fetch<{ account: { pub_key: { '@type': string, key: string } } }>(`${restAddress}/cosmos/auth/v1beta1/accounts/${m.address}`)
-            if (!data) {
-              throw new TRPCError({ code: 'BAD_REQUEST', message: 'Account not found' })
-            }
+          input.members
+            .sort((a, b) => a.index - b.index)
+            .map(async (m) => {
+              const data = await $fetch<{ account: { pub_key: { '@type': string, key: string } } }>(`${restAddress}/cosmos/auth/v1beta1/accounts/${m.address}`)
+              if (!data) {
+                throw new TRPCError({ code: 'BAD_REQUEST', message: 'Account not found' })
+              }
 
-            if (data.account.pub_key['@type'] !== '/cosmos.crypto.secp256k1.PubKey') {
-              throw new TRPCError({ code: 'BAD_REQUEST', message: 'Invalid public key type' })
-            }
+              if (data.account.pub_key['@type'] !== '/cosmos.crypto.secp256k1.PubKey') {
+                throw new TRPCError({ code: 'BAD_REQUEST', message: 'Invalid public key type' })
+              }
 
-            return {
-              type: 'tendermint/PubKeySecp256k1',
-              value: data.account.pub_key.key
-            } as SinglePubkey
-          })
+              return {
+                type: 'tendermint/PubKeySecp256k1',
+                value: data.account.pub_key.key
+              } as SinglePubkey
+            })
         )
       ) as SinglePubkey[]
 
@@ -89,6 +91,7 @@ export const multisigAdminRouter = router({
             name: input.name,
             description: input.description,
             threshold: input.threshold,
+            pubkey: JSON.stringify(multisigPubKey),
             members: {
               createMany: {
                 data: input.members.map((m, index) => ({
@@ -178,7 +181,7 @@ export const multisigAdminRouter = router({
               address: ctx.user.address
             }
           }
-        }
+        },
       })
 
       if (!wallet) {
@@ -186,6 +189,31 @@ export const multisigAdminRouter = router({
       }
 
       try {
+        const { restAddress } = useRuntimeConfig().public
+        const auth = await $fetch<{ account: { account_number: string, sequence: string } }>(`${restAddress}/cosmos/auth/v1beta1/accounts/${wallet.id}`, {
+          ignoreResponseError: true
+        })
+
+        const dbData = await ctx.database.multisig_wallet_txs.findFirst({
+          where: {
+            wallet_id: wallet.id,
+          },
+          select: {
+            sequence: true
+          },
+          orderBy: {
+            sequence: 'desc'
+          }
+        })
+
+        let sequence;
+
+        if (parseInt(auth.account.sequence) >= (dbData?.sequence ?? 0)) {
+          sequence = parseInt(auth.account.sequence)
+        } else {
+          sequence = dbData?.sequence ?? 0
+        }
+
         const tx = await ctx.database.multisig_wallet_txs.create({
           data: {
             id: nanoid(12),
@@ -194,7 +222,7 @@ export const multisigAdminRouter = router({
             msgs: JSON.stringify(input.msgs),
             fee: JSON.stringify(input.fee),
             memo: input.memo ?? "",
-            sequence: 0,
+            sequence,
             status: 'Pending_Signatures',
             wallet: {
               connect: {

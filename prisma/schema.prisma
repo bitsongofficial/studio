@@ -253,6 +253,7 @@ model multisig_wallets {
   name        String
   description String?
   threshold   Int
+  pubkey      String
 
   members multisig_wallet_members[]
   txs     multisig_wallet_txs[]

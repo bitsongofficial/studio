@@ -33,6 +33,14 @@
 </template>
 
 <script lang="ts" setup>
+import { encodeSecp256k1Pubkey } from '@cosmjs/amino';
+import type { SignerData } from '@cosmjs/stargate';
+import { getOfflineSigner } from '@quirks/store';
+import { Any } from "cosmjs-types/google/protobuf/any";
+import { encodePubkey } from "@cosmjs/proto-signing";
+import { SignMode } from 'cosmjs-types/cosmos/tx/signing/v1beta1/signing';
+import { TxRaw, Tx, AuthInfo, Fee, TxBody } from 'cosmjs-types/cosmos/tx/v1beta1/tx';
+
 definePageMeta({
   middleware: ["protected"]
 });
@@ -64,12 +72,32 @@ async function onSaveTx() {
             amount: '1',
           },
         ],
-        toAddress: "bitsong1h882ezq7dyewld6gfv2e06qymvjxnu842586h2",
-        fromAddress: "bitsong1h882ezq7dyewld6gfv2e06qymvjxnu842586h2",
+        toAddress: walletAddress.value,
+        fromAddress: walletAddress.value,
       })
-    ]
+    ];
 
-    const fee = await useEstimateFee("bitsong", msgs)
+    const fee = await useEstimateFee("bitsong", walletAddress.value, msgs)
+    console.log(fee)
+    return
+
+    // const offlineSigner = await getOfflineSigner("bitsong", "amino")
+    // const pubkey = encodeSecp256k1Pubkey((await offlineSigner.getAccounts())[0].pubkey);
+    // const address = getAddress("bitsong")
+
+    // const client = await useSigningStargateClient("bitsong");
+    // const account = await client.getAccount(walletAddress.value);
+    // if (!account) {
+    //   throw new Error("Please fund the multisig wallet first");
+    // }
+
+    // const signerData: SignerData = {
+    //   accountNumber: account.accountNumber,
+    //   sequence: account.sequence,
+    //   chainId: "bitsong-2b",
+    // }
+
+    // const { bodyBytes, signatures } = await useMultisigSign("bitsong", msgs, fee, "amino", memo.value, signerData)
 
     const { id } = await $studio.admin.multisig.createTx.mutate({
       wallet: walletAddress.value,
@@ -77,7 +105,13 @@ async function onSaveTx() {
       description: description.value,
       memo: memo.value,
       msgs: msgs,
-      fee: fee as any
+      fee: fee as any,
+      // bodyBytes
+      // account
+      // sequence
+      // pubkey
+      // address
+      // signature
     })
 
     success("Transaction saved")
