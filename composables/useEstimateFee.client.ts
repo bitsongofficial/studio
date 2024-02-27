@@ -1,21 +1,13 @@
-import type { EncodeObject } from '@cosmjs/proto-signing';
-import type { SignerType } from '@quirks/store';
-import { getOfflineSigner, store } from "@quirks/store";
-import { assertIsDefined, estimateFee, getEndpoint, getGasPrice } from '@quirks/core';
-import type { SigningStargateClientOptions, SignerData, StdFee } from '@cosmjs/stargate';
 import type { MultisigThresholdPubkey } from "@cosmjs/amino";
 import { pubkeyToAddress } from "@cosmjs/amino";
-import { assertDefined } from "@cosmjs/utils";
 import { Uint53 } from "@cosmjs/math";
-import { fromBase64 } from "@cosmjs/encoding";
-
-import { AuthInfo, Fee, Tx, TxBody } from "cosmjs-types/cosmos/tx/v1beta1/tx";
-import { Any } from "cosmjs-types/google/protobuf/any";
-import Long from "long";
-import { SignMode } from 'cosmjs-types/cosmos/tx/signing/v1beta1/signing';
-import { encodePubkey, } from "@cosmjs/proto-signing";
-
-import { createProtobufRpcClient, QueryClient, makeMultisignedTxBytes } from "@cosmjs/stargate";
+import type { EncodeObject } from '@cosmjs/proto-signing';
+import type { SigningStargateClientOptions, StdFee } from '@cosmjs/stargate';
+import { makeMultisignedTxBytes } from "@cosmjs/stargate";
+import { TxBody } from "cosmjs-types/cosmos/tx/v1beta1/tx";
+import { assertIsDefined, getEndpoint, getGasPrice } from '@quirks/core';
+import type { SignerType } from '@quirks/store';
+import { getOfflineSigner, store } from "@quirks/store";
 
 export const useEstimateFee = async (
   chainName: string,
@@ -74,12 +66,10 @@ export const useEstimateFee = async (
 
   const { sequence } = await client.getSequence(sender);
 
-  const msgs = TxBody.encode(
-    TxBody.fromPartial({
-      messages: messages.map((msg) => client.registry.encodeAsAny(msg)),
-      memo: memo,
-    })
-  ).finish()
+  const msgs = TxBody.encode(TxBody.fromPartial({
+    messages: messages.map((msg) => client.registry.encodeAsAny(msg)),
+    memo: memo,
+  })).finish()
 
   const signatures = new Map<string, Uint8Array>(
     pubkey.value.pubkeys.map((pk) => [
@@ -93,8 +83,8 @@ export const useEstimateFee = async (
     gas: "0",
   }
 
-  const cosmos = (await import("@bitsongjs/telescope")).cosmos
-  const qc = await cosmos.ClientFactory.createRPCQueryClient({ rpcEndpoint: endpoint.rpc.address })
+  const { ClientFactory } = (await import("@bitsongjs/telescope")).cosmos
+  const qc = await ClientFactory.createRPCQueryClient({ rpcEndpoint: endpoint.rpc.address })
   const { gasInfo } = await qc.cosmos.tx.v1beta1.simulate({
     txBytes: makeMultisignedTxBytes(pubkey, sequence, fee, msgs, signatures)
   })
