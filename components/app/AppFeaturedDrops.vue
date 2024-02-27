@@ -150,6 +150,27 @@ const drops = [{
   title: "Supreme Forces",
   startTime: 1708682400,
   link: "/nfts/bitsong1hdnu502uecmddk9w48kxvekgp43mjdpr3mza9kj2tfvjpgef5grs2t5qp5"
+}, {
+  id: 'uno-dos-tres',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmXVXMo3TESkYnXbR8zb1kBeRRtRhYkTDK9T9uFjoTBdjo",
+  subtitle: "Torrex",
+  title: "Uno Dos Tres",
+  startTime: 1709056800,
+  link: "/nfts/bitsong1r8td9cjggx9f5ek2gzfh34kguxuz5j9rfjemamvjw2he2y84t3xqp9vgyz"
+}, {
+  id: 'destructure',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmPSq8vYWJ1ALdjBAyju2Gb2yyUoXHwpLwxVoyFrUjVa52",
+  subtitle: "Luca Testa",
+  title: "Destructure (Feat Gab3z)",
+  startTime: 1709143200,
+  link: "/nfts/bitsong1l0z6d7wlwpwequtenwt8pd44685jyhqys6jdnp8xa8ektn0un4zshplnar"
+}, {
+  id: 'feel-the-vibe',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmRWZFsYP9m1eQeSooSSk72hBwECLy11U7RvR6mZGuUEKS",
+  subtitle: "Dino Brown, Adam Clay",
+  title: "Feel The Vibe",
+  startTime: 1709316000,
+  link: "/nfts/bitsong156x86uprzaj04v7qwnpl8djj5jws3gn73jz08qkydmkd0c0lp6gqn6xarq"
 }]
 
 const activeDrops = computed(() => {

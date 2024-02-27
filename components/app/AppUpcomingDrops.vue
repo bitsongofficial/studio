@@ -18,48 +18,6 @@
 
 <script lang="ts" setup>
 const drops = [{
-  id: 'perrea',
-  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmbfyAeFNxMFBtBP6UrxRTEe8oKjJeNSiEsJ7RZ1otgcjA",
-  subtitle: "Joe Bertè",
-  title: "Perrea",
-  startTime: 1707760800,
-  link: "/preview/perrea"
-}, {
-  id: '14',
-  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmQ7rFzs8wbuvJxMb6AYDUHT6mVFtz6cMweo9pE5Hg3MZw",
-  subtitle: "Puro Lobo",
-  title: "14",
-  startTime: 1707847200,
-  link: "/preview/14"
-}, {
-  id: 'on-the-fly',
-  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmY9Qe1VUTjnvrXNAqeH3YV564STJ3HogWM1EQfe5G1Bn8",
-  subtitle: "Joe Mangione",
-  title: "On The Fly",
-  startTime: 1707933600,
-  link: "/preview/on-the-fly"
-}, {
-  id: 'need-backup',
-  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmeZqmGpw2BD6mtVAPFmjSZ2ypas4iB3rqHLZnPqWWfaRR",
-  subtitle: "Florin Dumbraveanu",
-  title: "Need Backup",
-  startTime: 1708020000,
-  link: "/preview/need-backup"
-}, {
-  id: 'under-pressure',
-  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/Qmb74GezcrGpucDDank3WE8HEQVLDFfTAyea2jmbJz2Lct",
-  subtitle: "H.O.D.E.",
-  title: "Under Pressure",
-  startTime: 1708192800,
-  link: "/preview/under-pressure"
-}, {
-  id: 'out-of-web',
-  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmYmGZ4zr8mbopBp4Hm2EDPtbMjQR75H8mk1iG97EjeNbA",
-  subtitle: "The Genesis Projection",
-  title: "Out of Web (3.0)",
-  startTime: 1708491600,
-  link: "/preview/out-of-web"
-}, {
   id: 'glory',
   image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmRpEuACERGTLctqQaAjiPfQnj8XrzUkF8o6rmLLhCvSzg",
   subtitle: "Triplo Max",
@@ -67,26 +25,26 @@ const drops = [{
   startTime: 1709229600,
   link: "/preview/glory"
 }, {
-  id: 'ethernal-darkness',
-  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmUNf866qqVnoxA5bQXXzsFkGs9KM79UHL3w2GiDUtZX6o",
-  subtitle: "House of Disaster",
-  title: "Ethernal Darkness",
-  startTime: 1708596000,
-  link: "/preview/ethernal-darkness"
+  id: 'uno-dos-tres',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmXVXMo3TESkYnXbR8zb1kBeRRtRhYkTDK9T9uFjoTBdjo",
+  subtitle: "Torrex",
+  title: "Uno Dos Tres",
+  startTime: 1709056800,
+  link: "/preview/uno-dos-tres"
 }, {
-  id: 'pure-madness',
-  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmNiDzBVHQKaFn3MiyN4QdeMpsNzUd2G1oLodD5S3Njkp6",
-  subtitle: "H.O.D.E.",
-  title: "Pure Madness",
-  startTime: 1708621200,
-  link: "/preview/pure-madness"
+  id: 'destructure',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmPSq8vYWJ1ALdjBAyju2Gb2yyUoXHwpLwxVoyFrUjVa52",
+  subtitle: "Luca Testa",
+  title: "Destructure (Feat Gab3z)",
+  startTime: 1709143200,
+  link: "/preview/destructure"
 }, {
-  id: 'supreme-forces',
-  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmbaW1vD8cYCtGLWxfyS4cbCCnj5fHewXnMA46mC8JC9UY",
-  subtitle: "House Of Disaster",
-  title: "Supreme Forces",
-  startTime: 1708682400,
-  link: "/preview/supreme-forces"
+  id: 'feel-the-vibe',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmRWZFsYP9m1eQeSooSSk72hBwECLy11U7RvR6mZGuUEKS",
+  subtitle: "Dino Brown, Adam Clay",
+  title: "Feel The Vibe",
+  startTime: 1709316000,
+  link: "/preview/feel-the-vibe"
 }]
 
 const activeDrops = computed(() => {

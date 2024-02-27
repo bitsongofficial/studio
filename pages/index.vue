@@ -10,24 +10,23 @@
           <template v-slot:next="{ props }">
             <v-btn variant="text" color="white" icon="mdi-chevron-right" @click="props.onClick"></v-btn>
           </template>
-          <v-window-item :key="0" :value="0">
+
+          <v-window-item v-for="(drop, index) in activeDrops" :key="index" :value="index">
             <v-card class="app__hero mx-md-4 rounded-xl d-flex align-center" variant="text">
               <v-row>
                 <v-col cols="10" md="8" class="mx-auto">
 
                   <v-row>
                     <v-col cols="12" md="4">
-                      <NuxtLink to="/preview/glory" class="text-decoration-none text-white">
-                        <NuxtImg class="rounded-xl"
-                          :src="useIpfsLink('ipfs://QmRpEuACERGTLctqQaAjiPfQnj8XrzUkF8o6rmLLhCvSzg')!" width="280"
-                          height="280" format="webp" />
+                      <NuxtLink :to="`/preview/${drop.id}`" class="text-decoration-none text-white">
+                        <NuxtImg class="rounded-xl" :src="drop.image" width="280" height="280" format="webp" />
                       </NuxtLink>
                     </v-col>
                     <v-col cols="12" md="8" class="my-auto">
                       <v-row>
                         <v-col class="text-h5 px-md-4">
-                          <NuxtLink to="/preview/glory" class="text-decoration-none text-white">
-                            GLORY<br><span class="text-surface-variant text-body-1">Triplo Max</span>
+                          <NuxtLink :to="`/preview/${drop.id}`" class="text-decoration-none text-white">
+                            {{ drop.title }}<br><span class="text-surface-variant text-body-1">{{ drop.subtitle }}</span>
                           </NuxtLink>
                         </v-col>
                       </v-row>
@@ -36,7 +35,7 @@
                       <v-row>
                         <v-col cols="12" md="10" class="text-h4 px-md-4 py-3">
                           <ClientOnly>
-                            <vue-countdown class="px-md-2" :time="remainingTime"
+                            <vue-countdown class="px-md-2" :time="remainingTime(drop.startTime)"
                               v-slot="{ days, hours, minutes, seconds }">
                               {{ days }}d {{ hours }}h {{ minutes }}m {{ seconds }}s
                             </vue-countdown>
@@ -46,13 +45,12 @@
 
                       <v-row>
                         <v-col cols="12" md="10" class="pb-0">
-                          <v-btn @click.stop="navigateTo('/preview/glory')" block size="large">Preview</v-btn>
+                          <v-btn @click.stop="navigateTo(`/preview/${drop.id}`)" block size="large">Preview</v-btn>
                         </v-col>
                         <v-col cols="12" md="10">
-                          <AppDropNotificationBtn size="large" class="mt-3" drop-id="glory" title="GLORY"
-                            subtitle="Triplo Max"
-                            :image="img(useIpfsLink('ipfs://QmRpEuACERGTLctqQaAjiPfQnj8XrzUkF8o6rmLLhCvSzg')!, { width: 230, height: 230, fit: 'cover' })"
-                            :start-time="startTime" />
+                          <AppDropNotificationBtn size="large" class="mt-3" :drop-id="drop.id" :title="drop.title"
+                            :subtitle="drop.subtitle" :image="img(drop.image, { width: 230, height: 230, fit: 'cover' })"
+                            :start-time="drop.startTime" />
                         </v-col>
                       </v-row>
 
@@ -65,7 +63,7 @@
             </v-card>
           </v-window-item>
 
-          <v-window-item :key="1" :value="1">
+          <v-window-item :key="drops.length" :value="drops.length">
             <AppNftHero class="nft-hero mt-8"
               :image="useIpfsLink('ipfs://QmbGwgtpRFX3XiU2ppFEDnwyCzcfYTNBVsuxcxMMwGpP4t')!"
               title="BitSong NFT Genesis Collection"
@@ -108,7 +106,6 @@ import ogImage from "@/assets/images/og-default-1200.png";
 const img = useImage()
 
 const window = ref(0)
-const length = ref(5)
 
 interface LatestUser {
   address: string;
@@ -116,11 +113,44 @@ interface LatestUser {
   avatar?: string;
 }
 
-const startTime = ref(1709229600)
+const drops = [{
+  id: 'glory',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmRpEuACERGTLctqQaAjiPfQnj8XrzUkF8o6rmLLhCvSzg",
+  subtitle: "Triplo Max",
+  title: "GLORY",
+  startTime: 1709229600,
+  link: "/preview/glory"
+}, {
+  id: 'uno-dos-tres',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmXVXMo3TESkYnXbR8zb1kBeRRtRhYkTDK9T9uFjoTBdjo",
+  subtitle: "Torrex",
+  title: "Uno Dos Tres",
+  startTime: 1709056800,
+  link: "/preview/uno-dos-tres"
+}, {
+  id: 'destructure',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmPSq8vYWJ1ALdjBAyju2Gb2yyUoXHwpLwxVoyFrUjVa52",
+  subtitle: "Luca Testa",
+  title: "Destructure (Feat Gab3z)",
+  startTime: 1709143200,
+  link: "/preview/destructure"
+}, {
+  id: 'feel-the-vibe',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmRWZFsYP9m1eQeSooSSk72hBwECLy11U7RvR6mZGuUEKS",
+  subtitle: "Dino Brown, Adam Clay",
+  title: "Feel The Vibe",
+  startTime: 1709316000,
+  link: "/preview/feel-the-vibe"
+}]
 
-const remainingTime = computed(() => {
-  return (startTime.value - Math.floor(Date.now() / 1000)) * 1000
+const activeDrops = computed(() => {
+  return drops.filter(drop => drop.startTime > Math.floor(Date.now() / 1000))
+    .sort((a, b) => a.startTime - b.startTime)
 })
+
+function remainingTime(startTime: number) {
+  return (startTime - Math.floor(Date.now() / 1000)) * 1000
+}
 
 const { data, pending, execute } = useAsyncData(async () => {
   const users = await $fetch(`/api/latest/users`)

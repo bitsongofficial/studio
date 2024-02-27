@@ -122,24 +122,24 @@
 import VueCountdown from '@chenfengyuan/vue-countdown';
 import { marked } from 'marked'
 
-const description = "I'm thrilled to introduce \"Glory,\" my latest house music track that's all set to take you on a cosmic journey of inspiration and energy. Drawing from the vastness of the universe, \"Glory\" infuses deep gospel voices and beats to ignite your soul and fuel your motivation.\n\nThis is just the beginning of my NFT venture, and \"Glory\" marks the Genesis NFT exclusively launching on BitSong Studio. You won't find it anywhere else!\n\nAs the holder of \"Glory,\" you'll enjoy exclusive perks and VIP treatment, including:\n\n- Airdrops of my upcoming releases\n- Random draws to share in the royalties of some of my future releases on BitSong Studio\n- Opportunities for collaborations with me\n- VIP access to my real-life events through random draws\nAnd that's just the beginning!\n\nDon't miss out on the chance to own a piece of my musical journey and unlock unforgettable experiences with \"Glory.\"\n\nCatch you on the cosmic beats!"
+const description = "Embark on a pulsating journey into the heart of rhythm with 'Feel the Vibe,' a dynamic electro-tribal anthem brought to life by the visionary collaboration of Italian DJ and producer Dino Brown and the internationally acclaimed songwriter, Adam Clay. This electrifying track ignites the senses with its infectious beats and hypnotic melodies, seamlessly blending Dino Brown's signature soundscapes with Adam Clay's evocative lyricism. \n\n'Feel the Vibe' is more than just a song; it's an invitation to immerse oneself in the collective energy of the dance floor, to lose oneself in the primal pulse of the music, and to experience the transformative power of rhythm and movement. With Dino Brown and Adam Clay at the helm, this electrifying collaboration promises to ignite dance floors worldwide and leave an indelible mark on the hearts of all who surrender to its infectious energy."
 
 const data = reactive({
-  id: 'glory',
-  title: "GLORY",
-  artists: ["Triplo Max"],
+  id: 'feel-the-vibe',
+  title: "Feel The Vibe",
+  artists: ["Dino Brown", "Adam Clay"],
   description,
-  creator: "bitsong1rztprdvx003fj6gtwtwum5jw62capvsmyxercf",
+  creator: "bitsong18h2flt7dhzqlnatmqlufkknm9e2g9hy60l2h6n",
   sellerFeeBps: 500,
-  referralFeeBps: 50,
-  previewUrl: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmWMKEpXXtPpfLuPfBR84gLiLVV8egLQPKVRk5RGPobdVt",
-  artworkUrl: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmRpEuACERGTLctqQaAjiPfQnj8XrzUkF8o6rmLLhCvSzg",
-  startTime: 1709229600,
-  genre: "House",
+  referralFeeBps: 100,
+  previewUrl: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmYj23wu43z3knqkxPAwtvWxr2kBaD94wKbEEbKdPkanRx",
+  artworkUrl: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmRWZFsYP9m1eQeSooSSk72hBwECLy11U7RvR6mZGuUEKS",
+  startTime: 1709316000,
+  genre: "Dance",
   explicit: "Clean",
   license: "All Rights Reserved",
-  initialPrice: 0.053,
-  marketplaceAddress: "bitsong19cq5ladm6mxu8clszem8d8cwj9haac4du08s5zq2uvpyg4ue625ql4nskw"
+  initialPrice: 0.02106,
+  marketplaceAddress: "bitsong1w2l4w5p66l5t2nmrmsvz7k4cu50s7e8dc6h59gcxsnmp2tgy7q7sh5zj0r",
 })
 
 useSeoMeta({

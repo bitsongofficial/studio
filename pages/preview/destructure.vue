@@ -122,24 +122,24 @@
 import VueCountdown from '@chenfengyuan/vue-countdown';
 import { marked } from 'marked'
 
-const description = "I'm thrilled to introduce \"Glory,\" my latest house music track that's all set to take you on a cosmic journey of inspiration and energy. Drawing from the vastness of the universe, \"Glory\" infuses deep gospel voices and beats to ignite your soul and fuel your motivation.\n\nThis is just the beginning of my NFT venture, and \"Glory\" marks the Genesis NFT exclusively launching on BitSong Studio. You won't find it anywhere else!\n\nAs the holder of \"Glory,\" you'll enjoy exclusive perks and VIP treatment, including:\n\n- Airdrops of my upcoming releases\n- Random draws to share in the royalties of some of my future releases on BitSong Studio\n- Opportunities for collaborations with me\n- VIP access to my real-life events through random draws\nAnd that's just the beginning!\n\nDon't miss out on the chance to own a piece of my musical journey and unlock unforgettable experiences with \"Glory.\"\n\nCatch you on the cosmic beats!"
+const description = "Luca Testa, the internationally acclaimed DJ and producer from Turin, delivers high-energy hardstyle\ntracks that push boundaries and make a lasting impact on the electronic music scene. His collaboration with Gab3z, “Destructure\", combines powerful beats, aggressive bass lines, and catchy female vocals, infusing hardance influences for an intense and mesmerizing musical experience. Surrender to the infectious rhythms of \"Destructure\" and unleash your energy on the dance floor."
 
 const data = reactive({
-  id: 'glory',
-  title: "GLORY",
-  artists: ["Triplo Max"],
+  id: 'destructure',
+  title: "Destructure (Feat Gab3z)",
+  artists: ["Luca Testa"],
   description,
-  creator: "bitsong1rztprdvx003fj6gtwtwum5jw62capvsmyxercf",
+  creator: "bitsong1rzc9wpzh8sfjlxvarnsh7svvh4myfyd4ej2r5a",
   sellerFeeBps: 500,
-  referralFeeBps: 50,
-  previewUrl: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmWMKEpXXtPpfLuPfBR84gLiLVV8egLQPKVRk5RGPobdVt",
-  artworkUrl: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmRpEuACERGTLctqQaAjiPfQnj8XrzUkF8o6rmLLhCvSzg",
-  startTime: 1709229600,
-  genre: "House",
+  referralFeeBps: 100,
+  previewUrl: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmeCPPUvcRKGyps6vCiQSAwFngWXbKTiT9Mgx3M35vLNVp",
+  artworkUrl: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmPSq8vYWJ1ALdjBAyju2Gb2yyUoXHwpLwxVoyFrUjVa52",
+  startTime: 1709143200,
+  genre: "Electronic",
   explicit: "Clean",
   license: "All Rights Reserved",
-  initialPrice: 0.053,
-  marketplaceAddress: "bitsong19cq5ladm6mxu8clszem8d8cwj9haac4du08s5zq2uvpyg4ue625ql4nskw"
+  initialPrice: 0.02106,
+  marketplaceAddress: "bitsong1fur82ejcye82qqeah83v2tndt2m2l3y0ceypdkxe50rl0jj8xxysr0ldqf",
 })
 
 useSeoMeta({
