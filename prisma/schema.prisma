@@ -2,7 +2,7 @@ datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
-  schemas   = ["public", "web3auth"] // indexer, nft...
+  schemas   = ["public", "web3auth", "multisig"] // indexer, nft...
 
   // Only if you enable `postgresqlExtensions` preview feature
   // extensions        = [hstore(schema: "myHstoreSchema"), pg_trgm, postgis(version: "2.1")]
@@ -246,6 +246,83 @@ model music_nft_authors_publishers {
   @@index([nft_id])
   @@index([address])
   @@schema("public")
+}
+
+model multisig_wallets {
+  id          String  @id @unique
+  name        String
+  description String?
+  threshold   Int
+  pubkey      String
+
+  members multisig_wallet_members[]
+  txs     multisig_wallet_txs[]
+
+  created_at DateTime @default(now())
+
+  @@schema("multisig")
+}
+
+model multisig_wallet_members {
+  id        String  @id @unique
+  wallet_id String
+  index     Int
+  name      String?
+  address   String
+
+  wallet multisig_wallets? @relation(fields: [wallet_id], references: [id])
+
+  @@index([wallet_id])
+  @@index([address])
+  @@schema("multisig")
+}
+
+model multisig_wallet_txs {
+  id          String                          @id @unique
+  wallet_id   String
+  title       String
+  description String?
+  memo        String
+  msgs        String
+  fee         String
+  hash        String?
+  sequence    Int
+  status      multisig_tx_status
+  signatures  multisig_wallet_tx_signatures[]
+  wallet      multisig_wallets?               @relation(fields: [wallet_id], references: [id])
+
+  created_at DateTime @default(now())
+
+  @@index([hash])
+  @@index([wallet_id])
+  @@schema("multisig")
+}
+
+enum multisig_tx_status {
+  Pending_Signatures
+  Pending_Execution
+  Executed
+  Failed
+
+  @@schema("multisig")
+}
+
+model multisig_wallet_tx_signatures {
+  id         String @id @unique
+  tx_id      String
+  address    String
+  body_bytes String
+  signature  String
+  sequence   Int
+  memo       String
+
+  tx multisig_wallet_txs? @relation(fields: [tx_id], references: [id])
+
+  created_at DateTime @default(now())
+
+  @@index([tx_id])
+  @@index([address])
+  @@schema("multisig")
 }
 
 view nfttokenview {

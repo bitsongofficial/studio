@@ -38,7 +38,7 @@
     "@aws-sdk/lib-storage": "^3.501.0",
     "@aws-sdk/s3-request-presigner": "^3.501.0",
     "@bitsongjs/metadata": "^0.2.1",
-    "@bitsongjs/telescope": "3.0.0-dev.22",
+    "@bitsongjs/telescope": "3.0.0-dev.23",
     "@chenfengyuan/vue-countdown": "2",
     "@fortawesome/fontawesome-free": "^6.5.1",
     "@fortawesome/free-brands-svg-icons": "^6.5.1",
