@@ -75,8 +75,15 @@ const socials = [
 
 const isAdmin = computed(() => {
   const user = useUserState();
-  return user.value?.address === "bitsong1h882ezq7dyewld6gfv2e06qymvjxnu842586h2" ||
-    user.value?.address === "bitsong1q49ntyz2wjurrm56ymm5hjnz60ya3x783c5m6e";
+  if (!user.value?.address) return false;
+
+  const admins = [
+    "bitsong1h882ezq7dyewld6gfv2e06qymvjxnu842586h2",
+    "bitsong1q49ntyz2wjurrm56ymm5hjnz60ya3x783c5m6e",
+    "bitsong1f5ze3svwg8fgjuwwnr743j6fr9vtyr58nex7tu"
+  ];
+
+  return admins.includes(user.value.address);
 })
 
 const { data: repo } = useFetch<{ stargazers_count: number }>('https://api.github.com/repos/bitsongofficial/studio', {

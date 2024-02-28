@@ -7,27 +7,12 @@
       <v-container fluid>
         <v-row>
           <v-col cols="6">
-            <v-row>
-              <v-col cols="12">
-                <v-text-field v-model="name" label="Name" variant="outlined" dense required></v-text-field>
-                <v-text-field v-model="description" label="Description (optional)" variant="outlined"
-                  dense></v-text-field>
-
-                <h3 class="text-h6 mb-2">Threshold</h3>
-                <v-text-field v-model="threshold" class="w-25 text-center" variant="solo" prepend-icon="mdi-chevron-left"
-                  append-icon="mdi-chevron-right" @click:append="increaseThreshold" @click:prepend="decreaseThreshold"
-                  readonly></v-text-field>
-              </v-col>
-            </v-row>
             <v-row no-gutters class="pt-2">
               <v-col>
                 <h2 class="text-h6 mb-3">Members</h2>
 
-                <v-row v-for="(member, index) in members" :key="index">
-                  <v-col>
-                    <v-text-field v-model="member.name" label="Name" variant="outlined" dense required></v-text-field>
-                  </v-col>
-                  <v-col cols="6">
+                <v-row v-for="(member, index) in members" :key="index" no-gutters>
+                  <v-col cols="11">
                     <v-text-field v-model="member.address" :disabled="member.address === user?.address" label="Address"
                       variant="outlined" dense required></v-text-field>
                   </v-col>
@@ -46,6 +31,14 @@
                     </v-btn>
                   </v-col>
                 </v-row>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="12">
+                <h3 class="text-h6 mb-2">Threshold</h3>
+                <v-text-field v-model="threshold" class="w-25 text-center" variant="solo" prepend-icon="mdi-chevron-left"
+                  append-icon="mdi-chevron-right" @click:append="increaseThreshold" @click:prepend="decreaseThreshold"
+                  readonly></v-text-field>
               </v-col>
             </v-row>
             <v-row>
@@ -69,8 +62,6 @@ definePageMeta({
 
 const user = useUserState()
 const loading = ref(false)
-const name = ref('')
-const description = ref('')
 const threshold = ref(1)
 const members = ref<{
   name: string
@@ -99,24 +90,40 @@ onMounted(async () => {
   }
 })
 
-const { $studio } = useNuxtApp()
 const { success, error: errorNotify } = useNotify()
 async function onCreateMultisig() {
+  if (members.value.length < 2) {
+    return errorNotify('At least 2 members are required')
+  }
+
   try {
     loading.value = true
 
-    const { address } = await $studio.admin.multisig.createWallet.mutate({
-      name: name.value,
-      description: description.value,
-      threshold: threshold.value,
-      members: members.value.map((member, index) => {
-        return {
-          name: member.name,
-          address: member.address,
-          index
+    const address = getAddress("bitsong");
+    const client = await useCWClient()
+
+    await client.instantiate(
+      address,
+      6,
+      {
+        "voters": members.value.map((m) => {
+          return {
+            "addr": m.address,
+            "weight": 1
+          }
+        }),
+        "threshold": {
+          "absolute_count": {
+            "weight": threshold.value
+          }
+        },
+        "max_voting_period": {
+          "time": 604800
         }
-      })
-    })
+      },
+      "cw3-fixed-multisig",
+      "auto"
+    )
 
     success('Multisig wallet created successfully')
     navigateTo(`/wallet/multisig/${address}`)

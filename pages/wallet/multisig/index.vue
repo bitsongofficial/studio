@@ -14,15 +14,15 @@
               <v-table hover>
                 <thead>
                   <tr>
-                    <th :style="{ width: '350px' }">Name</th>
                     <th>Address</th>
+                    <th>Members</th>
                   </tr>
                 </thead>
-                <tbody v-if="data?.length">
-                  <tr v-for="wallet in data" :key="wallet.id" :style="{ cursor: 'pointer' }"
-                    @click="navigateTo(`/wallet/multisig/${wallet.id}`)">
-                    <td>{{ wallet.name || '-' }}</td>
-                    <td>{{ wallet.id || '-' }}</td>
+                <tbody v-if="wallets?.length">
+                  <tr v-for="wallet in wallets" :key="wallet?.address" :style="{ cursor: 'pointer' }"
+                    @click="navigateTo(`/wallet/multisig/${wallet?.address}`)">
+                    <td>{{ wallet?.address }}</td>
+                    <td>{{ wallet?.voters }}</td>
                   </tr>
                 </tbody>
                 <tbody v-else>
@@ -49,9 +49,9 @@ definePageMeta({
 const { $studio } = useNuxtApp();
 const user = useUserState()
 
-const { isLoading, isPending, isFetching, isError, data, error, suspense } = useQuery({
+const { isLoading, isPending, isFetching, isError, data: wallets, error, suspense } = useQuery({
   queryKey: ['wallet', 'multisig', user.value?.address],
-  queryFn: async () => await $studio.admin.multisig.listWallets.query()
+  queryFn: async () => await $studio.protected.multisig.listWallets.query({ address: user.value?.address! })
 })
 
 onServerPrefetch(async () => {

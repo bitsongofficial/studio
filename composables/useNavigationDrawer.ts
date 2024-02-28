@@ -36,7 +36,7 @@ export const useNavigationDrawer = () => {
         icon: "mdi-wallet",
         to: "/wallet/multisig",
         onlyLoggedIn: true,
-        onlyAdmin: false,
+        onlyAdmin: true,
         exact: true,
       },
       {

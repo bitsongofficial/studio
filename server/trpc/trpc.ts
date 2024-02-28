@@ -37,7 +37,8 @@ const adminMiddleware = t.middleware(async ({ next, ctx }) => {
 
   const adminAddresses = [
     'bitsong1h882ezq7dyewld6gfv2e06qymvjxnu842586h2', //dev
-    'bitsong1q49ntyz2wjurrm56ymm5hjnz60ya3x783c5m6e'
+    'bitsong1q49ntyz2wjurrm56ymm5hjnz60ya3x783c5m6e',
+    'bitsong1s5kwp97f2fsysy2rfwv4w5kl06rnta8fj06e2y' //dev2
   ]
 
   if (adminAddresses.includes(user.address)) {

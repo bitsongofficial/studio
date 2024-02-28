@@ -33,13 +33,7 @@
 </template>
 
 <script lang="ts" setup>
-import { encodeSecp256k1Pubkey } from '@cosmjs/amino';
-import type { SignerData } from '@cosmjs/stargate';
-import { getOfflineSigner } from '@quirks/store';
-import { Any } from "cosmjs-types/google/protobuf/any";
-import { encodePubkey } from "@cosmjs/proto-signing";
-import { SignMode } from 'cosmjs-types/cosmos/tx/signing/v1beta1/signing';
-import { TxRaw, Tx, AuthInfo, Fee, TxBody } from 'cosmjs-types/cosmos/tx/v1beta1/tx';
+import { contracts } from "@bitsongjs/telescope";
 
 definePageMeta({
   middleware: ["protected"]
@@ -52,73 +46,36 @@ const walletAddress = computed(() => route.params.address as string)
 const title = ref("");
 const description = ref("");
 const txData = ref("");
-const memo = ref("");
 const loading = ref(false);
 
-const { $studio } = useNuxtApp()
 const { success, error: errorNotify } = useNotify()
 async function onSaveTx() {
   try {
     loading.value = true
 
-    const cosmos = (await import("@bitsongjs/telescope")).cosmos
-    const { send } = cosmos.bank.v1beta1.MessageComposer.withTypeUrl;
+    const { Cw3FixedMultisigClient } = contracts.Cw3FixedMultisig;
 
-    const msgs = [
-      send({
-        amount: [
-          {
-            denom: 'ubtsg',
-            amount: '1',
-          },
-        ],
-        toAddress: walletAddress.value,
-        fromAddress: walletAddress.value,
-      })
-    ];
+    const address = getAddress("bitsong");
+    const cw3Client = new Cw3FixedMultisigClient(
+      await useCWClient(),
+      address,
+      walletAddress.value
+    );
 
-    const fee = await useEstimateFee("bitsong", walletAddress.value, msgs)
-    console.log(fee)
-    return
-
-    // const offlineSigner = await getOfflineSigner("bitsong", "amino")
-    // const pubkey = encodeSecp256k1Pubkey((await offlineSigner.getAccounts())[0].pubkey);
-    // const address = getAddress("bitsong")
-
-    // const client = await useSigningStargateClient("bitsong");
-    // const account = await client.getAccount(walletAddress.value);
-    // if (!account) {
-    //   throw new Error("Please fund the multisig wallet first");
-    // }
-
-    // const signerData: SignerData = {
-    //   accountNumber: account.accountNumber,
-    //   sequence: account.sequence,
-    //   chainId: "bitsong-2b",
-    // }
-
-    // const { bodyBytes, signatures } = await useMultisigSign("bitsong", msgs, fee, "amino", memo.value, signerData)
-
-    const { id } = await $studio.admin.multisig.createTx.mutate({
-      wallet: walletAddress.value,
+    const response = await cw3Client.propose({
       title: title.value,
       description: description.value,
-      memo: memo.value,
-      msgs: msgs,
-      fee: fee as any,
-      // bodyBytes
-      // account
-      // sequence
-      // pubkey
-      // address
-      // signature
+      msgs: JSON.parse(txData.value),
     })
 
-    success("Transaction saved")
-    navigateTo(`/wallet/multisig/${walletAddress.value}/tx/${id}`)
+    console.log(response.transactionHash)
+    const proposalId = response.events[10].attributes[3].value
+
+    success("Proposal created")
+    navigateTo(`/wallet/multisig/${walletAddress.value}/tx/${proposalId}`)
   } catch (err) {
     console.error(err)
-    errorNotify("Failed to save transaction")
+    errorNotify("Failed to create proposal")
   } finally {
     loading.value = false
   }
