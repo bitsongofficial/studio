@@ -1,8 +1,8 @@
 <template>
   <app-page>
     <template #body>
-      <AppProfileHeader v-if="user" :address="user.address" :avatar="user.avatar" :cover="user.cover"
-        :username="user.username" :email="user.email" />
+      <AppProfileHeader :address="address" :avatar="user?.avatar" :cover="user?.cover" :username="user?.username"
+        :email="user?.email" />
 
       <!--<AppUpcomingDrops v-if="address === 'bitsong1f5ze3svwg8fgjuwwnr743j6fr9vtyr58nex7tu'" class="my-8" />-->
 
@@ -14,23 +14,32 @@
 <script setup lang="ts">
 import type { NftTokenGridItem } from '~/components/app/Nft/AppNftTokenGridItem.vue';
 import defaultImage from "~/assets/images/og-default-1200.png";
+import { isValidAddress } from '@bitsongjs/metadata'
 
-const address = useRoute().params.address as string
+const address = computed(() => useRoute().params.address as string)
 
-const { data: user, error } = await useFetch(`/api/u/${address}`)
+watch(address, (value) => {
+  if (!isValidAddress(value, "bitsong")) {
+    navigateTo("/")
+  }
+})
+
+const { data: user } = await useFetch(`/api/u/${address.value}`)
+const title = computed(() => user?.value?.username ?? address.value)
+
 useSeoMeta({
-  title: user?.value?.username ? user?.value?.username : address,
+  title: title.value,
   titleTemplate: '%s | Profile | BitSong Studio',
-  description: `Check out ${user?.value?.username || address}'s profile on BitSong Studio, the home of Web3 Music.`,
+  description: `Check out ${title.value}'s profile on BitSong Studio, the home of Web3 Music.`,
   twitterCard: "summary_large_image",
   ogImage: user?.value?.avatar ? useIpfsLink(user?.value?.avatar) : defaultImage,
 });
 
-if (error.value) {
-  navigateTo("/")
-}
+// if (error.value) {
+//   navigateTo("/")
+// }
 
-const { data: nfts } = useFetch(`/api/u/${address}/nfts`, {
+const { data: nfts } = useFetch(`/api/u/${address.value}/nfts`, {
   transform: (data) => data.map((item) => {
     return {
       nft: item.nft_id,

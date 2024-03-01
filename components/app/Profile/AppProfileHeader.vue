@@ -47,7 +47,7 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  cover: defaultCover,
+  cover: undefined,
   avatar: undefined,
   username: undefined,
 });
