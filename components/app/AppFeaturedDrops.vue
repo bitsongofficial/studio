@@ -171,6 +171,20 @@ const drops = [{
   title: "Feel The Vibe",
   startTime: 1709316000,
   link: "/nfts/bitsong156x86uprzaj04v7qwnpl8djj5jws3gn73jz08qkydmkd0c0lp6gqn6xarq"
+}, {
+  id: 'wind-still-blows',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmPCoexML73gyABtNfJthK2qMwpLqF5Q5F2scS9jr6qVtS",
+  subtitle: "Kiras",
+  title: "The Wind Still Blows",
+  startTime: 1709661600,
+  link: "/nfts/bitsong18dhyf7sdkjpmgu4jg6fmf4d6cyj9lez6c2cs5lvprkmyctfrtnzq94q0l6"
+}, {
+  id: 'all-i-want',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmdKJA6PG55qc3Hbe9Qp8njFjtc8MxMkkU8buvhZUr3shj",
+  subtitle: "J Press",
+  title: "All I Want",
+  startTime: 1709575200,
+  link: "/nfts/bitsong1dhmd8lredr9psu4afk8j3lstdg896pme49mje6maxucuuugmmptspwx04e"
 }]
 
 const activeDrops = computed(() => {

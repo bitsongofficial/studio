@@ -45,6 +45,20 @@ const drops = [{
   title: "Feel The Vibe",
   startTime: 1709316000,
   link: "/preview/feel-the-vibe"
+}, {
+  id: 'wind-still-blows',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmPCoexML73gyABtNfJthK2qMwpLqF5Q5F2scS9jr6qVtS",
+  subtitle: "Kiras",
+  title: "The Wind Still Blows",
+  startTime: 1709661600,
+  link: "/preview/wind-still-blows"
+}, {
+  id: 'all-i-want',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmdKJA6PG55qc3Hbe9Qp8njFjtc8MxMkkU8buvhZUr3shj",
+  subtitle: "J Press",
+  title: "All I Want",
+  startTime: 1709575200,
+  link: "/preview/all-i-want"
 }]
 
 const activeDrops = computed(() => {
