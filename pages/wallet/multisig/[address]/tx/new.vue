@@ -19,6 +19,11 @@
               </v-col>
             </v-row>
             <v-row>
+              <v-col>
+                <WalletMultisigTxBuilder />
+              </v-col>
+            </v-row>
+            <v-row>
               <v-col class="text-right">
                 <v-btn color="primary" @click="onSaveTx" :loading="loading">
                   Save Tx
