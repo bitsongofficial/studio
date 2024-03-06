@@ -185,6 +185,13 @@ const drops = [{
   title: "All I Want",
   startTime: 1709575200,
   link: "/nfts/bitsong1dhmd8lredr9psu4afk8j3lstdg896pme49mje6maxucuuugmmptspwx04e"
+}, {
+  id: 'closer',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmdbSuJW3a1xWoLgPosaKkKW3ihSGKDWuXVMNQNsyUXr4W",
+  subtitle: "Florin Dumbraveanu",
+  title: "Closer",
+  startTime: 1710525600,
+  link: "/nfts/bitsong1lgprt38gkp4nvggjl0dm0e7k5lgd80e525f8rjg60tc6fk2xexcqad682u"
 }]
 
 const activeDrops = computed(() => {

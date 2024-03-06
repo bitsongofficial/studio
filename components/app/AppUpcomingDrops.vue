@@ -59,6 +59,13 @@ const drops = [{
   title: "All I Want",
   startTime: 1709575200,
   link: "/preview/all-i-want"
+}, {
+  id: 'closer',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmdbSuJW3a1xWoLgPosaKkKW3ihSGKDWuXVMNQNsyUXr4W",
+  subtitle: "Florin Dumbraveanu",
+  title: "Closer",
+  startTime: 1710525600,
+  link: "/preview/closer"
 }]
 
 const activeDrops = computed(() => {
