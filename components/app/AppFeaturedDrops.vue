@@ -192,6 +192,20 @@ const drops = [{
   title: "Closer",
   startTime: 1710525600,
   link: "/nfts/bitsong1lgprt38gkp4nvggjl0dm0e7k5lgd80e525f8rjg60tc6fk2xexcqad682u"
+}, {
+  id: 'all-i-need',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmSvWAqpea6xZT8z2tzZeLCS9hxEfePkGLq2qju7kzL3cp",
+  subtitle: "Lollino & Deebesh",
+  title: "All I Need",
+  startTime: 1709920800,
+  link: "/nfts/bitsong1kg02jufkxt6znuv2r96nkpdc7nxdlfeznaz7gfyj6449x6tle2ksyyxt6n"
+}, {
+  id: 'secrets',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmTPzYSevY31hX6Dy6nAXrBz5cBpMjLFRoc1JKk1FzFnDc",
+  subtitle: "Noyse, Zangi",
+  title: "Secrets (Feat. Eli Limaj)",
+  startTime: 1709834400,
+  link: "/nfts/bitsong1sj7zrll8n6rh07hgzqtjemeeane53a68fzqzsmnyntw95w4h7z6sfjk6ht"
 }]
 
 const activeDrops = computed(() => {

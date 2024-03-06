@@ -66,6 +66,20 @@ const drops = [{
   title: "Closer",
   startTime: 1710525600,
   link: "/preview/closer"
+}, {
+  id: 'all-i-need',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmSvWAqpea6xZT8z2tzZeLCS9hxEfePkGLq2qju7kzL3cp",
+  subtitle: "Lollino & Deebesh",
+  title: "All I Need",
+  startTime: 1709920800,
+  link: "/preview/all-i-need"
+}, {
+  id: 'secrets',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmTPzYSevY31hX6Dy6nAXrBz5cBpMjLFRoc1JKk1FzFnDc",
+  subtitle: "Noyse, Zangi",
+  title: "Secrets (Feat. Eli Limaj)",
+  startTime: 1709834400,
+  link: "/preview/secrets"
 }]
 
 const activeDrops = computed(() => {

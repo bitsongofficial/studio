@@ -7,6 +7,7 @@
           <template v-slot:prev="{ props }">
             <v-btn variant="text" color="white" icon="mdi-chevron-left" @click="props.onClick"></v-btn>
           </template>
+
           <template v-slot:next="{ props }">
             <v-btn variant="text" color="white" icon="mdi-chevron-right" @click="props.onClick"></v-btn>
           </template>
@@ -26,7 +27,8 @@
                       <v-row>
                         <v-col class="text-h5 px-md-4">
                           <NuxtLink :to="`/preview/${drop.id}`" class="text-decoration-none text-white">
-                            {{ drop.title }}<br><span class="text-surface-variant text-body-1">{{ drop.subtitle }}</span>
+                            {{ drop.title }}<br><span class="text-surface-variant text-body-1">{{ drop.subtitle
+                              }}</span>
                           </NuxtLink>
                         </v-col>
                       </v-row>
@@ -49,7 +51,8 @@
                         </v-col>
                         <v-col cols="12" md="10">
                           <AppDropNotificationBtn size="large" class="mt-3" :drop-id="drop.id" :title="drop.title"
-                            :subtitle="drop.subtitle" :image="img(drop.image, { width: 230, height: 230, fit: 'cover' })"
+                            :subtitle="drop.subtitle"
+                            :image="img(drop.image, { width: 230, height: 230, fit: 'cover' })"
                             :start-time="drop.startTime" />
                         </v-col>
                       </v-row>
@@ -155,6 +158,20 @@ const drops = [{
   title: "All I Want",
   startTime: 1709575200,
   link: "/preview/all-i-want"
+}, {
+  id: 'all-i-need',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmSvWAqpea6xZT8z2tzZeLCS9hxEfePkGLq2qju7kzL3cp",
+  subtitle: "Lollino & Deebesh",
+  title: "All I Need",
+  startTime: 1709920800,
+  link: "/preview/all-i-need"
+}, {
+  id: 'secrets',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmTPzYSevY31hX6Dy6nAXrBz5cBpMjLFRoc1JKk1FzFnDc",
+  subtitle: "Noyse, Zangi",
+  title: "Secrets (Feat. Eli Limaj)",
+  startTime: 1709834400,
+  link: "/preview/secrets"
 }]
 
 const activeDrops = computed(() => {
