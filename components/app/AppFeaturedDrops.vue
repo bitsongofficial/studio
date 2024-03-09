@@ -206,6 +206,34 @@ const drops = [{
   title: "Secrets (Feat. Eli Limaj)",
   startTime: 1709834400,
   link: "/nfts/bitsong1sj7zrll8n6rh07hgzqtjemeeane53a68fzqzsmnyntw95w4h7z6sfjk6ht"
+}, {
+  id: 'famous-girl',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmZrLNcJVx4s9MNjK2dwW55iXrxnD1KFZ8knbehXJQFzFE",
+  subtitle: "J Press",
+  title: "Famous Girl",
+  startTime: 1710180000,
+  link: "/nfts/bitsong1jeh4eqlsge0w8kcmjlt82rzzwe4vr5yxe69nvqt2jcgg4q4e8ypq9592yw"
+}, {
+  id: 'mexico-bailante',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmNQBCwB6nshni2vpdpC1VNoMnEDjByM3RGxz6UWgL3Brf",
+  subtitle: "Torrex",
+  title: "Mexico Bailante",
+  startTime: 1710266400,
+  link: "/nfts/bitsong1aqjn8sha92zyqd27d4gw8lnjgmgt24v3ytwm2f9j9rza7pfuku4s7ej6r7"
+}, {
+  id: 'casanova',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmUeYQ7cFWdzNoVckpXnNtWBobNUiYieUNGLKtp1VQ9isS",
+  subtitle: "Campoli, Adam Clay",
+  title: "Casanova",
+  startTime: 1710439200,
+  link: "/nfts/bitsong1fdtlnwuqwp38tq5ky5g3xfkkafexa4e8q4qy90jxe2vmtl8n56ksjpjhxs"
+}, {
+  id: 'anything-i-do',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmcwP241RSACz8LcZy8ms49TSpgGheq8ejRHPsXRaJZDwP",
+  subtitle: "BlackJack, Hamster NFT",
+  title: "Anything I Do",
+  startTime: 1710352800,
+  link: "/nfts/bitsong1hje6ecs6u683ypnzu8l5d4jsxq4dy96s0m6ezps9uwcuwl30hfuqk95jqe"
 }]
 
 const activeDrops = computed(() => {

@@ -172,6 +172,34 @@ const drops = [{
   title: "Secrets (Feat. Eli Limaj)",
   startTime: 1709834400,
   link: "/preview/secrets"
+}, {
+  id: 'famous-girl',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmZrLNcJVx4s9MNjK2dwW55iXrxnD1KFZ8knbehXJQFzFE",
+  subtitle: "J Press",
+  title: "Famous Girl",
+  startTime: 1710180000,
+  link: "/preview/famous-girl"
+}, {
+  id: 'mexico-bailante',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmNQBCwB6nshni2vpdpC1VNoMnEDjByM3RGxz6UWgL3Brf",
+  subtitle: "Torrex",
+  title: "Mexico Bailante",
+  startTime: 1710266400,
+  link: "/preview/mexico-bailante"
+}, {
+  id: 'casanova',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmUeYQ7cFWdzNoVckpXnNtWBobNUiYieUNGLKtp1VQ9isS",
+  subtitle: "Campoli, Adam Clay",
+  title: "Casanova",
+  startTime: 1710439200,
+  link: "/preview/casanova"
+}, {
+  id: 'anything-i-do',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmcwP241RSACz8LcZy8ms49TSpgGheq8ejRHPsXRaJZDwP",
+  subtitle: "BlackJack, Hamster NFT",
+  title: "Anything I Do",
+  startTime: 1710352800,
+  link: "/preview/anything-i-do"
 }]
 
 const activeDrops = computed(() => {
