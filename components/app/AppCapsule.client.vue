@@ -49,7 +49,8 @@
 </template>
 
 <script lang="ts" setup>
-import Capsule, { CapsuleProtoSigner, Environment } from '@usecapsule/web-sdk';
+import Capsule, { Environment } from '@usecapsule/web-sdk';
+import { CapsuleProtoSigner } from '@usecapsule/cosmjs-v0-integration';
 
 const capsule = new Capsule(
   Environment.DEVELOPMENT,
@@ -67,6 +68,7 @@ async function registerUser() {
   loadingRegister.value = true;
 
   try {
+    await capsule.logout();
     await capsule.createUser(email.value);
   } catch (e) {
     error((e as Error).message);
@@ -98,6 +100,7 @@ async function loginUser() {
   loadingLogin.value = true;
 
   try {
+    await capsule.logout();
     const passkeyUrl = await capsule.initiateUserLogin(email.value);
     window.open(passkeyUrl, 'popup', 'width=575,height=820');
 
@@ -115,5 +118,9 @@ async function loginUser() {
   } finally {
     loadingLogin.value = false;
   }
+}
+
+async function logout() {
+  await capsule.logout();
 }
 </script>
