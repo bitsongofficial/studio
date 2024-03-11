@@ -1,5 +1,6 @@
 import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 import { polyfillNode } from "esbuild-plugin-polyfill-node";
+import { nodePolyfills } from "vite-plugin-node-polyfills";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -80,6 +81,7 @@ export default defineNuxtConfig({
     //   ]
     // },
     plugins: [
+      nodePolyfills(),
       polyfillNode({
         polyfills: {
           buffer: true,
