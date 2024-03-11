@@ -1,5 +1,5 @@
 import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
-import { polyfillNode } from "esbuild-plugin-polyfill-node";
+//import { polyfillNode } from "esbuild-plugin-polyfill-node";
 import { nodePolyfills } from "vite-plugin-node-polyfills";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
@@ -82,24 +82,24 @@ export default defineNuxtConfig({
     // },
     plugins: [
       nodePolyfills(),
-      polyfillNode({
-        polyfills: {
-          buffer: true,
-        },
-      }),
+      // polyfillNode({
+      //   polyfills: {
+      //     buffer: true,
+      //   },
+      // }),
     ],
-    optimizeDeps: {
-      esbuildOptions: {
-        define: {
-          global: "globalThis",
-        },
-      },
-      include: [
-        '@usecapsule/web-sdk',
-        'randomBytes',
-        'crypto'
-      ]
-    },
+    // optimizeDeps: {
+    //   esbuildOptions: {
+    //     define: {
+    //       global: "globalThis",
+    //     },
+    //   },
+    //   include: [
+    //     '@usecapsule/web-sdk',
+    //     'randomBytes',
+    //     'crypto'
+    //   ]
+    // },
     vue: {
       template: {
         transformAssetUrls,
