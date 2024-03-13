@@ -4,6 +4,10 @@ import { polyfillNode } from "esbuild-plugin-polyfill-node";
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
+  extends: [
+    '@bstudio/ui',
+    'nuxt-umami'
+  ],
   appConfig: {
     umami: {
       version: 2,
@@ -51,7 +55,6 @@ export default defineNuxtConfig({
       'yellow-hilarious-jay-665.mypinata.cloud'
     ],
   },
-  extends: ['nuxt-umami'],
   modules: [
     'nuxt-gtag',
     'nuxt-og-image',

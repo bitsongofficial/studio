@@ -2,6 +2,8 @@
   <app-page>
     <template #body>
 
+      <BHelloWorld />
+
       <ClientOnly>
         <v-window v-model="window" show-arrows>
           <template v-slot:prev="{ props }">
