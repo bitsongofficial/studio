@@ -28,19 +28,19 @@
     <template #append>
       <ClientOnly>
         <div class="d-flex flex-columns justify-center align-center">
-          <a v-for="social in socials" :key="social.href" :href="social.href" target="_blank"
+          <NuxtLink v-for="social in socials" :key="social.href" :to="social.href" external
             class="text-surface-variant drawer-icon">
-            <font-awesome-icon :icon="social.icon"></font-awesome-icon>
-          </a>
+            <span :class="social.icon"></span>
+          </NuxtLink>
         </div>
         <div class="d-flex flex-columns justify-center align-center mb-5">
-          <a class="v-btn v-theme--mainnetTheme text-surface-variant v-btn--density-default rounded-xl v-btn--size-default v-btn--variant-tonal"
-            href="https://github.com/bitsongofficial/studio" target="_blank">
+          <NuxtLink class="v-btn v-theme--mainnetTheme text-surface-variant v-btn--density-default rounded-xl v-btn--size-default v-btn--variant-tonal"
+            to="https://github.com/bitsongofficial/studio" external>
             <span class="v-btn__overlay"></span>
             <span class="v-btn__underlay"></span>
-            <v-icon>mdi-github</v-icon>
+            <v-icon class="i-mdi:github"></v-icon>
             <span class="mx-2 text-caption">{{ repo?.stargazers_count }}</span>
-          </a>
+          </NuxtLink>
         </div>
       </ClientOnly>
     </template>
@@ -53,19 +53,19 @@ const { drawer, navItems } = useNavigationDrawer();
 
 const socials = [
   {
-    icon: ['fab', 'discord'],
+    icon: ['i-logos:discord'],
     href: 'https://discord.bitsong.io',
   },
   {
-    icon: ['fab', 'twitter'],
+    icon: ['i-logos:twitter'],
     href: 'https://twitter.com/BitSongOfficial',
   },
   {
-    icon: ['fab', 'telegram'],
+    icon: ['i-logos:telegram'],
     href: 'https://t.me/BitSongOfficial',
   },
   {
-    icon: ['fab', 'instagram'],
+    icon: ['i-logos:instagram'],
     href: 'https://www.instagram.com/bitsong_official'
   },
 ]

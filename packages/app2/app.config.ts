@@ -1,3 +1,5 @@
+// @unocss-include <== DON'T REMOVE THIS LINE
+
 export default defineAppConfig({
   app: {
     name: "Studio",
@@ -7,7 +9,7 @@ export default defineAppConfig({
   navigation: [
     {
       title: "Home",
-      icon: "mdi-home",
+      icon: "i-mdi:home",
       to: "/",
       onlyLoggedIn: false,
       exact: true,
@@ -15,19 +17,19 @@ export default defineAppConfig({
   ],
   socials: [
     {
-      icon: ["fab", "discord"],
+      icon: "i-mdi:discord",
       href: "https://discord.bitsong.io",
     },
     {
-      icon: ["fab", "twitter"],
+      icon: "i-mdi:twitter",
       href: "https://twitter.com/BitSongOfficial",
     },
     {
-      icon: ["fab", "telegram"],
+      icon: "i-mdi:telegram",
       href: "https://t.me/BitSongOfficial",
     },
     {
-      icon: ["fab", "instagram"],
+      icon: "i-mdi:instagram",
       href: "https://www.instagram.com/bitsong_official",
     },
   ],

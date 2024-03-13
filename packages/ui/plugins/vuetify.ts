@@ -1,3 +1,42 @@
+import type { ThemeDefinition } from "vuetify";
+
+// @ts-expect-error Cannot find module vuetify/lib/util/colors or its corresponding type declarations.
+import colors from "vuetify/lib/util/colors";
+
+import "@/assets/scss/style.scss";
+
+export default defineNuxtPlugin((nuxtApp) => {
+  nuxtApp.hook("vuetify:before-create", ({ vuetifyOptions }) => {
+    const mainnetTheme: ThemeDefinition = {
+      dark: true,
+      colors: {
+        // primary: '#f50059',
+        primary: "#f40a63",
+        secondary: colors.blue.base,
+      },
+    };
+
+    const testnetTheme: ThemeDefinition = {
+      dark: true,
+      colors: {
+        primary: colors.green.base,
+        secondary: colors.blue.base,
+      },
+    };
+
+    vuetifyOptions.theme = {
+      defaultTheme:
+        useAppConfig().app.network === "mainnet"
+          ? "mainnetTheme"
+          : "testnetTheme",
+      themes: {
+        mainnetTheme,
+        testnetTheme,
+      },
+    };
+  });
+});
+/*
 import { createVuetify } from "vuetify";
 import type { ThemeDefinition } from "vuetify";
 import * as components from "vuetify/components";
@@ -70,3 +109,4 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   nuxtApp.vueApp.use(vuetify);
 });
+*/
