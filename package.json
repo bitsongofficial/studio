@@ -4,11 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "typecheck": "stale-dep -u && pnpm -C packages/ui run typecheck && pnpm -C packages/app2 run typecheck",
     "build": "pnpm -r build",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "stale-dep": "^0.7.0"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
-  "packageManager": "pnpm@8.7.1+sha1.cb9fb56ca170a718619cd9bc669d99ddadc1afb5"
+  "packageManager": "pnpm@8.15.4"
 }

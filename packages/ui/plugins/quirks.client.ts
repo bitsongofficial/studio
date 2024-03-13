@@ -13,23 +13,23 @@ const newbitsong = {
     rpc: [
       {
         address: "https://rpc.explorebitsong.com",
-        provider: "bitsong"
-      }
+        provider: "bitsong",
+      },
     ],
     rest: [
       {
         address: "https://lcd.explorebitsong.com",
-        provider: "bitsong"
+        provider: "bitsong",
       },
-    ]
+    ],
   },
-}
+};
 
 const config: Config = {
   wallets: [keplrExtension, leapExtension],
   chains: [osmosis, newbitsong],
   assetsLists: [osmosisAssetList, bitsongAssetList],
-  autoAccountChange: false
+  autoAccountChange: false,
 };
 
 export default defineNuxtPlugin((nuxtApp) => {

@@ -1,20 +1,62 @@
+<script setup lang="ts">
+import defaultImage from "~ui/assets/images/default.png";
+
+const { address, accountName } = useChain("bitsong");
+const { disconnect, connected } = useConnect();
+
+const menu = ref(false);
+const user = await useUser();
+const { balance: _balance, formattedBalance, loading, fetchBalance: _fecthBalance } = useUserBalance();
+
+useWalletEvents("keystorechange", () => {
+  disconnect();
+});
+
+async function fetchBalance() {
+  await _fecthBalance(address);
+}
+
+watch(connected, async (val) => {
+  if (val)
+    await fetchBalance();
+});
+
+const avatar = computed(() => {
+  if (user.value?.avatar)
+    return useIpfsLink(user.value.avatar);
+  return defaultImage;
+});
+
+const name = computed(() => {
+  if (user.value?.username)
+    return user.value.username;
+  return formatShortAddress(toValue(address), 6);
+});
+
+onMounted(async () => {
+  if (connected.value)
+    await fetchBalance();
+});
+</script>
+
 <template>
   <div v-if="connected" class="d-flex align-center">
     <v-menu v-model="menu" :close-on-content-click="false">
-      <template v-slot:activator="{ props }">
-        <v-list width="210" :style="{ cursor: 'pointer' }" v-bind="props" bg-color="transparent" variant="text"
-          density="comfortable" rounded="pill">
-          <v-list-item :prepend-avatar="avatar" :title="name" :subtitle="formattedBalance">
-          </v-list-item>
+      <template #activator="{ props }">
+        <v-list
+          width="210" :style="{ cursor: 'pointer' }" v-bind="props" bg-color="transparent" variant="text"
+          density="comfortable" rounded="pill"
+        >
+          <v-list-item :prepend-avatar="avatar" :title="name" :subtitle="formattedBalance" />
         </v-list>
       </template>
 
       <v-card min-width="300">
         <div class="py-3 text-center flex-grow-1">
-          <v-avatar size="80" @click.stop="navigateTo('/me')" :style="{ cursor: 'pointer' }">
-            <v-img :src="avatar" :alt="accountName" cover></v-img>
+          <v-avatar size="80" :style="{ cursor: 'pointer' }" @click.stop="navigateTo('/me')">
+            <v-img :src="avatar" :alt="accountName" cover />
           </v-avatar>
-          <v-card-title @click.stop="navigateTo('/me')" :style="{ cursor: 'pointer' }">
+          <v-card-title :style="{ cursor: 'pointer' }" @click.stop="navigateTo('/me')">
             {{ name }}
           </v-card-title>
           <v-card-subtitle :style="{ marginTop: '-6px' }">
@@ -23,11 +65,13 @@
           <v-card-subtitle v-if="user?.username">
             {{ formatShortAddress(address, 6) }}
           </v-card-subtitle>
-          <v-btn icon="mdi-refresh" :loading="loading" size="small" variant="text" rounded="pill" color="grey-lighten-1"
-            @click.stop="fetchBalance"></v-btn>
+          <v-btn
+            icon="mdi-refresh" :loading="loading" size="small" variant="text" rounded="pill" color="grey-lighten-1"
+            @click.stop="fetchBalance"
+          />
           <AppCopyBtn v-if="address" :text="address" />
         </div>
-        <v-divider></v-divider>
+        <v-divider />
         <v-list density="comfortable">
           <v-list-item append-icon="mdi-account" to="/me">
             <v-list-item-title>My Profile</v-list-item-title>
@@ -37,52 +81,14 @@
           </v-list-item>
         </v-list>
         <v-card-actions>
-          <v-btn @click.stop="disconnect" prepend-icon="mdi-logout" block rounded="pill" variant="outlined"
-            color="primary">Disconnect</v-btn>
+          <v-btn
+            prepend-icon="mdi-logout" block rounded="pill" variant="outlined" color="primary"
+            @click.stop="disconnect"
+          >
+            Disconnect
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-menu>
   </div>
 </template>
-
-<script setup lang="ts">
-import defaultImage from "~ui/assets/images/default.png";
-
-const { address, accountName } = useChain("bitsong")
-const { disconnect, connected } = useConnect();
-
-const menu = ref(false);
-const user = await useUser();
-const { balance, formattedBalance, loading, fetchBalance: _fecthBalance } = useUserBalance();
-
-useWalletEvents("keystorechange", () => {
-  disconnect()
-});
-
-async function fetchBalance() {
-  await _fecthBalance(address)
-}
-
-watch(connected, async (val) => {
-  if (val) {
-    await fetchBalance()
-  }
-}
-)
-
-const avatar = computed(() => {
-  if (user.value?.avatar) return useIpfsLink(user.value.avatar)
-  return defaultImage
-})
-
-const name = computed(() => {
-  if (user.value?.username) return user.value.username
-  return formatShortAddress(toValue(address), 6)
-})
-
-onMounted(async () => {
-  if (connected.value) {
-    await fetchBalance()
-  }
-})
-</script>

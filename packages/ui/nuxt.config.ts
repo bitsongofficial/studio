@@ -1,29 +1,30 @@
-import { createResolver } from '@nuxt/kit'
-import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
+import { createResolver } from "@nuxt/kit";
+import vuetify, { transformAssetUrls } from "vite-plugin-vuetify";
 import { polyfillNode } from "esbuild-plugin-polyfill-node";
-const { resolve } = createResolver(import.meta.url)
+
+const { resolve } = createResolver(import.meta.url);
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  alias: { '~ui': resolve('./') },
+  alias: { "~ui": resolve("./") },
   components: [
-    { path: '~ui/components', prefix: 'B' }
+    { path: "~ui/components", prefix: "B" },
   ],
   build: {
-    transpile: ['vuetify'],
+    transpile: ["vuetify"],
   },
   css: [
-    '@mdi/font/css/materialdesignicons.css',
-    '@fortawesome/fontawesome-free/css/all.css'
+    "@mdi/font/css/materialdesignicons.css",
+    "@fortawesome/fontawesome-free/css/all.css",
   ],
   modules: [
-    '@quirks/nuxt',
+    "@quirks/nuxt",
     (_options, nuxt) => {
-      nuxt.hooks.hook('vite:extendConfig', (config) => {
-        // @ts-expect-error
-        config.plugins.push(vuetify({ autoImport: true }))
-      })
+      nuxt.hooks.hook("vite:extendConfig", (config) => {
+        // @ts-expect-error config.plugins is possibly undefined
+        config.plugins.push(vuetify({ autoImport: true }));
+      });
     },
   ],
   vite: {
@@ -34,4 +35,4 @@ export default defineNuxtConfig({
       },
     },
   },
-})
+});

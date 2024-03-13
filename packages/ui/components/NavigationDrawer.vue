@@ -1,3 +1,14 @@
+<script setup lang="ts">
+import type { SocialItem } from "~ui/types";
+
+const { app: { name, network, githubRepo }, socials } = useAppConfig();
+const { drawer, navItems } = useNavigationDrawer();
+
+const { data: repo } = useFetch<{ stargazers_count: number }>(`https://api.github.com/repos/${githubRepo}`, {
+  pick: ["stargazers_count"],
+});
+</script>
+
 <template>
   <v-navigation-drawer v-model="drawer" color="black">
     <div class="d-flex pt-3 pb-1 pl-4">
@@ -12,7 +23,9 @@
         </NuxtLink>
       </div>
       <div class="d-flex align-center">
-        <v-chip color="primary" class="text-capitalize">{{ network }}</v-chip>
+        <v-chip color="primary" class="text-capitalize">
+          {{ network }}
+        </v-chip>
       </div>
     </div>
     <v-list nav>
@@ -28,16 +41,20 @@
     <template #append>
       <ClientOnly>
         <div class="d-flex flex-columns justify-center align-center">
-          <a v-for="social in socials as SocialItem[]" :key="social.href" :href="social.href" target="_blank"
-            class="text-surface-variant drawer-icon">
-            <font-awesome-icon :icon="social.icon"></font-awesome-icon>
+          <a
+            v-for="social in socials as SocialItem[]" :key="social.href" :href="social.href" target="_blank"
+            class="text-surface-variant drawer-icon"
+          >
+            <font-awesome-icon :icon="social.icon" />
           </a>
         </div>
         <div class="d-flex flex-columns justify-center align-center mb-5">
-          <a class="v-btn v-theme--mainnetTheme text-surface-variant v-btn--density-default rounded-xl v-btn--size-default v-btn--variant-tonal"
-            :href="`https://github.com/${githubRepo}`" target="_blank">
-            <span class="v-btn__overlay"></span>
-            <span class="v-btn__underlay"></span>
+          <a
+            class="v-btn v-theme--mainnetTheme text-surface-variant v-btn--density-default rounded-xl v-btn--size-default v-btn--variant-tonal"
+            :href="`https://github.com/${githubRepo}`" target="_blank"
+          >
+            <span class="v-btn__overlay" />
+            <span class="v-btn__underlay" />
             <v-icon>mdi-github</v-icon>
             <span class="mx-2 text-caption">{{ repo?.stargazers_count }}</span>
           </a>
@@ -46,17 +63,6 @@
     </template>
   </v-navigation-drawer>
 </template>
-
-<script setup lang="ts">
-import type { SocialItem } from '~ui/types';
-
-const { app: { name, network, githubRepo }, socials } = useAppConfig()
-const { drawer, navItems } = useNavigationDrawer();
-
-const { data: repo } = useFetch<{ stargazers_count: number }>(`https://api.github.com/repos/${githubRepo}`, {
-  pick: ['stargazers_count'],
-})
-</script>
 
 <style>
 .drawer-icon {

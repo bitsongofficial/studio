@@ -11,7 +11,7 @@ export interface User {
   cover: string | null;
 }
 
-export const useUserState = () => {
+export function useUserState() {
   const user = useState<User | null>("user", () => null);
-  return user
+  return user;
 }

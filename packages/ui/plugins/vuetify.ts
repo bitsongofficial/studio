@@ -3,26 +3,26 @@ import type { ThemeDefinition } from "vuetify";
 import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";
 
-import { md3 } from 'vuetify/blueprints'
+import { md3 } from "vuetify/blueprints";
 import { mdi } from "vuetify/iconsets/mdi";
 
 import { aliases, fa } from "vuetify/iconsets/fa-svg";
-import { library, config } from "@fortawesome/fontawesome-svg-core";
+import { config, library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { fas } from "@fortawesome/free-solid-svg-icons";
-import { far } from '@fortawesome/free-regular-svg-icons'
+import { far } from "@fortawesome/free-regular-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 
 import "@/assets/scss/style.scss";
 
-// @ts-ignore
+// @ts-expect-error Cannot find module vuetify/lib/util/colors or its corresponding type declarations.
 import colors from "vuetify/lib/util/colors";
 
 export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.component("font-awesome-icon", FontAwesomeIcon);
 
-  library.add(fas)
-  library.add(far)
+  library.add(fas);
+  library.add(far);
   library.add(fab);
 
   config.autoAddCss = false;
@@ -30,8 +30,8 @@ export default defineNuxtPlugin((nuxtApp) => {
   const mainnetTheme: ThemeDefinition = {
     dark: true,
     colors: {
-      //primary: '#f50059',
-      primary: '#f40a63',
+      // primary: '#f50059',
+      primary: "#f40a63",
       secondary: colors.blue.base,
     },
   };
