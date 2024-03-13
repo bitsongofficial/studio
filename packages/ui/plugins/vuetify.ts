@@ -50,7 +50,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     blueprint: md3,
     theme: {
       defaultTheme:
-        useRuntimeConfig().public.network === "mainnet"
+        useAppConfig().app.network === "mainnet"
           ? "mainnetTheme"
           : "testnetTheme",
       themes: {
