@@ -41,23 +41,23 @@ const { data: repo } = useFetch<{ stargazers_count: number }>(`https://api.githu
     <template #append>
       <ClientOnly>
         <div class="d-flex flex-columns justify-center align-center">
-          <a
-            v-for="social in socials as SocialItem[]" :key="social.href" :href="social.href" target="_blank"
+          <NuxtLink
+            v-for="social in socials as SocialItem[]" :key="social.href" :to="social.href" external
             class="text-surface-variant drawer-icon"
           >
-            <font-awesome-icon :icon="social.icon" />
-          </a>
+            <span :class="social.icon" />
+          </NuxtLink>
         </div>
         <div class="d-flex flex-columns justify-center align-center mb-5">
-          <a
+          <NuxtLink
             class="v-btn v-theme--mainnetTheme text-surface-variant v-btn--density-default rounded-xl v-btn--size-default v-btn--variant-tonal"
-            :href="`https://github.com/${githubRepo}`" target="_blank"
+            :to="`https://github.com/${githubRepo}`" external
           >
             <span class="v-btn__overlay" />
             <span class="v-btn__underlay" />
-            <v-icon>mdi-github</v-icon>
+            <v-icon class="i-mdi:github" />
             <span class="mx-2 text-caption">{{ repo?.stargazers_count }}</span>
-          </a>
+          </NuxtLink>
         </div>
       </ClientOnly>
     </template>
