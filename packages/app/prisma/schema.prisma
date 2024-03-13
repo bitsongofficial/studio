@@ -1,0 +1,130 @@
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+  schemas   = ["public", "web3auth"] // indexer, nft...
+
+  // Only if you enable `postgresqlExtensions` preview feature
+  // extensions        = [hstore(schema: "myHstoreSchema"), pg_trgm, postgis(version: "2.1")]
+}
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["multiSchema", "views"]
+
+  // previewFeatures = ["postgresqlExtensions"]
+}
+
+model User {
+  id String @id @unique
+
+  address                             String    @unique
+  avatar                              String?
+  cover                               String?
+  username                            String?
+  email                               String?
+  email_to_verify                     String?
+  email_verified                      Boolean   @default(false)
+  email_verification_token            String?
+  email_verification_token_expires_at DateTime?
+  email_verification_sent_at          DateTime?
+  email_verified_at                   DateTime?
+
+  created_at DateTime @default(now())
+
+  hidden Boolean @default(false)
+
+  auth_session UserSession[]
+  key          UserKey[]
+
+  @@schema("web3auth")
+}
+
+model UserSession {
+  id             String @id @unique
+  user_id        String
+  active_expires BigInt
+  idle_expires   BigInt
+  user           User   @relation(references: [id], fields: [user_id], onDelete: Cascade)
+
+  @@index([user_id])
+  @@schema("web3auth")
+}
+
+model UserKey {
+  id              String  @id @unique
+  hashed_password String?
+  user_id         String
+  user            User    @relation(references: [id], fields: [user_id], onDelete: Cascade)
+
+  @@index([user_id])
+  @@schema("web3auth")
+}
+
+model DropNotifications {
+  id         String   @id @unique
+  user_id    String
+  drop_id    String
+  email      String
+  created_at DateTime @default(now())
+
+  @@index([user_id])
+  @@index([drop_id])
+  @@schema("public")
+}
+
+view nfttokenview {
+  nft_id    String  @id @unique
+  nft_name  String
+  nft_image String?
+  token_id  String
+  owner     String
+
+  @@schema("public")
+}
+
+view nftview {
+  id                  String    @id @unique
+  block_height        Int
+  tx_hash             String
+  symbol              String
+  name                String
+  image               String?
+  animation_url       String?
+  uri                 String?
+  payment_denom       String?
+  payment_address     String?
+  max_per_address     Int?
+  seller_fee_bps      Int?
+  referral_fee_bps    Int?
+  start_time          DateTime?
+  sale_type           String?
+  marketplace_address String?
+  ratio               Int?
+  sender              String?
+  volume              Int?
+  last_price          Int?
+  timestamp           DateTime?
+
+  @@schema("public")
+}
+
+view nftactivityview {
+  id                  String   @id @unique
+  block_height        Int
+  tx_hash             String
+  nft_id              String
+  token_id            String
+  side                String
+  referral            String?
+  royalties_recipient String?
+  payment_denom       String?
+  royalties           Int
+  referral_fee        Int
+  protocol_fee        Int
+  total_price         Int
+  sender              String
+  timestamp           DateTime
+
+  @@schema("public")
+}

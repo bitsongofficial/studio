@@ -1,0 +1,100 @@
+// Ref: https://github.com/nuxt-community/vuetify-module#customvariables
+@use 'sass:math';
+@use 'sass:map';
+@use 'sass:meta';
+@use 'vuetify/lib/styles/tools/functions' as *;
+
+$font-size-root: 16px;
+$body-font-family: 'Circular Std', sans-serif !default;
+$heading-font-family: $body-font-family !default;
+
+$grid-breakpoints: (
+  'xs': 0,
+  'sm': 600px,
+  'md': 960px,
+  'lg': 1280px,
+  'xl': 1920px,
+  'xxl': 2560px,
+);
+
+/*$typography: () !default;
+$typography: map-deep-merge(
+    (
+        'h1': (
+            'size': 2.25rem,
+            'weight': 600,
+            'line-height': 2.25rem,
+            'font-family': inherit
+        ),
+        'h2': (
+            'size': 1.875rem,
+            'weight': 600,
+            'line-height':1.875rem,
+            'font-family': inherit
+        ),
+        'h3': (
+            'size': 1.5rem,
+            'weight': 600,
+            'line-height': 1.5rem,
+            'font-family': inherit
+        ),
+        'h4': (
+            'size': 1.3125rem,
+            'weight': 600,
+            'line-height': 1.3125rem,
+            'font-family': inherit
+        ),
+        'h5': (
+            'size':  1.125rem,
+            'weight': 600,
+            'line-height': 1.125rem,
+            'font-family': inherit
+        ),
+        'h6': (
+            'size': 1rem,
+            'weight': 600,
+            "line-height":1rem,
+            'font-family': inherit
+        ),
+        'subtitle-1': (
+            'size': 0.875rem,
+            'weight': 500,
+            'line-height': 1rem,
+            'font-family': inherit
+        ),
+        'subtitle-2': (
+            'size': 0.75rem,
+            'weight': 400,
+            'line-height': 1rem,
+            'font-family': inherit
+        ),
+        'body-1': (
+            'size': 0.875rem,
+            'weight': 400,
+            'font-family': inherit
+        ),
+        'body-2': (
+            'size': 0.75rem,
+            'weight': 400,
+            'font-family': inherit
+        ),
+        'button': (
+            'size': 0.875rem,
+            'weight': 500,
+            'font-family': inherit,
+            'text-transform': uppercase
+        ),
+        'caption': (
+            'size': 0.75rem,
+            'weight': 400,
+            'font-family': inherit
+        ),
+        'overline': (
+            'size': 0.75rem,
+            'weight': 500,
+            'font-family': inherit,
+            'text-transform': uppercase
+        ),
+    ),
+    $typography
+);*/
