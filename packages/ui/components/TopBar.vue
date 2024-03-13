@@ -17,7 +17,9 @@ const { toggle } = useNavigationDrawer();
 
 <template>
   <v-app-bar elevation="0" color="black">
-    <v-btn class="d-md-none" variant="text" icon="mdi-menu" @click.stop="toggle" />
+    <v-btn class="d-md-none" variant="text" icon @click="toggle">
+      <v-icon class="i-mdi:menu" />
+    </v-btn>
 
     <div
       class="d-flex pt-2 pb-1" :class="{

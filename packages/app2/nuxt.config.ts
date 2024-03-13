@@ -7,6 +7,12 @@ export default defineNuxtConfig({
     optimizeDeps: {
       include: ["@unhead/vue", "@quirks/store"],
     },
+    build: {
+      target: "esnext",
+    },
+  },
+  vue: {
+    propsDestructure: true,
   },
   vuetify: {
     moduleOptions: {
