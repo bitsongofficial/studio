@@ -28,7 +28,7 @@
     <template #append>
       <ClientOnly>
         <div class="d-flex flex-columns justify-center align-center">
-          <a v-for="social in socials" :key="social.href" :href="social.href" target="_blank"
+          <a v-for="social in socials as SocialItem[]" :key="social.href" :href="social.href" target="_blank"
             class="text-surface-variant drawer-icon">
             <font-awesome-icon :icon="social.icon"></font-awesome-icon>
           </a>
@@ -48,6 +48,8 @@
 </template>
 
 <script setup lang="ts">
+import type { SocialItem } from '~ui/types';
+
 const { app: { name, network, githubRepo }, socials } = useAppConfig()
 const { drawer, navItems } = useNavigationDrawer();
 

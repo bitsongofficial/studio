@@ -1,10 +1,4 @@
-interface NavItem {
-  title: string;
-  icon: string;
-  to: string;
-  onlyLoggedIn?: boolean;
-  exact?: boolean;
-}
+import type { NavItem } from "~ui/types/navigation";
 
 export const useNavigationDrawer = () => {
   const drawer = useState<boolean | null>("drawer", () => null);
@@ -21,17 +15,7 @@ export const useNavigationDrawer = () => {
     drawer.value = !drawer.value
   }
 
-  const navItems = computed<NavItem[]>(() => {
-    return [
-      {
-        title: "Home",
-        icon: "mdi-home",
-        to: "/",
-        onlyLoggedIn: false,
-        exact: true,
-      }
-    ];
-  });
+  const navItems = useAppConfig().navigation as NavItem[];
 
   return {
     drawer,
