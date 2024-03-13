@@ -1,6 +1,7 @@
 <template>
   <v-layout>
     <BNavigationDrawer />
+    <BTopBar :show-logo="false" />
     <v-main>
       <slot> </slot>
     </v-main>
