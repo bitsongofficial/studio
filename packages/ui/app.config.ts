@@ -1,6 +1,6 @@
 export default defineAppConfig({
   app: {
-    name: 'BitSong Studio',
+    name: 'Studio',
     network: 'mainnet',
     githubRepo: 'bitsongofficial/studio',
   },

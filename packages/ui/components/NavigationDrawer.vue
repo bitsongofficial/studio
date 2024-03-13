@@ -3,7 +3,7 @@
     <div class="d-flex pt-3 pb-1 pl-4">
       <div>
         <NuxtLink to="/">
-          <app-logo> </app-logo>
+          <BLogo />
         </NuxtLink>
       </div>
       <div class="ml-3 text-h5 d-flex align-center mr-2">

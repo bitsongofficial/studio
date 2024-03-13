@@ -1,0 +1,38 @@
+// ================================== //
+// Fonts
+// ================================== //
+@font-face {
+  font-family: 'Circular Std';
+  font-weight: normal;
+  font-style: normal;
+  src: local('Circular Std Book'), local('CircularStd-Book'), url('~ui/assets/fonts/CircularStd-Book.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Circular Std';
+  font-weight: 500;
+  font-style: normal;
+  src: local('Circular Std Medium'), local('CircularStd-Medium'), url('~ui/assets/fonts/CircularStd-Medium.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Circular Std';
+  font-weight: bold;
+  font-style: normal;
+  src: local('Circular Std Bold'), local('CircularStd-Bold'), url('~ui/assets/fonts/CircularStd-Bold.woff2') format('woff2');
+}
+
+// ================================== //
+// Required Files
+// ================================== //
+@import "variables";
+@import 'vuetify/styles/main.sass';
+
+// ================================== //
+// Icons
+// ================================== //
+@import "https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css";
+
+body {
+  background-color: #000;
+}
