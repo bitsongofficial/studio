@@ -1,8 +1,8 @@
 export default defineAppConfig({
   app: {
-    name: 'Studio',
-    network: 'mainnet',
-    githubRepo: 'bitsongofficial/studio',
+    name: "Studio",
+    network: "mainnet",
+    githubRepo: "bitsongofficial/studio",
   },
   navigation: [
     {
@@ -15,20 +15,20 @@ export default defineAppConfig({
   ],
   socials: [
     {
-      icon: ['fab', 'discord'],
-      href: 'https://discord.bitsong.io',
+      icon: ["fab", "discord"],
+      href: "https://discord.bitsong.io",
     },
     {
-      icon: ['fab', 'twitter'],
-      href: 'https://twitter.com/BitSongOfficial',
+      icon: ["fab", "twitter"],
+      href: "https://twitter.com/BitSongOfficial",
     },
     {
-      icon: ['fab', 'telegram'],
-      href: 'https://t.me/BitSongOfficial',
+      icon: ["fab", "telegram"],
+      href: "https://t.me/BitSongOfficial",
     },
     {
-      icon: ['fab', 'instagram'],
-      href: 'https://www.instagram.com/bitsong_official'
+      icon: ["fab", "instagram"],
+      href: "https://www.instagram.com/bitsong_official",
     },
-  ]
-})
+  ],
+});

@@ -1,19 +1,19 @@
 import type { NavItem } from "~ui/types/navigation";
 
-export const useNavigationDrawer = () => {
+export function useNavigationDrawer() {
   const drawer = useState<boolean | null>("drawer", () => null);
 
   const open = () => {
-    drawer.value = true
-  }
+    drawer.value = true;
+  };
 
   const close = () => {
-    drawer.value = false
-  }
+    drawer.value = false;
+  };
 
   const toggle = () => {
-    drawer.value = !drawer.value
-  }
+    drawer.value = !drawer.value;
+  };
 
   const navItems = useAppConfig().navigation as NavItem[];
 
@@ -22,6 +22,6 @@ export const useNavigationDrawer = () => {
     open,
     close,
     toggle,
-    navItems
-  }
+    navItems,
+  };
 }

@@ -25,3 +25,5 @@ logs
 prisma/db
 
 storage
+
+**/.eslintcache

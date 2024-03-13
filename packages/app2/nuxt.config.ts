@@ -2,4 +2,4 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   extends: ["@bstudio/ui"],
-})
+});
