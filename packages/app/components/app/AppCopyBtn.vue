@@ -15,6 +15,6 @@ watch(copied, (copied) => {
 </script>
 
 <template>
-  <v-btn v-bind="$attrs" color="grey-lighten-1" icon="i-mdi:content-copy" size="small" variant="text"
+  <v-btn v-bind="$attrs" color="grey-lighten-1" icon="mdi-content-copy" size="small" variant="text"
     @click.stop="copy(text)"></v-btn>
 </template>
