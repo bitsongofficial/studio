@@ -17,6 +17,7 @@
     "@bitsongjs/metadata": "^0.2.1",
     "@bitsongjs/telescope": "3.0.0-dev.21",
     "@iconify-json/mdi": "^1.1.64",
+    "@iconify-json/line-md": "^1.1.36",
     "@iconify-json/logos": "^1.1.42",
     "@lucia-auth/adapter-prisma": "^3.0.2",
     "@nabla-studio/chain-registry": "^0.4.0",

@@ -20,6 +20,7 @@
     "@antfu/eslint-config": "^2.8.1",
     "@bstudio/ui": "workspace:^",
     "@iconify-json/mdi": "^1.1.64",
+    "@iconify-json/line-md": "^1.1.36",
     "@iconify-json/logos": "^1.1.42",
     "@unocss/nuxt": "^0.58.5",
     "eslint": "^8.57.0",

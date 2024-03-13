@@ -4,8 +4,6 @@ import type { SocialItem } from "~ui/types";
 const { app: { name, network, githubRepo }, socials } = useAppConfig();
 const { drawer, navItems } = useNavigationDrawer();
 
-console.log(navItems);
-
 const { data: repo } = useFetch<{ stargazers_count: number }>(`https://api.github.com/repos/${githubRepo}`, {
   pick: ["stargazers_count"],
 });

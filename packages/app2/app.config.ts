@@ -21,7 +21,7 @@ export default defineAppConfig({
       href: "https://discord.bitsong.io",
     },
     {
-      icon: "i-mdi:twitter",
+      icon: "i-line-md:twitter-x",
       href: "https://twitter.com/BitSongOfficial",
     },
     {
