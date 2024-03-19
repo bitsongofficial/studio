@@ -234,6 +234,20 @@ const drops = [{
   title: "Anything I Do",
   startTime: 1710352800,
   link: "/nfts/bitsong1hje6ecs6u683ypnzu8l5d4jsxq4dy96s0m6ezps9uwcuwl30hfuqk95jqe"
+}, {
+  id: 'feeling-good',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/Qmf1KLZF1TWums7VYMzg8Ark8cU2XhX91yNzoj5kGFXMX2",
+  subtitle: "Torrex, J Press & Deviless",
+  title: "Feeling Good",
+  startTime: 1710957600,
+  link: "/nfts/bitsong19vxp8vq8qm368dr026qxh8v82satwaf79y235lfv6wmgpwxx8dts2dftve"
+},{
+  id: 'spicy',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmQpN2HN6HECMEo7WrWcrR2dtyMZwCGfRqn2hFveo5tRMc",
+  subtitle: "J Press",
+  title: "Spicy",
+  startTime: 1711044000,
+  link: "/nfts/bitsong1s84uvkzuz7tlyykp587aynn8xr0m6t5r64lz6pkfyzyrhzaezhrszhwyz5"
 }]
 
 const activeDrops = computed(() => {
