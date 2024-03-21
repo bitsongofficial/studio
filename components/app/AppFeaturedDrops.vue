@@ -241,13 +241,20 @@ const drops = [{
   title: "Feeling Good",
   startTime: 1710957600,
   link: "/nfts/bitsong19vxp8vq8qm368dr026qxh8v82satwaf79y235lfv6wmgpwxx8dts2dftve"
-},{
+}, {
   id: 'spicy',
   image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmQpN2HN6HECMEo7WrWcrR2dtyMZwCGfRqn2hFveo5tRMc",
   subtitle: "J Press",
   title: "Spicy",
   startTime: 1711044000,
   link: "/nfts/bitsong1s84uvkzuz7tlyykp587aynn8xr0m6t5r64lz6pkfyzyrhzaezhrszhwyz5"
+}, {
+  id: 'i-want-to',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmPs61TrrSyjvTZeuPsHKUY8MNiAXkTH196CQprdumhp92",
+  subtitle: "Alpaca, Dario Denso",
+  title: "I Want To",
+  startTime: 1711130400,
+  link: "/nfts/bitsong13xww866f545ackl0004tm94jdh5y7hht5rjnpejktyw4nqkvrxtswkmt53"
 }]
 
 const activeDrops = computed(() => {
