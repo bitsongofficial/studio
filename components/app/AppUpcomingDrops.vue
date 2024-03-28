@@ -45,6 +45,27 @@ const drops = [{
   title: "I Want To",
   startTime: 1711130400,
   link: "/preview/i-want-to"
+}, {
+  id: 'up-funk',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmQGKBtyGg2xFS26qoVYCSewGtdkdtVg2asTRrxzRX1xXV",
+  subtitle: "Torrex",
+  title: "Up Funk",
+  startTime: 1711648800,
+  link: "/preview/up-funk"
+}, {
+  id: 'with-me',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmXJecNhzJKgyaXzWS1PCct3WbJMt2S6qcLj6gx4yRGNRs",
+  subtitle: "J Press, Torrex",
+  title: "With Me",
+  startTime: 1711735200,
+  link: "/preview/with-me"
+}, {
+  id: 'high',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmVk5hmF6KFE6gAgrfwmf5QFM5yJLbVButohmqs5BuqcTM",
+  subtitle: "HXRT",
+  title: "High",
+  startTime: 1712163600,
+  link: "/preview/high"
 }]
 
 const activeDrops = computed(() => {

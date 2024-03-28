@@ -255,6 +255,27 @@ const drops = [{
   title: "I Want To",
   startTime: 1711130400,
   link: "/nfts/bitsong13xww866f545ackl0004tm94jdh5y7hht5rjnpejktyw4nqkvrxtswkmt53"
+}, {
+  id: 'up-funk',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmQGKBtyGg2xFS26qoVYCSewGtdkdtVg2asTRrxzRX1xXV",
+  subtitle: "Torrex",
+  title: "Up Funk",
+  startTime: 1711648800,
+  link: "/nfts/bitsong1taerpmv0tzdrnls7z567khds88fwfpdaeeg7s0wkel9zjap7gnesxnsv6c"
+}, {
+  id: 'with-me',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmXJecNhzJKgyaXzWS1PCct3WbJMt2S6qcLj6gx4yRGNRs",
+  subtitle: "J Press, Torrex",
+  title: "With Me",
+  startTime: 1711735200,
+  link: "/nfts/bitsong1quce89l8clsn8s5tmq5sylg370h58xfnkwadx72crjv90jmetp4sm9de2c"
+}, {
+  id: 'high',
+  image: "https://yellow-hilarious-jay-665.mypinata.cloud/ipfs/QmVk5hmF6KFE6gAgrfwmf5QFM5yJLbVButohmqs5BuqcTM",
+  subtitle: "HXRT",
+  title: "High",
+  startTime: 1712163600,
+  link: "/nfts/bitsong1ukhxlrtje0dt2n7k54m8l83rxjrta7fqwvzzhapgzafwzt38u8pq6pj7dq"
 }]
 
 const activeDrops = computed(() => {
