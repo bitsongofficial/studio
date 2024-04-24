@@ -1,4 +1,5 @@
 {
+  "eslint.experimental.useFlatConfig": true,
   "[prisma]": {
     "editor.defaultFormatter": "Prisma.prisma"
   },

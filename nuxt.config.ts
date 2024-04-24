@@ -53,6 +53,7 @@ export default defineNuxtConfig({
   },
   extends: ['nuxt-umami'],
   modules: [
+    '@nuxt/eslint',
     'nuxt-gtag',
     'nuxt-og-image',
     '@nuxt/image',
