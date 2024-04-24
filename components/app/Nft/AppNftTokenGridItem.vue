@@ -1,6 +1,6 @@
 <template>
   <v-card v-bind="$attrs" rounded="lg" style="cursor: pointer">
-    <v-img @click.stop="navigateTo(`/nfts/${nft}`)" height="250" cover :src="imageSrc" aspect-ratio="1"></v-img>
+    <v-img height="250" cover :src="imageSrc" aspect-ratio="1" @click.stop="navigateTo(`/nfts/${nft}`)"/>
 
     <v-card-subtitle class="mt-4">
       <nuxt-link class="text-decoration-none text-grey text-body-2" :to="`/nfts/${nft}`">

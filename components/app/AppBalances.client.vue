@@ -13,7 +13,7 @@
           <td class="py-4">
             <div class="d-flex align-center">
               <v-avatar size="42" class="mr-4">
-                <v-img :src="balance.image"></v-img>
+                <v-img :src="balance.image"/>
               </v-avatar>
               <div>
                 <div class="text-subtitle-1">{{ balance.symbol }}</div>

@@ -7,11 +7,13 @@
       <v-container fluid>
         <v-row align="center">
           <v-col cols="2">
-            <v-text-field :disabled="data.disabled ? true : false" v-model="ratio" type="number" label="Ratio"
-              variant="outlined"></v-text-field>
+            <v-text-field
+v-model="ratio" :disabled="data.disabled ? true : false" type="number" label="Ratio"
+              variant="outlined"/>
           </v-col>
           <v-col cols="2">
-            <v-text-field :disabled="data.disabled ? true : false" v-model="sellerFee" type="number" label="Seller Fee"
+            <v-text-field
+v-model="sellerFee" :disabled="data.disabled ? true : false" type="number" label="Seller Fee"
               variant="outlined">
               <template #append-inner>
                 %
@@ -20,24 +22,24 @@
           </v-col>
         </v-row>
         <v-row>
-          <v-col cols="auto" v-if="!data.disabled">
+          <v-col v-if="!data.disabled" cols="auto">
             <v-btn @click.stop="onSimulate">Simulate</v-btn>
           </v-col>
-          <v-col cols="1" v-if="data.disabled">
-            <v-text-field v-model="qty" type="number" label="Qty" variant="outlined"></v-text-field>
+          <v-col v-if="data.disabled" cols="1">
+            <v-text-field v-model="qty" type="number" label="Qty" variant="outlined"/>
           </v-col>
-          <v-col cols="auto" v-if="data.disabled">
+          <v-col v-if="data.disabled" cols="auto">
             <v-btn color="green" @click.stop="onBuy">Buy</v-btn>
           </v-col>
-          <v-col cols="auto" v-if="data.disabled">
+          <v-col v-if="data.disabled" cols="auto">
             <v-btn color="red" @click.stop="onSell">Sell</v-btn>
           </v-col>
-          <v-col cols="auto" v-if="data.disabled">
+          <v-col v-if="data.disabled" cols="auto">
             <v-btn color="surface-variant" variant="text" @click.stop="onReset">Reset</v-btn>
           </v-col>
         </v-row>
       </v-container>
-      <v-container fluid v-if="totalVolume > 0">
+      <v-container v-if="totalVolume > 0" fluid>
         <v-row>
           <v-col cols="auto">
             <v-card>
@@ -80,7 +82,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="result in results">
+                <tr v-for="(result, index) in results" :key="index">
                   <td>{{ result.action }}</td>
                   <td>{{ result.supply }}</td>
                   <td>{{ formatCoinAmount(useFromMicroAmount(result.basePrice)) }} BTSG</td>

@@ -1,6 +1,7 @@
 <template>
-  <v-btn v-bind="$attrs" color="grey-lighten-1" icon="mdi-content-copy" size="small" variant="text"
-    @click.stop="copy(text)"></v-btn>
+  <v-btn
+v-bind="$attrs" color="grey-lighten-1" icon="mdi-content-copy" size="small" variant="text"
+    @click.stop="copy(text)"/>
 </template>
 
 <script lang="ts" setup>

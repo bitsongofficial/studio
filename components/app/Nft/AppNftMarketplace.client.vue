@@ -3,23 +3,23 @@
     <v-row>
       <v-col class="text-center">
         <div class="text-grey text-body-2">Buy Price</div>
-        <v-skeleton-loader v-if="loading" class="mx-auto" type="text"></v-skeleton-loader>
-        <div v-else>{{ formatCoinAmount(buyPrice.totalPrice) }}<br /><span class="text-subtitle-2">BTSG</span>
+        <v-skeleton-loader v-if="loading" class="mx-auto" type="text"/>
+        <div v-else>{{ formatCoinAmount(buyPrice.totalPrice) }}<br ><span class="text-subtitle-2">BTSG</span>
         </div>
       </v-col>
 
       <v-col class="text-center">
         <div class="text-grey text-body-2">Last Price</div>
-        <v-skeleton-loader v-if="!lastPrice || lastPrice === 0" class="mx-auto" type="text"></v-skeleton-loader>
+        <v-skeleton-loader v-if="!lastPrice || lastPrice === 0" class="mx-auto" type="text"/>
         <div v-else class="text-grey">
-          {{ formatCoinAmount(useFromMicroAmount(lastPrice ?? 0)) }}<br /><span class="text-subtitle-2">BTSG</span>
+          {{ formatCoinAmount(useFromMicroAmount(lastPrice ?? 0)) }}<br ><span class="text-subtitle-2">BTSG</span>
         </div>
       </v-col>
 
       <v-col class="text-center">
         <div class="text-grey text-body-2">Sell Price</div>
-        <v-skeleton-loader v-if="loading" class="mx-auto" type="text"></v-skeleton-loader>
-        <div v-else>{{ formatCoinAmount(sellPrice.totalPrice) }}<br /><span class="text-subtitle-2">BTSG</span>
+        <v-skeleton-loader v-if="loading" class="mx-auto" type="text"/>
+        <div v-else>{{ formatCoinAmount(sellPrice.totalPrice) }}<br ><span class="text-subtitle-2">BTSG</span>
         </div>
       </v-col>
     </v-row>
@@ -36,7 +36,8 @@
     </v-row>
   </v-container>
 
-  <AppNftCurveDialog v-if="loaded" v-model="marketplaceDialog" :side="marketplaceSide" :title="title" :image="image"
+  <AppNftCurveDialog
+v-if="loaded" v-model="marketplaceDialog" :side="marketplaceSide" :title="title" :image="image"
     :contract-config="contractConfig" />
 </template>
 
@@ -45,7 +46,7 @@
 const { error } = useNotify()
 const { connected } = useConnect();
 
-const emits = defineEmits<{
+defineEmits<{
   (e: "openDialog", value: "buy" | "sell"): void;
 }>();
 

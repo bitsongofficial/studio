@@ -1,6 +1,7 @@
 import { Secp256k1, Secp256k1Signature, Sha256 } from '@cosmjs/crypto'
 import { fromBase64 } from '@cosmjs/encoding'
-import { serializeSignDoc, StdSignDoc } from '@cosmjs/amino'
+import type { StdSignDoc } from '@cosmjs/amino';
+import { serializeSignDoc } from '@cosmjs/amino'
 
 export const makeSignDoc = (address: string, msg: string): StdSignDoc => ({
   chain_id: '',

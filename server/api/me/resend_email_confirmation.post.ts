@@ -33,7 +33,7 @@ export default defineEventHandler(async (event) => {
   const email_verification_token_expires_at = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString()
   const email_verification_sent_at = new Date().toISOString()
 
-  await sendEmailVerification(userResult?.email_to_verify!, userResult?.username!, email_verification_token)
+  await sendEmailVerification(userResult!.email_to_verify!, userResult!.username!, email_verification_token)
 
   await prisma.user.update({
     where: {

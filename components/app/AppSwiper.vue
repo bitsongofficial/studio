@@ -9,28 +9,31 @@
           </div>
         </v-col>
         <v-col cols="4" class="d-flex">
-          <v-spacer></v-spacer>
-          <v-btn @click.stop="swiperRef.$el.swiper.slidePrev()" icon="mdi-chevron-left" variant="text"></v-btn>
+          <v-spacer/>
+          <v-btn icon="mdi-chevron-left" variant="text" @click.stop="swiperRef.$el.swiper.slidePrev()"/>
 
-          <v-btn variant="text" @click.stop="swiperRef.$el.swiper.slideNext()" icon="mdi-chevron-right">
-          </v-btn>
+          <v-btn variant="text" icon="mdi-chevron-right" @click.stop="swiperRef.$el.swiper.slideNext()"/>
         </v-col>
       </v-row>
     </v-container>
-    <swiper :slidesPerView="'auto'" :freeMode="true" :modules="modules" :navigation="true" ref="swiperRef">
-      <swiper-slide v-for="item in items" :key="Math.random().toString(6)" style="width: 220px">
-        <v-container class="mr-2" :class="{
+    <swiper ref="swiperRef" :slides-per-view="'auto'" :free-mode="true" :modules="modules" :navigation="true">
+      <swiper-slide v-for="(item, index) in items" :key="index" style="width: 220px">
+        <v-container
+class="mr-2" :class="{
           'text-center': item.variant === 'profile',
         }">
-          <v-row :align="item.variant === 'profile' ? 'center' : 'start'"
+          <v-row
+:align="item.variant === 'profile' ? 'center' : 'start'"
             :justify="item.variant === 'profile' ? 'center' : 'start'">
             <v-col cols="12">
               <nuxt-link :to="item.titleLink" class="text-decoration-none text-grey">
-                <v-avatar size="160" v-if="item.variant === 'profile'">
-                  <v-img :src="item.image ? img(item.image, { width: 160, format: 'webp' }) : defaultImage"
+                <v-avatar v-if="item.variant === 'profile'" size="160">
+                  <v-img
+:src="item.image ? img(item.image, { width: 160, format: 'webp' }) : defaultImage"
                     :alt="item.title" cover />
                 </v-avatar>
-                <v-img v-else width="180" height="180"
+                <v-img
+v-else width="180" height="180"
                   :src="item.image ? img(item.image, { width: 180, format: 'webp' }) : defaultImage" :alt="item.title"
                   cover />
               </nuxt-link>
@@ -49,21 +52,21 @@
                 </v-card-title>
               </nuxt-link>
 
-              <v-card-subtitle class="pa-0" v-if="item.variant === 'nft'">
+              <v-card-subtitle v-if="item.variant === 'nft'" class="pa-0">
                 by
                 <nuxt-link :to="item.subtitleLink" class="text-decoration-none text-grey text-subtitle-2">
                   {{ formatShortAddress(item.subtitle, 8) }}
                 </nuxt-link>
               </v-card-subtitle>
 
-              <v-card-subtitle class="pa-0" v-else-if="item.variant === 'music_nft'">
+              <v-card-subtitle v-else-if="item.variant === 'music_nft'" class="pa-0">
                 by
                 <nuxt-link :to="item.subtitleLink" class="text-decoration-none text-grey text-subtitle-2">
                   {{ item.subtitle }}
                 </nuxt-link>
               </v-card-subtitle>
 
-              <v-card-subtitle style="max-width: 210px" class="pa-0" v-if="item.variant === 'nft_token'">
+              <v-card-subtitle v-if="item.variant === 'nft_token'" style="max-width: 210px" class="pa-0">
                 <nuxt-link :to="item.subtitleLink" class="text-decoration-none text-grey text-subtitle-2">
                   {{ item.title }}
                 </nuxt-link>

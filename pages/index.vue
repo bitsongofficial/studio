@@ -4,12 +4,12 @@
 
       <ClientOnly>
         <v-window v-model="window" show-arrows>
-          <template v-slot:prev="{ props }">
-            <v-btn variant="text" color="white" icon="mdi-chevron-left" @click="props.onClick"></v-btn>
+          <template #prev="{ props }">
+            <v-btn variant="text" color="white" icon="mdi-chevron-left" @click="props.onClick"/>
           </template>
 
-          <template v-slot:next="{ props }">
-            <v-btn variant="text" color="white" icon="mdi-chevron-right" @click="props.onClick"></v-btn>
+          <template #next="{ props }">
+            <v-btn variant="text" color="white" icon="mdi-chevron-right" @click="props.onClick"/>
           </template>
 
           <v-window-item v-for="(drop, index) in activeDrops" :key="index" :value="index">
@@ -37,8 +37,9 @@
                       <v-row>
                         <v-col cols="12" md="10" class="text-h4 px-md-4 py-3">
                           <ClientOnly>
-                            <vue-countdown class="px-md-2" :time="remainingTime(drop.startTime)"
-                              v-slot="{ days, hours, minutes, seconds }">
+                            <vue-countdown
+v-slot="{ days, hours, minutes, seconds }" class="px-md-2"
+                              :time="remainingTime(drop.startTime)">
                               {{ days }}d {{ hours }}h {{ minutes }}m {{ seconds }}s
                             </vue-countdown>
                           </ClientOnly>
@@ -47,10 +48,11 @@
 
                       <v-row>
                         <v-col cols="12" md="10" class="pb-0">
-                          <v-btn @click.stop="navigateTo(`/preview/${drop.id}`)" block size="large">Preview</v-btn>
+                          <v-btn block size="large" @click.stop="navigateTo(`/preview/${drop.id}`)">Preview</v-btn>
                         </v-col>
                         <v-col cols="12" md="10">
-                          <AppDropNotificationBtn size="large" class="mt-3" :drop-id="drop.id" :title="drop.title"
+                          <AppDropNotificationBtn
+size="large" class="mt-3" :drop-id="drop.id" :title="drop.title"
                             :subtitle="drop.subtitle"
                             :image="img(drop.image, { width: 230, height: 230, fit: 'cover' })"
                             :start-time="drop.startTime" />
@@ -67,7 +69,8 @@
           </v-window-item>
 
           <v-window-item :key="activeDrops.length" :value="activeDrops.length">
-            <AppNftHero class="nft-hero mt-8"
+            <AppNftHero
+class="nft-hero mt-8"
               :image="useIpfsLink('ipfs://QmbGwgtpRFX3XiU2ppFEDnwyCzcfYTNBVsuxcxMMwGpP4t')!"
               title="BitSong NFT Genesis Collection"
               description="Dive into the Exclusive Realm of BitSong with Our Genesis NFT Collection! This collection is more than digital art – it's your VIP pass to BitSong's vibrant ecosystem"
@@ -90,8 +93,9 @@
       <v-container v-if="pending" fluid class="pb-0">
         <v-row>
           <v-col>
-            <v-skeleton-loader class="py-2"
-              type="heading, avatar, avatar, avatar, avatar, avatar, avatar, avatar, avatar"></v-skeleton-loader>
+            <v-skeleton-loader
+class="py-2"
+              type="heading, avatar, avatar, avatar, avatar, avatar, avatar, avatar, avatar"/>
           </v-col>
         </v-row>
       </v-container>

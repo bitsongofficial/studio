@@ -55,7 +55,7 @@ export function useCurveSimulator(options: MaybeRefOrGetter<CurveOptions>) {
   }
 
   const buyPrice = computed(() => {
-    let response = {
+    const response = {
       basePrice: 0,
       creatorFee: 0,
       referralFee: 0,
@@ -90,7 +90,7 @@ export function useCurveSimulator(options: MaybeRefOrGetter<CurveOptions>) {
   })
 
   const sellPrice = computed(() => {
-    let response = {
+    const response = {
       basePrice: 0,
       creatorFee: 0,
       referralFee: 0,

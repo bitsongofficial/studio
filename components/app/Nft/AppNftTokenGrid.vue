@@ -1,7 +1,7 @@
 <template>
   <v-container fluid v-bind="$attrs">
     <v-row>
-      <v-col cols="12" v-if="title">
+      <v-col v-if="title" cols="12">
         <div class="text-md-h4 text-h5 font-weight-bold text-surface-variant align-center d-flex">
           {{ title }}
         </div>

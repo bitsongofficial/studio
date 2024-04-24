@@ -8,9 +8,9 @@
       </v-col>
     </v-row>
     <v-row no-gutters>
-      <v-col cols="12" md="4" v-for="n in 3" :key="n">
+      <v-col v-for="n in 3" :key="n" cols="12" md="4">
         <div v-for="i in 5" :key="i + (n - 1) * 5">
-          <v-skeleton-loader v-if="pending" class="mr-4 mb-4" type="list-item-avatar-two-line"></v-skeleton-loader>
+          <v-skeleton-loader v-if="pending" class="mr-4 mb-4" type="list-item-avatar-two-line"/>
           <AppTopReferralItem v-else :referral="data?.topReferrals[i + (n - 1) * 5 - 1]" />
         </div>
       </v-col>
@@ -30,8 +30,8 @@ const { data, pending, execute } = useAsyncData(async () => {
       address: referral.address,
       username: referral.username,
       avatar: referral.avatar,
-      total_earned: referral.total_earned as Number,
-      unique_users: referral.unique_users as Number,
+      total_earned: referral.total_earned as number,
+      unique_users: referral.unique_users as number,
     } as TopReferralItem)),
   }
 }, {

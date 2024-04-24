@@ -1,5 +1,6 @@
 import { auth } from "../../utils/lucia";
-import { LuciaError, Session } from "lucia";
+import type { Session } from "lucia";
+import { LuciaError } from "lucia";
 import { verifySignature } from "../../utils/bitsong";
 
 export default defineEventHandler(async (event): Promise<Session> => {

@@ -7,7 +7,7 @@
       <v-col cols="auto">
         <NuxtLink>
           <v-avatar size="42">
-            <v-img :src="avatar" :alt="referral.username || referral.address" cover></v-img>
+            <v-img :src="avatar" :alt="referral.username || referral.address" cover/>
           </v-avatar>
         </NuxtLink>
       </v-col>

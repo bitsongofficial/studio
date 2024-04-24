@@ -1,10 +1,13 @@
-import { Prisma, PrismaClient } from '@prisma/client'
-import { DefaultArgs } from '@prisma/client/runtime/library'
+import type { Prisma} from '@prisma/client';
+import { PrismaClient } from '@prisma/client'
+import type { DefaultArgs } from '@prisma/client/runtime/library'
 
 declare global {
+  // eslint-disable-next-line no-var
   var prisma: undefined | PrismaClient<Prisma.PrismaClientOptions, never, DefaultArgs>
 }
 
+// eslint-disable-next-line import/no-mutable-exports
 let prisma: undefined | PrismaClient<Prisma.PrismaClientOptions, never, DefaultArgs>
 
 if (process.env.NODE_ENV === 'production') {

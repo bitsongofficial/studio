@@ -1,7 +1,8 @@
 <template>
   <app-page>
     <template #body>
-      <AppProfileHeader :address="address" :avatar="user?.avatar" :cover="user?.cover" :username="user?.username"
+      <AppProfileHeader
+:address="address" :avatar="user?.avatar" :cover="user?.cover" :username="user?.username"
         :email="user?.email" />
 
       <!--<AppUpcomingDrops v-if="address === 'bitsong1f5ze3svwg8fgjuwwnr743j6fr9vtyr58nex7tu'" class="my-8" />-->

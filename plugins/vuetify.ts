@@ -15,7 +15,7 @@ import { fab } from "@fortawesome/free-brands-svg-icons";
 
 import "@/assets/scss/style.scss";
 
-// @ts-ignore
+// @ts-expect-error missing types in vuetify
 import colors from "vuetify/lib/util/colors";
 
 export default defineNuxtPlugin((nuxtApp) => {

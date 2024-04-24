@@ -1,19 +1,20 @@
 <template>
-  <v-dialog persistent width="585" :model-value="props.modelValue"
+  <v-dialog
+persistent width="585" :model-value="props.modelValue"
     @update:model-value="$emit('update:modelValue', $event)">
 
     <v-card :disabled="loading">
       <v-toolbar color="transparent">
         <v-toolbar-title> Share </v-toolbar-title>
-        <v-spacer></v-spacer>
+        <v-spacer/>
         <v-btn icon @click="$emit('update:modelValue', false)">
           <v-icon>mdi-close</v-icon>
         </v-btn>
       </v-toolbar>
       <v-container fluid class="pt-0">
         <v-row class="d-flex justify-space-between">
-          <v-col class="text-center" cols="auto" v-for="provider in providers" :key="provider.id">
-            <div @click.stop="onShare(provider.id)" :style="{ cursor: 'pointer' }">
+          <v-col v-for="provider in providers" :key="provider.id" class="text-center" cols="auto">
+            <div :style="{ cursor: 'pointer' }" @click.stop="onShare(provider.id)">
               <NuxtImg height="50" width="50" :src="provider.icon" />
               <div class="text-body-2">{{ provider.name }}</div>
             </div>
@@ -23,7 +24,7 @@
         <v-row>
           <v-col>
             <v-row no-gutters class="mb-1 align-center">
-              <v-col cols="auto" v-if="!connected">
+              <v-col v-if="!connected" cols="auto">
                 <v-card-title>
                   Share and Earn
                 </v-card-title>
@@ -39,7 +40,7 @@
                   Your referral link is successfully generated
                 </v-card-subtitle>
               </v-col>
-              <v-col class="text-right" v-if="!connected">
+              <v-col v-if="!connected" class="text-right">
                 <AppConnectBtn />
               </v-col>
             </v-row>
@@ -71,7 +72,7 @@ interface Props {
 }
 
 const props = defineProps<Props>();
-const emits = defineEmits<{
+defineEmits<{
   (e: "update:modelValue", value: boolean): void;
 }>();
 

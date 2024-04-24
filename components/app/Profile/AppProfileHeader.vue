@@ -1,13 +1,14 @@
 <template>
   <v-card variant="text" rounded="lg">
-    <v-img cover :src="cover" :aspect-ratio="4 / 1"></v-img>
+    <v-img cover :src="cover" :aspect-ratio="4 / 1"/>
     <div class="d-flex justify-space-between mx-4">
-      <v-avatar v-if="!avatar" color="surface-variant" size="125" class="profile-avatar"></v-avatar>
+      <v-avatar v-if="!avatar" color="surface-variant" size="125" class="profile-avatar"/>
       <v-avatar v-else size="125" class="profile-avatar">
-        <v-img :src="avatar" cover :alt="address" :aspect-ratio="1 / 1"></v-img>
+        <v-img :src="avatar" cover :alt="address" :aspect-ratio="1 / 1"/>
       </v-avatar>
 
-      <v-btn v-if="canEdit" rounded="pill" class="mt-4" variant="outlined"
+      <v-btn
+v-if="canEdit" rounded="pill" class="mt-4" variant="outlined"
         @click.stop="editProfileDialog = true; umTrackEvent('open-edit-profile')">
         Edit Profile
       </v-btn>
@@ -16,8 +17,8 @@
   <v-card variant="text" class="mt-2">
     <v-card-title class="text-h4">
       <div class="d-flex align-center">
-        <div class="text-h4" v-if="username">{{ username }}</div>
-        <div class="text-h4" v-else>
+        <div v-if="username" class="text-h4">{{ username }}</div>
+        <div v-else class="text-h4">
           {{ formatShortAddress(address, 12) }}
           <AppCopyBtn :text="address" />
         </div>

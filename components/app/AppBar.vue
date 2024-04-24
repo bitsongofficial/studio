@@ -1,13 +1,14 @@
 <template>
   <v-app-bar elevation="0" color="black">
-    <v-btn class="d-md-none" @click.stop="toggle" variant="text" icon="mdi-menu"></v-btn>
+    <v-btn class="d-md-none" variant="text" icon="mdi-menu" @click.stop="toggle"/>
 
-    <div class="d-flex pt-2 pb-1" :class="{
+    <div
+class="d-flex pt-2 pb-1" :class="{
       'd-md-none': !showLogo,
       'ml-4': showLogo,
     }" :style="{ cursor: 'pointer' }" @click.stop="navigateTo('/')">
-      <div><app-logo> </app-logo></div>
-      <div class="ml-3 text-h5 mt-2" v-if="showAppName">{{ appName }}</div>
+      <div><app-logo/></div>
+      <div v-if="showAppName" class="ml-3 text-h5 mt-2">{{ appName }}</div>
     </div>
 
     <template #append>
@@ -27,7 +28,7 @@ interface Props {
   showAppName?: boolean;
 }
 
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
   showLogo: true,
   showAppName: false,
 });

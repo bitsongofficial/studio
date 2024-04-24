@@ -7,7 +7,7 @@
       <v-col cols="auto">
         <NuxtLink>
           <v-avatar size="42">
-            <v-img :src="avatar" :alt="trader.username || trader.address" cover></v-img>
+            <v-img :src="avatar" :alt="trader.username || trader.address" cover/>
           </v-avatar>
         </NuxtLink>
       </v-col>

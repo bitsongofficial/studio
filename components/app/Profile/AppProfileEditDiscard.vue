@@ -6,7 +6,7 @@
         This can’t be undone and you’ll lose your changes.
       </v-card-text>
       <v-card-actions>
-        <v-spacer></v-spacer>
+        <v-spacer/>
         <v-btn rounded="pill" variant="text" type="submit" @click.stop="handleCancel">
           Cancel
         </v-btn>
@@ -25,8 +25,7 @@ interface Props {
 
 const props = defineProps<Props>();
 const emits = defineEmits<{
-  (e: "update:modelValue", value: boolean): void;
-  (e: "discardChanges", value: boolean): void;
+  (e: "update:modelValue" | "discardChanges", value: boolean): void;
 }>();
 
 const handleCancel = () => {

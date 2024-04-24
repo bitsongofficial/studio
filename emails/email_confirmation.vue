@@ -6,7 +6,7 @@ interface Props {
   confirmationLink: string
 }
 
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
   username: '',
   confirmationLink: '',
 })
@@ -35,7 +35,8 @@ const previewText = `Confirm your email address on Bitsong Studio`
             please confirm your email address by clicking the button below:
           </EText>
           <ESection class="text-center mt-[32px] mb-[32px]">
-            <EButton px="20" py="12"
+            <EButton
+px="20" py="12"
               class="bg-[#f40a63] rounded text-white text-[12px] font-semibold no-underline text-center"
               :href="confirmationLink"> Confirm email address </EButton>
           </ESection>

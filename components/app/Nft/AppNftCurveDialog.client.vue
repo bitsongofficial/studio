@@ -1,10 +1,11 @@
 <template>
-  <v-dialog persistent width="466" :model-value="props.modelValue"
+  <v-dialog
+persistent width="466" :model-value="props.modelValue"
     @update:model-value="$emit('update:modelValue', $event)">
     <v-card :disabled="loading">
       <v-toolbar color="transparent">
         <v-toolbar-title> {{ side === 'buy' ? 'Buy' : 'Sell' }} {{ title }} </v-toolbar-title>
-        <v-spacer></v-spacer>
+        <v-spacer/>
         <v-btn icon @click="$emit('update:modelValue', false)">
           <v-icon>mdi-close</v-icon>
         </v-btn>
@@ -13,7 +14,7 @@
       <v-container fluid>
         <v-row class="d-flex">
           <v-col cols="3">
-            <v-img v-if="image" :src="useIpfsLink(image)"></v-img>
+            <v-img v-if="image" :src="useIpfsLink(image)"/>
           </v-col>
           <v-col col="auto">
             <div class="text-h5">{{ title }}</div>
@@ -29,15 +30,17 @@
             <v-container fluid>
               <v-row align="center">
                 <v-col class="text-center">
-                  <v-btn :disabled="amount <= 1" variant="text" color="white" icon="mdi-chevron-left"
-                    @click="decrease"></v-btn>
+                  <v-btn
+:disabled="amount <= 1" variant="text" color="white" icon="mdi-chevron-left"
+                    @click="decrease"/>
                 </v-col>
                 <v-col class="text-center">
-                  <v-text-field variant="solo-filled" v-model="amount" hide-details></v-text-field>
+                  <v-text-field v-model="amount" variant="solo-filled" hide-details/>
                 </v-col>
                 <v-col class="text-center">
-                  <v-btn :disabled="!canIncrement" variant="text" color="white" icon="mdi-chevron-right"
-                    @click="increase"></v-btn>
+                  <v-btn
+:disabled="!canIncrement" variant="text" color="white" icon="mdi-chevron-right"
+                    @click="increase"/>
                 </v-col>
               </v-row>
             </v-container>
@@ -82,7 +85,7 @@
 
         <v-row no-gutters class="mt-1">
           <v-col>
-            <v-divider></v-divider>
+            <v-divider/>
           </v-col>
         </v-row>
 
@@ -111,7 +114,7 @@
           </v-col>
           <v-col cols="auto">
             <div>
-              <v-btn :style="{ textTransform: 'none' }" @click.stop="multiply" color="surface-variant" variant="tonal">x{{
+              <v-btn :style="{ textTransform: 'none' }" color="surface-variant" variant="tonal" @click.stop="multiply">x{{
                 sideMultiplier }}</v-btn>
             </div>
           </v-col>
@@ -130,25 +133,28 @@
         <v-row>
           <v-col>
             <div v-if="side === 'buy'">
-              <v-alert color="red" icon="mdi-alert" v-if="!canBuy">
+              <v-alert v-if="!canBuy" color="red" icon="mdi-alert">
                 You don't have enough BTSG to buy this Music NFT
               </v-alert>
-              <v-btn v-else :disabled="bidDiffPerc > 250" color="green" block rounded="xl" size="large"
-                @click.stop="onBuy" :loading="loading">
+              <v-btn
+v-else :disabled="bidDiffPerc > 250" color="green" block rounded="xl" size="large"
+                :loading="loading" @click.stop="onBuy">
                 Buy
               </v-btn>
             </div>
             <div v-else-if="side === 'sell'">
-              <v-alert color="red" icon="mdi-alert" v-if="!canSell">
+              <v-alert v-if="!canSell" color="red" icon="mdi-alert">
                 You don't have enough Music NFTs to sell
               </v-alert>
               <div v-else>
-                <v-btn v-if="isAllowedToSell" color="red" block rounded="xl" size="large" @click.stop="onSell"
-                  :disabled="!canSell" :loading="loading">
+                <v-btn
+v-if="isAllowedToSell" color="red" block rounded="xl" size="large" :disabled="!canSell"
+                  :loading="loading" @click.stop="onSell">
                   Sell
                 </v-btn>
-                <v-btn v-else="!isAllowedToSell" variant="text" color="red" block rounded="xl" size="large"
-                  @click.stop="onAllow" :loading="loading">
+                <v-btn
+v-else-if="!isAllowedToSell" variant="text" color="red" block rounded="xl" size="large"
+                  :loading="loading" @click.stop="onAllow">
                   Authorize Sell
                 </v-btn>
               </div>
@@ -188,7 +194,7 @@ const props = withDefaults(defineProps<{
 
 const { modelValue, side, title, image, contractConfig } = toRefs(props);
 
-const emits = defineEmits<{
+defineEmits<{
   (e: "update:modelValue", value: boolean): void;
 }>();
 
@@ -395,7 +401,6 @@ async function onSell() {
 
     let burnData = {
       tokenIds: getMaxTokenIds(toValue(amount)),
-      // @ts-ignore
       minOutAmount: (useToMicroAmount(toValue(yourBid)) - 1).toString(),
     }
 
@@ -407,7 +412,7 @@ async function onSell() {
       }
     }
 
-    const tx = await curveClient.burn(burnData,
+    await curveClient.burn(burnData,
       "auto",
       "",
       [],
@@ -439,7 +444,7 @@ async function onAllow() {
       contractConfig.value.nftAddress,
     );
 
-    const tx = await bs721Client.approveAll(
+    await bs721Client.approveAll(
       {
         operator: contractConfig.value.marketplaceAddress,
       },

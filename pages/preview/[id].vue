@@ -1,12 +1,12 @@
 <template>
   <app-page>
     <template #body>
-      <v-container fluid v-if="data">
+      <v-container v-if="data" fluid>
         <v-row>
           <v-col cols="12" md="8" class="text-center">
             <div>
               <video class="mx-auto rounded-xl w-75" controls playsinline :poster="data.artworkUrl">
-                <source :src="data.previewUrl" type="audio/mp3" />
+                <source :src="data.previewUrl" type="audio/mp3" >
               </video>
             </div>
           </v-col>
@@ -27,7 +27,7 @@
                   <v-chip class="mb-2">Start Time</v-chip>
 
                   <h2 class="text-md-h4 text-h6">
-                    <vue-countdown :time="remainingTime" v-slot="{ days, hours, minutes, seconds }">
+                    <vue-countdown v-slot="{ days, hours, minutes, seconds }" :time="remainingTime">
                       {{ days }}d {{ hours }}h {{ minutes }}m {{ seconds }}s
                     </vue-countdown>
                   </h2>
@@ -41,7 +41,8 @@
                     <v-chip class="mb-2">Initial Price</v-chip>
                     {{ data.initialPrice }} BTSG
                   </v-card-text>
-                  <AppDropNotificationBtn class="mt-n1 ma-3" :drop-id="data.id" :title="data.title"
+                  <AppDropNotificationBtn
+class="mt-n1 ma-3" :drop-id="data.id" :title="data.title"
                     :subtitle="data.artists.join(', ')" :image="data.artworkUrl" :start-time="data.startTime" />
                 </v-card>
               </v-col>
@@ -60,7 +61,8 @@
               <v-col cols="12" md="6">
                 <div class="text-caption text-grey text-uppercase">Marketplace</div>
                 <div>
-                  <nuxt-link target="_blank" :to="`https://www.mintscan.io/bitsong/address/${data.marketplaceAddress}`"
+                  <nuxt-link
+target="_blank" :to="`https://www.mintscan.io/bitsong/address/${data.marketplaceAddress}`"
                     class="text-decoration-none text-white">
                     {{ formatShortAddress(data.marketplaceAddress, 8) }}
                   </nuxt-link>
@@ -109,8 +111,7 @@
 
         <v-row>
           <v-col md="8" cols="12">
-            <div class="md__content" v-html="marked.parse(data.description || '')">
-            </div>
+            <div class="md__content" v-html="marked.parse(data.description || '')"/>
           </v-col>
         </v-row>
       </v-container>
@@ -129,8 +130,8 @@ if (!data) {
   navigateTo('/')
 }
 
-if (data?.startTime! <= Math.floor(Date.now() / 1000)) {
-  navigateTo(`/nfts/${data?.nftAddress}`)
+if (data!.startTime <= Math.floor(Date.now() / 1000)) {
+  navigateTo(`/nfts/${data!.nftAddress}`)
 }
 
 useSeoMeta({

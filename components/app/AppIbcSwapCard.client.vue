@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-toolbar color="transparent">
-      <v-spacer></v-spacer>
+      <v-spacer/>
       <v-btn icon @click="$emit('update:modelValue', false)">
         <v-icon>mdi-close</v-icon>
       </v-btn>
@@ -9,7 +9,7 @@
     <v-container fluid class="pt-0 px-0">
       <v-row class="d-flex" no-gutters>
         <v-col>
-          <iframe :src="squidUrl" width="100%" height="680px" frameborder="0" scrolling="no"></iframe>
+          <iframe :src="squidUrl" width="100%" height="680px" frameborder="0" scrolling="no"/>
         </v-col>
       </v-row>
     </v-container>
@@ -22,7 +22,7 @@ interface Props {
 }
 
 defineProps<Props>();
-const emits = defineEmits<{
+defineEmits<{
   (e: "update:modelValue", value: boolean): void;
 }>();
 

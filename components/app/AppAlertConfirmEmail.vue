@@ -2,7 +2,8 @@
   <v-app-bar v-if="showAlert" color="red" density="compact">
     <v-list-item>
       Please confirm your email address {{ user?.email_to_verify }}
-      <v-btn :loading="status === 'pending'" v-if="canResendEmail" class="ml-2" variant="outlined" size="small"
+      <v-btn
+v-if="canResendEmail" :loading="status === 'pending'" class="ml-2" variant="outlined" size="small"
         color="white" @click="execute">
         resend email
       </v-btn>

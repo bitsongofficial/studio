@@ -1,33 +1,37 @@
 <template>
-  <v-dialog persistent width="585" :model-value="props.modelValue"
+  <v-dialog
+persistent width="585" :model-value="props.modelValue"
     @update:model-value="$emit('update:modelValue', $event)">
     <v-card :disabled="loading">
       <v-card variant="text">
         <v-img cover :src="cover" height="127" class="d-flex align-center text-center">
           <div>
-            <v-btn icon="mdi-camera" @click.stop="coverUploader?.click(); umTrackEvent('select-cover')"
-              variant="plain"></v-btn>
-            <v-btn icon="mdi-close" @click.stop="removeCover" variant="plain"></v-btn>
+            <v-btn
+icon="mdi-camera" variant="plain"
+              @click.stop="coverUploader?.click(); umTrackEvent('select-cover')"/>
+            <v-btn icon="mdi-close" variant="plain" @click.stop="removeCover"/>
           </div>
         </v-img>
 
         <div class="d-flex justify-space-between mx-4">
           <v-avatar v-if="!avatar" color="surface-variant" size="86" class="profile-avatar">
-            <v-btn icon="mdi-camera" @click.stop="avatarUploader?.click(); umTrackEvent('select-avatar')"
-              variant="plain"></v-btn>
+            <v-btn
+icon="mdi-camera" variant="plain"
+              @click.stop="avatarUploader?.click(); umTrackEvent('select-avatar')"/>
           </v-avatar>
 
           <v-avatar v-else-if="newValues.avatar || avatar" size="86" class="profile-avatar">
             <v-img :src="avatar" cover height="86" width="86" class="align-center">
-              <v-btn icon="mdi-camera" @click.stop="avatarUploader?.click(); umTrackEvent('select-avatar')"
-                variant="plain"></v-btn>
+              <v-btn
+icon="mdi-camera" variant="plain"
+                @click.stop="avatarUploader?.click(); umTrackEvent('select-avatar')"/>
             </v-img>
           </v-avatar>
         </div>
       </v-card>
       <v-card-text class="mt-4">
-        <v-text-field v-model="username" label="Username" variant="outlined"></v-text-field>
-        <v-text-field v-model="email" label="Email" hint="Only visible to you" variant="outlined"></v-text-field>
+        <v-text-field v-model="username" label="Username" variant="outlined"/>
+        <v-text-field v-model="email" label="Email" hint="Only visible to you" variant="outlined"/>
       </v-card-text>
       <v-card-text v-if="errorMessage !== ''">
         <v-alert variant="outlined" type="error">
@@ -35,11 +39,12 @@
         </v-alert>
       </v-card-text>
       <v-card-actions class="justify-center px-6 py-3">
-        <v-spacer></v-spacer>
+        <v-spacer/>
         <v-btn class="w-25 pt-1" rounded="pill" color="grey-lighten-1" variant="text" @click.stop="handleClose">
           Cancel
         </v-btn>
-        <v-btn :loading="loading" class="w-25 pt-1" rounded="pill" color="primary" variant="flat"
+        <v-btn
+:loading="loading" class="w-25 pt-1" rounded="pill" color="primary" variant="flat"
           @click.stop="handleEditProfile">
           Save
         </v-btn>
@@ -325,7 +330,7 @@ const handleEditProfile = async () => {
     resetState();
     umTrackEvent('save-profile')
   } catch (e) {
-    // @ts-ignore
+    // @ts-expect-error - e is untyped
     errorMessage.value = e.data.message
     umTrackEvent('save-profile-error')
   } finally {

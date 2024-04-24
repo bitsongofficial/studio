@@ -1,5 +1,9 @@
+<!-- TODO: Fix this -->
+<!-- eslint-disable vue/no-mutating-props -->
+
 <template>
-  <v-dialog v-if="!mobile" persistent width="435" :model-value="props.modelValue"
+  <v-dialog
+v-if="!mobile" persistent width="435" :model-value="props.modelValue"
     @update:model-value="$emit('update:modelValue', $event)">
     <AppIbcSwapCard v-model="props.modelValue" @update:model-value="$emit('update:modelValue', $event)" />
   </v-dialog>
@@ -16,7 +20,7 @@ interface Props {
 }
 
 const props = defineProps<Props>();
-const emits = defineEmits<{
+defineEmits<{
   (e: "update:modelValue", value: boolean): void;
 }>();
 

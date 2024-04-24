@@ -8,7 +8,7 @@ interface TopReferral {
   total_earned: string;
 }
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler(async () => {
   if (!prisma) {
     throw createError({
       message: 'database is not available',

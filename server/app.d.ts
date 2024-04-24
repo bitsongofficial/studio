@@ -14,5 +14,5 @@ declare namespace Lucia {
     email_verification_sent_at: string | null;
     email_verified_at: string | null;
   };
-  type DatabaseSessionAttributes = {};
+  type DatabaseSessionAttributes = unknown;
 }
