@@ -18,6 +18,158 @@ interface Track {
 }
 
 const tracks: Track[] = [{
+  "id": "dont-cry-my-love",
+  "title": "Don't Cry My Love",
+  "artists": [
+    "Call Us Later"
+  ],
+  "description": "We're excited to share our new track, \"Don't Cry My Love\" with you all! This one's a heartfelt, melodic electronic track that's all about embracing the ups and downs of love and relationships.\n\nThe track features a soaring melody, pulsing beat, and a heartfelt vocal performance that we hope will transport you to a world of emotions and vulnerability. \n\nBy owning the \"Dark Memories\" Music NFT, you'll get:\n\nExclusive Ownership: You'll be one of the few to hold a unique digital asset of this song, and be part of a special community of music lovers who share our passion for electronic music and self-expression. \n\nSpecial Content: We'll share some behind-the-scenes stories, remixes, and even some exclusive live performance footage with you, straight from our studio. \n\nFan Perks: You'll be part of a community of awesome music lovers who share our passion for electronic music and self-expression. Plus, you'll get access to special giveaways, early access to new music, and more!\n\nBut that's not all - by collecting our music NFTs, you're not just getting exclusive content and perks, you're also supporting our artistic journey and helping us to continue creating music that inspires and moves you. You're part of a pioneering movement that's empowering artists and the music industry to adopt innovative solutions and new technologies. Your support means the world to us, and we're honored to have you along for the ride.",
+  "creator": "bitsong1w35ntzzkf7dugwlq5a6lhrrp2lkq6yamxk42he",
+  "sellerFeeBps": 500,
+  "referralFeeBps": 50,
+  "previewUrl": "https://media-api-direct.bitsong.studio/ipfs/QmaSMGiriF6age8x8JGxiT5E57NX7cwFUKfPJ29zEWwHRM",
+  "artworkUrl": "https://media-api-direct.bitsong.studio/ipfs/QmURL3yebab6HE81K3P1LRD4s79kBm8m2b4TWpziwToEeu",
+  "startTime": 1730829600,
+  "genre": "Dance",
+  "explicit": "Clean",
+  "license": "All Rights Reserved",
+  "initialPrice": 0.01053,
+  "nftAddress": "bitsong1j460nkvfn5h8pj2xv8fxkn54sjja2tjmuhmfyt67mxucz6tuj67q68q673",
+  "marketplaceAddress": "bitsong1xhknea8e6kwrz4evckjdfpg934zj2te60e897gj6ddqjntm6n59qu0zg4r"
+}, {
+  "id": "dark-memories",
+  "title": "Dark Memories",
+  "artists": [
+    "Call Us Later"
+  ],
+  "description": "Hey friends! We're thrilled to share our new track, \"Dark Memories\" with you all! This one's a haunting, atmospheric electronic track that's all about exploring the depths of our subconscious and confronting the shadows within.\n\nThe track features a moody soundscape, pulsing bassline, and a haunting vocal performance that we hope will transport you to a world of introspection and self-discovery. We're really proud of how it turned out, and we can't wait for you to hear it.\n\nBy owning the \"Dark Memories\" Music NFT, you'll get:\n\nExclusive Ownership: You'll be one of the few to hold a unique digital asset of this song, and be part of a special community of music lovers who share our passion for electronic music and self-expression. \n\nSpecial Content: We'll share some behind-the-scenes stories, remixes, and even some exclusive live performance footage with you, straight from our studio. \n\nFan Perks: You'll be part of a community of awesome music lovers who share our passion for electronic music and self-expression. Plus, you'll get access to special giveaways, early access to new music, and more!\n\nBut that's not all - by collecting our music NFTs, you're not just getting exclusive content and perks, you're also supporting our artistic journey and helping us to continue creating music that inspires and moves you. You're part of a pioneering movement that's empowering artists and the music industry to adopt innovative solutions and new technologies. Your support means the world to us, and we're honored to have you along for the ride.",
+  "creator": "bitsong1w35ntzzkf7dugwlq5a6lhrrp2lkq6yamxk42he",
+  "sellerFeeBps": 500,
+  "referralFeeBps": 50,
+  "previewUrl": "https://media-api-direct.bitsong.studio/ipfs/QmTAFBXMdFnbVGtZCpWEcsPcbUfp612GafWWb27zZepj2Q",
+  "artworkUrl": "https://media-api-direct.bitsong.studio/ipfs/QmXJNxCByuMXfMRzzVJxS2vctxf52BwU5YPfAccsoTmRoa",
+  "startTime": 1730224800,
+  "genre": "Dance",
+  "explicit": "Clean",
+  "license": "All Rights Reserved",
+  "initialPrice": 0.008424,
+  "nftAddress": "bitsong1dg2w40cflw2w32jj993tjkdaf6jqt08luxdv45lccx2r2r0wgzxqekn6um",
+  "marketplaceAddress": "bitsong1h470lpzrx6cws48r7zw8s9wpeyfz9g5uetxppyu0gdyzrekynavswr44k8"
+}, {
+  "id": "city-of-lights",
+  "title": "City of Lights",
+  "artists": [
+    "Call Us Later"
+  ],
+  "description": "Hey friends! We're excited to share our new track, \"City of Lights\" with you all! This one's a sultry, vocal deep house anthem that's all about the thrill of the city nightlife.\n\nThe track features a pulsing beat, lush synths, and a captivating vocal performance that we hope will transport you to the vibrant streets and neon-lit clubs of the City of Lights.\n\nExclusive Ownership: You'll be one of the few to hold a unique digital asset of this song.\nSpecial Content: We'll share some behind-the-scenes stories and remixes with you, straight from our studio.\nFan Perks: You'll be part of a community of awesome music lovers who share our passion for electronic music and self-expression.",
+  "creator": "bitsong1w35ntzzkf7dugwlq5a6lhrrp2lkq6yamxk42he",
+  "sellerFeeBps": 500,
+  "referralFeeBps": 50,
+  "previewUrl": "https://media-api-direct.bitsong.studio/ipfs/QmQHzZWQBLHeJS6WBmeSvvKK9CvsgzkN2PT4JRw1jjzwxX",
+  "artworkUrl": "https://media-api-direct.bitsong.studio/ipfs/QmbrGbDWYS12uqWq99EUUPNSeVQWxUWac3iWaPU5a5UgFG",
+  "startTime": 1729616400,
+  "genre": "Dance",
+  "explicit": "Clean",
+  "license": "All Rights Reserved",
+  "initialPrice": 0.008424,
+  "nftAddress": "bitsong1u6wrypaf0x599wp7d0ugsr9flqktavtw5qkuqvdu37n83pwtjpwsxkcd5g",
+  "marketplaceAddress": "bitsong1l7nuqvsvjh456rywsnk5y6kn4tk3hj8d9al48634hklsflaha55sda94yq"
+}, {
+  "id": "california-dreams",
+  "title": "California Dreams",
+  "artists": [
+    "Call Us Later"
+  ],
+  "description": "Hey friends! We're thrilled to share our new track, \"California Dreams\" with you all! This one's a feel-good anthem that's all about chasing your dreams and soaking up the California sun.\n\nThe track features a catchy melody, upbeat rhythm, and a nostalgic vocal performance that we hope will transport you to the sun-kissed beaches and laid-back vibes of the Golden State. We're really stoked on how it turned out, and we can't wait for you to hear it.\n\nBy owning the \"California Dreams\" Music NFT, you'll get:\n\nExclusive Ownership: You'll be one of the few to hold a unique digital asset of this song.\nSpecial Content: We'll share some behind-the-scenes stories and remixes with you, straight from our studio.\nFan Perks: You'll be part of a community of awesome music lovers who share our passion for electronic music and self-expression.",
+  "creator": "bitsong1w35ntzzkf7dugwlq5a6lhrrp2lkq6yamxk42he",
+  "sellerFeeBps": 500,
+  "referralFeeBps": 50,
+  "previewUrl": "https://media-api-direct.bitsong.studio/ipfs/QmeCnyt7EekW4sES1CxwXTcMkMCqTEkY5ErzDbzCEoXuzp",
+  "artworkUrl": "https://media-api-direct.bitsong.studio/ipfs/Qma96o5oDNyKS71v46wbd4h3t1fxEGbtjvwU96cYux99CA",
+  "startTime": 1729011600,
+  "genre": "Dance",
+  "explicit": "Clean",
+  "license": "All Rights Reserved",
+  "initialPrice": 0.008424,
+  "nftAddress": "bitsong15jrm3w9ku4ctf8q5kegxm4ppnx6h5uhj0h00n5526sk3ss803lxs5sqhds",
+  "marketplaceAddress": "bitsong14m6nt5dwnxsmvt6pv6am8dkmqrf263acgjq6ex00un3t0qdd9ptsx5m7hu"
+}, {
+  "id": "burning-inside",
+  "title": "Burning Inside",
+  "artists": [
+    "Call Us Later"
+  ],
+  "description": "Hey friends! We're stoked to share our new track, \"Burning Inside\" with you all! This one's a deep house anthem that's all about letting go and losing yourself in the music.\n\nThe track features a driving beat, pulsing synths, and a haunting vocal performance that we hope will take you on a journey. We're really proud of how it turned out, and we can't wait for you to hear it.\n\nBy owning the \"Burning Inside\" Music NFT, you'll get:\n\nExclusive Ownership: You'll be one of the few to hold a unique digital asset of this song.\nSpecial Content: We'll share some behind-the-scenes stories and remixes with you, straight from our studio.\nFan Perks: You'll be part of a community of awesome music lovers who share our passion for electronic music and self-expression.",
+  "creator": "bitsong1w35ntzzkf7dugwlq5a6lhrrp2lkq6yamxk42he",
+  "sellerFeeBps": 500,
+  "referralFeeBps": 50,
+  "previewUrl": "https://media-api-direct.bitsong.studio/ipfs/Qmdu3WKnHBE7Uq54LxEnMakWP9NxKxH21xz9pvY8Aenj1R",
+  "artworkUrl": "https://media-api-direct.bitsong.studio/ipfs/QmaGrfmXhJceQarU7ZX916ReZnkuhi6P5xquwWG37WAJAa",
+  "startTime": 1728406800,
+  "genre": "Dance",
+  "explicit": "Clean",
+  "license": "All Rights Reserved",
+  "initialPrice": 0.008424,
+  "nftAddress": "bitsong10xcgmay4y7py6zp793lxsazhcjlyx6072227k3pzuj7r7l2ej2vsk8hxt0",
+  "marketplaceAddress": "bitsong1jyfdzdunqdfs2m856awxlsjhslmk3zq2qwzgdhzqsrj9l8vp5ctshfs5u7"
+}, {
+  "id": "california-nights",
+  "title": "California Nights",
+  "artists": [
+    "Call Us Later"
+  ],
+  "description": "We're excited to share our new track, \"California Nights\" with you all!\nThe track has a laid-back, summery vibe, with a catchy vocal melody and a groovy bassline that we hope will make you want to get up and dance.\nWe wrote it during a time when we were feeling a bit stuck and needed a change of scenery, and the idea of California Nights just came to us.\n\nBy owning the \"California Nights\" Music NFT, you'll get:\n\nExclusive Ownership: You'll be one of the few to hold a unique digital asset of this song. \nSpecial Content: We'll share some behind-the-scenes stories and remixes with you, straight from our studio. \nFan Perks: You'll be part of a community of awesome music lovers who share our passion for electronic music and good vibes.",
+  "creator": "bitsong1w35ntzzkf7dugwlq5a6lhrrp2lkq6yamxk42he",
+  "sellerFeeBps": 500,
+  "referralFeeBps": 50,
+  "previewUrl": "https://media-api-direct.bitsong.studio/ipfs/QmPAVWGuaE8moXSksCciRynGCxQuYiekMyz5knKvTJCoif",
+  "artworkUrl": "https://media-api-direct.bitsong.studio/ipfs/QmNvt3d9W7bvaTGAin68VwxphJS6wf35Jzs46ifp19ahqx",
+  "startTime": 1727802000,
+  "genre": "Dance",
+  "explicit": "Clean",
+  "license": "All Rights Reserved",
+  "initialPrice": 0.008424,
+  "nftAddress": "bitsong1dxuf4mufwtdg4kxk2zl088lt7462vgch0n8f07f8luqkv6axjggqx7ff92",
+  "marketplaceAddress": "bitsong1gpjjq6ye0kf40rgcmz26g80c5vawph6q25eh7vefxmz5m22vtnascnk46u"
+}, {
+  "id": "blonde-shadows",
+  "title": "Blonde Shadows",
+  "artists": [
+    "Call Us Later"
+  ],
+  "description": "We're stoked to share our new track, \"Blonde Shadows\" with you all!\nIt's a deep and atmospheric track with a haunting vocal performance that we hope will transport you to another world.\nWe wanted to create something that was both dark and beautiful, and we think we've succeeded. The track features a combination of pulsing synths, driving drums, and eerie vocal harmonies that we hope will draw you in.\n\nBy owning the \"Blone Shadows\" Music NFT, you'll get:\n\nExclusive Ownership: You'll be one of the few to hold a unique digital asset of this song. \nSpecial Content: We'll share some behind-the-scenes stories and remixes with you, straight from our studio. \nFan Perks: You'll be part of a community of awesome music lovers who share our passion for electronic music and experimentation.",
+  "creator": "bitsong1w35ntzzkf7dugwlq5a6lhrrp2lkq6yamxk42he",
+  "sellerFeeBps": 500,
+  "referralFeeBps": 50,
+  "previewUrl": "https://media-api-direct.bitsong.studio/ipfs/QmRKN7uUCVny6zgEgWgRNgrP8R58wbYgFEQRxjNUzeTZU5",
+  "artworkUrl": "https://media-api-direct.bitsong.studio/ipfs/QmcnE4b3FNd4xNBqyJg5pKwKngdBv6DRfrqRQv2w3xcL1j",
+  "startTime": 1727197200,
+  "genre": "Dance",
+  "explicit": "Clean",
+  "license": "All Rights Reserved",
+  "initialPrice": 0.008424,
+  "nftAddress": "bitsong1yykse43u3uj4n82jtpvetdjqrm03dh27qexjtvlf82c96utymxlsy5cu3w",
+  "marketplaceAddress": "bitsong1e45x5ttf5vzqld7gyl2pwc3cln82jf7gtcxd25n79wu0tdf22rsq8lf4hz"
+}, {
+  "id": "broken-wings",
+  "title": "Broken Wings",
+  "artists": [
+    "Call Us Later"
+  ],
+  "description": "Hey everyone! We're super excited to share my new track, \"Broken Wings\" with you all! This one's a special one for us, and we think you're gonna love it. It's a dance-infused deep house track with some beautiful vocals and a harmonious beat that we hope will make you wanna move your body and feel good.\n\nBy owning the \"Broken Wings\" Music NFT, you'll get:\nExclusive Ownership: You'll be one of the few to hold a unique digital asset of this song. \nSpecial Content: We'll share some behind-the-scenes stories and remixes with you, straight from my studio. \nFan Perks: You'll be part of a community of awesome music lovers who share our passion for deep house and electronic music.",
+  "creator": "bitsong1w35ntzzkf7dugwlq5a6lhrrp2lkq6yamxk42he",
+  "sellerFeeBps": 500,
+  "referralFeeBps": 50,
+  "previewUrl": "https://media-api-direct.bitsong.studio/ipfs/QmfPeYCeRSdt4itrYYR7ibct611wmae1qoJKN1dv1bHwN3",
+  "artworkUrl": "https://media-api-direct.bitsong.studio/ipfs/QmWtR8tCJ3JeShamQtGmrotN4Sj6XX5G5Uw6knqb23SgjN",
+  "startTime": 1726592400,
+  "genre": "Dance",
+  "explicit": "Clean",
+  "license": "All Rights Reserved",
+  "initialPrice": 0.008424,
+  "nftAddress": "bitsong1vje9gvq8rmm7ktssdnmsucj0yxg3e79hsn3ezcguvg2nqh937alsmpknky",
+  "marketplaceAddress": "bitsong1prtwlln0f0ysnlsrzl7vrer4u9x6akpuy86n3cdszrhr8wdnk7jqpyhlq0"
+}, {
   "id": "chill-night-in-rio",
   "title": "Chill Night in Rio",
   "artists": [
