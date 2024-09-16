@@ -2,7 +2,7 @@
   <v-dialog width="350" :model-value="props.modelValue" :persistent="persistent"
     @update:model-value="$emit('update:modelValue', $event)">
 
-    <v-card v-if="!connecting && !selectedWallet" class="connect_dialog__toolbar">
+    <v-card v-if="!connecting && !selectedWallet || disconnected && !connecting" class="connect_dialog__toolbar">
       <template #title>
         <v-row align="center" class="mr-0 pr-0">
           <v-col class="mt-1">
@@ -120,7 +120,7 @@ import { bitsong as bitsongConfig, bitsongAssetList } from "@nabla-studio/chain-
 import VueQrcode from "vue-qrcode";
 import type { WalletOptions } from "@quirks/core";
 
-const isDev = computed(() => useRoute().query.dev === "true");
+const isDev = computed(() => import.meta.dev || useRoute().query.dev === "true");
 
 // TODO: Timed out status???
 
@@ -143,7 +143,7 @@ const bitsong = {
 }
 
 const { wallets } = useConfig();
-const { connect, connecting, disconnect } = useConnect();
+const { connect, connecting, disconnect, disconnected } = useConnect();
 const { pairingURI } = useWalletConnect();
 
 interface Props {
