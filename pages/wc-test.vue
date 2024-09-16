@@ -6,7 +6,7 @@
       {{ newUri }}
     </div>
     <div v-if="newUri">
-      <a target="_blank" :href="`https://t.me/tg_bwallet_dev_bot/app?startapp=${newUri}`">Connect</a>
+      <a :href="`https://t.me/tg_bwallet_dev_bot/app?startapp=${newUri}`">Connect</a>
     </div>
   </div>
 </template>
