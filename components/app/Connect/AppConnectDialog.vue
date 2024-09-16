@@ -18,15 +18,19 @@
       </v-card-text>
 
       <v-list class="mb-1 mx-2 mr-2">
-        <v-list-item rounded="lg" v-for="wallet in wallets" :key="wallet.options.wallet_name" class="mx-2 pa-2"
-          :prepend-avatar="wallet.logoLight" :title="wallet.options.pretty_name" @click="open(wallet.options);">
-          <template v-if="wallet.injected" #subtitle>
-            Connect with {{ wallet.options.pretty_name }}
-          </template>
-          <template v-else #subtitle>
-            Install {{ wallet.options.prettyName }}
-          </template>
-        </v-list-item>
+        <template v-for="wallet in wallets" :key="wallet.options.wallet_name">
+          <v-list-item
+            v-if="(isDev && wallet.options.wallet_name === 'telegram') || wallet.options.wallet_name !== 'telegram'"
+            rounded="lg" class="mx-2 pa-2" :prepend-avatar="wallet.logoLight" :title="wallet.options.pretty_name"
+            @click="open(wallet.options);">
+            <template v-if="wallet.injected" #subtitle>
+              Connect with {{ wallet.options.pretty_name }}
+            </template>
+            <template v-else #subtitle>
+              Install {{ wallet.options.pretty_name }}
+            </template>
+          </v-list-item>
+        </template>
       </v-list>
     </v-card>
 
@@ -116,6 +120,8 @@ import { bitsong as bitsongConfig, bitsongAssetList } from "@nabla-studio/chain-
 import VueQrcode from "vue-qrcode";
 import type { WalletOptions } from "@quirks/core";
 
+const isDev = computed(() => useRoute().query.dev === "true");
+
 // TODO: Timed out status???
 
 const bitsong = {
@@ -150,6 +156,27 @@ const emits = defineEmits(["update:modelValue"]);
 const selectedWallet = ref<WalletOptions | null>(null);
 const showError = ref(false);
 
+function createTGPairUri(pairUri: string) {
+  let uri = pairUri.replace('relay-protocol', 'r');
+
+  // 2. change expiryTimestamp to e
+  uri = uri.replace('expiryTimestamp', 'e');
+
+  // 3. change symKey to s
+  uri = uri.replace('symKey', 's');
+
+  // 4. convert to base64
+  return btoa(uri);
+}
+
+watch(pairingURI, (newVal) => {
+  if (!newVal) return;
+
+  if (selectedWallet.value?.wallet_name === "telegram") {
+    window.open(`https://t.me/tg_bwallet_dev_bot/app?mode=compact&startapp=${createTGPairUri(newVal)}`, "_blank");
+  }
+})
+
 const open = async (opts: WalletOptions) => {
   selectedWallet.value = opts;
 
@@ -170,7 +197,7 @@ const open = async (opts: WalletOptions) => {
     useAppEvent('connect-wallet', { provider: opts.pretty_name });
     emits("update:modelValue", false);
 
-    selectedWallet.value = null;
+    //selectedWallet.value = null;
   } catch (e) {
     console.error(e);
     showError.value = true;
