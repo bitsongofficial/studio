@@ -102,6 +102,9 @@ export default defineNuxtConfig({
       },
       '/ingest/static/**': { proxy: `${import.meta.env.NUXT_PUBLIC_POSTHOG_HOST}/static/**` },
       '/ingest/**': { proxy: `${import.meta.env.NUXT_PUBLIC_POSTHOG_HOST}/**` },
+      '/wc-test': {
+        ssr: false,
+      }
     }
   },
   vueEmail: {
