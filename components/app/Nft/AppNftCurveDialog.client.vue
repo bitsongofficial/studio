@@ -113,7 +113,7 @@
             <div>
               <v-btn :style="{ textTransform: 'none' }" color="surface-variant" variant="tonal"
                 @click.stop="multiply">x{{
-    sideMultiplier }}</v-btn>
+                  sideMultiplier }}</v-btn>
             </div>
           </v-col>
         </v-row>
@@ -122,8 +122,8 @@
           <v-col>
             <v-alert icon="mdi-alert" color="red">
               Your bid is {{ bidDiffPerc.toFixed(2) }}% {{
-    side === 'buy' ? 'higher' : 'lower'
-  }} than the {{ side === 'buy' ? 'min.' : 'max.' }} bid
+                side === 'buy' ? 'higher' : 'lower'
+              }} than the {{ side === 'buy' ? 'min.' : 'max.' }} bid
             </v-alert>
           </v-col>
         </v-row>
@@ -337,6 +337,8 @@ const parseCosmosError = (e: Error) => {
   return e.message;
 };
 
+const { walletName } = useConnect()
+
 async function onBuy() {
   loading.value = true;
 
@@ -359,6 +361,10 @@ async function onBuy() {
         ...mintData,
         referral: toValue(referral)
       }
+    }
+
+    if (toValue(walletName) === 'telegram') {
+      window.open(`https://t.me/tg_bwallet_dev_bot/app?mode=compact&startapp=sign`, "_blank");
     }
 
     await curveClient.mint(mintData,
@@ -408,6 +414,10 @@ async function onSell() {
       }
     }
 
+    if (toValue(walletName) === 'telegram') {
+      window.open(`https://t.me/tg_bwallet_dev_bot/app?mode=compact&startapp=sign`, "_blank");
+    }
+
     await curveClient.burn(burnData,
       "auto",
       "",
@@ -439,6 +449,10 @@ async function onAllow() {
       address,
       contractConfig.value.nftAddress,
     );
+
+    if (toValue(walletName) === 'telegram') {
+      window.open(`https://t.me/tg_bwallet_dev_bot/app?mode=compact&startapp=sign`, "_blank");
+    }
 
     await bs721Client.approveAll(
       {
