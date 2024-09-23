@@ -173,7 +173,7 @@ watch(pairingURI, (newVal) => {
   if (!newVal) return;
 
   if (selectedWallet.value?.wallet_name === "telegram") {
-    window.open(`https://t.me/grammos_preview_bot/app?mode=compact&startapp=${createTGPairUri(newVal)}`, "_blank");
+    window.open(`https://t.me/grammos_bot/app?mode=compact&startapp=${createTGPairUri(newVal)}`, "_blank");
   }
 })
 

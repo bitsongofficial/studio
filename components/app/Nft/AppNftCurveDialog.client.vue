@@ -364,7 +364,7 @@ async function onBuy() {
     }
 
     if (toValue(walletName) === 'telegram') {
-      window.open(`https://t.me/grammos_preview_bot/app?mode=compact&startapp=sign`, "_blank");
+      window.open(`https://t.me/grammos_bot/app?mode=compact&startapp=sign`, "_blank");
     }
 
     await curveClient.mint(mintData,
@@ -415,7 +415,7 @@ async function onSell() {
     }
 
     if (toValue(walletName) === 'telegram') {
-      window.open(`https://t.me/grammos_preview_bot/app?mode=compact&startapp=sign`, "_blank");
+      window.open(`https://t.me/grammos_bot/app?mode=compact&startapp=sign`, "_blank");
     }
 
     await curveClient.burn(burnData,
@@ -451,7 +451,7 @@ async function onAllow() {
     );
 
     if (toValue(walletName) === 'telegram') {
-      window.open(`https://t.me/grammos_preview_bot/app?mode=compact&startapp=sign`, "_blank");
+      window.open(`https://t.me/grammos_bot/app?mode=compact&startapp=sign`, "_blank");
     }
 
     await bs721Client.approveAll(
