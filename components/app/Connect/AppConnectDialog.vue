@@ -19,10 +19,8 @@
 
       <v-list class="mb-1 mx-2 mr-2">
         <template v-for="wallet in wallets" :key="wallet.options.wallet_name">
-          <v-list-item
-            v-if="(isDev && wallet.options.wallet_name === 'telegram') || wallet.options.wallet_name !== 'telegram'"
-            rounded="lg" class="mx-2 pa-2" :prepend-avatar="wallet.logoLight" :title="wallet.options.pretty_name"
-            @click="open(wallet.options);">
+          <v-list-item rounded="lg" class="mx-2 pa-2" :prepend-avatar="wallet.logoLight"
+            :title="wallet.options.pretty_name" @click="open(wallet.options);">
             <template v-if="wallet.injected" #subtitle>
               Connect with {{ wallet.options.pretty_name }}
             </template>
@@ -119,8 +117,6 @@ import { suggestChains } from "@quirks/store";
 import { bitsong as bitsongConfig, bitsongAssetList } from "@nabla-studio/chain-registry";
 import VueQrcode from "vue-qrcode";
 import type { WalletOptions } from "@quirks/core";
-
-const isDev = computed(() => import.meta.dev || useRoute().query.dev === "true");
 
 // TODO: Timed out status???
 
