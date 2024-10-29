@@ -45,6 +45,14 @@ interface PlayerTrack {
 }
 
 const radios: PlayerTrack[] = [{
+  id: "radio-101",
+  title: "Radio 101",
+  artist: "Milano, Italy",
+  cover: "/images/r101.png",
+  sources: {
+    audio: "http://icecast.unitedradio.it/r101"
+  }
+}, {
   id: "radio-rds",
   title: "RDS - Radio Dimensione Suono",
   artist: "Rome, Italy",
