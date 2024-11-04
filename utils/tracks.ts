@@ -18,6 +18,121 @@ interface Track {
 }
 
 const tracks: Track[] = [{
+  "id": "recharge",
+  "title": "Recharge",
+  "artists": [
+    "Florin Dumbraveanu"
+  ],
+  "description": "\"Recharge\" is a raw, underground house track that pulses with an unfiltered energy. Stripped of commercial gloss, it brings a bold, authentic vibe to the dance floor, capturing the essence of deep, late-night sets with hypnotic beats and a gritty, immersive soundscape. This track is made for true house enthusiasts who crave an experience that’s both fresh and unapologetically underground.\n\nAdvantages for holders:\n\nExclusive Previews: Early access to Florin’s latest underground tracks and experimental works.\n\nPrivate Community: Invitation to a select group of fans with special discussions, unreleased content, and artist insights.\n\nUnique Airdrops: Holders may receive limited-edition artwork or future music NFTs tied to Florin's creative process.\n\nEvent Invitations: Access to secret shows and underground events that showcase Florin’s latest music.\n\nOwning \"Recharge\" means becoming part of an exclusive circle, supporting the authentic underground house movement, and connecting with Florin Dumbraveanu's evolving artistic journey.",
+  "creator": "bitsong1mvqdh3mkc9vaqr5394tkkef08jcnndcernl54j",
+  "sellerFeeBps": 500,
+  "referralFeeBps": 50,
+  "previewUrl": "https://media-api-direct.bitsong.studio/ipfs/QmdxoYhUhanpGLbPXSbxAsEMBCWD8Zr4D4V5936W14L49R",
+  "artworkUrl": "https://media-api-direct.bitsong.studio/ipfs/QmXTjPW5zRsBq1kv6LVTmrL8zUTSxrWj8mmcKR8WCiya3A",
+  "startTime": 1733940000,
+  "genre": "House",
+  "explicit": "Clean",
+  "license": "All Rights Reserved",
+  "initialPrice": 0.00585,
+  "nftAddress": "bitsong13z3y0leu0zjkupduqrfgzcthyqcj0h30mt75at63jyjhfvm2mzzq7n5mg9",
+  "marketplaceAddress": "bitsong1lz3weuaku5kfc9nluk3plffcljk8rla6f2gzz2vs23tkh4q2ycgswqak56"
+}, {
+  "id": "lost-my-way",
+  "title": "Lost My Way",
+  "artists": [
+    "Florin Dumbraveanu"
+  ],
+  "description": "\"Lost My Way\" by is a captivating deep house track that takes listeners on a journey through atmospheric beats and rich, emotive vocals. Its immersive soundscape combines lush basslines and layered rhythms that echo the sensations of searching and self-discovery.\n\nThe track resonates with fans of modern house music and creates a mood that’s both introspective and dance-worthy.\n\nAdvantages for holders:\n\nExclusive Access: Early access to new releases and unreleased tracks by Florin Dumbraveanu.\n\nCommunity Perks: Access to a private community with special Q&A sessions, virtual meet-ups, and behind-the-scenes content.\n\nFuture Airdrops: Holders can receive additional NFTs or limited-edition artwork related to the track.\n\nEvent Perks: Discounts or invitations to exclusive live events and performances featuring the artist.\n\nThis NFT isn’t just a track, it’s a membership into an exclusive community for deep house fans and a chance to directly support the my journey.",
+  "creator": "bitsong1mvqdh3mkc9vaqr5394tkkef08jcnndcernl54j",
+  "sellerFeeBps": 400,
+  "referralFeeBps": 50,
+  "previewUrl": "https://media-api-direct.bitsong.studio/ipfs/QmXUVZU7ybYdCmYxzaHKBdci2fnLDJLjcZAmUznV6u1Qji",
+  "artworkUrl": "https://media-api-direct.bitsong.studio/ipfs/Qmet7fYK9M6xcjWuNoTJYmQNhsh8hgLkkcYYei2m8KVxTU",
+  "startTime": 1733335200,
+  "genre": "House",
+  "explicit": "Clean",
+  "license": "All Rights Reserved",
+  "initialPrice": 0.011588,
+  "nftAddress": "bitsong13etggfapydruysc0qhfmdx72j7nuq284wzn97t7sgpgy2l6kuw5qh2t2zs",
+  "marketplaceAddress": "bitsong19jsya20x22l4m9xczljvjf3ccdxq6zt8pcmg6sx5gjjezsyljk7srj3n27"
+}, {
+  "id": "pum-pum",
+  "title": "PUM PUM",
+  "artists": [
+    "Florin Dumbraveanu"
+  ],
+  "description": "I'm thrilled to introduce my latest track, \"Pum Pum.\" It's a deep house piece that brings together rich rhythms and all the vibrant energy you’d expect from this genre. \"Pum Pum\" is all about connecting with the roots, feeling the groove, and letting the music move you.\n\nOwning the \"PUM PUM\" Music NFT comes with some cool perks:\n\nUnique Ownership: You’ll have a one-of-a-kind digital collectible that captures the essence of deep house.\n\nSupport the Artist: Your ownership directly supports me and helps keep the music flowing.\n\nExclusive Content: Get access to special content like alternate versions, behind-the-scenes looks, and more.\n\nCommunity Engagement: Join a community of deep house lovers and get a chance to connect with me and other fans.\n\nSpecial Perks: Enjoy benefits like early access to new tracks, personalized messages, and more.\n\nHope you vibe with \"Pum Pum\" as much as I do!",
+  "creator": "bitsong1mvqdh3mkc9vaqr5394tkkef08jcnndcernl54j",
+  "sellerFeeBps": 500,
+  "referralFeeBps": 50,
+  "previewUrl": "https://media-api-direct.bitsong.studio/ipfs/QmVMC5xZXWbpWob75WHGMBp5QTJRQ8Dj1arLaFYrhQAqSX",
+  "artworkUrl": "https://media-api-direct.bitsong.studio/ipfs/QmSeCH6sFXVYCg6cmWvfxRWrVSwLcFWsxzFJeaiw3cyFSr",
+  "startTime": 1732730400,
+  "genre": "House",
+  "explicit": "Clean",
+  "license": "All Rights Reserved",
+  "initialPrice": 0.00702,
+  "nftAddress": "bitsong1v7xmvwmpy3y2aanlkpc6pdn7mlf68rla0rr75jm605dw7lfyxyxqsdzvq7",
+  "marketplaceAddress": "bitsong1mn06lpfxyqvp276dgt7jwnkuw8lvuavkssfms5dqrztezeh2hnsqx6y7jp"
+}, {
+  "id": "on-my-mind",
+  "title": "On my mind",
+  "artists": [
+    "BlackJack"
+  ],
+  "description": "Immerse yourself in the vibrant rhythms of \" On my mind \".\n\nThis dance/deep house track takes you on a sonic journey, fusing modern beats with exotic oriental elements to create a truly distinctive sound. The infectious chorus and dynamic arrangement make this song an instant favorite for dance music enthusiasts and collectors of unique musical art.\n\nAdvantages for Collectors:\n\nExclusive Ownership\n\nAs a collector of the \"On my mind\" NFT, you will own a piece of musical history, with exclusive rights to the digital asset that cannot be replicated.\n\nDirect Artist Support\n\nBy purchasing this NFT, you directly support BlackJack, enabling them to continue creating innovative and boundary-pushing music.\n\nLimited Edition Perks\n\nEnjoy access to limited edition content, such as behind-the-scenes footage, unreleased tracks, and exclusive remixes that are only available to NFT holders.\n\nFuture Utilities\n\nBenefit from potential future utilities of the NFT, such as VIP concert tickets, merchandise discounts, and access to upcoming releases before the general public.\n\nInvestment Potential\n\nOwning this NFT not only provides an immersive musical experience but also serves as a valuable digital asset that can appreciate over time as the popularity of the artist and the platform grows.",
+  "creator": "bitsong1w35ntzzkf7dugwlq5a6lhrrp2lkq6yamxk42he",
+  "sellerFeeBps": 300,
+  "referralFeeBps": 50.01,
+  "previewUrl": "https://media-api-direct.bitsong.studio/ipfs/QmRNWEdFhwLHnYYToz5z16ofJQ6rQdzZ5UTTJqthemFuX5",
+  "artworkUrl": "https://media-api-direct.bitsong.studio/ipfs/Qma7dicFi9obTQXyfbm3i79CthhJZzBBbzcrN1DtTmjqus",
+  "startTime": 1732039200,
+  "genre": "Electronic",
+  "explicit": "Clean",
+  "license": "All Rights Reserved",
+  "initialPrice": 0.01033,
+  "nftAddress": "bitsong1f9j0zduqcs37s0cel2se9w55jkzlr4pmfks6auae3n4e3dwm24usnf0z70",
+  "marketplaceAddress": "bitsong1q8hcpc4atfpq8743kk3xq6uux9y20krd383995gye4c7qxy2y6lsjcxd5j"
+}, {
+  "id": "im-not-your-hero",
+  "title": "I'M NOT YOUR HERO",
+  "artists": [
+    "BlackJack"
+  ],
+  "description": "Immerse yourself in the vibrant rhythms of  \" I'm not your hero \".\n\nThis dance/deep house track takes you on a sonic journey, fusing modern beats with exotic oriental elements to create a truly distinctive sound. The infectious chorus and dynamic arrangement make this song an instant favorite for dance music enthusiasts and collectors of unique musical art.\n\nAdvantages for Collectors:\n\nExclusive Ownership\n\nAs a collector of the \"I'm not your hero\" NFT, you will own a piece of musical history, with exclusive rights to the digital asset that cannot be replicated.\n\nDirect Artist Support\n\nBy purchasing this NFT, you directly support BlackJack, enabling them to continue creating innovative and boundary-pushing music.\n\nLimited Edition Perks\n\nEnjoy access to limited edition content, such as behind-the-scenes footage, unreleased tracks, and exclusive remixes that are only available to NFT holders.\n\nFuture Utilities\n\nBenefit from potential future utilities of the NFT, such as VIP concert tickets, merchandise discounts, and access to upcoming releases before the general public.\n\nInvestment Potential\n\nOwning this NFT not only provides an immersive musical experience but also serves as a valuable digital asset that can appreciate over time as the popularity of the artist and the platform grows.",
+  "creator": "bitsong1w35ntzzkf7dugwlq5a6lhrrp2lkq6yamxk42he",
+  "sellerFeeBps": 500,
+  "referralFeeBps": 50,
+  "previewUrl": "https://media-api-direct.bitsong.studio/ipfs/QmVkB7KdHRcvnZu2iKR6oHNTg55kycYbDi1H16XadKnb3R",
+  "artworkUrl": "https://media-api-direct.bitsong.studio/ipfs/QmY24PsDFiFbF38ZvvyBBUqraZHqaJFLn8DT7hwZg2YXnN",
+  "startTime": 1731434400,
+  "genre": "Dance",
+  "explicit": "Clean",
+  "license": "All Rights Reserved",
+  "initialPrice": 0.01053,
+  "nftAddress": "bitsong18nj7a5p6g7agf76zyp2nrnv0fcjrfvsc82c5w7zzsdyjzgq0na3skwar7e",
+  "marketplaceAddress": "bitsong1rynh2g3k43h3qhc3ujd0dpq2a6q725qe9aa76nxzkj3ay389cu7s0lhujl"
+}, {
+  "id": "btsg-anthem",
+  "title": "$BTSG Anthem",
+  "artists": [
+    "Goose Pärk",
+    "GiiipsonPoet"
+  ],
+  "description": "The Moment You’ve Been Waiting For Has Arrived!\n\nThe $BTSG (Bitsong) Anthem is finally here! Featuring the dynamic collaboration between the renowned producer/engineer Goose Pärk and the lyrical genius GiiipsonPoet, this track is one for the books.  \n\nWhat began as a simple idea between the founder of BitSong and Goose Pärk has now become a reality, and we couldn’t be more excited to share it with you. Get ready to experience the anthem we've all been eagerly anticipating!",
+  "creator": "bitsong13xknrd2t5d28w3rnkly2dx3yxdwr97vhqr4z5w",
+  "sellerFeeBps": 300,
+  "referralFeeBps": 50.01,
+  "previewUrl": "https://media-api-direct.bitsong.studio/ipfs/QmZUSfJSPbXsxGcjZBJuknmH6X5Je8mtukaCd5uChHSvk4",
+  "artworkUrl": "https://media-api-direct.bitsong.studio/ipfs/QmQEyJ3s9guN3uPorB4ZA89tQNNvTgNNAhT3wBdqAUr4tX",
+  "startTime": 1732820400,
+  "genre": "Hip-Hop",
+  "explicit": "Clean",
+  "license": "All Rights Reserved",
+  "initialPrice": 0.02066,
+  "nftAddress": "bitsong1988m6509pqkje967nz04kdt5qw2mzmgr6t6qr6lzjrpm9h45wlhsfw4zkk",
+  "marketplaceAddress": "bitsong1qpj4qdy7ut953fmcyr2ux6xzpfv4my6htyyx3972fhqdu33hek0sem4ywt"
+}, {
   "id": "dont-cry-my-love",
   "title": "Don't Cry My Love",
   "artists": [
