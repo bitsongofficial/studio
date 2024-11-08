@@ -13,9 +13,9 @@
 
     <template #append v-if="showUserMenu">
       <AppUserMenu />
-      <client-only>
+      <ClientOnly>
         <AppConnectBtn />
-      </client-only>
+      </ClientOnly>
     </template>
   </v-app-bar>
 </template>

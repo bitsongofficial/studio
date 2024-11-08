@@ -3,7 +3,7 @@
     <template #body>
       <v-container fluid>
         <v-row>
-          <v-col cols="12" md="8" class="text-center pb-0">
+          <v-col cols="12" md="7" class="text-center pb-0">
             <div>
               <!--<video
 v-if="data?.animation_url" class="mx-auto rounded-xl media__content" controls playsinline
@@ -50,8 +50,8 @@ v-if="data?.animation_url" class="mx-auto rounded-xl media__content" controls pl
                     <v-col>
                       <v-card-title>
                         Share and Earn {{ (((Number(data?.seller_fee_bps) / 10000) *
-                (Number(data?.referral_fee_bps) / 10000)) *
-                100).toFixed(2) }} %
+                          (Number(data?.referral_fee_bps) / 10000)) *
+                          100).toFixed(2) }} %
                       </v-card-title>
                       <v-card-subtitle>
                         Earn the referral fee by sharing this NFT
@@ -72,8 +72,7 @@ v-if="data?.animation_url" class="mx-auto rounded-xl media__content" controls pl
 
             <v-row>
 
-
-              <v-col cols="6">
+              <v-col cols="5">
                 <div class="text-caption text-grey text-uppercase">NFT</div>
                 <div>
                   <nuxt-link :to="`/nfts/${contractAddress}`" class="text-decoration-none text-white">
@@ -82,7 +81,7 @@ v-if="data?.animation_url" class="mx-auto rounded-xl media__content" controls pl
                 </div>
               </v-col>
 
-              <v-col v-if="data?.sender" cols="6">
+              <v-col v-if="data?.sender" cols="5">
                 <div class="text-caption text-grey text-uppercase">CREATOR</div>
                 <div>
                   <nuxt-link :to="`/u/${data?.sender}`" class="text-decoration-none text-white">
@@ -91,14 +90,14 @@ v-if="data?.animation_url" class="mx-auto rounded-xl media__content" controls pl
                 </div>
               </v-col>
 
-              <v-col v-if="false" cols="6">
+              <v-col v-if="false" cols="5">
                 <div class="text-caption text-grey text-uppercase">
                   Max Edition
                 </div>
                 <div>-</div>
               </v-col>
 
-              <v-col v-if="data?.payment_address" cols="6">
+              <v-col v-if="data?.payment_address" cols="5">
                 <div class="text-caption text-grey text-uppercase">
                   Royalties Address
                 </div>
@@ -110,7 +109,7 @@ v-if="data?.animation_url" class="mx-auto rounded-xl media__content" controls pl
                 </div>
               </v-col>
 
-              <v-col v-if="data?.payment_address" cols="6">
+              <v-col v-if="data?.payment_address" cols="5">
                 <div class="text-caption text-grey text-uppercase">
                   Marketplace Address
                 </div>
@@ -122,7 +121,7 @@ v-if="data?.animation_url" class="mx-auto rounded-xl media__content" controls pl
                 </div>
               </v-col>
 
-              <v-col v-if="data?.seller_fee_bps" cols="6">
+              <v-col v-if="data?.seller_fee_bps" cols="5">
                 <div class="text-caption text-grey text-uppercase">
                   Seller Fee %
                 </div>
@@ -131,24 +130,24 @@ v-if="data?.animation_url" class="mx-auto rounded-xl media__content" controls pl
                   %</div>
               </v-col>
 
-              <v-col v-if="data?.referral_fee_bps && data?.seller_fee_bps" cols="6">
+              <v-col v-if="data?.referral_fee_bps && data?.seller_fee_bps" cols="5">
                 <div class="text-caption text-grey text-uppercase">
                   Referral Fee %
                 </div>
                 <div>
                   {{ (((Number(data?.seller_fee_bps) / 10000) * (Number(data?.referral_fee_bps) / 10000)) *
-                100).toFixed(2) }} %
+                    100).toFixed(2) }} %
                 </div>
               </v-col>
 
-              <v-col v-if="data?.max_per_address" cols="6">
+              <v-col v-if="data?.max_per_address" cols="5">
                 <div class="text-caption text-grey text-uppercase">
                   Max per Address
                 </div>
                 <div>{{ data?.max_per_address }}</div>
               </v-col>
 
-              <v-col v-if="data?.volume" cols="6">
+              <v-col v-if="data?.volume" cols="5">
                 <div class="text-caption text-grey text-uppercase">
                   Total Volume
                 </div>
@@ -156,14 +155,14 @@ v-if="data?.animation_url" class="mx-auto rounded-xl media__content" controls pl
                 </div>
               </v-col>
 
-              <v-col v-if="data?.owners" cols="6">
+              <v-col v-if="data?.owners" cols="5">
                 <div class="text-caption text-grey text-uppercase">
                   Unique Owners
                 </div>
                 <div>{{ data.owners }}</div>
               </v-col>
 
-              <v-col v-if="data?.editions" cols="6">
+              <v-col v-if="data?.editions" cols="5">
                 <div class="text-caption text-grey text-uppercase">
                   Editions
                 </div>
@@ -201,20 +200,20 @@ v-if="data?.animation_url" class="mx-auto rounded-xl media__content" controls pl
                     </nuxt-link>
 
                     <span :class="{
-                'text-green': activity.side === 'buy',
-                'text-red': activity.side === 'sell',
-              }">
+                      'text-green': activity.side === 'buy',
+                      'text-red': activity.side === 'sell',
+                    }">
                       &nbsp;{{ activity.side === "buy" ? "minted" : "burned" }}&nbsp;
                     </span>
 
                     <span class="text-white">#{{
-                activity.token_id
-              }}</span>
+                      activity.token_id
+                    }}</span>
                     for
                     <span :class="{
-                  'text-green': activity.side === 'buy',
-                  'text-red': activity.side === 'sell',
-                }">
+                      'text-green': activity.side === 'buy',
+                      'text-red': activity.side === 'sell',
+                    }">
                       {{ formatCoinAmount(useFromMicroAmount(activity.total_price)) }}
                       <span class="text-subtitle-2">BTSG</span>
                     </span>

@@ -2,7 +2,10 @@
 // import { polyfillNode } from "esbuild-plugin-polyfill-node";
 
 export default defineNuxtConfig({
+  compatibilityDate: '2024-04-03',
+
   devtools: { enabled: true },
+
   app: {
     head: {
       link: [
@@ -10,12 +13,20 @@ export default defineNuxtConfig({
       ]
     }
   },
+
   appConfig: {
     umami: {
       version: 2,
       ignoreLocalhost: true,
     },
   },
+
+  css: [
+    '@fortawesome/fontawesome-free/css/all.css',
+    '@mdi/font/css/materialdesignicons.css',
+    '~/assets/scss/style.scss'
+  ],
+
   runtimeConfig: {
     nftStorageApiKey: '',
     awsAccessKeyId: '',
@@ -50,16 +61,15 @@ export default defineNuxtConfig({
       walletconnectProjectId: '',
     },
   },
-  // css: [
-  //   '@mdi/font/css/materialdesignicons.css',
-  //   //'@fortawesome/fontawesome-free/css/all.css'
-  // ],
+
   build: {
     transpile: ['trpc-nuxt', 'vue-toastification', 'vuetify'],
   },
+
   gtag: {
     id: "G-41SQ7H37C8",
   },
+
   image: {
     domains: [
       'yellow-hilarious-jay-665.mypinata.cloud',
@@ -70,7 +80,9 @@ export default defineNuxtConfig({
       'testnet.bitsong.studio'
     ],
   },
+
   extends: ['nuxt-umami'],
+
   modules: [
     '@nuxt/eslint',
     'nuxt-gtag',
@@ -79,14 +91,10 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@quirks/nuxt',
     '@vue-email/nuxt',
-    // (_options, nuxt) => {
-    //   nuxt.hooks.hook('vite:extendConfig', (config) => {
-    //     config.plugins!.push(vuetify({ autoImport: true }))
-    //   })
-    // },
     '@vueuse/nuxt',
     'vuetify-nuxt-module',
   ],
+
   nitro: {
     storage: {
       mnft: {
@@ -107,33 +115,49 @@ export default defineNuxtConfig({
       }
     }
   },
+
   vueEmail: {
     baseUrl: process.env.NUXT_PUBLIC_SITE_URL || 'http://localhost:3000',
   },
-  // css: ['~/assets/scss/style.scss'],
-  // vite: {
-  //   css: {
-  //     preprocessorOptions: {
-  //       scss: {
-  //         additionalData: '@use "../../node_modules/vuetify/lib/styles/tools/functions" as *;'
-  //       }
-  //     }
-  //   }
-  // }
+
   vue: {
     propsDestructure: true,
   },
+
   vuetify: {
     moduleOptions: {
-      includeTransformAssetsUrls: true,
-    },
-    vuetifyOptions: "./vuetify.config.ts", // <== you can omit it
+      disableVuetifyStyles: true,
+
+      styles: {
+        configFile: '/assets/scss/settings.scss'
+      },
+
+      includeTransformAssetsUrls: {
+        NuxtImg: ['src'],
+        OgImage: ['image'],
+      },
+
+      ssrClientHints: {
+        reloadOnFirstRequest: false,
+        prefersColorScheme: false,
+        // prefersColorSchemeOptions: {
+        //   useBrowserThemeOnly: false,
+        // },
+        viewportSize: true,
+      },
+    }
   },
-  // vuetify: {
-  //   moduleOptions: {
-  //     styles: 'sass'
-  //   }
-  // }
+
+  vite: {
+    css: {
+      preprocessorOptions: {
+        scss: {
+          api: 'modern-compiler',
+        }
+      }
+    }
+  }
+
   // vite: {
   //   plugins: [polyfillNode()],
   //   vue: {

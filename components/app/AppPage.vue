@@ -14,9 +14,7 @@
         <slot name="append" />
       </div>
     </div>
-    <div>
-      <slot name="body" />
-    </div>
+    <slot name="body" />
   </v-container>
 </template>
 

@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer id="navdrawer" v-model="drawer" color="black">
+  <v-navigation-drawer v-model="drawer" color="black">
     <div class="d-flex pt-3 pb-1 pl-4">
       <div>
         <NuxtLink to="/">
@@ -54,6 +54,7 @@
 </template>
 
 <script setup lang="ts">
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 const { network, appName } = useRuntimeConfig().public
 const { drawer, navItems } = useNavigationDrawer();
 

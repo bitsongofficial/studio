@@ -2,14 +2,14 @@
   <div v-if="connected" class="d-flex align-center">
     <v-menu v-model="menu" :close-on-content-click="false">
       <template #activator="{ props }">
-        <v-list width="210" :style="{ cursor: 'pointer' }" v-bind="props" bg-color="transparent" variant="text"
-          density="comfortable" rounded="pill">
+        <v-list width="210" :style="{ cursor: 'pointer', overflow: 'hidden' }" v-bind="props" bg-color="transparent"
+          variant="text" density="comfortable" rounded="pill">
           <v-list-item :prepend-avatar="avatar" :title="name" :subtitle="formattedBalance" />
         </v-list>
       </template>
 
       <v-card min-width="300">
-        <div class="py-3 text-center flex-grow-1">
+        <div class=" py-3 text-center flex-grow-1">
           <v-avatar size="80" :style="{ cursor: 'pointer' }" @click.stop="navigateTo('/me')">
             <v-img :src="avatar" :alt="accountName" cover />
           </v-avatar>

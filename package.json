@@ -31,6 +31,7 @@
     "nuxt-og-image": "3.0.8",
     "prisma": "^5.9.1",
     "sass": "^1.80.6",
+    "sass-embedded": "^1.80.6",
     "typescript": "^5.4.5",
     "vite-plugin-vuetify": "^1.0.2",
     "vue": "^3.3.10",

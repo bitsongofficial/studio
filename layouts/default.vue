@@ -1,19 +1,23 @@
 <template>
-  <v-layout id="app">
-    <ClientOnly>
+  <div>
+    <v-app>
       <app-drawer />
-      <app-bar :show-logo="false" />
-    </ClientOnly>
 
-    <v-main :class="{ 'v-main--player-queue': showQueue && track?.id !== undefined && !mobile }">
       <ClientOnly>
-        <AppAlertConfirmEmail />
+        <app-bar :show-logo="false" />
       </ClientOnly>
-      <slot />
-    </v-main>
-    <AppPlayer />
-    <AppPlayerQueue />
-  </v-layout>
+
+      <v-main :class="{ 'v-main--player-queue': showQueue && track?.id !== undefined && !mobile }">
+        <ClientOnly>
+          <AppAlertConfirmEmail />
+        </ClientOnly>
+        <slot />
+      </v-main>
+
+      <AppPlayer />
+      <AppPlayerQueue />
+    </v-app>
+  </div>
 </template>
 
 <script lang="ts" setup>
