@@ -26,16 +26,17 @@
     "@vue-email/nuxt": "^0.8.8",
     "esbuild-plugin-polyfill-node": "^0.3.0",
     "eslint": "9.1.1",
-    "nuxt": "^3.9.1",
+    "nuxt": "^3.14.159",
     "nuxt-icon": "^0.6.8",
-    "nuxt-og-image": "3.0.0-rc.25",
+    "nuxt-og-image": "3.0.8",
     "prisma": "^5.9.1",
-    "sass": "^1.69.5",
+    "sass": "^1.80.6",
     "typescript": "^5.4.5",
     "vite-plugin-vuetify": "^1.0.2",
     "vue": "^3.3.10",
     "vue-router": "^4.2.5",
-    "vuetify": "^3.6.13"
+    "vuetify": "^3.6.13",
+    "vuetify-nuxt-module": "^0.18.3"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.501.0",
@@ -93,21 +94,8 @@
     "node": ">=20.0.0",
     "npm": ">=9.0.0"
   },
-  "pnpm": {
-    "overrides": {
-      "sharp": "0.32.6"
-    },
-    "supportedArchitectures": {
-      "os": [
-        "linux"
-      ],
-      "cpu": [
-        "x64"
-      ]
-    }
-  },
   "prisma": {
     "seed": "node seed.js"
   },
-  "packageManager": "pnpm@8.0.0"
+  "packageManager": "pnpm@9.0.0"
 }

@@ -1,7 +1,6 @@
-import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
-import { polyfillNode } from "esbuild-plugin-polyfill-node";
+// import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
+// import { polyfillNode } from "esbuild-plugin-polyfill-node";
 
-// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
   app: {
@@ -80,12 +79,13 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@quirks/nuxt',
     '@vue-email/nuxt',
+    // (_options, nuxt) => {
+    //   nuxt.hooks.hook('vite:extendConfig', (config) => {
+    //     config.plugins!.push(vuetify({ autoImport: true }))
+    //   })
+    // },
     '@vueuse/nuxt',
-    (_options, nuxt) => {
-      nuxt.hooks.hook('vite:extendConfig', (config) => {
-        config.plugins!.push(vuetify({ autoImport: true }))
-      })
-    },
+    'vuetify-nuxt-module',
   ],
   nitro: {
     storage: {
@@ -110,12 +110,36 @@ export default defineNuxtConfig({
   vueEmail: {
     baseUrl: process.env.NUXT_PUBLIC_SITE_URL || 'http://localhost:3000',
   },
-  vite: {
-    plugins: [polyfillNode()],
-    vue: {
-      template: {
-        transformAssetUrls,
-      },
-    },
+  // css: ['~/assets/scss/style.scss'],
+  // vite: {
+  //   css: {
+  //     preprocessorOptions: {
+  //       scss: {
+  //         additionalData: '@use "../../node_modules/vuetify/lib/styles/tools/functions" as *;'
+  //       }
+  //     }
+  //   }
+  // }
+  vue: {
+    propsDestructure: true,
   },
+  vuetify: {
+    moduleOptions: {
+      includeTransformAssetsUrls: true,
+    },
+    vuetifyOptions: "./vuetify.config.ts", // <== you can omit it
+  },
+  // vuetify: {
+  //   moduleOptions: {
+  //     styles: 'sass'
+  //   }
+  // }
+  // vite: {
+  //   plugins: [polyfillNode()],
+  //   vue: {
+  //     template: {
+  //       transformAssetUrls,
+  //     },
+  //   },
+  // },
 })

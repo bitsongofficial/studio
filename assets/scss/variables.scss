@@ -2,7 +2,7 @@
 @use 'sass:math';
 @use 'sass:map';
 @use 'sass:meta';
-@use 'vuetify/lib/styles/tools/functions' as *;
+@use '../../node_modules/vuetify/lib/styles/tools/functions' as *;
 
 $font-size-root: 16px;
 $body-font-family: 'Circular Std', sans-serif !default;

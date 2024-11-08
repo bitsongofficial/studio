@@ -1,3 +1,4 @@
+@use "sass:meta";
 // ================================== //
 // Fonts
 // ================================== //
@@ -25,8 +26,8 @@
 // ================================== //
 // Required Files
 // ================================== //
-@import "variables";
-@import 'vuetify/styles/main.sass';
+@include meta.load-css("variables");
+@include meta.load-css('../../node_modules/vuetify/lib/styles/main.sass');
 
 // ================================== //
 // Icons
