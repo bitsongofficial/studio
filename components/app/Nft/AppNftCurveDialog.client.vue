@@ -378,7 +378,7 @@ async function onBuy() {
     success("Transaction success")
     useAppEvent('buy-nft', { nftAddress: contractConfig.value.nftAddress, amount: toValue(amount), maxBid: toValue(yourBid) })
   } catch (e) {
-    // TODO: this metod is just temporary, we need to handle the error properly
+    // TODO: this method is just temporary, we need to handle the error properly
     console.error(e)
     error(parseCosmosError(e as Error))
     useAppEvent('buy-nft-error', { nftAddress: contractConfig.value.nftAddress, amount: toValue(amount), maxBid: toValue(yourBid) })

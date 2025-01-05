@@ -77,10 +77,10 @@
               </v-row>
               <v-row no-gutters class="mt-n4">
                 <v-col>
-                  <v-chip color="green" v-if="modelValue.creatorFee! <= 2.5">Reccomended</v-chip>
+                  <v-chip color="green" v-if="modelValue.creatorFee! <= 2.5">Recommended</v-chip>
                   <v-chip color="yellow"
                     v-if="modelValue.creatorFee! > 2.5 && modelValue.creatorFee! <= 5">Medium</v-chip>
-                  <v-chip color="red" v-if="modelValue.creatorFee! > 5">Not Reccomended</v-chip>
+                  <v-chip color="red" v-if="modelValue.creatorFee! > 5">Not Recommended</v-chip>
                 </v-col>
               </v-row>
             </v-col>
@@ -105,10 +105,10 @@
               </v-row>
               <v-row no-gutters class="mt-n4">
                 <v-col>
-                  <v-chip color="green" v-if="modelValue.referralFee! <= 2.5">Reccomended</v-chip>
+                  <v-chip color="green" v-if="modelValue.referralFee! <= 2.5">Recommended</v-chip>
                   <v-chip color="yellow"
                     v-if="modelValue.referralFee! > 2.5 && modelValue.referralFee! <= 5">Medium</v-chip>
-                  <v-chip color="red" v-if="modelValue.referralFee! > 5">Not Reccomended</v-chip>
+                  <v-chip color="red" v-if="modelValue.referralFee! > 5">Not Recommended</v-chip>
                 </v-col>
               </v-row>
             </v-col>
