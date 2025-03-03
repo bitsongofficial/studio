@@ -28,7 +28,7 @@
     "eslint": "9.1.1",
     "nuxt": "^3.9.1",
     "nuxt-icon": "^0.6.8",
-    "nuxt-og-image": "3.0.0-rc.25",
+    "nuxt-og-image": "4.1.5",
     "prisma": "^5.9.1",
     "sass": "^1.69.5",
     "typescript": "^5.4.5",
