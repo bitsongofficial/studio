@@ -11,6 +11,7 @@ export default defineNuxtConfig({
       ]
     }
   },
+  compatibilityDate: "2025-03-03",
   appConfig: {
     umami: {
       version: 2,
