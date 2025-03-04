@@ -4,13 +4,6 @@
       <v-alert class="my-2">This page is under construction, come back soon!</v-alert>
       <v-container fluid>
         <v-row>
-          <v-col>
-            <div class="text-md-h4 text-h5 font-weight-bold text-surface-variant align-center d-flex">
-              Italia
-            </div>
-          </v-col>
-        </v-row>
-        <v-row>
           <v-col style="cursor: pointer;" v-for="radio in radios" :key="radio.id" cols="auto" @click="play(radio.id)">
             <v-card rounded="lg" width="230" color="black">
               <v-img :transition="false" height="230" width="230"
