@@ -108,6 +108,30 @@ const radios: PlayerTrack[] = [{
   sources: {
     audio: "https://sonic.mediacp.eu/8116/stream"
   }
+}, {
+  id: 'tomorrowland-oneworld',
+  title: 'Tomorrowland One World Radio',
+  artist: 'Belgium',
+  cover: 'https://bitsong.studio/images/radio/tomorrowland_oneworld.png',
+  sources: {
+    audio: "https://28953.live.streamtheworld.com/OWR_INTERNATIONAL.mp3"
+  }
+}, {
+  id: 'tomorrowland-daybreak',
+  title: 'Tomorrowland Daybreak Sessions',
+  artist: 'Belgium',
+  cover: 'https://bitsong.studio/images/radio/tomorrowland_daybreak.png',
+  sources: {
+    audio: "https://22183.live.streamtheworld.com/OWR_DAYBREAK.mp3"
+  }
+}, {
+  id: 'tomorrowland-anthems',
+  title: 'Tomorrowland Anthems',
+  artist: 'Belgium',
+  cover: 'https://bitsong.studio/images/radio/tomorrowland_anthems.png',
+  sources: {
+    audio: "https://25453.live.streamtheworld.com/OWR_DAB.mp3"
+  }
 }]
 
 const { playRadio } = usePlayer()
