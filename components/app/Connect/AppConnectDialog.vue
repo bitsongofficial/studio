@@ -114,7 +114,10 @@
 <script lang="ts" setup>
 import { useConnect, useConfig } from "@quirks/vue";
 import { suggestChains } from "@quirks/store";
-import { bitsong as bitsongConfig, bitsongAssetList } from "@nabla-studio/chain-registry";
+import {
+  chain as bitsongConfig,
+  assets as bitsongAssetList,
+} from 'chain-registry/mainnet/bitsong'
 import VueQrcode from "vue-qrcode";
 import type { WalletOptions } from "@quirks/core";
 
@@ -167,10 +170,6 @@ function createTGPairUri(pairUri: string) {
 
 watch(pairingURI, (newVal) => {
   if (!newVal) return;
-
-  if (selectedWallet.value?.wallet_name === "telegram") {
-    window.open(`https://t.me/grammos_bot/app?mode=compact&startapp=${createTGPairUri(newVal)}`, "_blank");
-  }
 })
 
 const open = async (opts: WalletOptions) => {

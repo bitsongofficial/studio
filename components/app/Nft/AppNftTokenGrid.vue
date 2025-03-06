@@ -1,3 +1,20 @@
+<script lang="ts" setup>
+import type { NftTokenGridItem } from "./AppNftTokenGridItem.vue";
+
+defineProps<{
+  title?: string | null;
+  items?: NftTokenGridItem[] | null;
+}>();
+
+const emit = defineEmits<{
+  (e: "refresh"): void;
+}>();
+
+function onRefresh() {
+  emit("refresh");
+}
+</script>
+
 <template>
   <v-container fluid v-bind="$attrs">
     <v-row>
@@ -15,20 +32,3 @@
     </v-row>
   </v-container>
 </template>
-
-<script lang="ts" setup>
-import type { NftTokenGridItem } from "./AppNftTokenGridItem.vue";
-
-defineProps<{
-  title?: string | null;
-  items?: NftTokenGridItem[] | null;
-}>();
-
-const emit = defineEmits<{
-  (e: "refresh"): void;
-}>();
-
-function onRefresh() {
-  emit("refresh");
-}
-</script>

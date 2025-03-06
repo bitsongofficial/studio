@@ -12,8 +12,7 @@
         <v-col cols="12" xl="2" lg="3">
           <v-card class="d-flex flex-column pa-4">
             <v-img cover gradient="to bottom, rgba(0,0,0,.10), rgba(0,0,0,.7)"
-              :src="img(track!.artwork, { width: 250, height: 250, fit: 'cover' })" height="230" width="100%">
-            </v-img>
+              :src="img(track!.artwork, { width: 250, height: 250, fit: 'cover' })" height="230" width="100%" />
             <v-card-subtitle :style="{ whiteSpace: 'normal', lineHeight: '1.4rem' }" class="px-0 mt-2">
               {{ formattedArtists || '-' }}
             </v-card-subtitle>
@@ -31,10 +30,9 @@
             </v-col>
             <v-col>
               <v-btn v-if="metadataEnabled && !loading" variant="text" icon="mdi-chevron-right"
-                @click.stop="publishMetadata"></v-btn>
+                @click.stop="publishMetadata" />
               <v-icon v-if="metadataSuccess" color="green">mdi-check</v-icon>
-              <v-progress-circular v-if="loading && metadataEnabled" width="3" indeterminate
-                color="primary"></v-progress-circular>
+              <v-progress-circular v-if="loading && metadataEnabled" width="3" indeterminate color="primary" />
             </v-col>
           </v-row>
           <v-row align="center">
@@ -44,10 +42,9 @@
             </v-col>
             <v-col>
               <v-btn v-if="royaltiesEnabled && !loading" variant="text" icon="mdi-chevron-right"
-                @click.stop="createRoyalties"></v-btn>
+                @click.stop="createRoyalties" />
               <v-icon v-if="royaltiesSuccess" color="green">mdi-check</v-icon>
-              <v-progress-circular v-if="loading && royaltiesEnabled" width="3" indeterminate
-                color="primary"></v-progress-circular>
+              <v-progress-circular v-if="loading && royaltiesEnabled" width="3" indeterminate color="primary" />
             </v-col>
           </v-row>
           <v-row align="center">
@@ -57,13 +54,12 @@
             </v-col>
             <v-col>
               <v-btn v-if="musicNftEnabled && !loading" variant="text" icon="mdi-chevron-right"
-                @click.stop="createCurve"></v-btn>
+                @click.stop="createCurve" />
               <v-icon v-if="musicNftSuccess" color="green">mdi-check</v-icon>
-              <v-progress-circular v-if="loading && musicNftEnabled" width="3" indeterminate
-                color="primary"></v-progress-circular>
+              <v-progress-circular v-if="loading && musicNftEnabled" width="3" indeterminate color="primary" />
             </v-col>
           </v-row>
-          <v-row align="center" v-if="currentStep === 3">
+          <v-row v-if="currentStep === 3" align="center">
             <v-col cols="8">
               <v-btn>View Music Nft</v-btn>
             </v-col>
@@ -181,6 +177,7 @@ async function createRoyalties() {
       }
     })
     const tx = await factoryClient.createRoyaltiesGroup(msg, "auto", "", []);
+    console.log(tx)
 
     await $fetch(`${useRuntimeConfig().public.mediaApiDirect}/tracks/${trackId}`, {
       method: "PUT",
@@ -188,7 +185,7 @@ async function createRoyalties() {
         'Authorization': `Bearer ${useUserState().value?.sid}`
       },
       body: {
-        payment_address: toValue(tx.logs[0].events[1].attributes[0].value)
+        payment_address: toValue(tx.events[9].attributes[0].value)
       }
     })
 
@@ -227,6 +224,7 @@ async function createCurve() {
     );
 
     const tx = await factoryClient.createCurve(msg, "auto", "", [{ amount: "500000000", denom: "ubtsg" }]);
+    console.log(tx)
 
     const nft_address = tx.logs[0].events[3].attributes[2].value
 

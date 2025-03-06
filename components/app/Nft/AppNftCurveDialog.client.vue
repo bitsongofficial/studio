@@ -363,10 +363,6 @@ async function onBuy() {
       }
     }
 
-    if (toValue(walletName) === 'telegram') {
-      window.open(`https://t.me/grammos_bot/app?mode=compact&startapp=sign`, "_blank");
-    }
-
     await curveClient.mint(mintData,
       "auto",
       "",
@@ -414,10 +410,6 @@ async function onSell() {
       }
     }
 
-    if (toValue(walletName) === 'telegram') {
-      window.open(`https://t.me/grammos_bot/app?mode=compact&startapp=sign`, "_blank");
-    }
-
     await curveClient.burn(burnData,
       "auto",
       "",
@@ -449,10 +441,6 @@ async function onAllow() {
       address,
       contractConfig.value.nftAddress,
     );
-
-    if (toValue(walletName) === 'telegram') {
-      window.open(`https://t.me/grammos_bot/app?mode=compact&startapp=sign`, "_blank");
-    }
 
     await bs721Client.approveAll(
       {
