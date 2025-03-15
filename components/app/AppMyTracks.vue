@@ -2,7 +2,6 @@
   <v-container fluid class="px-0">
     <v-row>
       <v-col cols="auto" v-for="track in tracks" :key="track.id">
-        {{ track }}
         <AppMyTracksItem :image="track.artwork!" :subtitle="``" :title="track.title || '-'" :link="getTrackLink(track)"
           :btnText="getButtonText(track)" :status="getStatusText(track)" />
       </v-col>
