@@ -31,7 +31,7 @@
           <v-list-item append-icon="mdi-account" to="/me">
             <v-list-item-title>My Profile</v-list-item-title>
           </v-list-item>
-          <v-list-item v-if="canUpload" append-icon="mdi-music" to="/me/tracks">
+          <v-list-item append-icon="mdi-music" to="/me/tracks">
             <v-list-item-title>My Tracks</v-list-item-title>
           </v-list-item>
           <v-list-item append-icon="mdi-bank" to="/me/assets">
@@ -88,5 +88,5 @@ onMounted(async () => {
   }
 })
 
-const canUpload = computed(() => user.value?.beta_features !== undefined && user.value?.beta_features.includes('upload'))
+// const canUpload = computed(() => user.value?.beta_features !== undefined && user.value?.beta_features.includes('upload'))
 </script>
