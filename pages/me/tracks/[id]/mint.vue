@@ -61,7 +61,9 @@
           </v-row>
           <v-row v-if="currentStep === 3" align="center">
             <v-col cols="8">
-              <v-btn>View Music Nft</v-btn>
+              <p>Your music nft has been successfully mint</p>
+              <p>{{ nftAddress }}</p>
+              <v-btn @click="navigateTo(`/nfts/${nftAddress}`)">View Music Nft</v-btn>
             </v-col>
           </v-row>
         </v-col>
@@ -81,6 +83,7 @@ definePageMeta({
 })
 
 const trackId = useRoute().params.id as string
+const nftAddress = ref()
 
 const currentStep = ref(0)
 
@@ -177,7 +180,6 @@ async function createRoyalties() {
       }
     })
     const tx = await factoryClient.createRoyaltiesGroup(msg, "auto", "", []);
-    console.log(tx)
 
     await $fetch(`${useRuntimeConfig().public.mediaApiDirect}/tracks/${trackId}`, {
       method: "PUT",
@@ -185,7 +187,7 @@ async function createRoyalties() {
         'Authorization': `Bearer ${useUserState().value?.sid}`
       },
       body: {
-        payment_address: toValue(tx.events[9].attributes[0].value)
+        payment_address: toValue(tx.events[10].attributes[0].value)
       }
     })
 
@@ -224,9 +226,15 @@ async function createCurve() {
     );
 
     const tx = await factoryClient.createCurve(msg, "auto", "", [{ amount: "500000000", denom: "ubtsg" }]);
-    console.log(tx)
 
-    const nft_address = tx.logs[0].events[3].attributes[2].value
+    // const nft_address = tx.logs[0].events[3].attributes[2].value
+
+    // /cosmos/tx/v1beta1/txs/00C5190B7D502FEA6F0F892D8DB67CADB09AC59048EF8A2913F56048AFC009E2
+    // event 16 (code_id 4) is the marketplace address
+    // event 17 (code_id 1) is the nft address
+
+    const nft_address = tx.events[17].attributes[0].value
+    nftAddress.value = nft_address
 
     await $fetch(`${useRuntimeConfig().public.mediaApiDirect}/tracks/${trackId}/confirm`, {
       method: "POST",

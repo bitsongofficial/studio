@@ -180,7 +180,7 @@ async function onUploadVideoDone() {
 }
 
 async function onEditDone() {
-  navigateTo(`/me/tracks/${trackId}/confirm`)
+  navigateTo(`/me/tracks/${trackId}/mint`)
 }
 
 onMounted(async () => {
