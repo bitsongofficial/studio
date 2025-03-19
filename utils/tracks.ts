@@ -18,6 +18,63 @@ interface Track {
 }
 
 const tracks: Track[] = [{
+  "id": "antics-paradise-featuring-dani-isaily-ezkiel-frankie-carerra",
+  "title": "Antics - Paradise (featuring Dani Isaily, Ezkiel, Frankie Carerra)",
+  "artists": [
+    "Antics"
+  ],
+  "description": "'Paradise' by Antics (featuring Dani Isaily, Ezkiel, Frankie Carerra)\nvia N43 Records",
+  "creator": "bitsong1l73znegcrcwsmrzs3zr8twtdmvhxcrvcx0dmez",
+  "sellerFeeBps": 300,
+  "referralFeeBps": 50.01,
+  "previewUrl": "https://media-api-direct.bitsong.studio/ipfs/QmTVubCrDGjmriawRrbAHokzq1797rNMoSUZZAfW3GDLEn",
+  "artworkUrl": "https://media-api-direct.bitsong.studio/ipfs/QmRFp6z1odtpwpsr2dhfVSY7d2TYbVht1HBctNAZyxNmyE",
+  "startTime": 1742396400,
+  "genre": "Pop",
+  "explicit": "Explicit",
+  "license": "All Rights Reserved",
+  "initialPrice": 0.093909,
+  "nftAddress": "bitsong17jxzzq53z8j7aaz4dzv6dx6mt79dsvg6q49v78rrc3w2d2e8wwaq6zegge",
+  "marketplaceAddress": "bitsong1hd7sxwq7rj4d5mj80ft9ypyvnvvrcm4ztqjkuh8glzxzdgp4l8ascmkek9"
+}, {
+  "id": "millstone",
+  "title": "Millstone",
+  "artists": [
+    "Millstone"
+  ],
+  "description": "\"Superstar Rug\" is a hypnotic fusion of stardom, nostalgia, and grounding energy, set against a trance-driven soundscape. The work combines ethereal beats that flow into the deep, heavy pulse of the track, recreating a space where time collides. The 'rug' represents a solid, well-founded ground; the 'superstar' expresses phenomenal heights associated with fame and excellence. The music builds as a journey of self-reflection and elevation, teaching that greatness comes from memories and experiences. At once uplifting and grounding, this trance anthem provides the perfect score for accomplishments seeking elevation and reconnection with the roots.",
+  "creator": "bitsong1a6vkymwt5u7hcg5asa8ycuckw5nqwrjd6qlff6",
+  "sellerFeeBps": 500,
+  "referralFeeBps": 100,
+  "previewUrl": "https://media-api-direct.bitsong.studio/ipfs/QmUomppBnyvZgSBB63Pc34X7edr3mNRVWQojeTfN9kMoer",
+  "artworkUrl": "https://media-api-direct.bitsong.studio/ipfs/QmURe3i3PKWa8h32zb5bHWudu5AwePMacPEWeJrwHZruAB",
+  "startTime": 1742075486.8346834,
+  "genre": "Trance",
+  "explicit": "Clean",
+  "license": "All Rights Reserved",
+  "initialPrice": 304.317,
+  "nftAddress": "bitsong1k4l8vdzwhkcpd3jc4c6e9m78sh3chhk8v6a2r435j783028nqacswpkhdj",
+  "marketplaceAddress": "bitsong1ya0dcnw6jn3r9sp2htm4fhpch3e6r43nuvawg7d92nntp32l4a0s3hu67v"
+}, {
+  "id": "sun-exploration",
+  "title": "Sun Exploration",
+  "artists": [
+    "Angelo Cortines"
+  ],
+  "description": "\"Sun Exploration\" is a deep, pulsating journey through the vibrant world of minimal tech house. With its crisp, hypnotic basslines, expertly crafted percussive elements, and atmospheric synths, this track invites listeners to embark on a musical exploration under the bright rays of a warm sun. The groove is subtle yet infectious, perfect for both the intimate energy of underground clubs and the expansive vibe of outdoor festivals.\n\nThe track combines dynamic tension and smooth transitions, building layers that evolve organically, while keeping the essence of minimalism at its core. Its rhythmic precision and mood-setting melodies will captivate dance floors, making \"Sun Exploration\" a must-have for any DJ's toolkit. Whether you're looking to set the mood early in a set or bring the heat to peak hours, this track is designed to keep the energy flowing seamlessly.",
+  "creator": "bitsong1a6vkymwt5u7hcg5asa8ycuckw5nqwrjd6qlff6",
+  "sellerFeeBps": 500,
+  "referralFeeBps": 100,
+  "previewUrl": "https://media-api-direct.bitsong.studio/ipfs/QmbgAavRde7DzEcxCs4rRF451f8LxpAAKKV9tgZc4JPN1r",
+  "artworkUrl": "https://media-api-direct.bitsong.studio/ipfs/QmQs22a8n38Kirc4BN5iNFmnCdRFfHnujJGsvS3Kxys9Ft",
+  "startTime": 1742065471.4309442,
+  "genre": "House",
+  "explicit": "Clean",
+  "license": "All Rights Reserved",
+  "initialPrice": 60.82128,
+  "nftAddress": "bitsong1fzarp7j99r4lttgrywxesuz0dx9rmz34anz78nh36r5ghfwtg3vsn34jfw",
+  "marketplaceAddress": "bitsong1fp3rscg8x9cjsmw7cxlalvdcvlszaxsvz4r2kfa9w7wjnh33299qs2mzvz"
+}, {
   "id": "recharge",
   "title": "Recharge",
   "artists": [
