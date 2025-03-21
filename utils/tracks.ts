@@ -18,6 +18,46 @@ interface Track {
 }
 
 const tracks: Track[] = [{
+  "id": "heart-of-the-city",
+  "title": "Heart of the City",
+  "artists": [
+    "Goose Pärk",
+    "Candy"
+  ],
+  "description": "It's a song that's well overdue but right on time.",
+  "creator": "bitsong13xknrd2t5d28w3rnkly2dx3yxdwr97vhqr4z5w",
+  "sellerFeeBps": 300,
+  "referralFeeBps": 50.01,
+  "previewUrl": "https://media-api-direct.bitsong.studio/ipfs/QmdPUZaLPjRexuoGcVYE8Q2JDxavsa5MZ8xRPgo7qVQMVC",
+  "artworkUrl": "https://media-api-direct.bitsong.studio/ipfs/QmVfhsQb7s3WsxSs7guyiZSTKeBoEPvXAiZcLZn5xL5xiQ",
+  "startTime": 1743120660,
+  "genre": "World",
+  "explicit": "Explicit",
+  "license": "All Rights Reserved",
+  "initialPrice": 0.01033,
+  "nftAddress": "bitsong1ljgjvqudatzh9upjp9ushh9peena3wwg3udghmxgtn87nrqwhaasf7vkcz",
+  "marketplaceAddress": "bitsong143ux7y0sw7q6urqcxqtr6y9657afnvhrp4369kjpue008v3se50st4dz0d"
+}, {
+  "id": "neighbors",
+  "title": "Neighbors'",
+  "artists": [
+    "Goose Pärk",
+    "GiiipsonPoet"
+  ],
+  "description": "This song is pretty self-explanatory. When your neighbors get on your nerves just hit them with kindness",
+  "creator": "bitsong13xknrd2t5d28w3rnkly2dx3yxdwr97vhqr4z5w",
+  "sellerFeeBps": 300,
+  "referralFeeBps": 50.01,
+  "previewUrl": "https://media-api-direct.bitsong.studio/ipfs/QmTHnRT6fQhHRcXKY7FjYBLhw2PoaVaxNvskqvSx2qDYmH",
+  "artworkUrl": "https://media-api-direct.bitsong.studio/ipfs/QmTQ3GzQvjymy3GZd1HUWVDcdaBD8JFsEmc9Qj1zoFh9s5",
+  "startTime": 1743051600,
+  "genre": "World",
+  "explicit": "Explicit",
+  "license": "All Rights Reserved",
+  "initialPrice": 0.003454,
+  "nftAddress": "bitsong12mpwu62ahvt8vftqktav383crn5ujj2h8tn98064g9cl3mcf4mlsthf07f",
+  "marketplaceAddress": "bitsong10zp9u90g7fshfuhuam28h6xypgxjgyj6stnswjctecc0k9304y9sw7054w"
+}, {
   "id": "antics-paradise-featuring-dani-isaily-ezkiel-frankie-carerra",
   "title": "Antics - Paradise (featuring Dani Isaily, Ezkiel, Frankie Carerra)",
   "artists": [
