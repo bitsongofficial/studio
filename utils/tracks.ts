@@ -18,6 +18,25 @@ interface Track {
 }
 
 const tracks: Track[] = [{
+  "id": "super-shooting-star",
+  "title": "Super Shooting Star",
+  "artists": [
+    "Ivan Chapdelaine"
+  ],
+  "description": "Count your nickles and what they bring\nBut don't forget\n\nReality Stings",
+  "creator": "bitsong1hzstd923k3k8mc7rce4m09q0jynqv9xwkr6xh8",
+  "sellerFeeBps": 300,
+  "referralFeeBps": 50.01,
+  "previewUrl": "https://media-api-direct.bitsong.studio/ipfs/QmZ2UsZd3tF2mkPrZgr34oym1xdcJmorfty99pK8QtUEp5",
+  "artworkUrl": "https://media-api-direct.bitsong.studio/ipfs/QmSubnRQ9SwDecjFzufrXWgCR9UssrXczj7T9Xh1TvfRzs",
+  "startTime": 1742845442.7139993,
+  "genre": "Rock",
+  "explicit": "Clean",
+  "license": "All Rights Reserved",
+  "initialPrice": 0.01033,
+  "nftAddress": "bitsong1kmn9nmv3572t6uwum7z6dkjz80equ4r90k8ways9dawkv85c3zeq6sr9yc",
+  "marketplaceAddress": "bitsong1p4y9dvjra5mpwgtvr7me89snev7uwx6ff9vff8znh68vzhpqqc9qkq8n4s"
+}, {
   "id": "heart-of-the-city",
   "title": "Heart of the City",
   "artists": [
