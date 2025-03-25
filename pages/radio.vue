@@ -46,6 +46,14 @@ const radios: PlayerTrack[] = [{
     audio: "http://icecast.unitedradio.it/r101"
   }
 }, {
+  id: "radio-105",
+  title: "Radio 105",
+  artist: "Milano, Italy",
+  cover: "/images/radio/radio_105.png",
+  sources: {
+    audio: "https://icy.unitedradio.it/Radio105.aac"
+  }
+}, {
   id: "radio-rds",
   title: "RDS - Radio Dimensione Suono",
   artist: "Rome, Italy",
