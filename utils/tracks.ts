@@ -18,6 +18,25 @@ interface Track {
 }
 
 const tracks: Track[] = [{
+  "id": "i-am-an-antenna",
+  "title": "I Am An Antenna",
+  "artists": [
+    "Black Eye Butterfly"
+  ],
+  "description": "We are all connected\ni am an antenna\nyou are an antenna",
+  "creator": "bitsong1hzstd923k3k8mc7rce4m09q0jynqv9xwkr6xh8",
+  "sellerFeeBps": 300,
+  "referralFeeBps": 50.01,
+  "previewUrl": "https://media-api-direct.bitsong.studio/ipfs/QmSHhLJbBU9b6qXUE5QHw5kmbxXQxXDfd4pFbRwitfUDeo",
+  "artworkUrl": "https://media-api-direct.bitsong.studio/ipfs/QmT3RGEjw47DdLSUhF2sEypQDWjM23BhD8ca4oSBdzbvn3",
+  "startTime": 1745840151.3011062,
+  "genre": "Punk",
+  "explicit": "Clean",
+  "license": "All Rights Reserved",
+  "initialPrice": 0.01033,
+  "nftAddress": "bitsong1hqnj5u7xn77sm8egjnrrad398ymqzq6ddzaxmgs8g55fyzuqytmqhrgml5",
+  "marketplaceAddress": "bitsong1dtsk0k07ess84dyp67nsz4nd9ap3zejvs29a57yahwe6kx438kjst2lcrs"
+}, {
   "id": "super-shooting-star",
   "title": "Super Shooting Star",
   "artists": [
