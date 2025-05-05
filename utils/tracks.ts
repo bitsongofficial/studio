@@ -18,6 +18,25 @@ interface Track {
 }
 
 const tracks: Track[] = [{
+  "id": "mother-africa",
+  "title": "Mother Africa",
+  "artists": [
+    "Solar Phasing"
+  ],
+  "description": "Mother Africa\nA Groovy World Music Downtempo with Percussions.",
+  "creator": "bitsong1sj4wvvekvjcm8sv4rphvuftu30fqej0j6hmhfq",
+  "sellerFeeBps": 500,
+  "referralFeeBps": 100,
+  "previewUrl": "https://media-api-direct.bitsong.studio/ipfs/QmejTZQ37ZVPSfSrZZmBADuxejMwp2xQTiTU8JkDRvdV76",
+  "artworkUrl": "https://media-api-direct.bitsong.studio/ipfs/QmPKNQtYC8JZ2Rn9RzKcM6xVoZJbpVrZnX3PCj74WAietp",
+  "startTime": 1746378047,
+  "genre": "World",
+  "explicit": "Clean",
+  "license": "All Rights Reserved",
+  "initialPrice": 1.423656,
+  "nftAddress": "bitsong1g9q2k0hny7fqye57clsjx6r3zq8q0d60m6r4scn8xhdjafha3veqzqug6d",
+  "marketplaceAddress": "bitsong1s3v433z3nxx4lgl0ej23hje29ws69lzavjhc2vrplx4lgtavmyrspm33lq"
+}, {
   "id": "i-am-an-antenna",
   "title": "I Am An Antenna",
   "artists": [
