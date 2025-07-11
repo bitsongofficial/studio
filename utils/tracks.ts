@@ -18,6 +18,25 @@ interface Track {
 }
 
 const tracks: Track[] = [{
+  "id": "gt-metal",
+  "title": "Gt Metal",
+  "artists": [
+    "Gt Metal"
+  ],
+  "description": "Um Bom Som Pra Relaxar",
+  "creator": "bitsong1f8q8fw99uangdpt2jeqg8ekwm5rdalt552t53x",
+  "sellerFeeBps": 300,
+  "referralFeeBps": 50.01,
+  "previewUrl": "https://media-api-direct.bitsong.studio/ipfs/QmY92bVmEV2H3vGz1GUpE3LAnyoMhvridiAg6gvHTUBuRU",
+  "artworkUrl": "https://media-api-direct.bitsong.studio/ipfs/QmcU3cpCCvdmSGebxdxRHCTgjASQ4ZPfr3ek5peSfurwD6",
+  "startTime": 1752192880.0502398,
+  "genre": "Alternative",
+  "explicit": "Clean",
+  "license": "All Rights Reserved",
+  "initialPrice": 0.01033,
+  "nftAddress": "bitsong19c8d6sehzhthqryfp8t06aqy6kjdvcnypzsdcektgdh7yypf8a6q33e8ty",
+  "marketplaceAddress": "bitsong1jdmma7hcnlrpmpvzf0wsvfm5d8x22v866pg4287e0d6tml5jhdnqrfwdre"
+}, {
   "id": "mother-africa",
   "title": "Mother Africa",
   "artists": [
