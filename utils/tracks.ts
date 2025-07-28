@@ -18,6 +18,25 @@ interface Track {
 }
 
 const tracks: Track[] = [{
+  "id": "coffe-in-the-sky",
+  "title": "Coffe in the sky",
+  "artists": [
+    "24 Music"
+  ],
+  "description": "\"Coffee in the Sky\" is a dreamy, atmospheric song that blends the warmth of coffee with the infinite possibilities of the sky. The lyrics evoke a sense of freedom and inspiration, likening the simple joy of sipping coffee to soaring above the clouds. With smooth melodies and uplifting beats, the track captures a feeling of escape, perfect for moments of reflection, creativity, or just enjoying life’s small pleasures. It's a celebration of calm mornings, big dreams, and the beauty of the world around us.",
+  "creator": "bitsong1w35ntzzkf7dugwlq5a6lhrrp2lkq6yamxk42he",
+  "sellerFeeBps": 300,
+  "referralFeeBps": 50.01,
+  "previewUrl": "https://media-api-direct.bitsong.studio/ipfs/QmSWHojsBj9LZstVy134RRzfk5dRdshjjdnpDLPhinHaV3",
+  "artworkUrl": "https://media-api-direct.bitsong.studio/ipfs/QmUDfB2DNXCAq1rVyCuTS92vojFTC6FbmhYWGH28pZSsAH",
+  "startTime": 1754060400,
+  "genre": "Electronic",
+  "explicit": "Clean",
+  "license": "All Rights Reserved",
+  "initialPrice": 0.01033,
+  "nftAddress": "bitsong1tdvp5erd9nwpvchl7cqc387lw4yuqdg97p5tz0c6dzxcmex9ky6qmwn2q0",
+  "marketplaceAddress": "bitsong1f0rhjvayf6ea79jf9ls6zhwm36wjy8wvqtuu2gpq8z5ddnwd3saqfe5zks"
+}, {
   "id": "gt-metal",
   "title": "Gt Metal",
   "artists": [
