@@ -18,6 +18,25 @@ interface Track {
 }
 
 const tracks: Track[] = [{
+  "id": "ventisecondi",
+  "title": "VENTISECONDI",
+  "artists": [
+    "GUIDO FRUTTERO"
+  ],
+  "description": "Venti secondi che possono cambiare due vite",
+  "creator": "bitsong1e23pu0ydm8qcs8xt0f5upc27735u6vuwu84p52",
+  "sellerFeeBps": 50,
+  "referralFeeBps": 20,
+  "previewUrl": "https://media-api-direct.bitsong.studio/ipfs/QmVg15NgciL9JcZgjqrt5xUtGt5uwYs9WMT3opQ9p6Tpdf",
+  "artworkUrl": "https://media-api-direct.bitsong.studio/ipfs/QmTngtW3a8tcqaWJghmxEbsycshR4v3apVEMvsXWy65n1u",
+  "startTime": 1755774714.6883318,
+  "genre": "Pop",
+  "explicit": "Clean",
+  "license": "All Rights Reserved",
+  "initialPrice": 0.01008,
+  "nftAddress": "bitsong123eahekleqvqdsmngy8ejheaf9tez43zxf2hh99sc9d3hgv7nvxsxtcygg",
+  "marketplaceAddress": "bitsong1z6x6xm2t2jy8tqsvkxr66mwhya67xmcn08e0x9amqy03hgqrtc9qk30965"
+}, {
   "id": "coffe-in-the-sky",
   "title": "Coffe in the sky",
   "artists": [
